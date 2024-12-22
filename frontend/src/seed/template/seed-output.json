@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "partner": "Tyrell Corporation",
+    "title": "Sales Executive",
+    "description": "Optimizes website content to improve search engine rankings.",
+    "status": "completed",
+    "count": 70,
+    "points": 238
+  },
+  {
+    "id": 2,
+    "partner": "Gringotts Bank",
+    "title": "Business Analyst",
+    "description": "Provides financial advice and planning to clients.",
+    "status": "active",
+    "count": 13,
+    "points": 266
+  },
+  {
+    "id": 3,
+    "partner": "Stark Industries",
+    "title": "Financial Advisor",
+    "description": "Optimizes website content to improve search engine rankings.",
+    "status": "completed",
+    "count": 53,
+    "points": 713
+  },
+  {
+    "id": 4,
+    "partner": "Umbrella Corporation",
+    "title": "Senior Developer",
+    "description": "Designs user interfaces and experiences for web and mobile applications.",
+    "status": "pending",
+    "count": 65,
+    "points": 546
+  },
+  {
+    "id": 5,
+    "partner": "Gringotts Bank",
+    "title": "UX Researcher",
+    "description": "Develops content strategies to enhance user engagement.",
+    "status": "completed",
+    "count": 66,
+    "points": 242
+  },
+  {
+    "id": 6,
+    "partner": "Stark Industries",
+    "title": "Operations Manager",
+    "description": "Responsible for developing and maintaining web applications.",
+    "status": "pending",
+    "count": 78,
+    "points": 170
+  },
+  {
+    "id": 7,
+    "partner": "Globex Inc.",
+    "title": "Content Strategist",
+    "description": "Oversees project timelines and ensures deliverables are met on time.",
+    "status": "pending",
+    "count": 78,
+    "points": 696
+  },
+  {
+    "id": 8,
+    "partner": "Cyberdyne Systems",
+    "title": "Marketing Specialist",
+    "description": "Conducts user research to improve product usability.",
+    "status": "completed",
+    "count": 3,
+    "points": 563
+  },
+  {
+    "id": 9,
+    "partner": "Wonka Industries",
+    "title": "Product Designer",
+    "description": "Analyzes business processes and recommends improvements.",
+    "status": "completed",
+    "count": 9,
+    "points": 976
+  },
+  {
+    "id": 10,
+    "partner": "Pied Piper",
+    "title": "Marketing Specialist",
+    "description": "Designs user interfaces and experiences for web and mobile applications.",
+    "status": "inactive",
+    "count": 82,
+    "points": 324
+  },
+  {
+    "id": 11,
+    "partner": "Hooli",
+    "title": "SEO Specialist",
+    "description": "Responsible for developing and maintaining web applications.",
+    "status": "active",
+    "count": 68,
+    "points": 487
+  },
+  {
+    "id": 12,
+    "partner": "Cyberdyne Systems",
+    "title": "Data Analyst",
+    "description": "Conducts user research to improve product usability.",
+    "status": "completed",
+    "count": 57,
+    "points": 556
+  },
+  {
+    "id": 13,
+    "partner": "Pied Piper",
+    "title": "Sales Executive",
+    "description": "Develops content strategies to enhance user engagement.",
+    "status": "pending",
+    "count": 69,
+    "points": 704
+  },
+  {
+    "id": 14,
+    "partner": "Pied Piper",
+    "title": "Operations Manager",
+    "description": "Designs user interfaces and experiences for web and mobile applications.",
+    "status": "active",
+    "count": 18,
+    "points": 614
+  }
+]
