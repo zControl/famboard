@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { ActionModal } from "@/components/composites/ActionModal";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
@@ -8,17 +8,20 @@ export function LogoutButton() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
-      auth.logout().then(() => {
-        router.invalidate().finally(() => {
-          navigate({ to: "/" });
-        });
+    auth.logout().then(() => {
+      router.invalidate().finally(() => {
+        navigate({ to: "/" });
       });
-    }
+    });
   };
+
   return (
-    <Button variant={"ghost"} onClick={handleLogout}>
-      Logout
-    </Button>
+    <ActionModal
+      trigger="Logout"
+      title="Are you sure you want to logout?"
+      description="This will log you out of your account."
+      onCancel={() => console.log("Cancel")}
+      onConfirm={handleLogout}
+    />
   );
 }

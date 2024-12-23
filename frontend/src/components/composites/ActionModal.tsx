@@ -10,11 +10,12 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import React from "react";
 
 interface ActionModalProps {
-  trigger: string;
-  title: string;
-  description: string;
+  trigger: React.ReactNode;
+  title: React.ReactNode;
+  description: React.ReactNode;
   children?: React.ReactNode;
   onCancel: () => void;
   onConfirm: () => void;
