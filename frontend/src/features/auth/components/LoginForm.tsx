@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,6 +31,8 @@ function LoginForm() {
   const auth = useAuth();
   const router = useRouter();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   // Create the form
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -41,15 +44,19 @@ function LoginForm() {
 
   // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
+    setIsLoading(true);
     console.log("Submitting login");
     try {
       await auth.login(data.username, data.password);
       await router.invalidate();
+      await new Promise((resolve) => setTimeout(resolve, 100));
       await navigate({ to: "/dashboard" });
       console.log("Login successful");
     } catch (error) {
       // TODO Add Error Handling
       console.error("Login failed:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -87,14 +94,19 @@ function LoginForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button variant="outline" type="submit" className="w-full">
-              Login
+            <Button
+              disabled={isLoading}
+              variant="outline"
+              type="submit"
+              className="w-full"
+            >
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
         </Form>
