@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { Route } from "@/routes/(auth)/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
@@ -32,6 +33,7 @@ function LoginForm() {
   const router = useRouter();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const search = Route.useSearch();
 
   // Create the form
   const form = useForm<z.infer<typeof LoginFormSchema>>({
@@ -50,7 +52,7 @@ function LoginForm() {
       await auth.login(data.username, data.password);
       await router.invalidate();
       await new Promise((resolve) => setTimeout(resolve, 100));
-      await navigate({ to: "/dashboard" });
+      await navigate({ to: search.redirect || "/dashboard" });
       console.log("Login successful");
     } catch (error) {
       // TODO Add Error Handling
