@@ -43,8 +43,22 @@ export class AuthService {
   async login(user: Partial<User>) {
     try {
       const payload = { username: user.username, sub: user.id };
+      const accessToken = this.jwtService.sign(payload);
+      const userResponse = {
+        id: user.id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        isActive: user.isActive,
+        group: user.group,
+      };
+      // Remove undefined properties
+      Object.keys(userResponse).forEach(
+        (key) => userResponse[key] === undefined && delete userResponse[key],
+      );
       return {
-        access_token: this.jwtService.sign(payload),
+        accessToken,
+        user: userResponse,
       };
     } catch (error) {
       console.error('Error in login:', error);
@@ -54,7 +68,7 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) {
     // Check if user already exists
-    const existingUser = await this.usersService.findByUsername(
+    const existingUser = await this.usersService.checkUsername(
       createUserDto.username,
     );
     if (existingUser) {
