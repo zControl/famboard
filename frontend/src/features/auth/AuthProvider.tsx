@@ -23,7 +23,10 @@ export interface User {
 const apiClient = createApiClient("http://localhost:3000/v1");
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<User | null>(null);
+  const [user, setUser] = React.useState<User | null>(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const loginMutation = useMutation({
     mutationFn: (credentials: { username: string; password: string }) =>
@@ -36,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("Access token:", accessToken);
       console.log("User:", user);
       localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
     },
     onError: (error) => {
@@ -46,6 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = React.useCallback(
     async (username: string, password: string) => {
+      await sleep(500);
       await loginMutation.mutateAsync({ username, password });
     },
     [loginMutation],
@@ -55,6 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await sleep(250);
     console.log("Logging out...");
     setUser(null);
+    localStorage.removeItem("user");
   }, []);
 
   const isAuthenticated = !!user;

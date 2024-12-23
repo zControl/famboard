@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Route } from "@/routes/(auth)/login";
+import { sleep } from "@/utils/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
@@ -51,7 +52,7 @@ function LoginForm() {
     try {
       await auth.login(data.username, data.password);
       await router.invalidate();
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await sleep(500);
       await navigate({ to: search.redirect || "/dashboard" });
       console.log("Login successful");
     } catch (error) {
