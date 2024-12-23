@@ -29,7 +29,7 @@ const LoginFormSchema = z.object({
   password: z.string(),
 });
 
-function LoginForm() {
+export function LoginForm() {
   const auth = useAuth();
   const router = useRouter();
   const navigate = useNavigate();
@@ -117,4 +117,3 @@ function LoginForm() {
     </Card>
   );
 }
-export { LoginForm };
