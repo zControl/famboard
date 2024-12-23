@@ -19,6 +19,7 @@ import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as authAuthImport } from './routes/(auth)/_auth'
 import { Route as appExamplesImport } from './routes/(app)/_examples'
 import { Route as testTestAImport } from './routes/(test)/test.a_'
+import { Route as authAuthProfileImport } from './routes/(auth)/_auth.profile'
 import { Route as authAuthDashboardImport } from './routes/(auth)/_auth.dashboard'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
@@ -161,6 +162,12 @@ const testTestARoute = testTestAImport.update({
   id: '/(test)/test/a_',
   path: '/test/a',
   getParentRoute: () => rootRoute,
+} as any)
+
+const authAuthProfileRoute = authAuthProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => authAuthRoute,
 } as any)
 
 const authAuthDashboardRoute = authAuthDashboardImport.update({
@@ -376,6 +383,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthDashboardImport
       parentRoute: typeof authAuthImport
     }
+    '/(auth)/_auth/profile': {
+      id: '/(auth)/_auth/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof authAuthProfileImport
+      parentRoute: typeof authAuthImport
+    }
     '/(test)/test/a_': {
       id: '/(test)/test/a_'
       path: '/test/a'
@@ -563,10 +577,12 @@ const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
 interface authAuthRouteChildren {
   authAuthDashboardRoute: typeof authAuthDashboardRoute
+  authAuthProfileRoute: typeof authAuthProfileRoute
 }
 
 const authAuthRouteChildren: authAuthRouteChildren = {
   authAuthDashboardRoute: authAuthDashboardRoute,
+  authAuthProfileRoute: authAuthProfileRoute,
 }
 
 const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
@@ -593,6 +609,7 @@ export interface FileRoutesByFullPath {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/dashboard': typeof authAuthDashboardRoute
+  '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
@@ -621,6 +638,7 @@ export interface FileRoutesByTo {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/dashboard': typeof authAuthDashboardRoute
+  '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
@@ -654,6 +672,7 @@ export interface FileRoutesById {
   '/(app)/status': typeof appStatusLazyRoute
   '/(app)/terms': typeof appTermsLazyRoute
   '/(auth)/_auth/dashboard': typeof authAuthDashboardRoute
+  '/(auth)/_auth/profile': typeof authAuthProfileRoute
   '/(test)/test/a_': typeof testTestARoute
   '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
   '/(app)/_examples/form': typeof appExamplesFormLazyRoute
@@ -684,6 +703,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/dashboard'
+    | '/profile'
     | '/test/a'
     | '/demo'
     | '/form'
@@ -711,6 +731,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/dashboard'
+    | '/profile'
     | '/test/a'
     | '/demo'
     | '/form'
@@ -742,6 +763,7 @@ export interface FileRouteTypes {
     | '/(app)/status'
     | '/(app)/terms'
     | '/(auth)/_auth/dashboard'
+    | '/(auth)/_auth/profile'
     | '/(test)/test/a_'
     | '/(app)/_examples/demo_'
     | '/(app)/_examples/form'
@@ -850,7 +872,8 @@ export const routeTree = rootRoute
       "filePath": "(auth)/_auth.tsx",
       "parent": "/(auth)",
       "children": [
-        "/(auth)/_auth/dashboard"
+        "/(auth)/_auth/dashboard",
+        "/(auth)/_auth/profile"
       ]
     },
     "/(auth)/login": {
@@ -874,6 +897,10 @@ export const routeTree = rootRoute
     },
     "/(auth)/_auth/dashboard": {
       "filePath": "(auth)/_auth.dashboard.tsx",
+      "parent": "/(auth)/_auth"
+    },
+    "/(auth)/_auth/profile": {
+      "filePath": "(auth)/_auth.profile.tsx",
       "parent": "/(auth)/_auth"
     },
     "/(test)/test/a_": {

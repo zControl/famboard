@@ -21,7 +21,6 @@ export class User {
   @Column()
   username: string;
 
-  // TODO: change to hash
   @Column()
   password: string;
 

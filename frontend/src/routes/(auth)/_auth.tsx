@@ -1,3 +1,4 @@
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import {
   Link,
   Outlet,
@@ -5,8 +6,6 @@ import {
   redirect,
   useRouter,
 } from "@tanstack/react-router";
-
-import { useAuth } from "@/utils/auth";
 
 export const Route = createFileRoute("/(auth)/_auth")({
   beforeLoad: ({ context, location }) => {
