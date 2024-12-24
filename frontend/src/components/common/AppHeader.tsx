@@ -2,7 +2,8 @@ import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
 import { CustomLink } from "@/components/ui/custom-link";
-import { LogoutButton } from "@/features/auth/components/LogoutButton";
+import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
+import { AlarmCheckIcon } from "lucide-react";
 
 const HeaderNavLink = ({
   to,
@@ -34,7 +35,12 @@ export const AppHeader = () => {
           </ul>
         </div>
       }
-      actions={<LogoutButton />}
+      actions={
+        <>
+          <AlarmCheckIcon />
+          <UserAvatarDropdown />
+        </>
+      }
     />
   );
 };
