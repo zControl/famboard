@@ -14,7 +14,7 @@ interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
 
-const DataTableViewOptions = <TData,>({
+export const DataTableViewOptions = <TData,>({
   table,
 }: DataTableViewOptionsProps<TData>) => {
   return (
@@ -54,5 +54,3 @@ const DataTableViewOptions = <TData,>({
     </DropdownMenu>
   );
 };
-
-export { DataTableViewOptions };

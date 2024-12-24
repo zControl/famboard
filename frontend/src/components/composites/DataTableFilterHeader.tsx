@@ -8,11 +8,11 @@ interface DataTableFilterHeaderProps<TData, TValue>
   title: string;
 }
 
-export function DataTableFilterHeader<TData, TValue>({
+export const DataTableFilterHeader = <TData, TValue>({
   column,
   title,
   className,
-}: DataTableFilterHeaderProps<TData, TValue>) {
+}: DataTableFilterHeaderProps<TData, TValue>) => {
   if (!column.getCanFilter()) {
     return <div className={cn(className)}>{title}</div>;
   }
@@ -28,4 +28,4 @@ export function DataTableFilterHeader<TData, TValue>({
       />
     </div>
   );
-}
+};

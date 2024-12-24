@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "./useTheme";
 
-const ThemeToggle = () => {
+export const ThemeToggle = () => {
   const { setTheme, theme } = useTheme();
 
   return (
@@ -19,5 +19,3 @@ const ThemeToggle = () => {
     </>
   );
 };
-
-export { ThemeToggle };

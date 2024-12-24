@@ -20,7 +20,7 @@ interface ActionModalProps {
   onCancel: () => void;
   onConfirm: () => void;
 }
-const ActionModal = ({
+export const ActionModal = ({
   trigger,
   title,
   description,
@@ -47,5 +47,3 @@ const ActionModal = ({
     </AlertDialog>
   );
 };
-
-export { ActionModal };

@@ -25,8 +25,6 @@ const sections = [
   { id: "tile", title: "Tile", children: <SomeTile /> },
 ];
 
-const ExampleStarter = () => {
+export const ExampleStarter = () => {
   return <PageSections sections={sections} />;
 };
-
-export { ExampleStarter };

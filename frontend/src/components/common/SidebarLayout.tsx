@@ -5,7 +5,7 @@ interface SidebarLayoutProps extends HeaderContainerProps {
   children: React.ReactNode;
 }
 
-const SidebarLayout = ({ children, ...props }: SidebarLayoutProps) => {
+export const SidebarLayout = ({ children, ...props }: SidebarLayoutProps) => {
   return (
     <div id="content-layout" className="w-full flex flex-col">
       <HeaderContainer {...props} />
@@ -14,5 +14,3 @@ const SidebarLayout = ({ children, ...props }: SidebarLayoutProps) => {
     </div>
   );
 };
-
-export { SidebarLayout };

@@ -6,7 +6,7 @@ export interface HeaderContainerProps {
   mobileMenu?: React.ReactNode;
   actions?: React.ReactNode;
 }
-const HeaderContainer = ({
+export const HeaderContainer = ({
   logo,
   navigation,
   mobileMenu,
@@ -32,5 +32,3 @@ const HeaderContainer = ({
     </>
   );
 };
-
-export { HeaderContainer };

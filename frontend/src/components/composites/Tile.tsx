@@ -13,7 +13,7 @@ interface TileProps {
   description?: string;
   footer?: React.ReactNode;
 }
-const Tile = ({ title, description, children, footer }: TileProps) => {
+export const Tile = ({ title, description, children, footer }: TileProps) => {
   return (
     <Card>
       <CardHeader>
@@ -25,5 +25,3 @@ const Tile = ({ title, description, children, footer }: TileProps) => {
     </Card>
   );
 };
-
-export { Tile };

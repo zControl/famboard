@@ -17,11 +17,11 @@ interface DataTableSortHeaderProps<TData, TValue>
   title: string;
 }
 
-export function DataTableSortHeader<TData, TValue>({
+export const DataTableSortHeader = <TData, TValue>({
   column,
   title,
   className,
-}: DataTableSortHeaderProps<TData, TValue>) {
+}: DataTableSortHeaderProps<TData, TValue>) => {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
@@ -63,4 +63,4 @@ export function DataTableSortHeader<TData, TValue>({
       </DropdownMenu>
     </div>
   );
-}
+};

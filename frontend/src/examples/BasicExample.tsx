@@ -162,8 +162,6 @@ const sections = [
   { id: "separator", title: "Separator", children: <SeparatorTile /> },
 ];
 
-const BasicExample = () => {
+export const BasicExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { BasicExample };

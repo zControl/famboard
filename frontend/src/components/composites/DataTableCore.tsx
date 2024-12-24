@@ -28,7 +28,7 @@ interface DataTableProps<TData, TValue> {
   caption?: string;
 }
 
-const DataTableCore = <TData, TValue>({
+export const DataTableCore = <TData, TValue>({
   columns,
   data,
   toolbar,
@@ -95,5 +95,3 @@ const DataTableCore = <TData, TValue>({
     </div>
   );
 };
-
-export { DataTableCore };

@@ -1,6 +1,6 @@
 import { CustomLink } from "@/components/ui/custom-link";
 
-const AppFooter = () => {
+export const AppFooter = () => {
   return (
     <footer className="bg-accent text-accent-foreground p-2">
       <div className="container mx-auto w-1/2">
@@ -16,5 +16,3 @@ const AppFooter = () => {
     </footer>
   );
 };
-
-export { AppFooter };

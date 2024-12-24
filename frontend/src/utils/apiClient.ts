@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-const createApiClient = (baseURL: string) => {
+export function createApiClient(baseURL: string) {
   const axiosInstance: AxiosInstance = axios.create({
     baseURL,
     headers: {
@@ -29,5 +29,3 @@ const createApiClient = (baseURL: string) => {
     },
   }
 }
-
-export { createApiClient };
