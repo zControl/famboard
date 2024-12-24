@@ -25,8 +25,8 @@ export const UserAvatarCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Select Avatar</CardTitle>
-        <CardDescription>You can change this any time.</CardDescription>
+        <CardTitle>Choose your avatar</CardTitle>
+        <CardDescription>You can change this any time!</CardDescription>
       </CardHeader>
       <CardContent>
         <UserAvatarSelector onSelect={handleSelect} />
@@ -36,7 +36,11 @@ export const UserAvatarCard = () => {
           <CardTitle>Selected Avatar</CardTitle>
           {avatar ? (
             <div className="flex flex-col justify-center items-center gap-4">
-              <img className="w-48 h-48 rounded-full" src={avatar} alt="fall" />
+              <img
+                className="w-64 h-64 rounded-full"
+                src={avatar}
+                alt="Selected Avatar"
+              />
               <Button onClick={() => saveAvatar(avatar)}>Save</Button>
             </div>
           ) : (
