@@ -1,5 +1,3 @@
-import { ThemeToggle } from "./theme/ThemeToggle";
-
 export interface HeaderContainerProps {
   logo?: React.ReactNode;
   navigation?: React.ReactNode;
@@ -25,7 +23,6 @@ export const HeaderContainer = ({
           <div className="block md:hidden">{mobileMenu}</div>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0 space-x-2 text-header-foreground">
             {actions}
-            <ThemeToggle />
           </div>
         </div>
       </header>
