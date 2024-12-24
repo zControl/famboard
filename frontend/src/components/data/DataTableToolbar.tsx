@@ -6,9 +6,9 @@ interface DataTableToolbarProps<TData> {
   table: ReactTable<TData>;
 }
 
-export function DataTableToolbar<TData>({
+export const DataTableToolbar = <TData,>({
   table,
-}: DataTableToolbarProps<TData>) {
+}: DataTableToolbarProps<TData>) => {
   return (
     <div className="flex items-center justify-between space-x-2">
       <Input
@@ -24,4 +24,4 @@ export function DataTableToolbar<TData>({
       </Button>
     </div>
   );
-}
+};

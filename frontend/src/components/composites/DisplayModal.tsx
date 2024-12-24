@@ -15,7 +15,7 @@ interface DisplayModalProps {
   description: string;
   children?: React.ReactNode;
 }
-const DisplayModal = ({
+export const DisplayModal = ({
   trigger,
   title,
   description,
@@ -36,5 +36,3 @@ const DisplayModal = ({
     </Dialog>
   );
 };
-
-export { DisplayModal };

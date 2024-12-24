@@ -18,9 +18,9 @@ interface DataTablePaginationProps<TData> {
   table: ReactTable<TData>;
 }
 
-export function DataTablePagination<TData>({
+export const DataTablePagination = <TData,>({
   table,
-}: DataTablePaginationProps<TData>) {
+}: DataTablePaginationProps<TData>) => {
   return (
     <div className="flex items-center justify-between p-2">
       <div className="flex-1 text-sm text-muted-foreground">
@@ -92,4 +92,4 @@ export function DataTablePagination<TData>({
       </div>
     </div>
   );
-}
+};

@@ -128,8 +128,6 @@ const sections = [
   },
 ];
 
-const TableExample = () => {
+export const TableExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { TableExample };

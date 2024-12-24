@@ -11,7 +11,7 @@ interface PageSectionNavProps {
   sections: PageSection[];
 }
 
-const PageSectionNav = ({ sections }: PageSectionNavProps) => {
+export const PageSectionNav = ({ sections }: PageSectionNavProps) => {
   const router = useRouter();
 
   const handleNavigation = (id: string) => {
@@ -38,5 +38,3 @@ const PageSectionNav = ({ sections }: PageSectionNavProps) => {
     </nav>
   );
 };
-
-export { PageSectionNav };

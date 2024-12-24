@@ -33,7 +33,7 @@ const formSchema = z.object({
   }),
 });
 
-export function FormSample() {
+export const FormSample = () => {
   // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -115,4 +115,4 @@ export function FormSample() {
       </form>
     </Form>
   );
-}
+};

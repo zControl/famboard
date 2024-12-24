@@ -73,8 +73,6 @@ const sections = [
   { id: "paragraph", title: "Paragraph", children: <ParagraphTile /> },
 ];
 
-const TypographyExample = () => {
+export const TypographyExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { TypographyExample };

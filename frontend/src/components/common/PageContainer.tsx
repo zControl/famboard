@@ -10,7 +10,7 @@ export interface PageContainerProps {
   className?: string;
 }
 
-const PageContainer = ({
+export const PageContainer = ({
   children,
   title,
   description,
@@ -30,5 +30,3 @@ const PageContainer = ({
     </>
   );
 };
-
-export { PageContainer };

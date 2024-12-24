@@ -2,7 +2,7 @@ import { ActionModal } from "@/components/composites/ActionModal";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
-export function LogoutButton() {
+export const LogoutButton = () => {
   const auth = useAuth();
   const router = useRouter();
   const navigate = useNavigate();
@@ -24,4 +24,4 @@ export function LogoutButton() {
       onConfirm={handleLogout}
     />
   );
-}
+};

@@ -251,8 +251,6 @@ const sections = [
     children: <SummaryTableWithCustomDataShape />,
   },
 ];
-const DatabaseExample = () => {
+export const DatabaseExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { DatabaseExample };
