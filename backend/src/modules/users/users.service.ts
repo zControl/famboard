@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -11,6 +12,8 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(UserProfile)
+    private userProfileRepository: Repository<UserProfile>,
   ) {}
 
   findAll(): Promise<Partial<User[]>> {
@@ -47,5 +50,28 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(user);
+  }
+
+  async createProfile(
+    userId: number,
+    theme: string,
+    avatarUrl: string,
+  ): Promise<UserProfile> {
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+    });
+    const profile = this.userProfileRepository.create({
+      user,
+      theme,
+      avatarUrl,
+    });
+    return this.userProfileRepository.save(profile);
+  }
+
+  async getProfile(userId: number): Promise<UserProfile> {
+    return this.userProfileRepository.findOne({
+      where: { user: { id: userId } },
+      select: ['id', 'theme', 'avatarUrl'],
+    });
   }
 }
