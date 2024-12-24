@@ -1,4 +1,6 @@
-import { useAuth } from "@/features/auth/hooks/useAuth";
+import { PageContainer } from "@/components/common/PageContainer";
+import { PageSections } from "@/components/common/PageSections";
+import { ChoresTile } from "@/features/dashboard/components/ChoresTile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(auth)/_auth/dashboard")({
@@ -6,12 +8,24 @@ export const Route = createFileRoute("/(auth)/_auth/dashboard")({
 });
 
 function DashboardPage() {
-  const auth = useAuth();
+  const sections = [
+    { id: "chores1", title: "Chores1", children: <ChoresTile /> },
+    { id: "chores2", title: "Chores2", children: <ChoresTile /> },
+    { id: "chores3", title: "Chores3", children: <ChoresTile /> },
+    { id: "chores4", title: "Chores4", children: <ChoresTile /> },
+    { id: "chores5", title: "Chores5", children: <ChoresTile /> },
+    { id: "chores6", title: "Chores6", children: <ChoresTile /> },
+  ];
 
   return (
-    <section className="grid gap-2 p-2">
-      <p>Hi {auth.user?.username}!</p>
-      <p>You are currently on the dashboard route.</p>
-    </section>
+    <>
+      <PageContainer
+        title="Dashboard"
+        description="User dashboard with widgets."
+        keywords="widgets, dashboard, user, famboard"
+      >
+        <PageSections sections={sections} layout="grid" columns={2} />
+      </PageContainer>
+    </>
   );
 }

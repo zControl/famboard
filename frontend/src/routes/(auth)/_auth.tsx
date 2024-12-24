@@ -20,9 +20,6 @@ function AuthLayout() {
     <>
       <AppHeader />
       <div className="p-2 h-full">
-        <h1>Authenticated Route</h1>
-        <p>This route's content is only visible to authenticated users.</p>
-        <hr />
         <Outlet />
       </div>
     </>
