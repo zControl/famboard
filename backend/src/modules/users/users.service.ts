@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { User, UserGroup } from './entities/user.entity';
 
 const USER_SELECT_FIELDS: (keyof User)[] = ['id', 'name', 'username', 'group'];
 
@@ -68,10 +68,48 @@ export class UsersService {
     return this.userProfileRepository.save(profile);
   }
 
-  async getProfile(userId: number): Promise<UserProfile> {
-    return this.userProfileRepository.findOne({
+  async getProfile(
+    userId: number,
+  ): Promise<
+    Omit<UserProfile, 'user'> & { username: string; group: UserGroup }
+  > {
+    const profile = await this.userProfileRepository.findOne({
       where: { user: { id: userId } },
-      select: ['id', 'theme', 'avatarUrl'],
+      relations: ['user'],
+      select: {
+        id: true,
+        theme: true,
+        avatarUrl: true,
+        user: {
+          username: true,
+          group: true,
+        },
+      },
     });
+
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+
+    const { user, ...profileWithoutUser } = profile;
+    return {
+      ...profileWithoutUser,
+      username: user.username,
+      group: user.group,
+    };
+  }
+
+  async updateProfile(
+    userId: number,
+    updatedProfile: Partial<UserProfile>,
+  ): Promise<UserProfile> {
+    const profile = await this.userProfileRepository.findOne({
+      where: { user: { id: userId } },
+    });
+    if (!profile) {
+      throw new NotFoundException('Profile not found');
+    }
+    Object.assign(profile, updatedProfile);
+    return this.userProfileRepository.save(profile);
   }
 }

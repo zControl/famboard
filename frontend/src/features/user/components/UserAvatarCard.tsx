@@ -3,24 +3,31 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { UserAvatarSelector } from "@/features/user/components/UserAvatarSelector";
+import { useProfile, UserProfile } from "@/features/user/hooks/useProfile";
 import React from "react";
 
 export const UserAvatarCard = () => {
-  const [avatar, setAvatar] = React.useState<string | null>(null);
+  const { profile, updateProfile } = useProfile();
+  const [avatar, setAvatar] = React.useState<string | null>(
+    profile?.avatarUrl ?? null,
+  );
 
-  const saveAvatar = (avatar: string) => {
-    // TODO: save avatar to backend
-    console.log("Avatar saved:", avatar);
+  React.useEffect(() => {
+    if (profile?.avatarUrl) {
+      setAvatar(profile.avatarUrl);
+    }
+  }, [profile]);
+
+  const handleUpdateProfile = (updatedData: Partial<UserProfile>) => {
+    updateProfile.mutate(updatedData);
   };
 
   const handleSelect = (selectedAvatar: string) => {
     setAvatar(selectedAvatar);
-    console.log("Selected avatar:", selectedAvatar);
   };
   return (
     <Card>
@@ -29,9 +36,6 @@ export const UserAvatarCard = () => {
         <CardDescription>You can change this any time!</CardDescription>
       </CardHeader>
       <CardContent>
-        <UserAvatarSelector onSelect={handleSelect} />
-      </CardContent>
-      <CardFooter>
         <div className="w-full flex flex-col justify-center items-center gap-4 pt-6">
           <CardTitle>Selected Avatar</CardTitle>
           {avatar ? (
@@ -41,13 +45,18 @@ export const UserAvatarCard = () => {
                 src={avatar}
                 alt="Selected Avatar"
               />
-              <Button onClick={() => saveAvatar(avatar)}>Save</Button>
+              <Button
+                onClick={() => handleUpdateProfile({ avatarUrl: avatar })}
+              >
+                Save
+              </Button>
             </div>
           ) : (
             <p>No avatar selected</p>
           )}
         </div>
-      </CardFooter>
+        <UserAvatarSelector onSelect={handleSelect} />
+      </CardContent>
     </Card>
   );
 };
