@@ -11,11 +11,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { UserAvatar } from "@/features/user/components/UserAvatar";
+import { useProfile } from "@/features/user/hooks/useProfile";
 import { useNavigate } from "@tanstack/react-router";
 import { IceCream2Icon } from "lucide-react";
 
 export const UserAvatarDropdown = () => {
   const navigate = useNavigate();
+  const { profile } = useProfile();
   return (
     <Sheet>
       <SheetTrigger>
@@ -27,15 +29,13 @@ export const UserAvatarDropdown = () => {
             <div className="flex items-center space-x-4 ">
               <UserAvatar />
               <div className="flex flex-col">
-                <div>Name</div>
-                <div>Username</div>
+                <div>{profile?.email}</div>
+                <div>{profile?.username}</div>
               </div>
             </div>
           </SheetTitle>
           <SheetDescription>
-            <div className="py-2">
-              <span>Status</span>
-            </div>
+            <span>Status</span>
           </SheetDescription>
         </SheetHeader>
         <Separator className="my-4" />

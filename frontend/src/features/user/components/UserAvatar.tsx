@@ -9,7 +9,7 @@ export const UserAvatar = () => {
   if (!user) {
     return null;
   }
-  const initials = user.name
+  const initials = user.username
     .split(" ")
     .map((name) => name[0])
     .join("")
