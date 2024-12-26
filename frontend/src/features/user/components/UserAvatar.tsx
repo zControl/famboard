@@ -1,10 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import mockAvatar from "/avatars/avatar-1.png";
+import { useProfile } from "@/features/user/hooks/useProfile";
 
 export const UserAvatar = () => {
-  const auth = useAuth();
-  const { user } = auth;
+  const { user } = useAuth();
+  const { profile } = useProfile();
 
   if (!user) {
     return null;
@@ -16,9 +16,8 @@ export const UserAvatar = () => {
     .toUpperCase();
 
   return (
-    // TODO: get the image from user profile
     <Avatar>
-      <AvatarImage src={mockAvatar} alt="Avatar" />
+      <AvatarImage src={profile?.avatarUrl} alt="Avatar" />
       <AvatarFallback>{initials}</AvatarFallback>
     </Avatar>
   );

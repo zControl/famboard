@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 
@@ -19,7 +19,7 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
-  @Post(':id/profile')
+  /*   @Post(':id/profile')
   @ApiOperation({ summary: 'Create a user profile' })
   @ApiParam({ name: 'id', description: 'User ID' })
   @ApiBody({
@@ -37,6 +37,26 @@ export class UsersController {
     @Body('avatarUrl') avatarUrl: string,
   ) {
     return this.usersService.createProfile(+id, theme, avatarUrl);
+  } */
+
+  @Patch(':id/profile')
+  @ApiOperation({ summary: 'Update a user profile' })
+  @ApiParam({ name: 'id', description: 'User ID' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        theme: { type: 'string' },
+        avatarUrl: { type: 'string' },
+      },
+    },
+  })
+  updateProfile(
+    @Param('id') id: string,
+    @Body('theme') theme: string,
+    @Body('avatarUrl') avatarUrl: string,
+  ) {
+    return this.usersService.updateProfile(+id, { theme, avatarUrl });
   }
 
   @Get(':id/profile')

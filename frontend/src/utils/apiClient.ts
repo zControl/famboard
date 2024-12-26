@@ -18,6 +18,11 @@ export function createApiClient(baseURL: string) {
       return response.data;
     },
 
+    patch: async <T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
+      const response = await axiosInstance.patch<T>(url, data, config);
+      return response.data;
+    },
+
     put: async <T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> => {
       const response = await axiosInstance.put<T>(url, data, config);
       return response.data;
