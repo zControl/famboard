@@ -19,26 +19,6 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
-  /*   @Post(':id/profile')
-  @ApiOperation({ summary: 'Create a user profile' })
-  @ApiParam({ name: 'id', description: 'User ID' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        theme: { type: 'string' },
-        avatarUrl: { type: 'string' },
-      },
-    },
-  })
-  createProfile(
-    @Param('id') id: string,
-    @Body('theme') theme: string,
-    @Body('avatarUrl') avatarUrl: string,
-  ) {
-    return this.usersService.createProfile(+id, theme, avatarUrl);
-  } */
-
   @Patch(':id/profile')
   @ApiOperation({ summary: 'Update a user profile' })
   @ApiParam({ name: 'id', description: 'User ID' })
@@ -62,7 +42,7 @@ export class UsersController {
   @Get(':id/profile')
   @ApiOperation({ summary: 'Get a user profile by user ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
-  getProfile(@Param('id') id: string) {
-    return this.usersService.getProfile(+id);
+  getProfile(@Param('id') userId: string) {
+    return this.usersService.getProfile(+userId);
   }
 }

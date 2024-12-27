@@ -3,9 +3,14 @@ import { createApiClient } from "@/utils/apiClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export interface UserProfile {
-  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  birthDate: Date;
+  bio: string;
   theme: string;
   avatarUrl: string;
+  group: string;
 }
 
 export const useProfile = () => {

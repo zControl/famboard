@@ -37,10 +37,7 @@ export class AuthService {
       const userResponse = {
         id: user.id,
         username: user.username,
-        name: user.name,
         email: user.email,
-        isActive: user.isActive,
-        group: user.group,
       };
       // Remove undefined properties
       Object.keys(userResponse).forEach(
@@ -62,7 +59,7 @@ export class AuthService {
       createUserDto.username,
     );
     if (existingUser) {
-      throw new ConflictException('Username already exists');
+      throw new ConflictException('User already exists');
     }
 
     try {
@@ -73,8 +70,6 @@ export class AuthService {
         user: {
           username: newUser.username,
           email: newUser.email,
-          name: newUser.name,
-          group: newUser.group,
         },
       };
     } catch (error) {
