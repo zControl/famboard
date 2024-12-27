@@ -1,14 +1,19 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
-import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
 import { LoginButton } from "@/features/auth/components/LoginButton";
+
+function LandingHeaderActions() {
+  return (
+    <>
+      <LoginButton />
+      <ThemeToggle />
+    </>
+  );
+}
 
 export const LandingHeader = () => {
   return (
-    <HeaderContainer
-      logo={<AppLogo />}
-      mobileMenu={<Button variant={"default"}>Menu</Button>}
-      actions={<LoginButton />}
-    />
+    <HeaderContainer logo={<AppLogo />} actions={<LandingHeaderActions />} />
   );
 };

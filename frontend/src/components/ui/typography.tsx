@@ -25,7 +25,7 @@ interface HeadingProps extends VariantProps<typeof headingVariants> {
 const Header1 = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "font-extrabold text-5xl";
   return (
-    <h1 className={cn(headingVariants({ color, className }), baseClasses)}>
+    <h1 className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </h1>
   );
@@ -34,7 +34,7 @@ const Header1 = ({ children, className, color }: HeadingProps) => {
 const Header2 = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "font-extrabold text-4xl";
   return (
-    <h2 className={cn(headingVariants({ color, className }), baseClasses)}>
+    <h2 className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </h2>
   );
@@ -43,7 +43,7 @@ const Header2 = ({ children, className, color }: HeadingProps) => {
 const Header3 = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "font-bold text-3xl";
   return (
-    <h3 className={cn(headingVariants({ color, className }), baseClasses)}>
+    <h3 className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </h3>
   );
@@ -52,7 +52,7 @@ const Header3 = ({ children, className, color }: HeadingProps) => {
 const Header4 = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "font-semibold text-2xl";
   return (
-    <h4 className={cn(headingVariants({ color, className }), baseClasses)}>
+    <h4 className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </h4>
   );
@@ -61,7 +61,7 @@ const Header4 = ({ children, className, color }: HeadingProps) => {
 const SectionTitle = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "pt-2 font-semibold leading-none tracking-tight";
   return (
-    <div className={cn(headingVariants({ color, className }), baseClasses)}>
+    <div className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </div>
   );
@@ -70,7 +70,7 @@ const SectionTitle = ({ children, className, color }: HeadingProps) => {
 const SectionDescription = ({ children, className, color }: HeadingProps) => {
   const baseClasses = "pb-4 text-sm text-muted-foreground";
   return (
-    <div className={cn(headingVariants({ color, className }), baseClasses)}>
+    <div className={cn(baseClasses, headingVariants({ color, className }))}>
       {children}
     </div>
   );
@@ -83,7 +83,7 @@ type LinkTextProps = {
 
 const LinkText = ({ children, className }: LinkTextProps) => {
   const baseClasses = "hover:underline hover:tracking-wide";
-  return <span className={cn(className, baseClasses)}>{children}</span>;
+  return <span className={cn(baseClasses, className)}>{children}</span>;
 };
 
 type ParagraphProps = {
@@ -94,14 +94,14 @@ type ParagraphProps = {
 const Paragraph = ({ children, className }: ParagraphProps) => {
   const baseClasses =
     "px-4 mx-2 mt-2 text-lg text-left rtl:text-right text-foreground";
-  return <p className={cn(className, baseClasses)}>{children}</p>;
+  return <p className={cn(baseClasses, className)}>{children}</p>;
 };
 
 const BlockQuote = ({ children, className }: ParagraphProps) => {
   const baseClasses =
     "p-4 my-4 border-s-4 border bg-accent/80 text-accent-foreground max-w-2xl flex text-left overflow-auto items-center";
   return (
-    <blockquote className={cn(className, baseClasses)}>{children}</blockquote>
+    <blockquote className={cn(baseClasses, className)}>{children}</blockquote>
   );
 };
 
