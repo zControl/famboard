@@ -9,7 +9,10 @@ export const Route = createFileRoute("/(auth)/_auth/profile")({
 
 function ProfilePage() {
   const sections = [
+    { id: "settings", title: "Settings", children: <>Settings</> },
+    { id: "projects", title: "Projects", children: <>Projects</> },
     { id: "avatar", title: "Avatar", children: <UserAvatarCard /> },
+    { id: "earnings", title: "Earnings", children: <>Earnings</> },
   ];
   return (
     <PageContainer title="Profile" description="Profile page">
