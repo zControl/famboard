@@ -93,7 +93,7 @@ type ParagraphProps = {
 
 const Paragraph = ({ children, className }: ParagraphProps) => {
   const baseClasses =
-    "px-4 mx-2 mt-2 text-lg text-left rtl:text-right text-foreground";
+    "mx-2 mt-2 text-lg text-left rtl:text-right text-foreground";
   return <p className={cn(baseClasses, className)}>{children}</p>;
 };
 

@@ -37,14 +37,14 @@ export const LandingHero = () => {
           </Header1>
           <Paragraph className="text-blue-500">
             FamBoard is a fun and interactive app that helps kids manage their
-            chores while earning rewards.
+            chores while earning points that can be redeemed for rewards.
           </Paragraph>
           <div className="my-8 flex flex-row justify-center items-center space-x-8">
-            <Button variant={"primary"} size={"lg"}>
-              Get Started
+            <Button variant={"primary"} size={"huge"}>
+              Explore the Features
             </Button>
-            <Button variant={"primary"} size={"lg"}>
-              Get Started
+            <Button variant={"outline"} size={"huge"}>
+              See what other are saying
             </Button>
           </div>
         </div>
@@ -57,10 +57,14 @@ export const LandingHero = () => {
         </div>
       </section>
       <section className="bg-background py-16">
+        <div className="mb-8 w-1/3">
+          <Header2 className="text-3xl">Be a super hero!</Header2>
+          <Paragraph>
+            Explore the great features and see how fun it can be to manage daily
+            and weekly chores!
+          </Paragraph>
+        </div>
         <div className="container mx-auto px-4">
-          <Header2 className="text-3xl font-bold text-center mb-12">
-            Key Features
-          </Header2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <LandingCard
               header="Chores Tracker"
