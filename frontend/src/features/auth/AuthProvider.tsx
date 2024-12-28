@@ -4,7 +4,7 @@ import { sleep } from "@/utils/utils";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 
-enum UserGroup {
+export enum UserGroup {
   ADMIN = "admin",
   PARENT = "parent",
   KID = "kid",
@@ -13,10 +13,8 @@ enum UserGroup {
 
 export interface User {
   id: number;
-  username: string;
-  name: string;
   email: string;
-  isActive: boolean;
+  username: string;
   group: UserGroup;
 }
 

@@ -10,7 +10,6 @@ export interface UserProfile {
   bio: string;
   theme: string;
   avatarUrl: string;
-  group: string;
 }
 
 export const useProfile = () => {
@@ -46,6 +45,12 @@ export const useProfile = () => {
       return res;
     },
   });
+
+  /*   console.log("useProfile hook generated:");
+  console.log("user", user);
+  console.log("profile", profile);
+  console.log("isLoading", isLoading);
+  console.log("error", error); */
 
   return { updateProfile, profile, isLoading, error };
 };

@@ -44,7 +44,6 @@ export const UserAvatarDropdown = () => {
               <UserAvatar />
               <div className="flex flex-col">
                 <div>{profile?.username}</div>
-                <div>{profile?.group}</div>
               </div>
             </div>
           </SheetTitle>

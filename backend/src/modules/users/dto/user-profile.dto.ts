@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { UserGroup } from 'src/modules/users/entities/user-profile.entity';
 
 export class UserProfileDto {
   @IsString()
@@ -32,8 +31,4 @@ export class UserProfileDto {
   @IsString()
   @ApiProperty()
   avatarUrl: string;
-
-  @IsString()
-  @ApiProperty()
-  group: UserGroup;
 }

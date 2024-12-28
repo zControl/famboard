@@ -1,10 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserProfileDto } from 'src/modules/users/dto/user-profile.dto';
-import {
-  UserGroup,
-  UserProfile,
-} from 'src/modules/users/entities/user-profile.entity';
+import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
@@ -37,7 +34,7 @@ export class UsersService {
   async findByUsername(username: string): Promise<User | undefined> {
     return this.usersRepository.findOne({
       where: { username },
-      select: ['id', 'username', 'password'],
+      select: ['id', 'username', 'password', 'group'],
     });
   }
 
@@ -79,7 +76,6 @@ export class UsersService {
         bio: 'Not specified...',
         theme: 'light',
         avatarUrl: '/avatars/avatar-default.jpg',
-        group: UserGroup.GUEST,
       };
       const profile = this.userProfileRepository.create(defaultProfile);
       await queryRunner.manager.save(profile);
@@ -115,7 +111,6 @@ export class UsersService {
       bio: profile.bio,
       theme: profile.theme,
       avatarUrl: profile.avatarUrl,
-      group: profile.group,
     };
   }
 
