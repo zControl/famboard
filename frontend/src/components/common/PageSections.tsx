@@ -19,9 +19,9 @@ export const PageSections = ({
       <div className="flex-grow">
         <div className={layoutClass}>
           {sections.map((section) => (
-            <div key={section.id} id={section.id}>
+            <section key={section.id} id={section.id}>
               {section.children}
-            </div>
+            </section>
           ))}
         </div>
       </div>
