@@ -24,6 +24,7 @@ import { Route as testTestAImport } from './routes/(test)/test.a_'
 import { Route as authAuthProfileImport } from './routes/(auth)/_auth.profile'
 import { Route as authAuthDashboardImport } from './routes/(auth)/_auth.dashboard'
 import { Route as appParentsParentsIndexImport } from './routes/(app)/_parents/parents.index'
+import { Route as appKidsKidsIndexImport } from './routes/(app)/_kids/kids.index'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
 import { Route as appParentsParentsManageImport } from './routes/(app)/_parents/parents.manage'
@@ -203,6 +204,12 @@ const appParentsParentsIndexRoute = appParentsParentsIndexImport.update({
   id: '/parents/',
   path: '/parents/',
   getParentRoute: () => appParentsRoute,
+} as any)
+
+const appKidsKidsIndexRoute = appKidsKidsIndexImport.update({
+  id: '/kids/',
+  path: '/kids/',
+  getParentRoute: () => appKidsRoute,
 } as any)
 
 const appExamplesDemoTypographyLazyRoute = appExamplesDemoTypographyLazyImport
@@ -572,6 +579,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesDemoTypographyLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_kids/kids/': {
+      id: '/(app)/_kids/kids/'
+      path: '/kids'
+      fullPath: '/kids'
+      preLoaderRoute: typeof appKidsKidsIndexImport
+      parentRoute: typeof appKidsImport
+    }
     '/(app)/_parents/parents/': {
       id: '/(app)/_parents/parents/'
       path: '/parents'
@@ -629,6 +643,17 @@ const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
   appExamplesRouteChildren,
 )
 
+interface appKidsRouteChildren {
+  appKidsKidsIndexRoute: typeof appKidsKidsIndexRoute
+}
+
+const appKidsRouteChildren: appKidsRouteChildren = {
+  appKidsKidsIndexRoute: appKidsKidsIndexRoute,
+}
+
+const appKidsRouteWithChildren =
+  appKidsRoute._addFileChildren(appKidsRouteChildren)
+
 interface appParentsRouteChildren {
   appParentsParentsManageRoute: typeof appParentsParentsManageRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
@@ -645,7 +670,7 @@ const appParentsRouteWithChildren = appParentsRoute._addFileChildren(
 
 interface appRouteChildren {
   appExamplesRoute: typeof appExamplesRouteWithChildren
-  appKidsRoute: typeof appKidsRoute
+  appKidsRoute: typeof appKidsRouteWithChildren
   appParentsRoute: typeof appParentsRouteWithChildren
   appPrivacyLazyRoute: typeof appPrivacyLazyRoute
   appStatusLazyRoute: typeof appStatusLazyRoute
@@ -655,7 +680,7 @@ interface appRouteChildren {
 
 const appRouteChildren: appRouteChildren = {
   appExamplesRoute: appExamplesRouteWithChildren,
-  appKidsRoute: appKidsRoute,
+  appKidsRoute: appKidsRouteWithChildren,
   appParentsRoute: appParentsRouteWithChildren,
   appPrivacyLazyRoute: appPrivacyLazyRoute,
   appStatusLazyRoute: appStatusLazyRoute,
@@ -720,6 +745,7 @@ export interface FileRoutesByFullPath {
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
@@ -753,6 +779,7 @@ export interface FileRoutesByTo {
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
@@ -762,7 +789,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(app)': typeof appRouteWithChildren
   '/(app)/_examples': typeof appExamplesRouteWithChildren
-  '/(app)/_kids': typeof appKidsRoute
+  '/(app)/_kids': typeof appKidsRouteWithChildren
   '/(app)/_parents': typeof appParentsRouteWithChildren
   '/(auth)': typeof authRouteWithChildren
   '/(auth)/_auth': typeof authAuthRouteWithChildren
@@ -792,6 +819,7 @@ export interface FileRoutesById {
   '/(app)/_examples/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/(app)/_examples/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/(app)/_examples/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
   '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
@@ -827,6 +855,7 @@ export interface FileRouteTypes {
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/kids'
     | '/parents'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
@@ -859,6 +888,7 @@ export interface FileRouteTypes {
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/kids'
     | '/parents'
     | '/test/a/b/c'
   id:
@@ -896,6 +926,7 @@ export interface FileRouteTypes {
     | '/(app)/_examples/demo/navigation'
     | '/(app)/_examples/demo/tables'
     | '/(app)/_examples/demo/typography'
+    | '/(app)/_kids/kids/'
     | '/(app)/_parents/parents/'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
@@ -982,7 +1013,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_kids": {
       "filePath": "(app)/_kids.tsx",
-      "parent": "/(app)"
+      "parent": "/(app)",
+      "children": [
+        "/(app)/_kids/kids/"
+      ]
     },
     "/(app)/_parents": {
       "filePath": "(app)/_parents.tsx",
@@ -1106,6 +1140,10 @@ export const routeTree = rootRoute
     "/(app)/_examples/demo/typography": {
       "filePath": "(app)/_examples/demo.typography.lazy.tsx",
       "parent": "/(app)/_examples"
+    },
+    "/(app)/_kids/kids/": {
+      "filePath": "(app)/_kids/kids.index.tsx",
+      "parent": "/(app)/_kids"
     },
     "/(app)/_parents/parents/": {
       "filePath": "(app)/_parents/parents.index.tsx",

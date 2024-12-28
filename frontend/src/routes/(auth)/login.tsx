@@ -7,9 +7,9 @@ export const Route = createFileRoute("/(auth)/login")({
   validateSearch: z.object({
     redirect: z.string().optional().catch(""),
   }),
-  beforeLoad: ({ context, search }) => {
+  beforeLoad: ({ context }) => {
     if (context.auth.isAuthenticated) {
-      throw redirect({ to: search.redirect || "/dashboard" });
+      throw redirect({ to: "/dashboard" });
     }
   },
   component: LoginComponent,

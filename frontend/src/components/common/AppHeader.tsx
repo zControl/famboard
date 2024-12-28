@@ -85,16 +85,13 @@ export const AppHeader = () => {
     }
   };
 
-  console.log("user from app header");
-  console.log("user", user);
-
   return (
     <HeaderContainer
       logo={<AppLogo />}
       mobileMenu={<Button variant={"default"}>Menu</Button>}
       navigation={
-        <div className="p-2 w-full">
-          <ul className="py-2 flex gap-2">{renderNavigation()}</ul>
+        <div className="w-full">
+          <ul className="flex gap-2">{renderNavigation()}</ul>
         </div>
       }
       actions={
