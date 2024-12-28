@@ -18,7 +18,7 @@ const CopyButton = ({ content, className }: CopyButtonProps) => {
 
   return (
     <div className={className}>
-      <Button variant="secondary" onClick={copyToClipboard} size="icon">
+      <Button variant="ghost" onClick={copyToClipboard} size="icon">
         {copySuccess ? (
           <CheckCircle2Icon className="text-green-500" />
         ) : (

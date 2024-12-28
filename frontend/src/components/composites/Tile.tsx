@@ -6,11 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import React from "react";
 
 interface TileProps {
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
-  description?: string;
+  description?: React.ReactNode;
   footer?: React.ReactNode;
 }
 export const Tile = ({ title, description, children, footer }: TileProps) => {
