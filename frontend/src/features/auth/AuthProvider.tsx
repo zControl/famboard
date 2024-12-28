@@ -1,22 +1,9 @@
 import { AuthContext } from "@/features/auth/AuthContext";
+import { User } from "@/types/user";
 import { createApiClient } from "@/utils/apiClient";
 import { sleep } from "@/utils/utils";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
-
-export enum UserGroup {
-  ADMIN = "admin",
-  PARENT = "parent",
-  KID = "kid",
-  GUEST = "guest",
-}
-
-export interface User {
-  id: number;
-  email: string;
-  username: string;
-  group: UserGroup;
-}
 
 const apiClient = createApiClient("http://localhost:3000/v1");
 

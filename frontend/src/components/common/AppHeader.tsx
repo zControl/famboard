@@ -2,9 +2,9 @@ import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
 import { CustomLink } from "@/components/ui/custom-link";
-import { UserGroup } from "@/features/auth/AuthProvider";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
+import { UserGroup } from "@/types/user";
 import { AlarmCheckIcon } from "lucide-react";
 
 const HeaderNavLink = ({
