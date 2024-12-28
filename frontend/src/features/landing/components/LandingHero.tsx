@@ -21,7 +21,7 @@ const LandingCard = ({
         <Header3 className="text-center">{header}</Header3>
       </CardHeader>
       <CardContent>
-        <Paragraph className="text-secondary/60">{content}</Paragraph>
+        <Paragraph className="text-card-foreground/60">{content}</Paragraph>
       </CardContent>
     </Card>
   );
