@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from 'src/modules/auth/decorators/roles.decorator';
-import { UserGroup } from 'src/modules/users/entities/user-profile.entity';
+import { UserGroup } from 'src/modules/users/entities/user.entity';
 
 //TODO: Implement the roles guard in a controller to restrict access to specific routes based on user roles.
 @Injectable()

@@ -7,6 +7,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+export enum UserGroup {
+  ADMIN = 'admin',
+  PARENT = 'parent',
+  KID = 'kid',
+  GUEST = 'guest',
+}
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -20,6 +27,13 @@ export class User {
 
   @Column()
   email: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserGroup,
+    default: UserGroup.GUEST,
+  })
+  group: UserGroup;
 
   @BeforeInsert()
   @BeforeUpdate()

@@ -36,8 +36,9 @@ export class AuthService {
       const accessToken = this.jwtService.sign(payload);
       const userResponse = {
         id: user.id,
-        username: user.username,
         email: user.email,
+        username: user.username,
+        group: user.group,
       };
       // Remove undefined properties
       Object.keys(userResponse).forEach(
@@ -70,6 +71,7 @@ export class AuthService {
         user: {
           username: newUser.username,
           email: newUser.email,
+          group: newUser.group,
         },
       };
     } catch (error) {

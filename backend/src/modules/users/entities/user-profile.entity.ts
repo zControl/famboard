@@ -8,13 +8,6 @@ import {
 } from 'typeorm';
 import { User } from './user.entity';
 
-export enum UserGroup {
-  ADMIN = 'admin',
-  PARENT = 'parent',
-  KID = 'kid',
-  GUEST = 'guest',
-}
-
 @Entity()
 export class UserProfile {
   @PrimaryGeneratedColumn()
@@ -44,11 +37,4 @@ export class UserProfile {
 
   @Column()
   avatarUrl: string;
-
-  @Column({
-    type: 'enum',
-    enum: UserGroup,
-    default: UserGroup.GUEST,
-  })
-  group: UserGroup;
 }
