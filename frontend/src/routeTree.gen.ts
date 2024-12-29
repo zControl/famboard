@@ -29,12 +29,13 @@ import { Route as appKidsKidsIndexImport } from './routes/(app)/_kids/kids.index
 import { Route as appAdminAdminIndexImport } from './routes/(app)/_admin/admin.index'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
+import { Route as appParentsParentsTasksImport } from './routes/(app)/_parents/parents.tasks'
 import { Route as appParentsParentsRewardsImport } from './routes/(app)/_parents/parents.rewards'
 import { Route as appParentsParentsProgressImport } from './routes/(app)/_parents/parents.progress'
 import { Route as appParentsParentsManageImport } from './routes/(app)/_parents/parents.manage'
 import { Route as appKidsKidsPlayImport } from './routes/(app)/_kids/kids.play'
 import { Route as appKidsKidsHelpImport } from './routes/(app)/_kids/kids.help'
-import { Route as appKidsKidsExersizeImport } from './routes/(app)/_kids/kids.exersize'
+import { Route as appKidsKidsFitnessImport } from './routes/(app)/_kids/kids.fitness'
 import { Route as appKidsKidsEarnImport } from './routes/(app)/_kids/kids.earn'
 import { Route as appExamplesDemoTestingImport } from './routes/(app)/_examples/demo.testing'
 import { Route as appExamplesDemoDialogsImport } from './routes/(app)/_examples/demo.dialogs'
@@ -341,6 +342,12 @@ const testTestABRoute = testTestABImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const appParentsParentsTasksRoute = appParentsParentsTasksImport.update({
+  id: '/parents/tasks',
+  path: '/parents/tasks',
+  getParentRoute: () => appParentsRoute,
+} as any)
+
 const appParentsParentsRewardsRoute = appParentsParentsRewardsImport.update({
   id: '/parents/rewards',
   path: '/parents/rewards',
@@ -371,9 +378,9 @@ const appKidsKidsHelpRoute = appKidsKidsHelpImport.update({
   getParentRoute: () => appKidsRoute,
 } as any)
 
-const appKidsKidsExersizeRoute = appKidsKidsExersizeImport.update({
-  id: '/kids/exersize',
-  path: '/kids/exersize',
+const appKidsKidsFitnessRoute = appKidsKidsFitnessImport.update({
+  id: '/kids/fitness',
+  path: '/kids/fitness',
   getParentRoute: () => appKidsRoute,
 } as any)
 
@@ -592,11 +599,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appKidsKidsEarnImport
       parentRoute: typeof appKidsImport
     }
-    '/(app)/_kids/kids/exersize': {
-      id: '/(app)/_kids/kids/exersize'
-      path: '/kids/exersize'
-      fullPath: '/kids/exersize'
-      preLoaderRoute: typeof appKidsKidsExersizeImport
+    '/(app)/_kids/kids/fitness': {
+      id: '/(app)/_kids/kids/fitness'
+      path: '/kids/fitness'
+      fullPath: '/kids/fitness'
+      preLoaderRoute: typeof appKidsKidsFitnessImport
       parentRoute: typeof appKidsImport
     }
     '/(app)/_kids/kids/help': {
@@ -632,6 +639,13 @@ declare module '@tanstack/react-router' {
       path: '/parents/rewards'
       fullPath: '/parents/rewards'
       preLoaderRoute: typeof appParentsParentsRewardsImport
+      parentRoute: typeof appParentsImport
+    }
+    '/(app)/_parents/parents/tasks': {
+      id: '/(app)/_parents/parents/tasks'
+      path: '/parents/tasks'
+      fullPath: '/parents/tasks'
+      preLoaderRoute: typeof appParentsParentsTasksImport
       parentRoute: typeof appParentsImport
     }
     '/(test)/test/a/b_': {
@@ -800,7 +814,7 @@ const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
 
 interface appKidsRouteChildren {
   appKidsKidsEarnRoute: typeof appKidsKidsEarnRoute
-  appKidsKidsExersizeRoute: typeof appKidsKidsExersizeRoute
+  appKidsKidsFitnessRoute: typeof appKidsKidsFitnessRoute
   appKidsKidsHelpRoute: typeof appKidsKidsHelpRoute
   appKidsKidsPlayRoute: typeof appKidsKidsPlayRoute
   appKidsKidsIndexRoute: typeof appKidsKidsIndexRoute
@@ -808,7 +822,7 @@ interface appKidsRouteChildren {
 
 const appKidsRouteChildren: appKidsRouteChildren = {
   appKidsKidsEarnRoute: appKidsKidsEarnRoute,
-  appKidsKidsExersizeRoute: appKidsKidsExersizeRoute,
+  appKidsKidsFitnessRoute: appKidsKidsFitnessRoute,
   appKidsKidsHelpRoute: appKidsKidsHelpRoute,
   appKidsKidsPlayRoute: appKidsKidsPlayRoute,
   appKidsKidsIndexRoute: appKidsKidsIndexRoute,
@@ -821,6 +835,7 @@ interface appParentsRouteChildren {
   appParentsParentsManageRoute: typeof appParentsParentsManageRoute
   appParentsParentsProgressRoute: typeof appParentsParentsProgressRoute
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
+  appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
 }
 
@@ -828,6 +843,7 @@ const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsManageRoute: appParentsParentsManageRoute,
   appParentsParentsProgressRoute: appParentsParentsProgressRoute,
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
+  appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
 }
 
@@ -905,12 +921,13 @@ export interface FileRoutesByFullPath {
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
-  '/kids/exersize': typeof appKidsKidsExersizeRoute
+  '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/progress': typeof appParentsParentsProgressRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -948,12 +965,13 @@ export interface FileRoutesByTo {
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
-  '/kids/exersize': typeof appKidsKidsExersizeRoute
+  '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/progress': typeof appParentsParentsProgressRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -998,12 +1016,13 @@ export interface FileRoutesById {
   '/(app)/_examples/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/(app)/_examples/demo/testing': typeof appExamplesDemoTestingRoute
   '/(app)/_kids/kids/earn': typeof appKidsKidsEarnRoute
-  '/(app)/_kids/kids/exersize': typeof appKidsKidsExersizeRoute
+  '/(app)/_kids/kids/fitness': typeof appKidsKidsFitnessRoute
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
   '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
   '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
   '/(app)/_parents/parents/progress': typeof appParentsParentsProgressRoute
   '/(app)/_parents/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/(app)/_parents/parents/tasks': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
   '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -1043,12 +1062,13 @@ export interface FileRouteTypes {
     | '/demo/dialogs'
     | '/demo/testing'
     | '/kids/earn'
-    | '/kids/exersize'
+    | '/kids/fitness'
     | '/kids/help'
     | '/kids/play'
     | '/parents/manage'
     | '/parents/progress'
     | '/parents/rewards'
+    | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
@@ -1085,12 +1105,13 @@ export interface FileRouteTypes {
     | '/demo/dialogs'
     | '/demo/testing'
     | '/kids/earn'
-    | '/kids/exersize'
+    | '/kids/fitness'
     | '/kids/help'
     | '/kids/play'
     | '/parents/manage'
     | '/parents/progress'
     | '/parents/rewards'
+    | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
@@ -1133,12 +1154,13 @@ export interface FileRouteTypes {
     | '/(app)/_examples/demo/dialogs'
     | '/(app)/_examples/demo/testing'
     | '/(app)/_kids/kids/earn'
-    | '/(app)/_kids/kids/exersize'
+    | '/(app)/_kids/kids/fitness'
     | '/(app)/_kids/kids/help'
     | '/(app)/_kids/kids/play'
     | '/(app)/_parents/parents/manage'
     | '/(app)/_parents/parents/progress'
     | '/(app)/_parents/parents/rewards'
+    | '/(app)/_parents/parents/tasks'
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
     | '/(app)/_examples/demo/basic'
@@ -1251,7 +1273,7 @@ export const routeTree = rootRoute
       "parent": "/(app)",
       "children": [
         "/(app)/_kids/kids/earn",
-        "/(app)/_kids/kids/exersize",
+        "/(app)/_kids/kids/fitness",
         "/(app)/_kids/kids/help",
         "/(app)/_kids/kids/play",
         "/(app)/_kids/kids/"
@@ -1264,6 +1286,7 @@ export const routeTree = rootRoute
         "/(app)/_parents/parents/manage",
         "/(app)/_parents/parents/progress",
         "/(app)/_parents/parents/rewards",
+        "/(app)/_parents/parents/tasks",
         "/(app)/_parents/parents/"
       ]
     },
@@ -1348,8 +1371,8 @@ export const routeTree = rootRoute
       "filePath": "(app)/_kids/kids.earn.tsx",
       "parent": "/(app)/_kids"
     },
-    "/(app)/_kids/kids/exersize": {
-      "filePath": "(app)/_kids/kids.exersize.tsx",
+    "/(app)/_kids/kids/fitness": {
+      "filePath": "(app)/_kids/kids.fitness.tsx",
       "parent": "/(app)/_kids"
     },
     "/(app)/_kids/kids/help": {
@@ -1370,6 +1393,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_parents/parents/rewards": {
       "filePath": "(app)/_parents/parents.rewards.tsx",
+      "parent": "/(app)/_parents"
+    },
+    "/(app)/_parents/parents/tasks": {
+      "filePath": "(app)/_parents/parents.tasks.tsx",
       "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b_": {

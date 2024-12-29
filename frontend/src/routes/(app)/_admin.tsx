@@ -1,3 +1,4 @@
+import { AppHeader } from "@/components/common/AppHeader";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_admin")({
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/(app)/_admin")({
 function AdminLayout() {
   return (
     <>
+      <AppHeader />
       <div>
         <h1>Admin</h1>
         <h2>Admin Layout</h2>
