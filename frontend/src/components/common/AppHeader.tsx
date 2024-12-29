@@ -1,69 +1,94 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
-import { CustomLink } from "@/components/ui/custom-link";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
 import { UserGroup } from "@/types/user";
+import { useNavigate } from "@tanstack/react-router";
 import { AlarmCheckIcon } from "lucide-react";
 
 const HeaderNavLink = ({
-  to,
+  href,
   children,
 }: {
-  to: string;
+  href: string;
   children: React.ReactNode;
 }) => {
+  const navigate = useNavigate();
+
   return (
-    <CustomLink to={to} size="lg" hoverColor="primary">
+    <Button
+      variant="link"
+      className="flex items-center mx-0 p-2 text-lg"
+      onClick={() => navigate({ to: href })}
+    >
+      <AlarmCheckIcon />
       {children}
-    </CustomLink>
+    </Button>
   );
 };
 
 const AdminNavigation = () => (
-  <ul className="py-2 flex gap-2">
+  <ul className="flex gap-1">
     <li>
-      <HeaderNavLink to="/admin-dashboard">Admin Dashboard</HeaderNavLink>
+      <HeaderNavLink href="/admin">Dashboard</HeaderNavLink>
     </li>
     <li>
-      <HeaderNavLink to="/user-management">User Management</HeaderNavLink>
+      <HeaderNavLink href="/admin/users">Users</HeaderNavLink>
     </li>
-    {/* More admin-specific links */}
+    <li>
+      <HeaderNavLink href="/admin/analytics">Analytics</HeaderNavLink>
+    </li>
   </ul>
 );
 
 const ParentNavigation = () => (
-  <ul className="py-2 flex gap-2">
+  <ul className="flex gap-1">
     <li>
-      <HeaderNavLink to="/parent-dashboard">Parent Dashboard</HeaderNavLink>
+      <HeaderNavLink href="/parents">Dashboard</HeaderNavLink>
     </li>
     <li>
-      <HeaderNavLink to="/child-progress">Child Progress</HeaderNavLink>
+      <HeaderNavLink href="/parents/tasks">Tasks</HeaderNavLink>
     </li>
-    {/* More parent-specific links */}
+    <li>
+      <HeaderNavLink href="/parents/progress">Progress</HeaderNavLink>
+    </li>
+    <li>
+      <HeaderNavLink href="/parents/rewards">Rewards</HeaderNavLink>
+    </li>
   </ul>
 );
 
 const KidNavigation = () => (
-  <ul className="py-2 flex gap-2">
-    <li>
-      <HeaderNavLink to="/kid-dashboard">My Dashboard</HeaderNavLink>
-    </li>
-    <li>
-      <HeaderNavLink to="/games">Games</HeaderNavLink>
-    </li>
-    {/* More kid-specific links */}
-  </ul>
+  <>
+    <div></div>
+    <ul className="flex gap-1">
+      <li>
+        <HeaderNavLink href="/kids">My Dashboard</HeaderNavLink>
+      </li>
+      <li>
+        <HeaderNavLink href="/kids/play">Play Games</HeaderNavLink>
+      </li>
+      <li>
+        <HeaderNavLink href="/kids/help">Do Chores</HeaderNavLink>
+      </li>
+      <li>
+        <HeaderNavLink href="/kids/fitness">Fitness</HeaderNavLink>
+      </li>
+      <li>
+        <HeaderNavLink href="/kids/earn">Earn Rewards</HeaderNavLink>
+      </li>
+    </ul>
+  </>
 );
 
 const GuestNavigation = () => (
-  <ul className="py-2 flex gap-2">
+  <ul className="flex gap-1">
     <li>
-      <HeaderNavLink to="/about">About</HeaderNavLink>
+      <HeaderNavLink href="/about">About</HeaderNavLink>
     </li>
     <li>
-      <HeaderNavLink to="/login">Login</HeaderNavLink>
+      <HeaderNavLink href="/login">Login</HeaderNavLink>
     </li>
     {/* More guest-specific links */}
   </ul>
@@ -89,11 +114,7 @@ export const AppHeader = () => {
     <HeaderContainer
       logo={<AppLogo />}
       mobileMenu={<Button variant={"default"}>Menu</Button>}
-      navigation={
-        <div className="w-full">
-          <ul className="flex gap-2">{renderNavigation()}</ul>
-        </div>
-      }
+      navigation={<div className="flex gap-2">{renderNavigation()}</div>}
       actions={
         <>
           {user?.group}

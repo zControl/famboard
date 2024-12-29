@@ -1,10 +1,10 @@
+import { User } from "@/types/user";
 import React from "react";
-import { User } from "./AuthProvider";
 
 export interface AuthContext {
   isAuthenticated: boolean;
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
 }
 

@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Route } from "@/routes/(auth)/login";
+import { User } from "@/types/user";
 import { sleep } from "@/utils/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
@@ -45,18 +46,52 @@ export const LoginForm = () => {
     },
   });
 
+  async function redirectToDashboard(user: User) {
+    await sleep(250);
+
+    // Determine the redirect based on the user's group
+    let redirectPath = "/";
+    if (user) {
+      switch (user.group) {
+        case "parent":
+          redirectPath = "/parents";
+          break;
+        case "kid":
+          redirectPath = "/kids";
+          break;
+        case "admin":
+          redirectPath = "/admin";
+          break;
+        default:
+          console.warn("Unknown user group:", user.group);
+          redirectPath = "/";
+      }
+    } else {
+      console.error("User is not authenticated");
+      redirectPath = "/login";
+    }
+
+    // Use the search.redirect if it exists, otherwise use the determined redirectPath
+    const finalRedirectPath = search.redirect || redirectPath;
+    navigate({ to: finalRedirectPath });
+    console.log("Login successful");
+  }
+
   // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
     setIsLoading(true);
     console.log("Submitting login");
     try {
-      await auth.login(data.username, data.password);
+      const user = await auth.login(data.username, data.password);
       await router.invalidate();
-      await sleep(500);
-      await navigate({ to: search.redirect || "/dashboard" });
-      console.log("Login successful");
+      await sleep(250);
+      if (user) {
+        await redirectToDashboard(user);
+      } else {
+        console.error("Login failed: No user returned");
+        // Handle login failure (e.g., show an error message)
+      }
     } catch (error) {
-      // TODO Add Error Handling
       console.error("Login failed:", error);
     } finally {
       setIsLoading(false);
