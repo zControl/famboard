@@ -3,11 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 @Entity()
 export class Task {
@@ -38,12 +37,14 @@ export class Task {
   @Column({ nullable: true })
   note: string;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
-
-  @ManyToMany(() => User)
-  @JoinTable()
-  assignedTo: User[];
 }
 
 @Entity()
