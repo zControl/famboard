@@ -48,6 +48,9 @@ const ParentNavigation = () => (
       <HeaderNavLink href="/parents">Dashboard</HeaderNavLink>
     </li>
     <li>
+      <HeaderNavLink href="/parents/manage">Manage</HeaderNavLink>
+    </li>
+    <li>
       <HeaderNavLink href="/parents/tasks">Tasks</HeaderNavLink>
     </li>
     <li>
