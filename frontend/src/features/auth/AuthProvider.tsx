@@ -36,7 +36,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = React.useCallback(
     async (username: string, password: string) => {
       await sleep(500);
-      await loginMutation.mutateAsync({ username, password });
+      const result = await loginMutation.mutateAsync({ username, password });
+      return result.user; // Return the user object
     },
     [loginMutation],
   );

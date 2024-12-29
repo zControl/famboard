@@ -1,7 +1,6 @@
-import { AppHeader } from "@/components/common/AppHeader";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/(app)/_parents")({
+export const Route = createFileRoute("/(app)/_admin")({
   // Before loading, we check if the user is authenticated and has the correct group
   beforeLoad: ({ context }) => {
     if (!context.auth.isAuthenticated) {
@@ -9,24 +8,24 @@ export const Route = createFileRoute("/(app)/_parents")({
         to: "/login",
       });
     }
-    if (
-      context.auth.user?.group !== "parent" &&
-      context.auth.user?.group !== "admin"
-    ) {
+    if (context.auth.user?.group !== "admin") {
       throw redirect({
         to: "/unauthorized",
       });
     }
   },
-  component: ParentsLayout,
+  component: AdminLayout,
 });
 
-function ParentsLayout() {
+function AdminLayout() {
   return (
-    <div>
-      <AppHeader />
-      <h1>Parents Layout</h1>
+    <>
+      <div>
+        <h1>Admin</h1>
+        <h2>Admin Layout</h2>
+        <h3>We are awesome.</h3>
+      </div>
       <Outlet />
-    </div>
+    </>
   );
 }

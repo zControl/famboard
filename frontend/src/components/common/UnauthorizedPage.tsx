@@ -11,7 +11,7 @@ export const UnauthorizedPage = () => {
       <div className="flex items-center justify-center flex-1">
         <Card>
           <CardHeader className="bg-destructive text-destructive-foreground text-center py-4">
-            <CardTitle className="text-4xl font-semibold">OOPS!</CardTitle>
+            <CardTitle className="text-4xl font-semibold">Nope!</CardTitle>
           </CardHeader>
           <CardContent className="p-6 text-center">
             <div>
