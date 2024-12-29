@@ -53,16 +53,12 @@ export interface Task {
   id: number;
   title: string;
   category: TaskCategory;
+  description?: string;
   frequency: TaskFrequency;
   difficulty: TaskDifficulty;
   status: TaskStatus;
   priority: TaskPriority;
-  dueDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
-  description?: string;
   note?: string;
   tags?: TaskTag[];
-  assignedTo?: User["username"][];
   comments?: Comment[];
 }
