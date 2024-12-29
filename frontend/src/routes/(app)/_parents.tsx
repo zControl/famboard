@@ -23,10 +23,17 @@ export const Route = createFileRoute("/(app)/_parents")({
 
 function ParentsLayout() {
   return (
-    <div>
+    <>
       <AppHeader />
-      <h1>Parents Layout</h1>
-      <Outlet />
-    </div>
+      <div className="flex flex-row">
+        {/* <div className="max-w-[200px] border border-purple-500">
+          left
+        </div> */}
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        {/* <div className="max-w-[200px] border border-purple-500">right</div> */}
+      </div>
+    </>
   );
 }

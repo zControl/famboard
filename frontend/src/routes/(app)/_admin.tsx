@@ -22,12 +22,15 @@ function AdminLayout() {
   return (
     <>
       <AppHeader />
-      <div>
-        <h1>Admin</h1>
-        <h2>Admin Layout</h2>
-        <h3>We are awesome.</h3>
+      <div className="flex flex-row">
+        {/* <div className="max-w-[200px] border border-purple-500">
+          left
+        </div> */}
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        {/* <div className="max-w-[200px] border border-purple-500">right</div> */}
       </div>
-      <Outlet />
     </>
   );
 }
