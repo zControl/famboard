@@ -31,7 +31,6 @@ import { Route as testTestASomethingImport } from './routes/(test)/test.a.someth
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
 import { Route as appParentsParentsTasksImport } from './routes/(app)/_parents/parents.tasks'
 import { Route as appParentsParentsRewardsImport } from './routes/(app)/_parents/parents.rewards'
-import { Route as appParentsParentsProgressImport } from './routes/(app)/_parents/parents.progress'
 import { Route as appParentsParentsManageImport } from './routes/(app)/_parents/parents.manage'
 import { Route as appKidsKidsPlayImport } from './routes/(app)/_kids/kids.play'
 import { Route as appKidsKidsHelpImport } from './routes/(app)/_kids/kids.help'
@@ -354,12 +353,6 @@ const appParentsParentsRewardsRoute = appParentsParentsRewardsImport.update({
   getParentRoute: () => appParentsRoute,
 } as any)
 
-const appParentsParentsProgressRoute = appParentsParentsProgressImport.update({
-  id: '/parents/progress',
-  path: '/parents/progress',
-  getParentRoute: () => appParentsRoute,
-} as any)
-
 const appParentsParentsManageRoute = appParentsParentsManageImport.update({
   id: '/parents/manage',
   path: '/parents/manage',
@@ -627,13 +620,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsManageImport
       parentRoute: typeof appParentsImport
     }
-    '/(app)/_parents/parents/progress': {
-      id: '/(app)/_parents/parents/progress'
-      path: '/parents/progress'
-      fullPath: '/parents/progress'
-      preLoaderRoute: typeof appParentsParentsProgressImport
-      parentRoute: typeof appParentsImport
-    }
     '/(app)/_parents/parents/rewards': {
       id: '/(app)/_parents/parents/rewards'
       path: '/parents/rewards'
@@ -833,7 +819,6 @@ const appKidsRouteWithChildren =
 
 interface appParentsRouteChildren {
   appParentsParentsManageRoute: typeof appParentsParentsManageRoute
-  appParentsParentsProgressRoute: typeof appParentsParentsProgressRoute
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
@@ -841,7 +826,6 @@ interface appParentsRouteChildren {
 
 const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsManageRoute: appParentsParentsManageRoute,
-  appParentsParentsProgressRoute: appParentsParentsProgressRoute,
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
@@ -925,7 +909,6 @@ export interface FileRoutesByFullPath {
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/manage': typeof appParentsParentsManageRoute
-  '/parents/progress': typeof appParentsParentsProgressRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
@@ -969,7 +952,6 @@ export interface FileRoutesByTo {
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/manage': typeof appParentsParentsManageRoute
-  '/parents/progress': typeof appParentsParentsProgressRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
@@ -1020,7 +1002,6 @@ export interface FileRoutesById {
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
   '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
   '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
-  '/(app)/_parents/parents/progress': typeof appParentsParentsProgressRoute
   '/(app)/_parents/parents/rewards': typeof appParentsParentsRewardsRoute
   '/(app)/_parents/parents/tasks': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
@@ -1066,7 +1047,6 @@ export interface FileRouteTypes {
     | '/kids/help'
     | '/kids/play'
     | '/parents/manage'
-    | '/parents/progress'
     | '/parents/rewards'
     | '/parents/tasks'
     | '/test/a/b'
@@ -1109,7 +1089,6 @@ export interface FileRouteTypes {
     | '/kids/help'
     | '/kids/play'
     | '/parents/manage'
-    | '/parents/progress'
     | '/parents/rewards'
     | '/parents/tasks'
     | '/test/a/b'
@@ -1158,7 +1137,6 @@ export interface FileRouteTypes {
     | '/(app)/_kids/kids/help'
     | '/(app)/_kids/kids/play'
     | '/(app)/_parents/parents/manage'
-    | '/(app)/_parents/parents/progress'
     | '/(app)/_parents/parents/rewards'
     | '/(app)/_parents/parents/tasks'
     | '/(test)/test/a/b_'
@@ -1284,7 +1262,6 @@ export const routeTree = rootRoute
       "parent": "/(app)",
       "children": [
         "/(app)/_parents/parents/manage",
-        "/(app)/_parents/parents/progress",
         "/(app)/_parents/parents/rewards",
         "/(app)/_parents/parents/tasks",
         "/(app)/_parents/parents/"
@@ -1385,10 +1362,6 @@ export const routeTree = rootRoute
     },
     "/(app)/_parents/parents/manage": {
       "filePath": "(app)/_parents/parents.manage.tsx",
-      "parent": "/(app)/_parents"
-    },
-    "/(app)/_parents/parents/progress": {
-      "filePath": "(app)/_parents/parents.progress.tsx",
       "parent": "/(app)/_parents"
     },
     "/(app)/_parents/parents/rewards": {

@@ -20,10 +20,6 @@ function ParentsTasksPage() {
         <div className="w-full border border-red-500">
           Tasks Data Table Here
         </div>
-        {/*         <div>
-          testing from sample file
-          <pre>{JSON.stringify(sampleTasks, null, 2)}</pre>
-        </div> */}
         <div>
           map over the items
           {sampleTasks.map((task) => (

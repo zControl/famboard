@@ -5,7 +5,12 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
 import { UserGroup } from "@/types/user";
 import { useNavigate } from "@tanstack/react-router";
-import { AlarmCheckIcon } from "lucide-react";
+import {
+  AlarmCheckIcon,
+  BellIcon,
+  MailsIcon,
+  PlusSquareIcon,
+} from "lucide-react";
 
 const HeaderNavLink = ({
   href,
@@ -54,9 +59,6 @@ const ParentNavigation = () => (
       <HeaderNavLink href="/parents/tasks">Tasks</HeaderNavLink>
     </li>
     <li>
-      <HeaderNavLink href="/parents/progress">Progress</HeaderNavLink>
-    </li>
-    <li>
       <HeaderNavLink href="/parents/rewards">Rewards</HeaderNavLink>
     </li>
   </ul>
@@ -93,7 +95,6 @@ const GuestNavigation = () => (
     <li>
       <HeaderNavLink href="/login">Login</HeaderNavLink>
     </li>
-    {/* More guest-specific links */}
   </ul>
 );
 
@@ -119,11 +120,12 @@ export const AppHeader = () => {
       mobileMenu={<Button variant={"default"}>Menu</Button>}
       navigation={<div className="flex gap-2">{renderNavigation()}</div>}
       actions={
-        <>
-          {user?.group}
-          <AlarmCheckIcon />
+        <div className="flex items-center gap-4">
+          <PlusSquareIcon />
+          <MailsIcon />
+          <BellIcon />
           <UserAvatarDropdown />
-        </>
+        </div>
       }
     />
   );
