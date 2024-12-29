@@ -36,12 +36,6 @@ export enum TaskPriority {
   High = 'HIGH'
 }
 
-export interface TaskTag {
-  id: string;
-  name: string;
-  color: string;
-}
-
 export interface Comment {
   id: string;
   content: string;
@@ -59,6 +53,5 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   note?: string;
-  tags?: TaskTag[];
   comments?: Comment[];
 }

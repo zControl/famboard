@@ -38,28 +38,12 @@ export class Task {
   @Column({ nullable: true })
   note: string;
 
-  @ManyToMany(() => Tag)
-  @JoinTable()
-  tags: Tag[];
-
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
 
   @ManyToMany(() => User)
   @JoinTable()
   assignedTo: User[];
-}
-
-@Entity()
-export class Tag {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  color: string;
 }
 
 @Entity()
