@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,6 +13,10 @@ import {
 export class Task {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
+  @Generated('increment')
+  sequenceNumber: number;
 
   @Column({ nullable: true })
   title: string;
@@ -45,6 +50,16 @@ export class Task {
 
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
+
+  get taskCode(): string {
+    return this.formatTaskCode(this.sequenceNumber);
+  }
+
+  private formatTaskCode(num: number): string {
+    const prefix = 'TASK';
+    const paddedNum = num.toString().padStart(3, '0');
+    return `${prefix}-${paddedNum}`;
+  }
 }
 
 @Entity()

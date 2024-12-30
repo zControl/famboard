@@ -22,8 +22,15 @@ export class TasksController {
   @ApiResponse({ status: 201, description: 'Task created successfully' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiBody({ type: CreateTaskDto })
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService.create(createTaskDto);
+  async create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService
+      .create(createTaskDto)
+      .then((task) => {
+        return { message: 'Task created successfully', task };
+      })
+      .catch((error) => {
+        throw error;
+      });
   }
 
   @Get()
@@ -38,8 +45,8 @@ export class TasksController {
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.tasksService.findOne(id);
   }
 
   @Patch(':id')
@@ -48,7 +55,7 @@ export class TasksController {
   @ApiResponse({ status: 404, description: 'Task not found' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.tasksService.update(+id, updateTaskDto);
+    return this.tasksService.update(id, updateTaskDto);
   }
 
   @Delete(':id')
@@ -56,6 +63,6 @@ export class TasksController {
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
   remove(@Param('id') id: string) {
-    return this.tasksService.remove(+id);
+    return this.tasksService.remove(id);
   }
 }
