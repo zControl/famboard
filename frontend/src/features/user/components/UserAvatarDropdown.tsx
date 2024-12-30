@@ -1,4 +1,6 @@
+import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -11,27 +13,29 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatar } from "@/features/user/components/UserAvatar";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { useNavigate } from "@tanstack/react-router";
-import { IceCream2Icon } from "lucide-react";
+import { LayoutDashboardIcon, UserPenIcon } from "lucide-react";
 
 const navItems = [
   {
     label: "Dashboard",
     href: "/dashboard",
-    icon: <IceCream2Icon />,
+    icon: <LayoutDashboardIcon />,
   },
   {
     label: "Profile",
     href: "/profile",
-    icon: <IceCream2Icon />,
+    icon: <UserPenIcon />,
   },
 ];
 
 export const UserAvatarDropdown = () => {
   const navigate = useNavigate();
   const { profile } = useProfile();
+  const { user } = useAuth();
   return (
     <Sheet>
       <SheetTrigger>
@@ -40,17 +44,31 @@ export const UserAvatarDropdown = () => {
       <SheetContent>
         <SheetHeader>
           <SheetTitle>
-            <div className="flex items-center space-x-4 ">
+            <div className="flex justify-start items-center mr-6 gap-2">
               <UserAvatar />
-              <div className="flex flex-col">
-                <div>{profile?.username}</div>
+              <div className="flex flex-col w-full text-left border border-muted rounded-lg p-2">
+                <div className="text-md font-semibold">{profile?.username}</div>
+                <div className="text-sm font-normal">{user?.group}</div>
               </div>
             </div>
           </SheetTitle>
-          <SheetDescription>
-            <span>Status (TODO)</span>
+          <SheetTitle>
+            <div>Status shows up here.</div>
+            <Input
+              type="text"
+              placeholder="Change status"
+              className="w-full my-2"
+            />
+          </SheetTitle>
+          <SheetDescription className="sr-only">
+            User Dropdown Menu
           </SheetDescription>
         </SheetHeader>
+        <Separator className="my-4" />
+        <div className="flex justify-between items-center">
+          <span>Light / Dark Mode: </span>
+          <ThemeToggle />
+        </div>
         <Separator className="my-4" />
         {navItems.map((item) => (
           <SheetClose asChild key={item.href}>
@@ -68,12 +86,6 @@ export const UserAvatarDropdown = () => {
             </Button>
           </SheetClose>
         ))}
-        <Separator className="my-4" />
-        OTHER THINGS
-        <Separator className="my-4" />
-        OTHER THINGS
-        <Separator className="my-4" />
-        OTHER THINGS
         <Separator className="my-4" />
         <SheetFooter>
           <LogoutButton />

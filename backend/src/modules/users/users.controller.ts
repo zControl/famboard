@@ -16,7 +16,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get a user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id/profile')
@@ -36,13 +36,13 @@ export class UsersController {
     @Body('theme') theme: string,
     @Body('avatarUrl') avatarUrl: string,
   ) {
-    return this.usersService.updateProfile(+id, { theme, avatarUrl });
+    return this.usersService.updateProfile(id, { theme, avatarUrl });
   }
 
   @Get(':id/profile')
   @ApiOperation({ summary: 'Get a user profile by user ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
   getProfile(@Param('id') userId: string) {
-    return this.usersService.getProfile(+userId);
+    return this.usersService.getProfile(userId);
   }
 }

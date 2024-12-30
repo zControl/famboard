@@ -24,7 +24,7 @@ export class UsersService {
     });
   }
 
-  findOne(id: number): Promise<Partial<User | null>> {
+  findOne(id: string): Promise<Partial<User | null>> {
     return this.usersRepository.findOne({
       where: { id },
       select: USER_SELECT_FIELDS,
@@ -94,7 +94,7 @@ export class UsersService {
     }
   }
 
-  async getProfile(userId: number): Promise<UserProfileDto> {
+  async getProfile(userId: string): Promise<UserProfileDto> {
     const profile = await this.userProfileRepository.findOne({
       where: { user: { id: userId } },
       relations: ['user'],
@@ -115,7 +115,7 @@ export class UsersService {
   }
 
   async updateProfile(
-    userId: number,
+    userId: string,
     updatedProfile: Partial<UserProfile>,
   ): Promise<UserProfile> {
     const profile = await this.userProfileRepository.findOne({
