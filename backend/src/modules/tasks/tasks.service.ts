@@ -38,9 +38,9 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
-  async findOne(id: number): Promise<Task> {
+  async findOne(id: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({
-      where: { sequenceNumber: id },
+      where: { id },
     });
     if (!task) {
       throw new NotFoundException(`Task with ID "${id}" not found`);
@@ -64,6 +64,15 @@ export class TasksService {
 
   remove(id: string) {
     return `This action removes a #${id} task`;
+  }
+
+  async findTasksByUser(userId: string): Promise<Task[]> {
+    return this.tasksRepository
+      .createQueryBuilder('task')
+      .innerJoinAndSelect('task.assignments', 'assignment')
+      .innerJoinAndSelect('assignment.user', 'user')
+      .where('user.id = :userId', { userId })
+      .getMany();
   }
 
   async assignTask(

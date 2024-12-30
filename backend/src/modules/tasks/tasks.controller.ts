@@ -47,7 +47,7 @@ export class TasksController {
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.tasksService.findOne(id);
   }
 
@@ -69,12 +69,37 @@ export class TasksController {
   }
 
   @Post('assign')
-  assignTask(@Body() assignTaskDto: AssignTaskDto, @Request() req) {
-    return this.tasksService.assignTask(assignTaskDto, req.user.id);
+  @ApiOperation({ summary: 'Assign a task to a user' })
+  @ApiResponse({ status: 200, description: 'Task assigned successfully' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiBody({ type: AssignTaskDto })
+  assignTask(@Body() assignTaskDto: AssignTaskDto) {
+    /* if (!req.user || !req.user.id) {
+      throw new UnauthorizedException('User not authenticated');
+    } */
+    /* for now, we are just manually assigning the admin user id for the assigner.
+     */
+    const testAssignerId = '82e14d69-1211-4fca-abab-0672d8827080';
+    return this.tasksService.assignTask(assignTaskDto, testAssignerId);
   }
 
   @Post(':id/complete')
+  @ApiOperation({ summary: 'Complete a task' })
+  @ApiResponse({ status: 200, description: 'Task completed successfully' })
+  @ApiResponse({ status: 400, description: 'Validation error' })
   completeTask(@Param('id') id: string, @Request() req) {
     return this.tasksService.completeTask(id, req.user.id);
+  }
+
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
+  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
+  @ApiResponse({
+    status: 404,
+    description: 'User not found or no tasks assigned',
+  })
+  findTasksByUser(@Param('userId') userId: string) {
+    return this.tasksService.findTasksByUser(userId);
   }
 }
