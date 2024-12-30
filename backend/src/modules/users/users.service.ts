@@ -4,7 +4,7 @@ import { UserProfileDto } from 'src/modules/users/dto/user-profile.dto';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './entities/user.entity';
+import { User, UserGroup } from './entities/user.entity';
 
 const USER_SELECT_FIELDS: (keyof User)[] = ['id', 'username', 'email'];
 
@@ -35,6 +35,13 @@ export class UsersService {
     return this.usersRepository.findOne({
       where: { username },
       select: ['id', 'username', 'password', 'group'],
+    });
+  }
+
+  async findByGroup(group: UserGroup): Promise<User[]> {
+    return this.usersRepository.find({
+      where: { group },
+      select: ['id', 'username'],
     });
   }
 
@@ -104,6 +111,7 @@ export class UsersService {
       throw new NotFoundException('Profile not found');
     }
     return {
+      userId: profile.user.id,
       username: profile.user.username,
       email: profile.user.email,
       firstName: profile.firstName,
