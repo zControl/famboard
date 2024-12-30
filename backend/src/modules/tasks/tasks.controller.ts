@@ -6,8 +6,10 @@ import {
   Param,
   Patch,
   Post,
+  Request,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -64,5 +66,15 @@ export class TasksController {
   @ApiResponse({ status: 404, description: 'Task not found' })
   remove(@Param('id') id: string) {
     return this.tasksService.remove(id);
+  }
+
+  @Post('assign')
+  assignTask(@Body() assignTaskDto: AssignTaskDto, @Request() req) {
+    return this.tasksService.assignTask(assignTaskDto, req.user.id);
+  }
+
+  @Post(':id/complete')
+  completeTask(@Param('id') id: string, @Request() req) {
+    return this.tasksService.completeTask(id, req.user.id);
   }
 }

@@ -1,9 +1,12 @@
+import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   Generated,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -50,6 +53,13 @@ export class Task {
 
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
+
+  @ManyToMany(() => User, (user) => user.assignedTasks)
+  @JoinTable()
+  assignedUsers: User[];
+
+  @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
+  assignments: TaskAssignment[];
 
   get taskCode(): string {
     return this.formatTaskCode(this.sequenceNumber);
