@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/common/PageContainer";
+import { KidSummaryTile } from "@/features/parents/components/KidSummaryTile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_parents/parents/manage")({
@@ -12,14 +13,20 @@ function ParentsManagePage() {
         This page will have a tile for each kid. It will display their card, and
         their assigned tasks, and other info about their staus.
       </div>
-      <div className="w-full">
-        You will be able to create new and approve completed tasks.
+      <div>
+        We will have to get the list of kids, and render one of these summary
+        tiles for each kid from a map.
       </div>
-      <div className="grid grid-cols-1 border border-blue-500">
-        <div className="w-full border border-red-500">Kid #1 Tile</div>
-        <div className="w-full border border-red-500">Kid #2 Tile</div>
-        <div className="w-full border border-red-500">Kid #3 Tile</div>
+      <div>
+        The approach would be to use this page to fetch the list of kids and
+        "core" data about them. Then, the SummaryTile will take the kid data as
+        props and fetch the specific data for the fields.
       </div>
+      <div>
+        For now, we just create and format the card fields, then add data and
+        make it reusable later.
+      </div>
+      <KidSummaryTile id="123" />
     </PageContainer>
   );
 }
