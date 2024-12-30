@@ -14,6 +14,10 @@ export class UserProfileDto {
 
   @IsString()
   @ApiProperty()
+  userId: string;
+
+  @IsString()
+  @ApiProperty()
   firstName: string;
 
   @IsDateString()

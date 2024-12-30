@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
@@ -6,24 +7,34 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
+import { useKidManager } from "@/features/parents/hooks/useKidManager";
+import { firstInitial } from "@/utils/utils";
 
-interface KidSummaryTileProps {
-  id: string;
-}
+const KidProfileSummary = ({ id }: { id: string }) => {
+  const { getKidProfile } = useKidManager();
+  const { data: kid, isLoading, error } = getKidProfile(id);
 
-const KidProfileSummary = () => {
+  // TODO: how does this work?
+  if (isLoading) return <Spinner />;
+  if (error) return <div>Error fetching kid profile</div>;
+
   return (
-    <div className="mx-auto flex flex-col items-center">
-      <div>profile</div>
-      <div>name</div>
+    <div className="mx-auto flex flex-col items-center gap-2">
+      <Avatar className="h-24 w-24">
+        <AvatarImage src={kid?.avatarUrl} alt="Avatar" />
+        <AvatarFallback>{firstInitial(kid?.username ?? "")}</AvatarFallback>
+      </Avatar>
+      <div>{kid?.bio}</div>
       <div>badges</div>
+      <div>{kid?.email}</div>
     </div>
   );
 };
 
 const KidActiveTasks = () => {
   return (
-    <Card>
+    <Card className="rounded-none">
       <CardContent>
         <div>active tasks table</div>
       </CardContent>
@@ -33,7 +44,7 @@ const KidActiveTasks = () => {
 
 const KidNeedsApproval = () => {
   return (
-    <Card>
+    <Card className="rounded-none">
       <CardContent>
         <div>needs approval table</div>
       </CardContent>
@@ -41,16 +52,30 @@ const KidNeedsApproval = () => {
   );
 };
 
+/**
+ * The component that renders this will get all of the kid ids.
+ * So each tile can then be responsible for getting the individual kid data.
+ *
+ */
+interface KidSummaryTileProps {
+  id: string;
+}
+
 export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
+  const { getKidProfile } = useKidManager();
+  const { data: kid } = getKidProfile(id);
   return (
     <>
-      <div>Kid Summary for id: {id}</div>
       <Card>
         <CardHeader>
           <div className="flex flex-row justify-between items-center">
             <div>
-              <CardTitle>Title</CardTitle>
-              <CardDescription>Description</CardDescription>
+              <CardTitle className="text-xl">
+                {kid?.firstName || "No Name!"}
+              </CardTitle>
+              <CardDescription>
+                {kid?.username || "No Username!"}
+              </CardDescription>
             </div>
             <div>actions</div>
           </div>
@@ -58,7 +83,7 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
             <div>
-              <KidProfileSummary />
+              <KidProfileSummary id={id} />
             </div>
             <div>
               <KidActiveTasks />
@@ -69,9 +94,7 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <div className="w-full mx-auto text-center">
-            Some summary info or more action buttons?
-          </div>
+          <div className="w-full mx-auto text-center">{kid?.userId}</div>
         </CardFooter>
       </Card>
     </>

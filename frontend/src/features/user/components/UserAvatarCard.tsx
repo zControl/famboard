@@ -7,7 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { UserAvatarSelector } from "@/features/user/components/UserAvatarSelector";
-import { useProfile, UserProfile } from "@/features/user/hooks/useProfile";
+import { useProfile } from "@/features/user/hooks/useProfile";
+import { UserProfile } from "@/types/user";
 import React from "react";
 
 export const UserAvatarCard = () => {
