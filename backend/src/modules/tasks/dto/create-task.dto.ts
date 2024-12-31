@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 
-enum TaskCategory {
+export enum TaskCategory {
   Personal = 'PERSONAL',
   Academic = 'ACADEMIC',
   Household = 'HOUSEHOLD',
@@ -11,7 +11,7 @@ enum TaskCategory {
   Other = 'OTHER',
 }
 
-enum TaskFrequency {
+export enum TaskFrequency {
   Always = 'ALWAYS',
   Daily = 'DAILY',
   Weekly = 'WEEKLY',
@@ -19,7 +19,7 @@ enum TaskFrequency {
   Special = 'SPECIAL',
 }
 
-enum TaskDifficulty {
+export enum TaskDifficulty {
   Easy = 'EASY',
   Medium = 'MEDIUM',
   Tricky = 'TRICKY',
@@ -33,7 +33,7 @@ enum TaskStatus {
   Removed = 'REMOVED',
 }
 
-enum TaskPriority {
+export enum TaskPriority {
   Low = 'LOW',
   Medium = 'MEDIUM',
   High = 'HIGH',

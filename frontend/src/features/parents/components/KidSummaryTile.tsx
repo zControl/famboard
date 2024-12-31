@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -25,9 +24,8 @@ const KidProfileSummary = ({ id }: { id: string }) => {
         <AvatarImage src={kid?.avatarUrl} alt="Avatar" />
         <AvatarFallback>{firstInitial(kid?.username ?? "")}</AvatarFallback>
       </Avatar>
+      <div>{kid?.username}</div>
       <div>{kid?.bio}</div>
-      <div>badges</div>
-      <div>{kid?.email}</div>
     </div>
   );
 };
@@ -73,9 +71,6 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
               <CardTitle className="text-xl">
                 {kid?.firstName || "No Name!"}
               </CardTitle>
-              <CardDescription>
-                {kid?.username || "No Username!"}
-              </CardDescription>
             </div>
             <div>actions</div>
           </div>

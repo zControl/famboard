@@ -10,7 +10,14 @@ import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User, UserGroup } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreateTaskDto } from './dto/create-task.dto';
+import {
+  CreateTaskDto,
+  TaskCategory,
+  TaskDifficulty,
+  TaskFrequency,
+  TaskPriority,
+  TaskStatus,
+} from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
 
 @Injectable()
@@ -66,13 +73,26 @@ export class TasksService {
     return `This action removes a #${id} task`;
   }
 
-  async findTasksByUser(userId: string): Promise<Task[]> {
-    return this.tasksRepository
+  async findTasksByUser(userId: string): Promise<CreateTaskDto[]> {
+    const tasks = await this.tasksRepository
       .createQueryBuilder('task')
-      .innerJoinAndSelect('task.assignments', 'assignment')
-      .innerJoinAndSelect('assignment.user', 'user')
+      .innerJoin('task.assignments', 'assignment')
+      .innerJoin('assignment.user', 'user')
       .where('user.id = :userId', { userId })
       .getMany();
+
+    return tasks.map((task) => {
+      return {
+        title: task.title,
+        description: task.description,
+        category: task.category as TaskCategory,
+        frequency: task.frequency as TaskFrequency,
+        difficulty: task.difficulty as TaskDifficulty,
+        status: task.status as TaskStatus,
+        priority: task.priority as TaskPriority,
+        note: task.note,
+      };
+    });
   }
 
   async assignTask(
