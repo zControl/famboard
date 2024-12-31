@@ -26,7 +26,7 @@ export enum TaskDifficulty {
   Hard = 'HARD',
 }
 
-enum TaskStatus {
+export enum TaskStatus {
   Pending = 'PENDING',
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
