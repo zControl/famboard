@@ -95,10 +95,6 @@ export class TasksController {
   @Get('user/:userId')
   @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
-  @ApiResponse({
-    status: 404,
-    description: 'User not found or no tasks assigned',
-  })
   findTasksByUser(@Param('userId') userId: string) {
     return this.tasksService.findTasksByUser(userId);
   }
