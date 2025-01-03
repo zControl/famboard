@@ -26,12 +26,11 @@ export enum TaskDifficulty {
   Hard = 'HARD',
 }
 
-export enum TaskStatus {
+enum TaskStatus {
   Pending = 'PENDING',
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
   Removed = 'REMOVED',
-  Completed = 'COMPLETED',
 }
 
 export enum TaskPriority {
