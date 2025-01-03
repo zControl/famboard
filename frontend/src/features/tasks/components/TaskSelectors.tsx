@@ -3,9 +3,14 @@ import { TaskCategory, TaskFrequency } from "@/types/task";
 import { enumToArray } from "@/utils/typeConverters";
 import React from "react";
 
-export const TaskCategorySelector = () => {
+export const TaskCategorySelector = ({
+  value,
+  onChange,
+}: {
+  value: TaskCategory;
+  onChange: (value: TaskCategory) => void;
+}) => {
   const [categoryOpen, setCategoryOpen] = React.useState(false);
-  const [category, setCategory] = React.useState("");
 
   const taskCategories = enumToArray(TaskCategory);
   return (
@@ -15,16 +20,21 @@ export const TaskCategorySelector = () => {
         triggerText="Category"
         open={categoryOpen}
         setOpen={setCategoryOpen}
-        value={category}
-        setValue={setCategory}
+        value={value}
+        setValue={(newValue) => onChange(newValue as TaskCategory)}
       />
     </div>
   );
 };
 
-export const TaskFrequencySelector = () => {
+export const TaskFrequencySelector = ({
+  value,
+  onChange,
+}: {
+  value: TaskFrequency;
+  onChange: (value: TaskFrequency) => void;
+}) => {
   const [frequencyOpen, setFrequencyOpen] = React.useState(false);
-  const [frequency, setFrequency] = React.useState("");
 
   const taskFrequencies = enumToArray(TaskFrequency);
   return (
@@ -34,8 +44,8 @@ export const TaskFrequencySelector = () => {
         triggerText="Frequency"
         open={frequencyOpen}
         setOpen={setFrequencyOpen}
-        value={frequency}
-        setValue={setFrequency}
+        value={value}
+        setValue={(newValue) => onChange(newValue as TaskFrequency)}
       />
     </div>
   );
