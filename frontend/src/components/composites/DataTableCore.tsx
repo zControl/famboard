@@ -26,6 +26,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   toolbar?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   caption?: string;
+  actions?: React.ReactNode;
 }
 
 export const DataTableCore = <TData, TValue>({
@@ -33,6 +34,7 @@ export const DataTableCore = <TData, TValue>({
   data,
   toolbar,
   caption,
+  actions,
 }: DataTableProps<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -81,10 +83,13 @@ export const DataTableCore = <TData, TValue>({
   };
 
   return (
-    <div className="rounded-md border space-y-2">
-      <div className="flex items-center justify-between p-2">
+    <div>
+      <div className="flex items-center justify-between">
         <div>{renderedToolbar}</div>
-        <DataTableViewOptions table={table} />
+        <div className="flex items-center">
+          <DataTableViewOptions table={table} />
+          <div>{actions}</div>
+        </div>
       </div>
       <Table>
         <TableHeader>{renderTableHeader(table)}</TableHeader>

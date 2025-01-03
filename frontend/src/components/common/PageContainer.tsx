@@ -26,7 +26,7 @@ export const PageContainer = ({
       </Helmet>
       <main
         className={cn(
-          "max-w-[1680px] w-[90%] mx-auto p-1 md:p-2 lg:p-4 flex-1 border border-teal-500",
+          "max-w-[1680px] w-[90%] mx-auto p-1 md:p-2 lg:p-4 flex-1",
           className,
         )}
       >
