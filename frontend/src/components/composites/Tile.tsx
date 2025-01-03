@@ -9,8 +9,8 @@ import {
 import React from "react";
 
 interface TileProps {
-  title: React.ReactNode;
   children: React.ReactNode;
+  title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
 }

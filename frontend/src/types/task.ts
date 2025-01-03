@@ -25,9 +25,10 @@ export enum TaskDifficulty {
 }
 
 export enum TaskStatus {
-  Todo ='TODO',
-  InProgress = 'IN_PROGRESS',
-  Done = 'DONE'
+  Pending ='PENDING',
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+  Removed = 'REMOVED',
 }
 
 export enum TaskPriority {
@@ -44,7 +45,7 @@ export interface Comment {
 }
 
 export interface Task {
-  id: number;
+  sequenceNumber: number;
   title: string;
   category: TaskCategory;
   description?: string;

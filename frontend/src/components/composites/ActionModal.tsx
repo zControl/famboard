@@ -31,7 +31,7 @@ export const ActionModal = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">{trigger}</Button>
+        <Button variant="primary">{trigger}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
