@@ -34,7 +34,7 @@ export enum TaskStatus {
 export enum TaskPriority {
   Low = 'LOW',
   Medium = 'MEDIUM',
-  High = 'HIGH'
+  High = 'HIGH',
 }
 
 export interface Comment {
@@ -47,8 +47,8 @@ export interface Comment {
 export interface Task {
   sequenceNumber: number;
   title: string;
-  category: TaskCategory;
   description?: string;
+  category: TaskCategory;
   frequency: TaskFrequency;
   difficulty: TaskDifficulty;
   status: TaskStatus;
