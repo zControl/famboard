@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Column } from "@tanstack/react-table";
+import { useState } from "react";
 
 interface DataTableFilterHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -13,19 +14,32 @@ export const DataTableFilterHeader = <TData, TValue>({
   title,
   className,
 }: DataTableFilterHeaderProps<TData, TValue>) => {
+  const [search, setSearch] = useState(false);
+
   if (!column.getCanFilter()) {
     return <div className={cn(className)}>{title}</div>;
   }
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
-      <Input
-        type="search"
-        value={(column.getFilterValue() as string) ?? ""}
-        onChange={(event) => column.setFilterValue(event.target.value)}
-        placeholder={`Search ${title}...`}
-        className="h-8 w-[150px] lg:w-[250px]"
-      />
+      {search ? (
+        <>
+          <div className="cursor-pointer" onClick={() => setSearch(false)}>
+            X
+          </div>
+          <Input
+            type="search"
+            value={(column.getFilterValue() as string) ?? ""}
+            onChange={(event) => column.setFilterValue(event.target.value)}
+            placeholder={`Search ${title}...`}
+            className="h-8 w-[80%]"
+          />
+        </>
+      ) : (
+        <div className="cursor-pointer" onClick={() => setSearch(true)}>
+          {title}
+        </div>
+      )}
     </div>
   );
 };
