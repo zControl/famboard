@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -15,35 +13,41 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { enumToArray } from "@/utils/typeConverters";
 import { ChevronsUpDown } from "lucide-react";
+import React from "react";
 
 interface Option {
   value: string;
   label: string;
 }
-interface OptionSelectorProps {
-  options: Option[];
+
+interface EnhancedSelectorProps<T extends string> {
+  value: T;
+  onChange: (value: T) => void;
+  options?: Option[];
+  enumType?: { [key: string]: T };
   triggerText: string;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  value: string;
-  setValue: (value: string) => void;
   label?: string;
 }
 
-export const OptionSelector = ({
-  options,
-  triggerText,
-  open,
-  setOpen,
+export function EnhancedSelector<T extends string>({
   value,
-  setValue,
+  onChange,
+  options,
+  enumType,
+  triggerText,
   label,
-}: OptionSelectorProps) => {
-  const handleSetValue = (value: string) => {
-    setValue(value);
-    console.log("value changed: ", value);
+}: EnhancedSelectorProps<T>) {
+  const [open, setOpen] = React.useState(false);
+
+  const selectorOptions = options || (enumType ? enumToArray(enumType) : []);
+
+  const handleSetValue = (newValue: string) => {
+    onChange(newValue as T);
+    console.log("value changed: ", newValue);
   };
+
   return (
     <div className="flex items-center space-x-4">
       <Popover open={open} onOpenChange={setOpen}>
@@ -60,7 +64,7 @@ export const OptionSelector = ({
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup>
-                {options.map((option) => (
+                {selectorOptions.map((option) => (
                   <CommandItem
                     key={option.value}
                     value={option.value}
@@ -79,4 +83,4 @@ export const OptionSelector = ({
       </Popover>
     </div>
   );
-};
+}
