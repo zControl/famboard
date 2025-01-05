@@ -14,13 +14,13 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-interface DataTablePaginationProps<TData> {
+interface TablePaginationProps<TData> {
   table: ReactTable<TData>;
 }
 
-export const DataTablePagination = <TData,>({
+export const TablePagination = <TData,>({
   table,
-}: DataTablePaginationProps<TData>) => {
+}: TablePaginationProps<TData>) => {
   return (
     <div className="flex items-center justify-between p-2">
       <div className="flex-1 text-sm text-muted-foreground">

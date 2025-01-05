@@ -22,42 +22,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { taskListSchema } from "@/features/tasks/datatable/TaskListSchema";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
 import {
-  Task,
   TaskCategory,
   TaskDifficulty,
   TaskFrequency,
   TaskPriority,
   TaskStatus,
 } from "@/types/task";
-import { createApiClient } from "@/utils/apiClient";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export const AddTaskModal = () => {
   const [open, setOpen] = React.useState(false);
-  const queryClient = useQueryClient();
-  const apiClient = createApiClient("http://localhost:3000/v1");
-
-  const addTaskMutation = useMutation({
-    mutationFn: (newTask: Partial<Task>) =>
-      apiClient.post<Task>("/tasks", newTask),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      setOpen(false);
-    },
-    onError: (error) => {
-      console.error("Error adding task:", error);
-    },
-  });
+  const { addTaskMutation } = useTasks();
 
   const handleAddTask = (data: z.infer<typeof taskListSchema>) => {
-    console.log("Adding task");
-    addTaskMutation.mutate(data);
-    console.log(data);
+    console.log("Adding task", data.title);
+    addTaskMutation.mutate(data, {
+      onSuccess: () => {
+        setOpen(false);
+      },
+      onError: (error) => {
+        console.error("Error adding task:", error);
+      },
+    });
   };
 
   const handleCancel = () => {

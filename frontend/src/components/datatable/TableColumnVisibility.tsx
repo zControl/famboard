@@ -10,13 +10,13 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Table } from "@tanstack/react-table";
 import { Settings2 } from "lucide-react";
 
-interface DataTableViewOptionsProps<TData> {
+interface TableColumnVisibilityProps<TData> {
   table: Table<TData>;
 }
 
-export const DataTableViewOptions = <TData,>({
+export const TableColumnVisibility = <TData,>({
   table,
-}: DataTableViewOptionsProps<TData>) => {
+}: TableColumnVisibilityProps<TData>) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -1,4 +1,4 @@
-import { DataTableFilterHeader } from "@/components/composites/DataTableFilterHeader";
+import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -53,7 +53,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     accessorKey: "category",
     header: ({ column }) => (
       <>
-        <DataTableFilterHeader column={column} title="Category" />
+        <TableHeaderTitleSearch column={column} title="Category" />
       </>
     ),
   },
