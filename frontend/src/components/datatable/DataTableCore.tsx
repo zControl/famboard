@@ -25,7 +25,7 @@ interface DataTableCoreProps<TData, TValue> {
   data: TData[];
   actions?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   options?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
-  caption?: string;
+  caption?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
 }
 
 export const DataTableCore = <TData, TValue>({
@@ -50,6 +50,9 @@ export const DataTableCore = <TData, TValue>({
   const optionsToolbar =
     typeof options === "function" ? options(table) : options;
 
+  const renderedCaption =
+    typeof caption === "function" ? caption(table) : caption;
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -62,7 +65,7 @@ export const DataTableCore = <TData, TValue>({
       <Table>
         <TableHeader>{renderTableHeader(table)}</TableHeader>
         <TableBody>{renderTableBody({ table, columns })}</TableBody>
-        <TableCaption>{caption}</TableCaption>
+        <TableCaption>{renderedCaption}</TableCaption>
       </Table>
       <TablePagination table={table} />
     </div>
