@@ -6,6 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
+import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
+import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 
 interface KidSummaryTileProps {
@@ -42,14 +44,12 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+            <div>{kid && <KidProfileSummaryCard kid={kid} />}</div>
             <div>
-              <KidProfileSummary id={id} />
+              <KidActiveTasksCard />
             </div>
             <div>
-              <KidActiveTasks />
-            </div>
-            <div>
-              <KidNeedsApproval />
+              <NeedsApprovalCard />
             </div>
           </div>
         </CardContent>
