@@ -3,6 +3,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useTasks = () => {
   const queryClient = useQueryClient();
+  const refreshTasks = () => {
+    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+  }
 
   const {data: tasks, isLoading, error} = useQuery({
     queryKey: ["tasks"],
@@ -11,9 +14,7 @@ export const useTasks = () => {
 
   const addTaskMutation = useMutation({
     mutationFn: createTask,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-    },
+    onSuccess: refreshTasks,
   })
 
 /*   console.log("useTasks hook generated:")
@@ -21,6 +22,7 @@ export const useTasks = () => {
 
   return {
     tasks,
+    refreshTasks,
     addTaskMutation,
     isLoading,
     error,
