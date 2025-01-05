@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table as ReactTable } from "@tanstack/react-table";
 
-interface DataTableToolbarProps<TData> {
+interface TableSearchBoxProps<TData> {
   table: ReactTable<TData>;
 }
 
-export const DataTableToolbar = <TData,>({
+export const TableSearchBox = <TData,>({
   table,
-}: DataTableToolbarProps<TData>) => {
+}: TableSearchBoxProps<TData>) => {
   return (
     <div className="flex items-center justify-between space-x-2">
       <Input

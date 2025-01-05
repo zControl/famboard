@@ -1,5 +1,3 @@
-// backend/src/modules/tasks/dto/create-task.dto.ts
-
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 
@@ -29,9 +27,10 @@ enum TaskDifficulty {
 }
 
 enum TaskStatus {
-  Todo = 'TODO',
-  InProgress = 'IN_PROGRESS',
-  Done = 'DONE',
+  Pending = 'PENDING',
+  Active = 'ACTIVE',
+  Inactive = 'INACTIVE',
+  Removed = 'REMOVED',
 }
 
 enum TaskPriority {

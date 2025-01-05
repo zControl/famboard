@@ -11,17 +11,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-interface DataTableSortHeaderProps<TData, TValue>
+interface TableHeaderSortProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
 }
 
-export const DataTableSortHeader = <TData, TValue>({
+export const TableHeaderSort = <TData, TValue>({
   column,
   title,
   className,
-}: DataTableSortHeaderProps<TData, TValue>) => {
+}: TableHeaderSortProps<TData, TValue>) => {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
