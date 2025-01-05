@@ -1,9 +1,8 @@
 import { PageSections } from "@/components/common/PageSections";
-import { DataTableCore } from "@/components/composites/DataTableCore";
-import { DataTableFilterHeader } from "@/components/composites/DataTableFilterHeader";
-import { DataTableSortHeader } from "@/components/composites/DataTableSortHeader";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableToolbar } from "@/components/data/DataTableToolbar";
+import { DataTableCore } from "@/components/datatable/DataTableCore";
+import { TableHeaderSort } from "@/components/datatable/TableHeaderSort";
+import { TableSearchBox } from "@/components/datatable/TableSearchBox";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
@@ -125,12 +124,12 @@ function TableFromDatabase() {
     {
       accessorKey: "name",
       header: ({ column }: { column: Column<FullDataType, string> }) => (
-        <DataTableFilterHeader column={column} title="Name" />
+        <TableHeaderSort column={column} title="Name" />
       ),
     },
     {
       header: ({ column }: { column: Column<FullDataType, string> }) => (
-        <DataTableSortHeader column={column} title="Count" />
+        <TableHeaderSort column={column} title="Count" />
       ),
       accessorKey: "count",
       sortingFns: "alphanumeric",
@@ -174,9 +173,9 @@ function TableFromDatabase() {
       )}
       {!isError && !isPending && !isFetching && (
         <DataTableCore
-          columns={columns}
           data={data || []}
-          toolbar={toolbar}
+          columns={columns}
+          actions={toolbar}
           caption="Complete data set from the database, with formatted dates."
         />
       )}
@@ -226,7 +225,7 @@ function SummaryTableWithCustomDataShape() {
             },
           ]}
           data={data || []}
-          toolbar={(table) => <DataTableToolbar table={table} />}
+          actions={(table) => <TableSearchBox table={table} />}
           caption="This data comes from database, via custom DTO, reusable apiClient, and react-query!"
         />
       )}

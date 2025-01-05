@@ -1,7 +1,7 @@
 import { PageSections } from "@/components/common/PageSections";
 import { DataTableCore } from "@/components/composites/DataTableCore";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableToolbar } from "@/components/data/DataTableToolbar";
+import { DataTableToolbar } from "@/components/datatable/TableSearchBox";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import {

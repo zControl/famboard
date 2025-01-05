@@ -45,6 +45,7 @@ export interface Comment {
 }
 
 export interface Task {
+  id: string;
   sequenceNumber: number;
   title: string;
   description?: string;

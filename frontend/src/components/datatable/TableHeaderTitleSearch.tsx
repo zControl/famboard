@@ -3,17 +3,17 @@ import { cn } from "@/lib/utils";
 import { Column } from "@tanstack/react-table";
 import { useState } from "react";
 
-interface DataTableFilterHeaderProps<TData, TValue>
+interface TableHeaderTitleSearchProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
 }
 
-export const DataTableFilterHeader = <TData, TValue>({
+export const TableHeaderTitleSearch = <TData, TValue>({
   column,
   title,
   className,
-}: DataTableFilterHeaderProps<TData, TValue>) => {
+}: TableHeaderTitleSearchProps<TData, TValue>) => {
   const [search, setSearch] = useState(false);
 
   if (!column.getCanFilter()) {
