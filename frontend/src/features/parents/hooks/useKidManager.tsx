@@ -7,21 +7,24 @@ export const useKidManager = () => {
   const apiClient = createApiClient(API_ENDPOINTS.BASE);
 
   const {
-    data: kidIds,
+    data: kidIdsResponse,
     isLoading: isLoadingIds,
     error: idsError,
   } = useQuery({
     queryKey: ["kidIds"],
     queryFn: async () => {
-      const response = await apiClient.get<string[]>("/users/kid");
+      const response =
+        await apiClient.get<{ id: string }[]>("/users/group/kid");
       return response;
     },
   });
 
+  const kidIds = kidIdsResponse ?? [];
+
   const kidProfileQueries = useQueries({
-    queries: (kidIds ?? []).map((id) => ({
-      queryKey: ["kid-profile", id],
-      queryFn: () => apiClient.get<UserProfile>(`/users/${id}/profile`),
+    queries: kidIds.map((kidData) => ({
+      queryKey: ["kid-profile", kidData.id],
+      queryFn: () => apiClient.get<UserProfile>(`/users/${kidData.id}/profile`),
       staleTime: 5 * 60 * 1000, // 5 minutes
     })),
   });
@@ -38,7 +41,7 @@ export const useKidManager = () => {
   };
 
   return {
-    kidIds,
+    kidIds: kidIds.map((kid) => kid.id),
     isLoadingIds,
     idsError,
     getKidProfile,

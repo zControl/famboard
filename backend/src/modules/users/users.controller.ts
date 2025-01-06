@@ -1,6 +1,13 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+} from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
-import { UserGroup } from 'src/modules/users/entities/user.entity';
+import { User, UserGroup } from 'src/modules/users/entities/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -13,12 +20,14 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':group')
+  @Get('group/:group')
   @ApiOperation({ summary: 'Get the ids of all users in the specified group' })
   @ApiParam({ name: 'group', description: 'User group' })
-  async getIdsByGroup(@Param('group') group: UserGroup): Promise<string[]> {
-    const users = await this.usersService.findByGroup(group);
-    return users.map((user) => user.id);
+  async getIdsByGroup(@Param('group') group: string): Promise<User[]> {
+    if (!Object.values(UserGroup).includes(group as UserGroup)) {
+      throw new BadRequestException(`Invalid user group: ${group}`);
+    }
+    return this.usersService.findByGroup(group as UserGroup);
   }
 
   @Get(':id')

@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserProfileDto } from 'src/modules/users/dto/user-profile.dto';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
@@ -39,10 +43,15 @@ export class UsersService {
   }
 
   async findByGroup(group: UserGroup): Promise<User[]> {
-    return this.usersRepository.find({
-      where: { group },
-      select: ['id', 'username'],
-    });
+    try {
+      return await this.usersRepository.find({
+        where: { group },
+        select: ['id'],
+      });
+    } catch (error) {
+      console.error('Error in findByGroup:', error);
+      throw new InternalServerErrorException('Error fetching users by group');
+    }
   }
 
   async checkUsername(username: string): Promise<User | undefined> {
@@ -78,6 +87,7 @@ export class UsersService {
 
       // Create the user profile from savedUser with default values
       const defaultProfile = {
+        userId: savedUser.id,
         user: savedUser,
         firstName: '',
         bio: 'Not specified...',
@@ -102,14 +112,17 @@ export class UsersService {
   }
 
   async getProfile(userId: string): Promise<UserProfileDto> {
+    console.log(`Fetching profile for user ID: ${userId}`);
     const profile = await this.userProfileRepository.findOne({
       where: { user: { id: userId } },
       relations: ['user'],
     });
 
     if (!profile) {
+      console.log(`Profile not found for user ID: ${userId}`);
       throw new NotFoundException('Profile not found');
     }
+    console.log(`Profile found:`, profile);
     return {
       userId: profile.user.id,
       username: profile.user.username,
