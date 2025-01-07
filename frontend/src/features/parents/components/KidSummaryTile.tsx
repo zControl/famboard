@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
+import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
 import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 
@@ -46,7 +47,7 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
             {kid && <KidProfileSummaryCard kid={kid} />}
           </div>
           <div className="flex flex-row justify-around w-full gap-x-4">
-            {/* <KidActiveTasksCard userId={kid?.userId ?? ""} /> */}
+            <KidActiveTasksCard userId={kid?.userId ?? ""} />
             <NeedsApprovalCard />
           </div>
         </div>
