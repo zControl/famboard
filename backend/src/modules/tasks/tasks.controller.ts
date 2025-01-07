@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
+import { TaskAssignedUsersDto } from 'src/modules/tasks/dto/task-assigned-users.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -42,7 +43,7 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
-  @Get(':id')
+  @Get(':taskId')
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
@@ -50,7 +51,7 @@ export class TasksController {
     return this.tasksService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':taskId')
   @ApiOperation({ summary: 'Update a task' })
   @ApiResponse({ status: 200, description: 'Task updated successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
@@ -59,7 +60,15 @@ export class TasksController {
     return this.tasksService.update(id, updateTaskDto);
   }
 
-  @Delete(':id')
+  @Get(':taskId/users')
+  @ApiOperation({ summary: 'Get users assigned to a specific task' })
+  async getUsersForTask(
+    @Param('taskId') taskId: string,
+  ): Promise<TaskAssignedUsersDto[]> {
+    return this.tasksService.findUsersByTask(taskId);
+  }
+
+  @Delete(':taskId')
   @ApiOperation({ summary: 'Delete a task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })

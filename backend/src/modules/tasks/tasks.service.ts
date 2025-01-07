@@ -6,18 +6,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
+import { TaskAssignedUsersDto } from 'src/modules/tasks/dto/task-assigned-users.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
+import { UserAssignedTasksDto } from 'src/modules/tasks/dto/user-assigned-tasks.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User, UserGroup } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import {
-  CreateTaskDto,
-  TaskCategory,
-  TaskDifficulty,
-  TaskFrequency,
-  TaskPriority,
-  TaskStatus,
-} from './dto/create-task.dto';
+import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
 
 @Injectable()
@@ -73,26 +68,31 @@ export class TasksService {
     return `This action removes a #${id} task`;
   }
 
-  async findTasksByUser(userId: string): Promise<CreateTaskDto[]> {
-    const tasks = await this.tasksRepository
-      .createQueryBuilder('task')
-      .innerJoin('task.assignments', 'assignment')
-      .innerJoin('assignment.user', 'user')
-      .where('user.id = :userId', { userId })
+  async findTasksByUser(userId: string): Promise<UserAssignedTasksDto[]> {
+    const taskAssignments = await this.taskAssignmentRepository
+      .createQueryBuilder('taskAssignment')
+      .innerJoinAndSelect('taskAssignment.task', 'task')
+      .where('taskAssignment.userId = :userId', { userId })
       .getMany();
 
-    return tasks.map((task) => {
-      return {
-        title: task.title,
-        description: task.description,
-        category: task.category as TaskCategory,
-        frequency: task.frequency as TaskFrequency,
-        difficulty: task.difficulty as TaskDifficulty,
-        status: task.status as TaskStatus,
-        priority: task.priority as TaskPriority,
-        note: task.note,
-      };
-    });
+    return taskAssignments.map((assignment) => ({
+      taskId: assignment.task.id,
+      taskTitle: assignment.task.title,
+    }));
+  }
+
+  async findUsersByTask(taskId: string): Promise<TaskAssignedUsersDto[]> {
+    const userAssignments = await this.taskAssignmentRepository
+      .createQueryBuilder('taskAssignment')
+      .innerJoinAndSelect('taskAssignment.user', 'user')
+      .where('taskAssignment.taskId = :taskId', { taskId })
+      .getMany();
+
+    return userAssignments.map((assignment) => ({
+      assignmentId: assignment.id,
+      userId: assignment.user.id,
+      userName: assignment.user.username,
+    }));
   }
 
   async assignTask(
