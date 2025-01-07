@@ -56,4 +56,5 @@ export interface Task {
   priority: TaskPriority;
   note?: string;
   comments?: Comment[];
+  assignedTo?: User[];
 }

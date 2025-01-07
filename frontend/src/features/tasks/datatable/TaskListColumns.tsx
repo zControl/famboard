@@ -1,45 +1,29 @@
 import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { RowActionsMenu } from "@/features/tasks/datatable/RowActionsMenu";
+import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
+
 import { Task } from "@/types/task";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 
 export const taskListColumns: ColumnDef<Task>[] = [
   {
     id: "actions",
+    cell: ({ row }) => <RowActionsMenu row={row} />,
+  },
+  {
+    header: "Number",
+    accessorKey: "sequenceNumber",
+    enableSorting: true,
+    enableHiding: false,
     cell: ({ row }) => {
       const task = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(task.title)}
-            >
-              Copy task title
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit?</DropdownMenuItem>
-            <DropdownMenuItem>Assign?</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return task.sequenceNumber;
     },
+  },
+  {
+    header: "Assigned",
+    accessorKey: "assignedTo",
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
   },
   {
     header: "Title",

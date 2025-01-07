@@ -5,8 +5,6 @@ import {
   CreateDateColumn,
   Entity,
   Generated,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -53,10 +51,6 @@ export class Task {
 
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
-
-  @ManyToMany(() => User, (user) => user.assignedTasks)
-  @JoinTable()
-  assignedUsers: User[];
 
   @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
   assignments: TaskAssignment[];

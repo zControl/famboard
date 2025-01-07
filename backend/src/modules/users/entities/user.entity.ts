@@ -1,13 +1,11 @@
 import * as bcrypt from 'bcrypt';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { Task } from 'src/modules/tasks/entities/task.entity';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
-  ManyToMany,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -43,9 +41,6 @@ export class User {
     default: UserGroup.GUEST,
   })
   group: UserGroup;
-
-  @ManyToMany(() => Task, (task) => task.assignedUsers)
-  assignedTasks: Task[];
 
   @OneToMany(() => TaskAssignment, (assignment) => assignment.user)
   taskAssignments: TaskAssignment[];

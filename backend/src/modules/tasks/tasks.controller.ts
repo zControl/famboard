@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Request,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
@@ -80,16 +79,8 @@ export class TasksController {
     } */
     /* for now, we are just manually assigning the admin user id for the assigner.
      */
-    const testAssignerId = '82e14d69-1211-4fca-abab-0672d8827080';
+    const testAssignerId = 'e62046b0-282f-429e-b6c5-c01740fc5502';
     return this.tasksService.assignTask(assignTaskDto, testAssignerId);
-  }
-
-  @Post(':id/complete')
-  @ApiOperation({ summary: 'Complete a task' })
-  @ApiResponse({ status: 200, description: 'Task completed successfully' })
-  @ApiResponse({ status: 400, description: 'Validation error' })
-  completeTask(@Param('id') id: string, @Request() req) {
-    return this.tasksService.completeTask(id, req.user.id);
   }
 
   @Get('user/:userId')

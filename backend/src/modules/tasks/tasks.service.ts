@@ -98,7 +98,7 @@ export class TasksService {
   async assignTask(
     assignTaskDto: AssignTaskDto,
     assignerId: string,
-  ): Promise<Task> {
+  ): Promise<{ message: string }> {
     const task = await this.tasksRepository.findOne({
       where: { id: assignTaskDto.taskId },
     });
@@ -135,25 +135,8 @@ export class TasksService {
 
     await this.taskAssignmentRepository.save(assignments);
 
-    return this.tasksRepository.findOne({
-      where: { id: task.id },
-      relations: ['assignedUsers'],
-    });
-  }
-
-  async completeTask(taskId: string, userId: string): Promise<TaskAssignment> {
-    const assignment = await this.taskAssignmentRepository.findOne({
-      where: { task: { id: taskId }, user: { id: userId } },
-      relations: ['task', 'user'],
-    });
-
-    if (!assignment) {
-      throw new NotFoundException('Task assignment not found');
-    }
-
-    assignment.completed = true;
-    assignment.completedAt = new Date();
-
-    return this.taskAssignmentRepository.save(assignment);
+    return {
+      message: 'Task assigned successfully',
+    };
   }
 }
