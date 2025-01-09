@@ -8,8 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AssignSingleTaskDto } from 'src/modules/tasks/dto/assign-single-task.dto';
 import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
-import { TaskAssignedUsersDto } from 'src/modules/tasks/dto/task-assigned-users.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -60,12 +60,27 @@ export class TasksController {
     return this.tasksService.update(id, updateTaskDto);
   }
 
-  @Get(':taskId/users')
+  /*   @Get(':taskId/users')
   @ApiOperation({ summary: 'Get users assigned to a specific task' })
   async getUsersForTask(
     @Param('taskId') taskId: string,
   ): Promise<TaskAssignedUsersDto[]> {
     return this.tasksService.findUsersByTask(taskId);
+  } */
+
+  @Post(':taskId/assign')
+  @ApiOperation({ summary: 'Assign a user to a task' })
+  @ApiBody({ type: AssignSingleTaskDto })
+  async assignUserToTask(
+    @Param('taskId') taskId: string,
+    @Body('userId') userId: string,
+  ) {
+    return this.tasksService.assignUserToTask(taskId, userId);
+  }
+
+  @Get(':taskId/assigned-users')
+  async getAssignedUsers(@Param('taskId') taskId: string) {
+    return this.tasksService.getAssignedUsers(taskId);
   }
 
   @Delete(':taskId')
@@ -77,7 +92,7 @@ export class TasksController {
   }
 
   @Post('assign')
-  @ApiOperation({ summary: 'Assign a task to a user' })
+  @ApiOperation({ summary: 'Assign a task to multiple users at once.' })
   @ApiResponse({ status: 200, description: 'Task assigned successfully' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

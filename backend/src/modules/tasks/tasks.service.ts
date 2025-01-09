@@ -6,12 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
-import { TaskAssignedUsersDto } from 'src/modules/tasks/dto/task-assigned-users.dto';
+import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
-import { UserAssignedTasksDto } from 'src/modules/tasks/dto/user-assigned-tasks.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User, UserGroup } from 'src/modules/users/entities/user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
 
@@ -50,6 +49,20 @@ export class TasksService {
     return task;
   }
 
+  async findTaskById(taskId: string): Promise<Task> {
+    const task = await this.tasksRepository.findOne({ where: { id: taskId } });
+    if (!task)
+      throw new NotFoundException(`Task with ID "${taskId}" not found`);
+    return task;
+  }
+
+  async findUserById(userId: string): Promise<User> {
+    const user = await this.usersRepository.findOne({ where: { id: userId } });
+    if (!user)
+      throw new NotFoundException(`User with ID "${userId}" not found`);
+    return user;
+  }
+
   async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
     const task = await this.tasksRepository.findOne({ where: { id } });
 
@@ -68,33 +81,79 @@ export class TasksService {
     return `This action removes a #${id} task`;
   }
 
-  async findTasksByUser(userId: string): Promise<UserAssignedTasksDto[]> {
-    const taskAssignments = await this.taskAssignmentRepository
-      .createQueryBuilder('taskAssignment')
-      .innerJoinAndSelect('taskAssignment.task', 'task')
-      .where('taskAssignment.userId = :userId', { userId })
-      .getMany();
+  async assignUserToTask(taskId: string, userId: string): Promise<Task> {
+    const task = await this.findTaskById(taskId);
+    const user = await this.findUserById(userId);
 
-    return taskAssignments.map((assignment) => ({
-      taskId: assignment.task.id,
-      taskTitle: assignment.task.title,
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (!task.assignedUserIds.includes(userId)) {
+      task.assignedUserIds = [...task.assignedUserIds, userId];
+      await this.tasksRepository.save(task);
+
+      const assignment = new TaskAssignment();
+      assignment.task = task;
+      assignment.user = user;
+      await this.taskAssignmentRepository.save(assignment);
+    }
+
+    return task;
+  }
+
+  async getAssignedUsers(taskId: string): Promise<AssignedUserDto[]> {
+    const task = await this.findTaskById(taskId);
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+
+    const users = await this.usersRepository.find({
+      where: {
+        id: In(task.assignedUserIds),
+      },
+      select: ['id', 'username'], // Only select the fields we need
+    });
+
+    return users.map((user) => ({
+      id: user.id,
+      username: user.username,
     }));
   }
 
-  async findUsersByTask(taskId: string): Promise<TaskAssignedUsersDto[]> {
-    const userAssignments = await this.taskAssignmentRepository
-      .createQueryBuilder('taskAssignment')
-      .innerJoinAndSelect('taskAssignment.user', 'user')
-      .where('taskAssignment.taskId = :taskId', { taskId })
-      .getMany();
+  async findUsersByTask(taskId: string): Promise<User[]> {
+    const task = await this.findTaskById(taskId);
+    console.log('Task:', task);
+    console.log('Assigned User IDs:', task.assignedUserIds);
 
-    return userAssignments.map((assignment) => ({
-      assignmentId: assignment.id,
-      userId: assignment.user.id,
-      userName: assignment.user.username,
-    }));
+    if (!task.assignedUserIds || task.assignedUserIds.length === 0) {
+      return []; // Return an empty array if no users are assigned
+    }
+    const users = await this.usersRepository.find({
+      where: {
+        id: In(task.assignedUserIds),
+      },
+    });
+
+    console.log('Found Users:', users);
+
+    return users;
   }
 
+  async findTasksByUser(userId: string): Promise<Task[]> {
+    const assignments = await this.taskAssignmentRepository.find({
+      where: { user: { id: userId } },
+      relations: ['task'],
+    });
+
+    return assignments.map((assignment) => assignment.task);
+  }
+
+  // This was the old method of assigning a task to multiple users...might not be needed anymore.
   async assignTask(
     assignTaskDto: AssignTaskDto,
     assignerId: string,
