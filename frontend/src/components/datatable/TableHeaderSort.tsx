@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-interface TableHeaderSortProps<TData, TValue>
+export interface TableHeaderSortProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
-  title: string;
+  title?: string;
 }
 
 export const TableHeaderSort = <TData, TValue>({

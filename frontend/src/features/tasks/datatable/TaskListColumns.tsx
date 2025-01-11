@@ -1,44 +1,51 @@
+import { TableHeaderSort } from "@/components/datatable/TableHeaderSort";
 import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
+import { RowActionAddAssignment } from "@/features/tasks/datatable/RowActionAddAssignment";
 import { RowActionsMenu } from "@/features/tasks/datatable/RowActionsMenu";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
+import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
 import { Task } from "@/types/task";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
   {
-    id: "actions",
-    cell: ({ row }) => <RowActionsMenu row={row} />,
-  },
-  {
-    header: "Number",
     accessorKey: "sequenceNumber",
     enableSorting: true,
     enableHiding: false,
+    header: ({ column }) => <TableHeaderSort column={column} />,
     cell: ({ row }) => {
       const task = row.original;
       return task.sequenceNumber;
     },
   },
   {
-    header: "Assigned",
-    accessorKey: "assignedTo",
+    accessorKey: "assigned",
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
     cell: ({ row }) => <TaskAssignmentsCell row={row} />,
   },
   {
-    header: "Title",
-    accessorKey: "title",
+    id: "add-assignment",
+    cell: ({ row }) => <RowActionAddAssignment row={row} />,
   },
   {
-    header: "Description",
+    accessorKey: "title",
+    header: ({ column }) => (
+      <TableHeaderTitleSearch column={column} title="Title" />
+    ),
+  },
+  {
     accessorKey: "description",
+    header: ({ column }) => (
+      <TableHeaderTitleSearch column={column} title="Description" />
+    ),
   },
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <>
-        <TableHeaderTitleSearch column={column} title="Category" />
-      </>
+      <TableHeaderTitleSearch column={column} title="Category" />
     ),
   },
   {
@@ -60,5 +67,9 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     header: "Note",
     accessorKey: "note",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <RowActionsMenu row={row} />,
   },
 ];

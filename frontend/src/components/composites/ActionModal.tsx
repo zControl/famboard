@@ -17,6 +17,8 @@ interface ActionModalProps {
   title: React.ReactNode;
   description: React.ReactNode;
   children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onCancel: () => void;
   onConfirm: () => void;
 }
@@ -25,11 +27,13 @@ export const ActionModal = ({
   title,
   description,
   children,
+  open,
+  onOpenChange,
   onCancel,
   onConfirm,
 }: ActionModalProps) => {
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={() => onOpenChange}>
       <AlertDialogTrigger asChild>
         <Button variant="primary">{trigger}</Button>
       </AlertDialogTrigger>

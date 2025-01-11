@@ -54,7 +54,7 @@ export const DataTableCore = <TData, TValue>({
     typeof caption === "function" ? caption(table) : caption;
 
   return (
-    <div>
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
         <div>{actionsToolbar}</div>
         <div className="flex items-center">
@@ -63,7 +63,9 @@ export const DataTableCore = <TData, TValue>({
         </div>
       </div>
       <Table>
-        <TableHeader>{renderTableHeader(table)}</TableHeader>
+        <TableHeader className="bg-muted px-2">
+          {renderTableHeader(table)}
+        </TableHeader>
         <TableBody>{renderTableBody({ table, columns })}</TableBody>
         <TableCaption>{renderedCaption}</TableCaption>
       </Table>

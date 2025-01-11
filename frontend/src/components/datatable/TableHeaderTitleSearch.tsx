@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Column } from "@tanstack/react-table";
+import { XCircleIcon } from "lucide-react";
 import { useState } from "react";
 
 interface TableHeaderTitleSearchProps<TData, TValue>
@@ -25,7 +26,7 @@ export const TableHeaderTitleSearch = <TData, TValue>({
       {search ? (
         <>
           <div className="cursor-pointer" onClick={() => setSearch(false)}>
-            X
+            <XCircleIcon className="h-4 w-4" />
           </div>
           <Input
             type="search"

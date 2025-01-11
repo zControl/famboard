@@ -16,15 +16,17 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
     queryFn: () => getAssignedUsers(taskId),
   });
   return (
-    <div className="flex -space-x-2 overflow-hidden">
-      {taskAssignments?.map((assignment) => (
-        <UserAvatar key={assignment.id} userId={assignment.id} />
-      ))}
+    <div className="flex flex-row justify-between">
+      <div className="flex -space-x-2 overflow-hidden">
+        {taskAssignments?.map((assignment) => (
+          <AssignedUserAvatar key={assignment.id} userId={assignment.id} />
+        ))}
+      </div>
     </div>
   );
 };
 
-const UserAvatar = ({ userId }: { userId: string }) => {
+const AssignedUserAvatar = ({ userId }: { userId: string }) => {
   const { data: userProfile, isLoading } = useUserProfile(userId);
 
   if (isLoading) return null; // or a loading placeholder
