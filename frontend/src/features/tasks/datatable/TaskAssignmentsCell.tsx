@@ -1,8 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getAssignedUsers } from "@/features/tasks/api/taskApi";
+import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { Task } from "@/types/task";
-import { useQuery } from "@tanstack/react-query";
 import { Row } from "@tanstack/react-table";
 
 interface TaskAssignmentsCellProps {
@@ -11,10 +10,7 @@ interface TaskAssignmentsCellProps {
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   const taskId = row.original.id;
-  const { data: taskAssignments } = useQuery({
-    queryKey: ["task-assignments", taskId],
-    queryFn: () => getAssignedUsers(taskId),
-  });
+  const { taskAssignments } = useAssignments(taskId);
   return (
     <div className="flex flex-row justify-between">
       <div className="flex -space-x-2 overflow-hidden">

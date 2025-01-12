@@ -62,8 +62,3 @@ export interface AssignedTaskResponse {
   id: string;
   username: string;
 }
-export interface TaskAssignment {
-  taskId: string;
-  userId: string;
-  userName: string;
-}

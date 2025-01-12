@@ -8,8 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AssignSingleTaskDto } from 'src/modules/tasks/dto/assign-single-task.dto';
-import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
+import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
+import { TaskToSingleUserDto } from 'src/modules/tasks/dto/task-to-single-user.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -68,16 +68,6 @@ export class TasksController {
     return this.tasksService.findUsersByTask(taskId);
   } */
 
-  @Post(':taskId/assign')
-  @ApiOperation({ summary: 'Assign a user to a task' })
-  @ApiBody({ type: AssignSingleTaskDto })
-  async assignUserToTask(
-    @Param('taskId') taskId: string,
-    @Body('userId') userId: string,
-  ) {
-    return this.tasksService.assignUserToTask(taskId, userId);
-  }
-
   @Get(':taskId/assigned-users')
   async getAssignedUsers(@Param('taskId') taskId: string) {
     return this.tasksService.getAssignedUsers(taskId);
@@ -91,20 +81,24 @@ export class TasksController {
     return this.tasksService.remove(id);
   }
 
-  @Post('assign')
-  @ApiOperation({ summary: 'Assign a task to multiple users at once.' })
-  @ApiResponse({ status: 200, description: 'Task assigned successfully' })
-  @ApiResponse({ status: 400, description: 'Validation error' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBody({ type: AssignTaskDto })
-  assignTask(@Body() assignTaskDto: AssignTaskDto) {
-    /* if (!req.user || !req.user.id) {
-      throw new UnauthorizedException('User not authenticated');
-    } */
-    /* for now, we are just manually assigning the admin user id for the assigner.
-     */
-    const testAssignerId = 'e62046b0-282f-429e-b6c5-c01740fc5502';
-    return this.tasksService.assignTask(assignTaskDto, testAssignerId);
+  @Post(':taskId/assign-single')
+  @ApiOperation({ summary: 'Assign a user to a task' })
+  @ApiBody({ type: TaskToSingleUserDto })
+  async assignUserToTask(
+    @Param('taskId') taskId: string,
+    @Body('userId') userId: string,
+  ) {
+    return this.tasksService.assignUserToTask(taskId, userId);
+  }
+
+  @Post(':taskId/assign-multiple')
+  @ApiOperation({ summary: 'Assign multiple users to a task' })
+  @ApiBody({ type: TaskToMultipleUsersDto })
+  async assignMultipleUsersToTask(
+    @Param('taskId') taskId: string,
+    @Body('userIds') userIds: string[],
+  ) {
+    return this.tasksService.assignMultipleUsersToTask(taskId, userIds);
   }
 
   @Get('user/:userId')

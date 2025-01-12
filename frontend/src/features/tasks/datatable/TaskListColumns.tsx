@@ -24,11 +24,11 @@ export const taskListColumns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <TaskAssignmentsHeader column={column} title="Assigned" />
     ),
-    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
-  },
-  {
-    id: "add-assignment",
-    cell: ({ row }) => <RowActionAddAssignment row={row} />,
+    cell: ({ row }) => (
+      <div className="flex flex-row justify-between items-center space-x-4">
+        <TaskAssignmentsCell row={row} /> <RowActionAddAssignment row={row} />
+      </div>
+    ),
   },
   {
     accessorKey: "title",

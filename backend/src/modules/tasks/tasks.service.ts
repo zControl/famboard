@@ -1,15 +1,9 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AssignTaskDto } from 'src/modules/tasks/dto/assign-task.dto';
 import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { User, UserGroup } from 'src/modules/users/entities/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { In, Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
@@ -106,6 +100,37 @@ export class TasksService {
     return task;
   }
 
+  async assignMultipleUsersToTask(
+    taskId: string,
+    userIds: string[],
+  ): Promise<Task> {
+    const task = await this.findTaskById(taskId);
+    const users = await this.usersRepository.find({
+      where: { id: In(userIds) },
+    });
+
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+
+    if (!users) {
+      throw new NotFoundException('Users not found');
+    }
+
+    task.assignedUserIds = [...task.assignedUserIds, ...userIds];
+    await this.tasksRepository.save(task);
+
+    const assignments = users.map((user) => {
+      const assignment = new TaskAssignment();
+      assignment.task = task;
+      assignment.user = user;
+      return assignment;
+    });
+    await this.taskAssignmentRepository.save(assignments);
+
+    return task;
+  }
+
   async getAssignedUsers(taskId: string): Promise<AssignedUserDto[]> {
     const task = await this.findTaskById(taskId);
     if (!task) {
@@ -154,7 +179,7 @@ export class TasksService {
   }
 
   // This was the old method of assigning a task to multiple users...might not be needed anymore.
-  async assignTask(
+  /*   async assignTask(
     assignTaskDto: AssignTaskDto,
     assignerId: string,
   ): Promise<{ message: string }> {
@@ -197,5 +222,5 @@ export class TasksService {
     return {
       message: 'Task assigned successfully',
     };
-  }
+  } */
 }

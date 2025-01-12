@@ -6,6 +6,8 @@ interface AssignTaskModalProps {
   row: Row<Task>;
   open: boolean;
 }
+
+// DETERMINE IF THIS SHOULD BE USED INSTEAD OF <AlertDialog>
 export const AssignTaskModal = ({ row, open }: AssignTaskModalProps) => {
   const handleAssignTask = () => {
     console.log("Assigning task");
