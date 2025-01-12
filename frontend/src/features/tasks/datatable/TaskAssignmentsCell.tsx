@@ -3,6 +3,8 @@ import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
+import { Edit2Icon } from "lucide-react";
+import { useState } from "react";
 
 interface TaskAssignmentsCellProps {
   row: Row<Task>;
@@ -11,13 +13,31 @@ interface TaskAssignmentsCellProps {
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   const taskId = row.original.id;
   const { taskAssignments } = useAssignments(taskId);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleEditClick = () => {
+    console.log(`Editing assignments for task ${taskId}`);
+  };
+
   return (
-    <div className="flex flex-row justify-between">
+    <div
+      className="flex flex-row justify-between relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="flex -space-x-2 overflow-hidden">
         {taskAssignments?.map((assignment) => (
           <AssignedUserAvatar key={assignment.id} userId={assignment.id} />
         ))}
       </div>
+      {isHovered && (
+        <div
+          className="absolute inset-0 bg-background/80 flex items-center justify-center"
+          onClick={handleEditClick}
+        >
+          <Edit2Icon className="h-4 w-4" />
+        </div>
+      )}
     </div>
   );
 };
