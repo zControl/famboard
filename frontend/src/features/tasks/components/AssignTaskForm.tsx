@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { Task } from "@/types/task";
@@ -51,15 +50,18 @@ export const AssignTaskForm = ({
       <p>Looking at assignments of {row.original.id}</p>
       {kidIds.map((kidId) => {
         const { data: kidProfile } = getKidProfile(kidId);
+        const isSelected = selectedKids.includes(kidId);
         return (
           <>
-            <div key={kidId} className="flex items-center space-x-4 p-2">
-              <Checkbox
-                checked={selectedKids.includes(kidId)}
-                onCheckedChange={(checked) =>
-                  handleKidSelection(kidId, checked as boolean)
-                }
-              />
+            <div
+              key={kidId}
+              className={`flex items-center space-x-4 p-2 cursor-pointer ${
+                isSelected
+                  ? "border-2 border-green-500"
+                  : "border-2 border-white"
+              }`}
+              onClick={() => handleKidSelection(kidId, !isSelected)}
+            >
               <Avatar>
                 <AvatarImage
                   src={kidProfile?.avatarUrl}
