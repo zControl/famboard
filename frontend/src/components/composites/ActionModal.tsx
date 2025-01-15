@@ -9,13 +9,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import React from "react";
 
 interface ActionModalProps {
-  trigger: React.ReactNode;
   title: React.ReactNode;
   description: React.ReactNode;
+  trigger?: React.ReactNode;
   children?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -34,9 +33,7 @@ export const ActionModal = ({
 }: ActionModalProps) => {
   return (
     <AlertDialog open={open} onOpenChange={() => onOpenChange}>
-      <AlertDialogTrigger asChild>
-        <Button variant="primary">{trigger}</Button>
-      </AlertDialogTrigger>
+      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>

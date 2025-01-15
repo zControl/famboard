@@ -45,8 +45,6 @@ export const TaskAssignmentsHeader = <TData, TValue>({
     return <div className={cn(className)}>{title}</div>;
   }
 
-  console.log("selectedKids", selectedKids);
-
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu open={open} onOpenChange={setOpen}>

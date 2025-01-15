@@ -105,28 +105,42 @@ export class TasksService {
     userIds: string[],
   ): Promise<Task> {
     const task = await this.findTaskById(taskId);
-    const users = await this.usersRepository.find({
-      where: { id: In(userIds) },
-    });
 
     if (!task) {
       throw new NotFoundException('Task not found');
     }
 
-    if (!users) {
-      throw new NotFoundException('Users not found');
-    }
+    // Find all users (both to be added and removed)
+    const allRelevantUsers = await this.usersRepository.find({
+      where: { id: In([...task.assignedUserIds, ...userIds]) },
+    });
 
-    task.assignedUserIds = [...task.assignedUserIds, ...userIds];
+    // Update the task's assignedUserIds
+    task.assignedUserIds = userIds;
     await this.tasksRepository.save(task);
 
-    const assignments = users.map((user) => {
-      const assignment = new TaskAssignment();
-      assignment.task = task;
-      assignment.user = user;
-      return assignment;
+    // Remove old assignments
+    await this.taskAssignmentRepository.delete({
+      task: { id: taskId },
+      user: {
+        id: In(task.assignedUserIds.filter((id) => !userIds.includes(id))),
+      },
     });
-    await this.taskAssignmentRepository.save(assignments);
+
+    // Add new assignments
+    const newAssignments = userIds
+      .filter((id) => !task.assignedUserIds.includes(id))
+      .map((id) => {
+        const user = allRelevantUsers.find((u) => u.id === id);
+        const assignment = new TaskAssignment();
+        assignment.task = task;
+        assignment.user = user;
+        return assignment;
+      });
+
+    if (newAssignments.length > 0) {
+      await this.taskAssignmentRepository.save(newAssignments);
+    }
 
     return task;
   }

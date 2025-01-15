@@ -1,6 +1,5 @@
 import { TableHeaderSort } from "@/components/datatable/TableHeaderSort";
 import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
-import { RowActionAddAssignment } from "@/features/tasks/datatable/RowActionAddAssignment";
 import { RowActionsMenu } from "@/features/tasks/datatable/RowActionsMenu";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
@@ -26,7 +25,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => (
       <div className="flex flex-row justify-between items-center space-x-4">
-        <TaskAssignmentsCell row={row} /> <RowActionAddAssignment row={row} />
+        <TaskAssignmentsCell row={row} />
       </div>
     ),
   },
