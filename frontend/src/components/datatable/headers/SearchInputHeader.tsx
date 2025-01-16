@@ -4,17 +4,17 @@ import { Column } from "@tanstack/react-table";
 import { XCircleIcon } from "lucide-react";
 import { useState } from "react";
 
-interface TableHeaderTitleSearchProps<TData, TValue>
+interface SearchInputHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
 }
 
-export const TableHeaderTitleSearch = <TData, TValue>({
+export const SearchInputHeader = <TData, TValue>({
   column,
   title,
   className,
-}: TableHeaderTitleSearchProps<TData, TValue>) => {
+}: SearchInputHeaderProps<TData, TValue>) => {
   const [search, setSearch] = useState(false);
 
   if (!column.getCanFilter()) {

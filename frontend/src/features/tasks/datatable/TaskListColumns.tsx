@@ -1,10 +1,11 @@
-import { TableHeaderSort } from "@/components/datatable/TableHeaderSort";
-import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
-import { RowActionsMenu } from "@/features/tasks/datatable/RowActionsMenu";
+import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
+import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
+import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
+import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
-import { Task } from "@/types/task";
+import { Task, TaskCategory } from "@/types/task";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
@@ -12,7 +13,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     accessorKey: "sequenceNumber",
     enableSorting: true,
     enableHiding: false,
-    header: ({ column }) => <TableHeaderSort column={column} />,
+    header: ({ column }) => <AscDescSortHeader column={column} />,
     cell: ({ row }) => {
       const task = row.original;
       return task.sequenceNumber;
@@ -31,20 +32,27 @@ export const taskListColumns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "title",
-    header: ({ column }) => (
-      <TableHeaderTitleSearch column={column} title="Title" />
-    ),
+    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
   },
   {
     accessorKey: "description",
     header: ({ column }) => (
-      <TableHeaderTitleSearch column={column} title="Description" />
+      <SearchInputHeader column={column} title="Description" />
     ),
   },
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <TableHeaderTitleSearch column={column} title="Category" />
+      <SearchInputHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        row={row}
+        options={Object.values(TaskCategory).map((category) => ({
+          value: category,
+          label: category,
+        }))}
+      />
     ),
   },
   {

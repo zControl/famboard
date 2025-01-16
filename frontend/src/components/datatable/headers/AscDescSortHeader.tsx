@@ -11,17 +11,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
-export interface TableHeaderSortProps<TData, TValue>
+export interface AscDescSortHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title?: string;
 }
 
-export const TableHeaderSort = <TData, TValue>({
+export const AscDescSortHeader = <TData, TValue>({
   column,
   title,
   className,
-}: TableHeaderSortProps<TData, TValue>) => {
+}: AscDescSortHeaderProps<TData, TValue>) => {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
