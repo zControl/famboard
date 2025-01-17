@@ -70,8 +70,8 @@ export const AddTaskModal = () => {
     },
   });
   return (
-    <AlertDialog open={open}>
-      <AlertDialogTrigger asChild onClick={() => setOpen(true)}>
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogTrigger asChild>
         <Button variant="primary">Add new task</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

@@ -1,7 +1,7 @@
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { TableHeaderSort } from "@/components/datatable/TableHeaderSort";
+import { TableHeaderSort } from "@/components/datatable/headers/AscDescSortHeader";
 import { TableSearchBox } from "@/components/datatable/TableSearchBox";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";

@@ -1,60 +1,58 @@
-import { TableHeaderTitleSearch } from "@/components/datatable/TableHeaderTitleSearch";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Task } from "@/types/task";
+import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
+import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
+import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
+import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
+import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
+import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
+
+import { Task, TaskCategory } from "@/types/task";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 
 export const taskListColumns: ColumnDef<Task>[] = [
   {
-    id: "actions",
+    accessorKey: "sequenceNumber",
+    enableSorting: true,
+    enableHiding: false,
+    header: ({ column }) => <AscDescSortHeader column={column} />,
     cell: ({ row }) => {
       const task = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(task.title)}
-            >
-              Copy task title
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit?</DropdownMenuItem>
-            <DropdownMenuItem>Assign?</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return task.sequenceNumber;
     },
   },
   {
-    header: "Title",
-    accessorKey: "title",
+    accessorKey: "assigned",
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex flex-row justify-between items-center space-x-4">
+        <TaskAssignmentsCell row={row} />
+      </div>
+    ),
   },
   {
-    header: "Description",
+    accessorKey: "title",
+    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
+  },
+  {
     accessorKey: "description",
+    header: ({ column }) => (
+      <SearchInputHeader column={column} title="Description" />
+    ),
   },
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <>
-        <TableHeaderTitleSearch column={column} title="Category" />
-      </>
+      <SearchInputHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        row={row}
+        options={Object.values(TaskCategory).map((category) => ({
+          value: category,
+          label: category,
+        }))}
+      />
     ),
   },
   {
@@ -76,5 +74,9 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     header: "Note",
     accessorKey: "note",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <RowActionsMenu row={row} />,
   },
 ];

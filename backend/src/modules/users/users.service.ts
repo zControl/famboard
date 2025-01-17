@@ -112,17 +112,14 @@ export class UsersService {
   }
 
   async getProfile(userId: string): Promise<UserProfileDto> {
-    console.log(`Fetching profile for user ID: ${userId}`);
     const profile = await this.userProfileRepository.findOne({
       where: { user: { id: userId } },
       relations: ['user'],
     });
 
     if (!profile) {
-      console.log(`Profile not found for user ID: ${userId}`);
       throw new NotFoundException('Profile not found');
     }
-    console.log(`Profile found:`, profile);
     return {
       userId: profile.user.id,
       username: profile.user.username,
