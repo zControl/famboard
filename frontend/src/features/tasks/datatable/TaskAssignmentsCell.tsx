@@ -1,9 +1,8 @@
 import { ActionModal } from "@/components/composites/ActionModal";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AssignTaskForm } from "@/features/tasks/components/AssignTaskForm";
+import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
+import { AssignedUserSelection } from "@/features/tasks/components/AssignedUserSelection";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { Edit2Icon, PlusIcon } from "lucide-react";
@@ -15,8 +14,8 @@ interface TaskAssignmentsCellProps {
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   const taskId = row.original.id;
-  const { taskAssignments } = useAssignments(taskId);
-  const { assignTaskMutation } = useTasks();
+  const { taskAssignments, refetch } = useAssignments(taskId);
+  const { assignTaskMutation, queryClient } = useTasks();
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
@@ -28,7 +27,6 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   };
 
   const handleConfirm = () => {
-    console.log("Assigning task for", row.original.id, "to", selectedKids);
     assignTaskMutation.mutate(
       {
         taskId: row.original.id,
@@ -38,15 +36,14 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onSuccess: () => {
           setIsModalOpen(false);
           setSelectedKids([]);
+          queryClient.invalidateQueries({ queryKey: ["tasks", taskId] });
+          refetch();
         },
       },
     );
   };
 
   const handleCancel = () => {
-    console.log(
-      `Cancelled ${hasAssignments ? "editing" : "adding"} assignments for task ${taskId}`,
-    );
     setIsModalOpen(false);
   };
 
@@ -64,7 +61,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         </div>
         {isHovered && (
           <div
-            className="absolute inset-0 bg-background/80 flex items-center justify-center"
+            className="absolute inset-0 bg-background/60 flex items-center justify-center"
             onClick={handleRowClick}
           >
             {hasAssignments ? (
@@ -76,12 +73,8 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         )}
       </div>
       <ActionModal
-        title={hasAssignments ? "Edit Assignments" : "Add Assignments"}
-        description={
-          hasAssignments
-            ? "Modify the assignments for this task."
-            : "Add new assignments to this task."
-        }
+        title="Current Assignments"
+        description={`Task: ${row.original.title}`}
         open={isModalOpen}
         onOpenChange={() => {
           setIsModalOpen(false);
@@ -90,21 +83,11 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onCancel={handleCancel}
         onConfirm={handleConfirm}
       >
-        <AssignTaskForm row={row} onSelectedKidsChange={setSelectedKids} />
+        <AssignedUserSelection
+          row={row}
+          onSelectedKidsChange={setSelectedKids}
+        />
       </ActionModal>
     </>
-  );
-};
-
-const AssignedUserAvatar = ({ userId }: { userId: string }) => {
-  const { data: userProfile, isLoading } = useUserProfile(userId);
-
-  if (isLoading) return null; // or a loading placeholder
-
-  return (
-    <Avatar className="inline-block h-8 w-8 rounded-full ring-2">
-      <AvatarImage src={userProfile?.avatarUrl} alt={userProfile?.username} />
-      <AvatarFallback>{userProfile?.username?.charAt(0)}</AvatarFallback>
-    </Avatar>
   );
 };

@@ -26,6 +26,7 @@ export const useTasks = () => {
   console.log("tasks", tasks); */
 
   return {
+    queryClient,
     tasks,
     refreshTasks,
     addTaskMutation,

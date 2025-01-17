@@ -13,7 +13,7 @@ import React from "react";
 
 interface ActionModalProps {
   title: React.ReactNode;
-  description: React.ReactNode;
+  description?: React.ReactNode;
   trigger?: React.ReactNode;
   children?: React.ReactNode;
   open?: boolean;

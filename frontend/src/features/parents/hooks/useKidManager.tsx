@@ -3,6 +3,16 @@ import { createApiClient } from "@/utils/apiClient";
 import { API_ENDPOINTS } from "@/utils/apiEndpoints";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
+/**
+ * @returns An object containing the following properties:
+ * - kidIds: an array of strings containing the ids of the kids.
+ * - isLoadingIds: a boolean indicating whether the fetch for the ids is in progress.
+ * - idsError: an optional error object or null if there was no error.
+ * - getKidProfile: a function that takes a kid's id and returns an object containing the following properties:
+ *   - data: the UserProfile object of the kid with the given id.
+ *   - isLoading: a boolean indicating whether the fetch for the kid's profile is in progress.
+ *   - error: an optional error object or null if there was no error.
+ */
 export const useKidManager = () => {
   const apiClient = createApiClient(API_ENDPOINTS.BASE);
 
