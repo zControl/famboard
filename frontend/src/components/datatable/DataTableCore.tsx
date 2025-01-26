@@ -26,6 +26,8 @@ interface DataTableCoreProps<TData, TValue> {
   actions?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   options?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   caption?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
+  showPagination?: boolean;
+  showColumnVisibility?: boolean;
 }
 
 export const DataTableCore = <TData, TValue>({
@@ -34,6 +36,8 @@ export const DataTableCore = <TData, TValue>({
   actions,
   caption,
   options,
+  showPagination = true,
+  showColumnVisibility = true,
 }: DataTableCoreProps<TData, TValue>) => {
   const table = useReactTable({
     data,
@@ -58,7 +62,7 @@ export const DataTableCore = <TData, TValue>({
       <div className="flex items-center justify-between">
         <div>{actionsToolbar}</div>
         <div className="flex items-center">
-          <TableColumnVisibility table={table} />
+          {showColumnVisibility && <TableColumnVisibility table={table} />}
           <div>{optionsToolbar}</div>
         </div>
       </div>
@@ -69,7 +73,7 @@ export const DataTableCore = <TData, TValue>({
         <TableBody>{renderTableBody({ table, columns })}</TableBody>
         <TableCaption>{renderedCaption}</TableCaption>
       </Table>
-      <TablePagination table={table} />
+      {showPagination && <TablePagination table={table} />}
     </div>
   );
 };

@@ -47,8 +47,8 @@ export class TasksController {
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(id);
+  findOne(@Param('taskId') taskId: string) {
+    return this.tasksService.findTaskById(taskId);
   }
 
   @Patch(':taskId')
@@ -59,14 +59,6 @@ export class TasksController {
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
-
-  /*   @Get(':taskId/users')
-  @ApiOperation({ summary: 'Get users assigned to a specific task' })
-  async getUsersForTask(
-    @Param('taskId') taskId: string,
-  ): Promise<TaskAssignedUsersDto[]> {
-    return this.tasksService.findUsersByTask(taskId);
-  } */
 
   @Get(':taskId/assigned-users')
   async getAssignedUsers(@Param('taskId') taskId: string) {

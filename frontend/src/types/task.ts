@@ -55,10 +55,14 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   note?: string;
-  comments?: Comment[];
-  assignedTo?: User[]; // remove this???
+  assignedTo?: User[];
 }
 export interface AssignedTaskResponse {
   id: string;
   username: string;
+}
+
+export interface UserAssignedTaskResponse {
+  sequenceNumber: number;
+  title: string;
 }

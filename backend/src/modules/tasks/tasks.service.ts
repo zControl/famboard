@@ -33,16 +33,6 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
-  async findOne(id: string): Promise<Task> {
-    const task = await this.tasksRepository.findOne({
-      where: { id },
-    });
-    if (!task) {
-      throw new NotFoundException(`Task with ID "${id}" not found`);
-    }
-    return task;
-  }
-
   async findTaskById(taskId: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({ where: { id: taskId } });
     if (!task)
@@ -155,7 +145,7 @@ export class TasksService {
       where: {
         id: In(task.assignedUserIds),
       },
-      select: ['id', 'username'], // Only select the fields we need
+      select: ['id', 'username'],
     });
 
     return users.map((user) => ({
