@@ -1,4 +1,3 @@
-// frontend/src/features/tasks/hooks/useAssignments.ts
 import { getAssignedUsers } from "@/features/tasks/api/taskApi";
 import { AssignedTaskResponse } from "@/types/task";
 import { useQuery } from "@tanstack/react-query";

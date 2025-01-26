@@ -1,5 +1,6 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { Card } from "@/components/ui/card";
+import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { ColumnDef } from "@tanstack/react-table";
 
 const activeTasksColumns: ColumnDef<{
@@ -18,24 +19,14 @@ const activeTasksColumns: ColumnDef<{
   },
 ];
 
-const sampleData = [
-  {
-    sequenceNumber: 9,
-    title: "adv",
-  },
-  {
-    sequenceNumber: 12,
-    title: "Clean kitchen",
-  },
-];
-
 export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
+  const { assignedTasks, isLoading } = useUserAssignedTasks(userId);
+  if (isLoading) return <div>Loading...</div>;
   return (
     <Card className="rounded-none w-full">
-      Active Tasks for {userId}
       <DataTableCore
         columns={activeTasksColumns}
-        data={sampleData || []}
+        data={assignedTasks || []}
         caption="This is the main list of tasks."
         showPagination={false}
         showColumnVisibility={false}
