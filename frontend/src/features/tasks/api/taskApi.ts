@@ -33,12 +33,7 @@ export const getAssignedTasks = async (userId: string): Promise<UserAssignedTask
   return response;
 };
 
-export const assignUserToTask = async (taskId: string, userId: string): Promise<Task> => {
-  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign-single`, { userId });
-  return response;
-};
-
-export const assignMultipleUsersToTask = async (taskId: string, userIds: string[]): Promise<Task> => {
-  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign-multiple`, { userIds });
+export const assignUsersToTask = async (taskId: string, userIds: string[]): Promise<Task> => {
+  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign`, { userIds });
   return response;
 };

@@ -1,4 +1,4 @@
-import { assignMultipleUsersToTask, createTask, getTasks } from "@/features/tasks/api/taskApi";
+import { assignUsersToTask, createTask, getTasks } from "@/features/tasks/api/taskApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useTasks = () => {
@@ -18,7 +18,7 @@ export const useTasks = () => {
   })
 
   const assignTaskMutation = useMutation({
-    mutationFn: ({ taskId, userIds }: { taskId: string, userIds: string[] }) => assignMultipleUsersToTask(taskId, userIds),
+    mutationFn: ({ taskId, userIds }: { taskId: string, userIds: string[] }) => assignUsersToTask(taskId, userIds),
     onSuccess: refreshTasks,
   })
 

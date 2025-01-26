@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
-import { TaskToSingleUserDto } from 'src/modules/tasks/dto/task-to-single-user.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -73,24 +72,14 @@ export class TasksController {
     return this.tasksService.remove(id);
   }
 
-  @Post(':taskId/assign-single')
-  @ApiOperation({ summary: 'Assign a user to a task' })
-  @ApiBody({ type: TaskToSingleUserDto })
-  async assignUserToTask(
-    @Param('taskId') taskId: string,
-    @Body('userId') userId: string,
-  ) {
-    return this.tasksService.assignUserToTask(taskId, userId);
-  }
-
-  @Post(':taskId/assign-multiple')
+  @Post(':taskId/assign')
   @ApiOperation({ summary: 'Assign multiple users to a task' })
   @ApiBody({ type: TaskToMultipleUsersDto })
-  async assignMultipleUsersToTask(
+  async assignUsersToTask(
     @Param('taskId') taskId: string,
-    @Body('userIds') userIds: string[],
+    @Body() body: { userIds: string[] },
   ) {
-    return this.tasksService.assignMultipleUsersToTask(taskId, userIds);
+    return this.tasksService.assignUsersToTask(taskId, body.userIds);
   }
 
   @Get('user/:userId')
