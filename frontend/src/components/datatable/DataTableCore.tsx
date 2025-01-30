@@ -10,6 +10,7 @@ import {
   TableCaption,
   TableHeader,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import {
   ColumnDef,
   getCoreRowModel,
@@ -26,6 +27,7 @@ interface DataTableCoreProps<TData, TValue> {
   actions?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   options?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   caption?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
+  headerClassName?: string;
   showPagination?: boolean;
   showColumnVisibility?: boolean;
 }
@@ -36,6 +38,7 @@ export const DataTableCore = <TData, TValue>({
   actions,
   caption,
   options,
+  headerClassName,
   showPagination = true,
   showColumnVisibility = true,
 }: DataTableCoreProps<TData, TValue>) => {
@@ -67,7 +70,7 @@ export const DataTableCore = <TData, TValue>({
         </div>
       </div>
       <Table>
-        <TableHeader className="bg-muted px-2">
+        <TableHeader className={cn("bg-muted px-2", headerClassName)}>
           {renderTableHeader(table)}
         </TableHeader>
         <TableBody>{renderTableBody({ table, columns })}</TableBody>

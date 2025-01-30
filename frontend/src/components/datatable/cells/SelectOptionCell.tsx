@@ -10,14 +10,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Option } from "@/types/common";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";
-
-interface Option {
-  value: string;
-  label: string;
-}
 
 interface SelectOptionCellProps {
   options: Option[];

@@ -16,12 +16,14 @@ export const LogoutButton = () => {
   };
 
   return (
-    <ActionModal
-      trigger="Logout"
-      title="Are you sure you want to logout?"
-      description="This will log you out of your account."
-      onCancel={() => console.log("Cancel")}
-      onConfirm={handleLogout}
-    />
+    <>
+      <ActionModal
+        trigger="Logout"
+        title="Are you sure you want to logout?"
+        description="This will log you out of your account."
+        onCancel={() => console.log("Cancel")}
+        onConfirm={handleLogout}
+      />
+    </>
   );
 };

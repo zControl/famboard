@@ -1,7 +1,9 @@
 import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
+import { ColumFilterDropdown } from "@/components/datatable/headers/ColumFilterDropdown";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
+import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
@@ -29,6 +31,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
         <TaskAssignmentsCell row={row} />
       </div>
     ),
+    enableColumnFilter: true,
   },
   {
     accessorKey: "title",
@@ -43,7 +46,17 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <SearchInputHeader column={column} title="Category" />
+      <div className="flex items-center justify-center">
+        <ColumFilterDropdown
+          column={column}
+          title="Category"
+          options={Object.values(TaskCategory).map((category) => ({
+            value: category,
+            label: category,
+          }))}
+        />
+        <AscDescSortHeader column={column} />
+      </div>
     ),
     cell: ({ row }) => (
       <SelectOptionCell
@@ -54,22 +67,39 @@ export const taskListColumns: ColumnDef<Task>[] = [
         }))}
       />
     ),
+    filterFn: "arrIncludesSome",
   },
   {
-    header: "Frequency",
     accessorKey: "frequency",
+    enableSorting: false,
+    enableColumnFilter: false,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Frequency" />
+    ),
   },
   {
-    header: "Difficulty",
     accessorKey: "difficulty",
+    enableSorting: true,
+    enableColumnFilter: false,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Difficulty" />
+    ),
   },
   {
-    header: "Status",
     accessorKey: "status",
+    enableSorting: false,
+    enableColumnFilter: true,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Status" />
+    ),
   },
   {
-    header: "Priority",
     accessorKey: "priority",
+    enableSorting: true,
+    enableColumnFilter: true,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Priority" />
+    ),
   },
   {
     header: "Note",

@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 export interface HeaderContainerProps {
   logo?: React.ReactNode;
   navigation?: React.ReactNode;
@@ -18,6 +20,7 @@ export const HeaderContainer = ({
           <div className="block md:hidden">{mobileMenu}</div>
           <div className="hidden items-center justify-end md:flex text-header-foreground">
             {actions}
+            <Link to="/demo">Demo</Link>
           </div>
         </div>
         <nav className="hidden md:block">{navigation}</nav>
