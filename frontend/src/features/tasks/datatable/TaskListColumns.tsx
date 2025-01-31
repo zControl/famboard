@@ -2,6 +2,7 @@ import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { ColumFilterDropdown } from "@/components/datatable/headers/ColumFilterDropdown";
+import { ColumnTitle } from "@/components/datatable/headers/ColumnTitle";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
@@ -46,26 +47,30 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "category",
     header: ({ column }) => (
-      <div className="flex items-center justify-center">
-        <ColumFilterDropdown
-          column={column}
-          title="Category"
+      <div className="flex items-center px-2 justify-between border-l border-blue-500">
+        <ColumnTitle title="Category" />
+        <div className="flex items-center">
+          <ColumFilterDropdown
+            column={column}
+            options={Object.values(TaskCategory).map((category) => ({
+              value: category,
+              label: category,
+            }))}
+          />
+          <AscDescSortHeader column={column} />
+        </div>
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className="border-l border-blue-500">
+        <SelectOptionCell
+          row={row}
           options={Object.values(TaskCategory).map((category) => ({
             value: category,
             label: category,
           }))}
         />
-        <AscDescSortHeader column={column} />
       </div>
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        row={row}
-        options={Object.values(TaskCategory).map((category) => ({
-          value: category,
-          label: category,
-        }))}
-      />
     ),
     filterFn: "arrIncludesSome",
   },

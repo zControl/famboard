@@ -14,28 +14,21 @@ import { cn } from "@/lib/utils";
 export interface AscDescSortHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
-  title?: string;
 }
 
 export const AscDescSortHeader = <TData, TValue>({
   column,
-  title,
   className,
 }: AscDescSortHeaderProps<TData, TValue>) => {
   if (!column.getCanSort()) {
-    return <div className={cn(className)}>{title}</div>;
+    return null;
   }
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
-          >
-            <span>{title}</span>
+          <Button variant="ghost" size="tight">
             {column.getIsSorted() === "desc" ? (
               <ArrowDown />
             ) : column.getIsSorted() === "asc" ? (

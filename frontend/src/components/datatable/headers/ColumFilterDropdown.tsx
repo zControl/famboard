@@ -6,7 +6,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
@@ -16,18 +15,16 @@ import {
 import { cn } from "@/lib/utils";
 import { Option } from "@/types/common";
 import { Column } from "@tanstack/react-table";
-import { FilterIcon, XCircleIcon } from "lucide-react";
+import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface ColumnFilterDropdownProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
-  title: string;
   column: Column<TData, TValue>;
   options: Option[];
 }
 
 export const ColumFilterDropdown = <TData, TValue>({
-  title,
   column,
   options,
   className,
@@ -44,47 +41,51 @@ export const ColumFilterDropdown = <TData, TValue>({
       }
     });
   };
+  const handleSelectAll = () => {
+    setSelectedOptions(options.map((option) => option.value));
+  };
+
+  const handleSelectNone = () => {
+    setSelectedOptions([]);
+  };
 
   useEffect(() => {
     console.log("selectedOptions", selectedOptions);
     column.setFilterValue(selectedOptions.length ? selectedOptions : undefined);
   }, [selectedOptions, column]);
 
-  const handleSearchInput = (value: string) => {
-    console.log("value", value);
-  };
-
-  if (!column.getCanFilter()) {
-    return <div className={cn(className)}>{title}</div>;
-  }
-
   return (
-    <div className="flex items-center space-x-4">
+    <div className={cn("flex items-center space-x-2", className)}>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button variant="ghost">
-            <FilterIcon className="mr-2 h-4 w-4" />
-            {title}
+          <Button variant="ghost" size="tight">
+            <FilterIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-0 min-w-[150px] max-w-[300px]"
+          className="p-0 w-auto min-w-[80px] max-w-[300px]"
           side="bottom"
-          align="center"
+          align="start"
         >
-          <div className="flex items-center space-x-2">
-            <XCircleIcon />
-            <Input
-              type="search"
-              value={(column.getFilterValue() as string) ?? ""}
-              onChange={(event) => handleSearchInput(event.target.value)}
-              placeholder={`Search ${title}...`}
-              className="h-8 w-[80%]"
-            />
-          </div>
           <Command>
             <CommandList>
               <CommandGroup>
+                <div className="flex justify-between items-center p-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={selectedOptions.length === options.length}
+                      onCheckedChange={handleSelectAll}
+                    />
+                    <Label onClick={handleSelectAll}>All</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      checked={selectedOptions.length === 0}
+                      onCheckedChange={handleSelectNone}
+                    />
+                    <Label onClick={handleSelectNone}>None</Label>
+                  </div>
+                </div>
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
