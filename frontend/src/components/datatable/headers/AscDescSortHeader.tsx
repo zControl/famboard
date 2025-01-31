@@ -25,7 +25,7 @@ export const AscDescSortHeader = <TData, TValue>({
   }
 
   return (
-    <div className={cn("flex items-center space-x-2", className)}>
+    <div className={cn("flex items-center", className)}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="tight">
@@ -38,18 +38,18 @@ export const AscDescSortHeader = <TData, TValue>({
             )}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUp className="h-3.5 w-3.5 text-muted-foreground/70" />
+            <ArrowUp />
             Asc
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDown className="h-3.5 w-3.5 text-muted-foreground/70" />
+            <ArrowDown />
             Desc
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
-            <EyeOff className="h-3.5 w-3.5 text-muted-foreground/70" />
+            <EyeOff />
             Hide
           </DropdownMenuItem>
         </DropdownMenuContent>

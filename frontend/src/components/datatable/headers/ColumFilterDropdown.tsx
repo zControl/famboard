@@ -30,7 +30,9 @@ export const ColumFilterDropdown = <TData, TValue>({
   className,
 }: ColumnFilterDropdownProps<TData, TValue>) => {
   const [open, setOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(
+    (column.getFilterValue() as string[]) ?? [],
+  );
 
   const handleSelection = (value: string) => {
     setSelectedOptions((prev) => {
@@ -45,14 +47,14 @@ export const ColumFilterDropdown = <TData, TValue>({
     setSelectedOptions(options.map((option) => option.value));
   };
 
-  const handleSelectNone = () => {
-    setSelectedOptions([]);
-  };
-
   useEffect(() => {
     console.log("selectedOptions", selectedOptions);
     column.setFilterValue(selectedOptions.length ? selectedOptions : undefined);
   }, [selectedOptions, column]);
+
+  if (!column.getCanFilter()) {
+    return null;
+  }
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
@@ -63,9 +65,9 @@ export const ColumFilterDropdown = <TData, TValue>({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-0 w-auto min-w-[80px] max-w-[300px]"
+          className="p-0 w-auto max-w-[300px]"
           side="bottom"
-          align="start"
+          align="end"
         >
           <Command>
             <CommandList>
@@ -77,13 +79,6 @@ export const ColumFilterDropdown = <TData, TValue>({
                       onCheckedChange={handleSelectAll}
                     />
                     <Label onClick={handleSelectAll}>All</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={selectedOptions.length === 0}
-                      onCheckedChange={handleSelectNone}
-                    />
-                    <Label onClick={handleSelectNone}>None</Label>
                   </div>
                 </div>
                 {options.map((option) => (

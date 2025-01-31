@@ -2,10 +2,7 @@ interface ColumnTitleProps {
   title: string;
 }
 
+// This component might not be necessary...standby.
 export const ColumnTitle = ({ title }: ColumnTitleProps) => {
-  return (
-    <div className="flex items-center space-x-2">
-      <span>{title}</span>
-    </div>
-  );
+  return <span>{title}</span>;
 };

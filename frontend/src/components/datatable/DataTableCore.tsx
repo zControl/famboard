@@ -65,8 +65,8 @@ export const DataTableCore = <TData, TValue>({
       <div className="flex items-center justify-between">
         <div>{actionsToolbar}</div>
         <div className="flex items-center">
-          {showColumnVisibility && <TableColumnVisibility table={table} />}
           <div>{optionsToolbar}</div>
+          {showColumnVisibility && <TableColumnVisibility table={table} />}
         </div>
       </div>
       <Table>

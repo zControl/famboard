@@ -1,14 +1,20 @@
 import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
-import { ColumFilterDropdown } from "@/components/datatable/headers/ColumFilterDropdown";
-import { ColumnTitle } from "@/components/datatable/headers/ColumnTitle";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
-import { Task, TaskCategory } from "@/types/task";
+import {
+  Task,
+  TaskCategory,
+  TaskDifficulty,
+  TaskFrequency,
+  TaskPriority,
+  TaskStatus,
+} from "@/types/task";
+import { enumToArray } from "@/utils/typeConverters";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
@@ -32,7 +38,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
         <TaskAssignmentsCell row={row} />
       </div>
     ),
-    enableColumnFilter: true,
   },
   {
     accessorKey: "title",
@@ -46,69 +51,92 @@ export const taskListColumns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "category",
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <div className="flex items-center px-2 justify-between border-l border-blue-500">
-        <ColumnTitle title="Category" />
-        <div className="flex items-center">
-          <ColumFilterDropdown
-            column={column}
-            options={Object.values(TaskCategory).map((category) => ({
-              value: category,
-              label: category,
-            }))}
-          />
-          <AscDescSortHeader column={column} />
-        </div>
-      </div>
+      <SupremeColumnHeader
+        column={column}
+        title="Category"
+        options={enumToArray(TaskCategory)}
+      />
     ),
     cell: ({ row }) => (
-      <div className="border-l border-blue-500">
-        <SelectOptionCell
-          row={row}
-          options={Object.values(TaskCategory).map((category) => ({
-            value: category,
-            label: category,
-          }))}
-        />
-      </div>
+      <SelectOptionCell
+        initialValue={row.original.category}
+        options={enumToArray(TaskCategory)}
+      />
     ),
-    filterFn: "arrIncludesSome",
   },
   {
     accessorKey: "frequency",
-    enableSorting: false,
-    enableColumnFilter: false,
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Frequency" />
+      <SupremeColumnHeader
+        column={column}
+        title="Frequency"
+        options={enumToArray(TaskFrequency)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.frequency}
+        options={enumToArray(TaskFrequency)}
+      />
     ),
   },
   {
     accessorKey: "difficulty",
-    enableSorting: true,
-    enableColumnFilter: false,
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Difficulty" />
+      <SupremeColumnHeader
+        column={column}
+        title="Difficulty"
+        options={enumToArray(TaskDifficulty)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.difficulty}
+        options={enumToArray(TaskDifficulty)}
+      />
     ),
   },
   {
     accessorKey: "status",
-    enableSorting: false,
-    enableColumnFilter: true,
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Status" />
+      <SupremeColumnHeader
+        column={column}
+        title="Status"
+        options={enumToArray(TaskStatus)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.status}
+        options={enumToArray(TaskStatus)}
+      />
     ),
   },
   {
     accessorKey: "priority",
-    enableSorting: true,
-    enableColumnFilter: true,
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Priority" />
+      <SupremeColumnHeader
+        column={column}
+        title="Priority"
+        options={enumToArray(TaskPriority)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.priority}
+        options={enumToArray(TaskPriority)}
+      />
     ),
   },
   {
-    header: "Note",
     accessorKey: "note",
+    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
   },
   {
     id: "actions",
