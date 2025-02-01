@@ -2,10 +2,19 @@ import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
+import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
-import { Task, TaskCategory } from "@/types/task";
+import {
+  Task,
+  TaskCategory,
+  TaskDifficulty,
+  TaskFrequency,
+  TaskPriority,
+  TaskStatus,
+} from "@/types/task";
+import { enumToArray } from "@/utils/typeConverters";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
@@ -42,41 +51,102 @@ export const taskListColumns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "category",
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
-      <SearchInputHeader column={column} title="Category" />
+      <SupremeColumnHeader
+        column={column}
+        title="Category"
+        options={enumToArray(TaskCategory)}
+      />
     ),
     cell: ({ row }) => (
       <SelectOptionCell
-        row={row}
-        options={Object.values(TaskCategory).map((category) => ({
-          value: category,
-          label: category,
-        }))}
+        initialValue={row.original.category}
+        options={enumToArray(TaskCategory)}
       />
     ),
   },
   {
-    header: "Frequency",
     accessorKey: "frequency",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Frequency"
+        options={enumToArray(TaskFrequency)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.frequency}
+        options={enumToArray(TaskFrequency)}
+      />
+    ),
   },
   {
-    header: "Difficulty",
     accessorKey: "difficulty",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Difficulty"
+        options={enumToArray(TaskDifficulty)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.difficulty}
+        options={enumToArray(TaskDifficulty)}
+      />
+    ),
   },
   {
-    header: "Status",
     accessorKey: "status",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Status"
+        options={enumToArray(TaskStatus)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.status}
+        options={enumToArray(TaskStatus)}
+      />
+    ),
   },
   {
-    header: "Priority",
     accessorKey: "priority",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Priority"
+        options={enumToArray(TaskPriority)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.priority}
+        options={enumToArray(TaskPriority)}
+      />
+    ),
   },
   {
-    header: "Note",
     accessorKey: "note",
+    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
   },
   {
     id: "actions",
-    cell: ({ row }) => <RowActionsMenu row={row} />,
+    cell: ({ row }) => (
+      <RowActionsMenu
+        onSave={() => {}}
+        onCancel={() => {}}
+        isChanged={false}
+        row={row}
+      />
+    ),
   },
 ];

@@ -1,4 +1,4 @@
-import { AssignedTaskResponse, Task } from "@/types/task";
+import { AssignedTaskResponse, Task, UserAssignedTaskResponse } from "@/types/task";
 import { createApiClient } from "@/utils/apiClient";
 
 const apiClient = createApiClient("http://localhost:3000/v1");
@@ -28,12 +28,12 @@ export const getAssignedUsers = async (taskId: string): Promise<AssignedTaskResp
   return response;
 };
 
-export const assignUserToTask = async (taskId: string, userId: string): Promise<Task> => {
-  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign-single`, { userId });
+export const getAssignedTasks = async (userId: string): Promise<UserAssignedTaskResponse[]> => {
+  const response = await apiClient.get<UserAssignedTaskResponse[]>(`/tasks/user/${userId}`);
   return response;
 };
 
-export const assignMultipleUsersToTask = async (taskId: string, userIds: string[]): Promise<Task> => {
-  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign-multiple`, { userIds });
+export const assignUsersToTask = async (taskId: string, userIds: string[]): Promise<Task> => {
+  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign`, { userIds });
   return response;
 };

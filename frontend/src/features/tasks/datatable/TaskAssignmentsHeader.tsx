@@ -10,7 +10,7 @@ import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { cn } from "@/lib/utils";
 import { Column } from "@tanstack/react-table";
 import { CircleXIcon, FilterIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TaskAssignmentsHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -34,6 +34,11 @@ export const TaskAssignmentsHeader = <TData, TValue>({
       return newSelection;
     });
   };
+
+  useEffect(() => {
+    column.setFilterValue(selectedKids.length ? selectedKids : undefined);
+    console.log("selectedKids", selectedKids);
+  }, [column, selectedKids]);
 
   const clearFilter = () => {
     setSelectedKids([]);

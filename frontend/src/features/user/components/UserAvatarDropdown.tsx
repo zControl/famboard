@@ -7,12 +7,10 @@ import {
   SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatar } from "@/features/user/components/UserAvatar";
 import { useProfile } from "@/features/user/hooks/useProfile";
@@ -87,9 +85,6 @@ export const UserAvatarDropdown = () => {
           </SheetClose>
         ))}
         <Separator className="my-4" />
-        <SheetFooter>
-          <LogoutButton />
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

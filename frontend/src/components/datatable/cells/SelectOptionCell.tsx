@@ -10,22 +10,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Task } from "@/types/task";
-import { Row } from "@tanstack/react-table";
+import { Option } from "@/types/common";
 import { useState } from "react";
-
-interface Option {
-  value: string;
-  label: string;
-}
 
 interface SelectOptionCellProps {
   options: Option[];
-  row: Row<Task>;
+  initialValue: string;
   onSelect?: (value: string) => void;
 }
 
-export const SelectOptionCell = ({ options, row }: SelectOptionCellProps) => {
+export const SelectOptionCell = ({
+  options,
+  initialValue,
+}: SelectOptionCellProps) => {
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
@@ -42,11 +39,7 @@ export const SelectOptionCell = ({ options, row }: SelectOptionCellProps) => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant="ghost">
-            {selectedOption ? (
-              <>{selectedOption.label}</>
-            ) : (
-              <>{row.original.category}</>
-            )}
+            {selectedOption ? <>{selectedOption.value}</> : <>{initialValue}</>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="p-0 w-[150px]" side="bottom" align="center">

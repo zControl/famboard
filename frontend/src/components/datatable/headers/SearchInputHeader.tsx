@@ -20,13 +20,17 @@ export const SearchInputHeader = <TData, TValue>({
   if (!column.getCanFilter()) {
     return <div className={cn(className)}>{title}</div>;
   }
+  const handleCloseSearch = () => {
+    setSearch(false);
+    column.setFilterValue(undefined);
+  };
 
   return (
     <div className={cn("flex items-center space-x-2", className)}>
       {search ? (
         <>
-          <div className="cursor-pointer" onClick={() => setSearch(false)}>
-            <XCircleIcon className="h-4 w-4" />
+          <div className="cursor-pointer" onClick={handleCloseSearch}>
+            <XCircleIcon />
           </div>
           <Input
             type="search"

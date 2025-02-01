@@ -17,5 +17,8 @@ export class TaskAssignment {
   completed: boolean;
 
   @Column({ type: 'timestamp', nullable: true })
+  assignedAt: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
   completedAt: Date;
 }

@@ -33,16 +33,6 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
-  async findOne(id: string): Promise<Task> {
-    const task = await this.tasksRepository.findOne({
-      where: { id },
-    });
-    if (!task) {
-      throw new NotFoundException(`Task with ID "${id}" not found`);
-    }
-    return task;
-  }
-
   async findTaskById(taskId: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({ where: { id: taskId } });
     if (!task)
@@ -75,74 +65,56 @@ export class TasksService {
     return `This action removes a #${id} task`;
   }
 
-  async assignUserToTask(taskId: string, userId: string): Promise<Task> {
-    const task = await this.findTaskById(taskId);
-    const user = await this.findUserById(userId);
-
-    if (!task) {
-      throw new NotFoundException('Task not found');
-    }
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    if (!task.assignedUserIds.includes(userId)) {
-      task.assignedUserIds = [...task.assignedUserIds, userId];
-      await this.tasksRepository.save(task);
-
-      const assignment = new TaskAssignment();
-      assignment.task = task;
-      assignment.user = user;
-      await this.taskAssignmentRepository.save(assignment);
-    }
-
-    return task;
-  }
-
-  async assignMultipleUsersToTask(
-    taskId: string,
-    userIds: string[],
-  ): Promise<Task> {
+  async assignUsersToTask(taskId: string, userIds: string[]): Promise<Task> {
     const task = await this.findTaskById(taskId);
 
     if (!task) {
       throw new NotFoundException('Task not found');
     }
-
-    // Find all users (both to be added and removed)
-    const allRelevantUsers = await this.usersRepository.find({
-      where: { id: In([...task.assignedUserIds, ...userIds]) },
-    });
 
     // Update the task's assignedUserIds
-    task.assignedUserIds = userIds;
+    task.assignedUserIds = [...new Set(userIds)]; // Ensure uniqueness
     await this.tasksRepository.save(task);
 
-    // Remove old assignments
-    await this.taskAssignmentRepository.delete({
-      task: { id: taskId },
-      user: {
-        id: In(task.assignedUserIds.filter((id) => !userIds.includes(id))),
-      },
+    // Get existing assignments
+    const existingAssignments = await this.taskAssignmentRepository.find({
+      where: { task: { id: taskId } },
+      relations: ['user'],
     });
 
-    // Add new assignments
-    const newAssignments = userIds
-      .filter((id) => !task.assignedUserIds.includes(id))
-      .map((id) => {
-        const user = allRelevantUsers.find((u) => u.id === id);
-        const assignment = new TaskAssignment();
-        assignment.task = task;
-        assignment.user = user;
-        return assignment;
-      });
+    // Determine users to add and remove
+    const existingUserIds = existingAssignments.map(
+      (assignment) => assignment.user.id,
+    );
+    const usersToAdd = userIds.filter((id) => !existingUserIds.includes(id));
+    const usersToRemove = existingUserIds.filter((id) => !userIds.includes(id));
 
-    if (newAssignments.length > 0) {
+    // Remove old assignments
+    if (usersToRemove.length > 0) {
+      await this.taskAssignmentRepository.delete({
+        task: { id: taskId },
+        user: { id: In(usersToRemove) },
+      });
+    }
+
+    // Add new assignments
+    if (usersToAdd.length > 0) {
+      const newAssignments = await Promise.all(
+        usersToAdd.map(async (userId) => {
+          const user = await this.findUserById(userId);
+          const assignment = new TaskAssignment();
+          assignment.task = task;
+          assignment.user = user;
+          assignment.assignedAt = new Date();
+          return assignment;
+        }),
+      );
+
       await this.taskAssignmentRepository.save(newAssignments);
     }
 
-    return task;
+    // Fetch and return the updated task
+    return this.findTaskById(taskId);
   }
 
   async getAssignedUsers(taskId: string): Promise<AssignedUserDto[]> {
@@ -155,7 +127,7 @@ export class TasksService {
       where: {
         id: In(task.assignedUserIds),
       },
-      select: ['id', 'username'], // Only select the fields we need
+      select: ['id', 'username'],
     });
 
     return users.map((user) => ({

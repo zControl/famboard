@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
-import { TaskToSingleUserDto } from 'src/modules/tasks/dto/task-to-single-user.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -47,8 +46,8 @@ export class TasksController {
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  findOne(@Param('id') id: string) {
-    return this.tasksService.findOne(id);
+  findOne(@Param('taskId') taskId: string) {
+    return this.tasksService.findTaskById(taskId);
   }
 
   @Patch(':taskId')
@@ -59,14 +58,6 @@ export class TasksController {
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
-
-  /*   @Get(':taskId/users')
-  @ApiOperation({ summary: 'Get users assigned to a specific task' })
-  async getUsersForTask(
-    @Param('taskId') taskId: string,
-  ): Promise<TaskAssignedUsersDto[]> {
-    return this.tasksService.findUsersByTask(taskId);
-  } */
 
   @Get(':taskId/assigned-users')
   async getAssignedUsers(@Param('taskId') taskId: string) {
@@ -81,24 +72,14 @@ export class TasksController {
     return this.tasksService.remove(id);
   }
 
-  @Post(':taskId/assign-single')
-  @ApiOperation({ summary: 'Assign a user to a task' })
-  @ApiBody({ type: TaskToSingleUserDto })
-  async assignUserToTask(
-    @Param('taskId') taskId: string,
-    @Body('userId') userId: string,
-  ) {
-    return this.tasksService.assignUserToTask(taskId, userId);
-  }
-
-  @Post(':taskId/assign-multiple')
+  @Post(':taskId/assign')
   @ApiOperation({ summary: 'Assign multiple users to a task' })
   @ApiBody({ type: TaskToMultipleUsersDto })
-  async assignMultipleUsersToTask(
+  async assignUsersToTask(
     @Param('taskId') taskId: string,
-    @Body('userIds') userIds: string[],
+    @Body() body: { userIds: string[] },
   ) {
-    return this.tasksService.assignMultipleUsersToTask(taskId, userIds);
+    return this.tasksService.assignUsersToTask(taskId, body.userIds);
   }
 
   @Get('user/:userId')
