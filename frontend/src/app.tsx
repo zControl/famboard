@@ -39,14 +39,14 @@ function AppRouter() {
 export default function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <ThemeProvider defaultTheme="dark">
             <AppRouter />
-          </AuthProvider>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </ThemeProvider>
+            <ReactQueryDevtools />
+          </ThemeProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </HelmetProvider>
   );
 }
