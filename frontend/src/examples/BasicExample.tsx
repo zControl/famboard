@@ -90,6 +90,8 @@ function ButtonTile() {
         <Button>Default</Button>
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
+        <Button variant="warning">Warning</Button>
+        <Button variant="highlight">Highlight</Button>
         <Button variant="destructive">Destructive</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
