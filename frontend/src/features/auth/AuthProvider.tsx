@@ -44,7 +44,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = React.useCallback(async () => {
     await sleep(250);
-    console.log("Logging out...");
     setUser(null);
     localStorage.removeItem("user");
   }, []);
