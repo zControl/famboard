@@ -1,6 +1,7 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
 import { UserGroup } from "@/types/user";
@@ -124,6 +125,7 @@ export const AppHeader = () => {
           <PlusSquareIcon />
           <MailsIcon />
           <BellIcon />
+          <LogoutButton />
           <UserAvatarDropdown />
         </div>
       }
