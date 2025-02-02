@@ -145,4 +145,11 @@ export class UsersService {
     Object.assign(profile, updatedProfile);
     return this.userProfileRepository.save(profile);
   }
+
+  async updateLastLogin(userId: string): Promise<void> {
+    await this.userProfileRepository.update(
+      { userId },
+      { lastLogin: new Date() },
+    );
+  }
 }

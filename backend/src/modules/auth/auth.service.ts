@@ -34,6 +34,10 @@ export class AuthService {
     try {
       const payload = { username: user.username, sub: user.id };
       const accessToken = this.jwtService.sign(payload);
+
+      // Update the last login time
+      await this.usersService.updateLastLogin(user.id);
+
       const userResponse = {
         id: user.id,
         email: user.email,
