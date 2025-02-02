@@ -63,11 +63,11 @@ export const DataTableCore = <TData, TValue>({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <div>{actionsToolbar}</div>
         <div className="flex items-center">
-          <div>{optionsToolbar}</div>
           {showColumnVisibility && <TableColumnVisibility table={table} />}
+          {optionsToolbar}
         </div>
+        <div>{actionsToolbar}</div>
       </div>
       <Table>
         <TableHeader className={cn("bg-muted px-2", headerClassName)}>

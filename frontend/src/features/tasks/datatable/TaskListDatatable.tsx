@@ -15,7 +15,6 @@ export const TaskListDatatable = () => {
         data={tasks || []}
         actions={<AddTaskModal />}
         options={<TaskListOptions />}
-        caption="This is the main list of tasks."
       />
     </Card>
   );
