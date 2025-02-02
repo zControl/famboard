@@ -127,6 +127,7 @@ export class UsersService {
       firstName: profile.firstName,
       birthDate: profile.birthDate,
       bio: profile.bio,
+      status: profile.status,
       theme: profile.theme,
       avatarUrl: profile.avatarUrl,
     };
@@ -134,7 +135,7 @@ export class UsersService {
 
   async updateProfile(
     userId: string,
-    updatedProfile: Partial<UserProfile>,
+    updatedProfile: Partial<UserProfileDto>,
   ): Promise<UserProfile> {
     const profile = await this.userProfileRepository.findOne({
       where: { user: { id: userId } },

@@ -32,6 +32,9 @@ export class UserProfile {
   @Column({ nullable: true })
   bio: string;
 
+  @Column({ nullable: true, default: 'Available' })
+  status: string;
+
   @Column()
   theme: string;
 

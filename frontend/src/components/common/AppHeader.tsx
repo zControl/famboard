@@ -3,7 +3,7 @@ import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { UserAvatarDropdown } from "@/features/user/components/UserAvatarDropdown";
+import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { UserGroup } from "@/types/user";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -126,7 +126,7 @@ export const AppHeader = () => {
           <MailsIcon />
           <BellIcon />
           <LogoutButton />
-          <UserAvatarDropdown />
+          <ManageUserSheet />
         </div>
       }
     />

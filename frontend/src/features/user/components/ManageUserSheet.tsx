@@ -1,6 +1,5 @@
 import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -13,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatar } from "@/features/user/components/UserAvatar";
+import { UserSheetStatus } from "@/features/user/components/UserSheetStatus";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { useNavigate } from "@tanstack/react-router";
 import { LayoutDashboardIcon, UserPenIcon } from "lucide-react";
@@ -30,10 +30,11 @@ const navItems = [
   },
 ];
 
-export const UserAvatarDropdown = () => {
+export const ManageUserSheet = () => {
   const navigate = useNavigate();
   const { profile } = useProfile();
   const { user } = useAuth();
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -46,17 +47,14 @@ export const UserAvatarDropdown = () => {
               <UserAvatar />
               <div className="flex flex-col w-full text-left border border-muted rounded-lg p-2">
                 <div className="text-md font-semibold">{profile?.username}</div>
-                <div className="text-sm font-normal">{user?.group}</div>
+                <div className="text-sm font-normal">
+                  {user?.group.toUpperCase()}
+                </div>
               </div>
             </div>
           </SheetTitle>
           <SheetTitle>
-            <div>Status shows up here.</div>
-            <Input
-              type="text"
-              placeholder="Change status"
-              className="w-full my-2"
-            />
+            <UserSheetStatus />
           </SheetTitle>
           <SheetDescription className="sr-only">
             User Dropdown Menu

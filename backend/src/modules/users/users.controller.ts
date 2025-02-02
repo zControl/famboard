@@ -7,6 +7,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { PartialUserProfileDto } from 'src/modules/users/dto/user-profile.dto';
 import { User, UserGroup } from 'src/modules/users/entities/user.entity';
 import { UsersService } from './users.service';
 
@@ -41,20 +42,23 @@ export class UsersController {
   @ApiOperation({ summary: 'Update a user profile' })
   @ApiParam({ name: 'id', description: 'User ID' })
   @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        theme: { type: 'string' },
-        avatarUrl: { type: 'string' },
+    type: PartialUserProfileDto,
+    description: 'Partial user profile data to update',
+    examples: {
+      partialUpdate: {
+        value: {
+          firstName: 'John',
+          status: 'Available',
+          theme: 'dark',
+        },
       },
     },
   })
   updateProfile(
     @Param('id') id: string,
-    @Body('theme') theme: string,
-    @Body('avatarUrl') avatarUrl: string,
+    @Body() updatedProfile: PartialUserProfileDto,
   ) {
-    return this.usersService.updateProfile(id, { theme, avatarUrl });
+    return this.usersService.updateProfile(id, updatedProfile);
   }
 
   @Get(':id/profile')

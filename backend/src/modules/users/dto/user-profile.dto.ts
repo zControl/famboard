@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsDateString, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserProfileDto {
@@ -30,9 +30,15 @@ export class UserProfileDto {
 
   @IsString()
   @ApiProperty()
+  status: string;
+
+  @IsString()
+  @ApiProperty()
   theme: string;
 
   @IsString()
   @ApiProperty()
   avatarUrl: string;
 }
+
+export class PartialUserProfileDto extends PartialType(UserProfileDto) {}
