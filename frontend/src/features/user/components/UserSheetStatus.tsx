@@ -20,7 +20,6 @@ export const UserSheetStatus = () => {
   };
 
   const handleStatusSave = (updatedData: Partial<UserProfile>) => {
-    console.log("Saving status:", updatedData);
     if (profile?.userId) {
       updateProfile.mutate(updatedData);
       setChanged(false);
