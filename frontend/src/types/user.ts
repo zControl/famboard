@@ -19,6 +19,7 @@ export interface UserProfile {
   firstName: string;
   birthDate: Date;
   bio: string;
+  statusEmoji: string;
   status: string;
   theme: string;
   avatarUrl: string;

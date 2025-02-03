@@ -30,6 +30,10 @@ export class UserProfileDto {
 
   @IsString()
   @ApiProperty()
+  statusEmoji: string;
+
+  @IsString()
+  @ApiProperty()
   status: string;
 
   @IsString()

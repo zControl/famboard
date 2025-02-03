@@ -1,3 +1,4 @@
+import { EmojiSelector } from "@/components/common/EmojiSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useProfile } from "@/features/user/hooks/useProfile";
@@ -35,20 +36,31 @@ export const UserSheetStatus = () => {
 
   return (
     <div>
-      {profile?.status}
-      <Input
-        type="text"
-        value={status}
-        placeholder="Change status"
-        className="w-full my-2"
-        onChange={handleStatusChange}
-      />
-      {changed && (
-        <>
+      {changed ? (
+        <div className="flex flex-row items-center">
+          <Input
+            type="text"
+            value={status}
+            placeholder={profile?.status}
+            className="w-full my-2"
+            onChange={handleStatusChange}
+          />
           <Button onClick={() => handleStatusSave({ status: status })}>
-            Save
+            C
           </Button>
-          <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleClose}>X</Button>
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center justify-between gap-2 my-4">
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setChanged(!changed)}
+            >
+              <EmojiSelector />
+              <div>{profile?.status}</div>
+            </div>
+          </div>
         </>
       )}
     </div>
