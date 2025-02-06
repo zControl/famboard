@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserProfile } from "@/types/user";
+import { CheckIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export const UserSheetStatus = () => {
@@ -45,19 +46,24 @@ export const UserSheetStatus = () => {
             className="w-full my-2"
             onChange={handleStatusChange}
           />
-          <Button onClick={() => handleStatusSave({ status: status })}>
-            C
-          </Button>
-          <Button onClick={handleClose}>X</Button>
+          <div className="flex items-center ml-2 space-x-1">
+            <Button
+              variant={"primary"}
+              size={"icon"}
+              onClick={() => handleStatusSave({ status: status })}
+            >
+              <CheckIcon />
+            </Button>
+            <Button variant={"warning"} size={"icon"} onClick={handleClose}>
+              <XIcon />
+            </Button>
+          </div>
         </div>
       ) : (
         <>
-          <div className="flex items-center justify-between gap-2 my-4">
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setChanged(!changed)}
-            >
-              <EmojiSelector />
+          <div className="flex items-center my-2 cursor-pointer">
+            <EmojiSelector />
+            <div className="ml-4" onClick={() => setChanged(!changed)}>
               <div>{profile?.status}</div>
             </div>
           </div>
