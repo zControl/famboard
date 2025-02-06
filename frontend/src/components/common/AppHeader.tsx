@@ -1,7 +1,7 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { Button } from "@/components/ui/button";
-import { LogoutButton } from "@/features/auth/components/LogoutButton";
+import { Header3 } from "@/components/ui/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { UserGroup } from "@/types/user";
@@ -66,26 +66,15 @@ const ParentNavigation = () => (
 );
 
 const KidNavigation = () => (
-  <>
-    <div></div>
-    <ul className="flex gap-1">
-      <li>
-        <HeaderNavLink href="/kids">My Dashboard</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/play">Play Games</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/help">Do Chores</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/fitness">Fitness</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/earn">Earn Rewards</HeaderNavLink>
-      </li>
-    </ul>
-  </>
+  <div className="flex flex-col w-full">
+    <div className="flex items-center justify-center gap-6 h-24 border border-red-500">
+      <HeaderNavLink href="/kids">My Dashboard</HeaderNavLink>
+      <HeaderNavLink href="/kids/play">Play Games</HeaderNavLink>
+      <HeaderNavLink href="/kids/help">Do Chores</HeaderNavLink>
+      <HeaderNavLink href="/kids/fitness">Fitness</HeaderNavLink>
+      <HeaderNavLink href="/kids/earn">Earn Rewards</HeaderNavLink>
+    </div>
+  </div>
 );
 
 const GuestNavigation = () => (
@@ -98,6 +87,44 @@ const GuestNavigation = () => (
     </li>
   </ul>
 );
+
+const AdminActions = () => <div>Admin Actions</div>;
+
+const ParentActions = () => (
+  <div className="flex items-center gap-2">
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <MailsIcon />
+    </Button>
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <PlusSquareIcon />
+    </Button>
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <BellIcon />
+    </Button>
+  </div>
+);
+
+const KidActions = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <Header3 className="text-highlight">Points: 72</Header3>
+      <Button variant="outline">
+        <MailsIcon />
+      </Button>
+      <Button variant="outline">
+        <PlusSquareIcon />
+      </Button>
+    </div>
+  );
+};
+
+const KidMobileMenu = () => {
+  return (
+    <div>
+      <ManageUserSheet />
+    </div>
+  );
+};
 
 export const AppHeader = () => {
   const { user } = useAuth();
@@ -115,17 +142,27 @@ export const AppHeader = () => {
     }
   };
 
+  const renderActions = () => {
+    switch (user?.group) {
+      case UserGroup.ADMIN:
+        return <AdminActions />;
+      case UserGroup.PARENT:
+        return <ParentActions />;
+      case UserGroup.KID:
+        return <KidActions />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <HeaderContainer
       logo={<AppLogo />}
-      mobileMenu={<Button variant={"default"}>Menu</Button>}
+      mobileMenu={<KidMobileMenu />}
       navigation={<div className="flex gap-2">{renderNavigation()}</div>}
       actions={
         <div className="flex items-center gap-4">
-          <PlusSquareIcon />
-          <MailsIcon />
-          <BellIcon />
-          <LogoutButton />
+          {renderActions()}
           <ManageUserSheet />
         </div>
       }
