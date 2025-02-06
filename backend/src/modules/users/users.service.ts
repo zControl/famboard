@@ -91,6 +91,8 @@ export class UsersService {
         user: savedUser,
         firstName: '',
         bio: 'Not specified...',
+        statusEmoji: '😀',
+        status: 'New user!',
         theme: 'light',
         avatarUrl: '/avatars/avatar-default.jpg',
       };
@@ -127,6 +129,7 @@ export class UsersService {
       firstName: profile.firstName,
       birthDate: profile.birthDate,
       bio: profile.bio,
+      statusEmoji: profile.statusEmoji,
       status: profile.status,
       theme: profile.theme,
       avatarUrl: profile.avatarUrl,
