@@ -17,13 +17,9 @@ function KidsLayout() {
     <>
       <AppHeader />
       <div className="flex flex-row">
-        {/* <div className="max-w-[200px] border border-purple-500">
-          left
-        </div> */}
         <div className="flex-1">
           <Outlet />
         </div>
-        {/* <div className="max-w-[200px] border border-purple-500">right</div> */}
       </div>
     </>
   );

@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatar } from "@/features/user/components/UserAvatar";
 import { UserSheetStatus } from "@/features/user/components/UserSheetStatus";
@@ -83,6 +84,7 @@ export const ManageUserSheet = () => {
           </SheetClose>
         ))}
         <Separator className="my-4" />
+        <LogoutButton />
       </SheetContent>
     </Sheet>
   );

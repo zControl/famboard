@@ -1,49 +1,23 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
+import { ButtonLink } from "@/components/composites/ButtonLink";
 import { Button } from "@/components/ui/button";
-import { LogoutButton } from "@/features/auth/components/LogoutButton";
+import { Header3 } from "@/components/ui/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { UserGroup } from "@/types/user";
-import { useNavigate } from "@tanstack/react-router";
-import {
-  AlarmCheckIcon,
-  BellIcon,
-  MailsIcon,
-  PlusSquareIcon,
-} from "lucide-react";
-
-const HeaderNavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => {
-  const navigate = useNavigate();
-
-  return (
-    <Button
-      variant="link"
-      className="flex items-center mx-0 p-2 text-lg"
-      onClick={() => navigate({ to: href })}
-    >
-      <AlarmCheckIcon />
-      {children}
-    </Button>
-  );
-};
+import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
 
 const AdminNavigation = () => (
   <ul className="flex gap-1">
     <li>
-      <HeaderNavLink href="/admin">Dashboard</HeaderNavLink>
+      <ButtonLink href="/admin">Dashboard</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/admin/users">Users</HeaderNavLink>
+      <ButtonLink href="/admin/users">Users</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/admin/analytics">Analytics</HeaderNavLink>
+      <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
     </li>
   </ul>
 );
@@ -51,53 +25,74 @@ const AdminNavigation = () => (
 const ParentNavigation = () => (
   <ul className="flex gap-1">
     <li>
-      <HeaderNavLink href="/parents">Dashboard</HeaderNavLink>
+      <ButtonLink href="/parents">Dashboard</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/parents/manage">Manage</HeaderNavLink>
+      <ButtonLink href="/parents/manage">Manage</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/parents/tasks">Tasks</HeaderNavLink>
+      <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/parents/rewards">Rewards</HeaderNavLink>
+      <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
     </li>
   </ul>
 );
 
 const KidNavigation = () => (
-  <>
-    <div></div>
-    <ul className="flex gap-1">
-      <li>
-        <HeaderNavLink href="/kids">My Dashboard</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/play">Play Games</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/help">Do Chores</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/fitness">Fitness</HeaderNavLink>
-      </li>
-      <li>
-        <HeaderNavLink href="/kids/earn">Earn Rewards</HeaderNavLink>
-      </li>
-    </ul>
-  </>
+  <div className="flex flex-col w-full">
+    <div className="flex items-center justify-center gap-6 h-24">
+      <ButtonLink href="/kids">My Dashboard</ButtonLink>
+      <ButtonLink href="/kids/play">Play Games</ButtonLink>
+      <ButtonLink href="/kids/help">Do Chores</ButtonLink>
+      <ButtonLink href="/kids/fitness">Fitness</ButtonLink>
+      <ButtonLink href="/kids/earn">Earn Rewards</ButtonLink>
+    </div>
+  </div>
 );
 
 const GuestNavigation = () => (
   <ul className="flex gap-1">
     <li>
-      <HeaderNavLink href="/about">About</HeaderNavLink>
+      <ButtonLink href="/about">About</ButtonLink>
     </li>
     <li>
-      <HeaderNavLink href="/login">Login</HeaderNavLink>
+      <ButtonLink href="/login">Login</ButtonLink>
     </li>
   </ul>
 );
+
+const AdminActions = () => <div>Admin Actions</div>;
+
+const ParentActions = () => (
+  <div className="flex items-center gap-2">
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <MailsIcon />
+    </Button>
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <PlusSquareIcon />
+    </Button>
+    <Button variant="outline" className="h-10 w-10 rounded-full">
+      <BellIcon />
+    </Button>
+  </div>
+);
+
+const KidActions = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <Header3 className="text-highlight">Points: 72</Header3>
+    </div>
+  );
+};
+
+const KidMobileMenu = () => {
+  return (
+    <div>
+      <ManageUserSheet />
+    </div>
+  );
+};
 
 export const AppHeader = () => {
   const { user } = useAuth();
@@ -115,17 +110,27 @@ export const AppHeader = () => {
     }
   };
 
+  const renderActions = () => {
+    switch (user?.group) {
+      case UserGroup.ADMIN:
+        return <AdminActions />;
+      case UserGroup.PARENT:
+        return <ParentActions />;
+      case UserGroup.KID:
+        return <KidActions />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <HeaderContainer
       logo={<AppLogo />}
-      mobileMenu={<Button variant={"default"}>Menu</Button>}
-      navigation={<div className="flex gap-2">{renderNavigation()}</div>}
+      mobileMenu={<KidMobileMenu />}
+      navigation={renderNavigation()}
       actions={
         <div className="flex items-center gap-4">
-          <PlusSquareIcon />
-          <MailsIcon />
-          <BellIcon />
-          <LogoutButton />
+          {renderActions()}
           <ManageUserSheet />
         </div>
       }
