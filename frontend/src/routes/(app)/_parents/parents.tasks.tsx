@@ -8,7 +8,10 @@ export const Route = createFileRoute("/(app)/_parents/parents/tasks")({
 
 function ParentsTasksPage() {
   return (
-    <PageContainer title="Parents | Tasks" description="Manage each kid here.">
+    <PageContainer
+      title="Parents | Tasks"
+      description="Manage the overall task list and assginments."
+    >
       <TaskListDatatable />
     </PageContainer>
   );

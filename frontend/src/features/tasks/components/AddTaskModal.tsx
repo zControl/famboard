@@ -40,7 +40,6 @@ export const AddTaskModal = () => {
   const { addTaskMutation } = useTasks();
 
   const handleAddTask = (data: z.infer<typeof taskListSchema>) => {
-    console.log("Adding task", data.title);
     addTaskMutation.mutate(data, {
       onSuccess: () => {
         setOpen(false);
@@ -52,7 +51,6 @@ export const AddTaskModal = () => {
   };
 
   const handleCancel = () => {
-    console.log("Cancel");
     setOpen(false);
   };
 
@@ -61,6 +59,7 @@ export const AddTaskModal = () => {
     defaultValues: {
       title: "",
       description: "",
+      pointValue: 0,
       category: TaskCategory.Personal,
       frequency: TaskFrequency.Daily,
       difficulty: TaskDifficulty.Easy,
@@ -104,6 +103,19 @@ export const AddTaskModal = () => {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Enter task description" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pointValue"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Point Value</FormLabel>
+                  <FormControl>
+                    <Input type="number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

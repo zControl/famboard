@@ -1,7 +1,6 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { ButtonLink } from "@/components/composites/ButtonLink";
-import { Button } from "@/components/ui/button";
 import { Header3 } from "@/components/ui/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
@@ -9,34 +8,20 @@ import { UserGroup } from "@/types/user";
 import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
 
 const AdminNavigation = () => (
-  <ul className="flex gap-1">
-    <li>
-      <ButtonLink href="/admin">Dashboard</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/admin/users">Users</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
-    </li>
-  </ul>
+  <div className="flex gap-1">
+    <ButtonLink href="/admin">Dashboard</ButtonLink>
+    <ButtonLink href="/admin/users">Users</ButtonLink>
+    <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
+  </div>
 );
 
 const ParentNavigation = () => (
-  <ul className="flex gap-1">
-    <li>
-      <ButtonLink href="/parents">Dashboard</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/parents/manage">Manage</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
-    </li>
-  </ul>
+  <div className="flex gap-2 justify-center">
+    <ButtonLink href="/parents">Dashboard</ButtonLink>
+    <ButtonLink href="/parents/manage">Manage</ButtonLink>
+    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
+    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
+  </div>
 );
 
 const KidNavigation = () => (
@@ -66,15 +51,9 @@ const AdminActions = () => <div>Admin Actions</div>;
 
 const ParentActions = () => (
   <div className="flex items-center gap-2">
-    <Button variant="outline" className="h-10 w-10 rounded-full">
-      <MailsIcon />
-    </Button>
-    <Button variant="outline" className="h-10 w-10 rounded-full">
-      <PlusSquareIcon />
-    </Button>
-    <Button variant="outline" className="h-10 w-10 rounded-full">
-      <BellIcon />
-    </Button>
+    <MailsIcon />
+    <BellIcon />
+    <PlusSquareIcon />
   </div>
 );
 
@@ -86,9 +65,10 @@ const KidActions = () => {
   );
 };
 
-const KidMobileMenu = () => {
+const MobileMenu = () => {
   return (
-    <div>
+    <div className="flex gap-1 items-center">
+      <div>Mobile Menu</div>
       <ManageUserSheet />
     </div>
   );
@@ -126,7 +106,7 @@ export const AppHeader = () => {
   return (
     <HeaderContainer
       logo={<AppLogo />}
-      mobileMenu={<KidMobileMenu />}
+      mobileMenu={<MobileMenu />}
       navigation={renderNavigation()}
       actions={
         <div className="flex items-center gap-4">

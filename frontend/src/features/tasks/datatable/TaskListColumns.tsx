@@ -3,6 +3,7 @@ import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell"
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
+import { Coin } from "@/components/ui/coin";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
@@ -47,6 +48,15 @@ export const taskListColumns: ColumnDef<Task>[] = [
     accessorKey: "description",
     header: ({ column }) => (
       <SearchInputHeader column={column} title="Description" />
+    ),
+  },
+  {
+    accessorKey: "pointValue",
+    header: () => <div className="text-red-500 text-center">Point Value</div>,
+    cell: ({ row }) => (
+      <div className="text-center">
+        <Coin value={row.original.pointValue} />
+      </div>
     ),
   },
   {
