@@ -4,6 +4,7 @@ import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHea
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
+import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 
@@ -20,6 +21,17 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
   {
+    id: "actions",
+    cell: ({ row }) => (
+      <RowActionsMenu
+        onSave={() => {}}
+        onCancel={() => {}}
+        isChanged={false}
+        row={row}
+      />
+    ),
+  },
+  {
     accessorKey: "sequenceNumber",
     enableSorting: true,
     enableHiding: false,
@@ -28,6 +40,18 @@ export const taskListColumns: ColumnDef<Task>[] = [
       const task = row.original;
       return task.sequenceNumber;
     },
+  },
+  {
+    accessorKey: "title",
+    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
+  },
+  {
+    accessorKey: "description",
+    header: ({ column }) => (
+      <SearchInputHeader column={column} title="Description" />
+    ),
+    // THIS IS CURSED RIGHT NOW.
+    cell: ({ row }) => <EditableTextCell row={row} />,
   },
   {
     accessorKey: "assigned",
@@ -41,23 +65,19 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
   },
   {
-    accessorKey: "title",
-    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
-  },
-  {
-    accessorKey: "description",
-    header: ({ column }) => (
-      <SearchInputHeader column={column} title="Description" />
-    ),
-  },
-  {
     accessorKey: "pointValue",
-    header: () => <div className="text-red-500 text-center">Point Value</div>,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Points" />
+    ),
     cell: ({ row }) => (
       <div className="text-center">
         <Coin value={row.original.pointValue} />
       </div>
     ),
+  },
+  {
+    accessorKey: "note",
+    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
   },
   {
     accessorKey: "category",
@@ -73,6 +93,23 @@ export const taskListColumns: ColumnDef<Task>[] = [
       <SelectOptionCell
         initialValue={row.original.category}
         options={enumToArray(TaskCategory)}
+      />
+    ),
+  },
+  {
+    accessorKey: "status",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Status"
+        options={enumToArray(TaskStatus)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.status}
+        options={enumToArray(TaskStatus)}
       />
     ),
   },
@@ -110,23 +147,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
       />
     ),
   },
-  {
-    accessorKey: "status",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Status"
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.status}
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-  },
+
   {
     accessorKey: "priority",
     filterFn: "arrIncludesSome",
@@ -141,21 +162,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
       <SelectOptionCell
         initialValue={row.original.priority}
         options={enumToArray(TaskPriority)}
-      />
-    ),
-  },
-  {
-    accessorKey: "note",
-    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <RowActionsMenu
-        onSave={() => {}}
-        onCancel={() => {}}
-        isChanged={false}
-        row={row}
       />
     ),
   },
