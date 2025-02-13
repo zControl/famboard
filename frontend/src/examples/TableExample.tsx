@@ -1,7 +1,6 @@
 import { PageSections } from "@/components/common/PageSections";
-import { DataTableCore } from "@/components/composites/DataTableCore";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableToolbar } from "@/components/datatable/TableSearchBox";
+import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -96,7 +95,7 @@ function SimpliestDataTable() {
             lastName: "Doe",
           },
         ]}
-        toolbar={(table) => <DataTableToolbar table={table} />}
+        actions={() => <div> actions</div>}
         caption="Data Table with pagination, sorting, and filtering."
       />
     </Tile>

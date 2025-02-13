@@ -1,18 +1,13 @@
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
-import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { TableHeaderSort } from "@/components/datatable/headers/AscDescSortHeader";
-import { TableSearchBox } from "@/components/datatable/TableSearchBox";
 import { Button } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
 import { createApiClient } from "@/utils/apiClient";
-import { formatDate } from "@/utils/dateUtils";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Column } from "@tanstack/react-table";
-import { CloudDownloadIcon, PlusIcon } from "lucide-react";
+import { CloudDownloadIcon } from "lucide-react";
 
 function CheckApiStatus() {
   const imp = `import { createApiClient } from "@/utils/apiClient";
@@ -95,159 +90,11 @@ const handleRefresh = () => {
   );
 }
 
-interface FullDataType {
-  id: string;
-  name: string;
-  count: number;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-function TableFromDatabase() {
-  const apiClient = createApiClient("http://localhost:3000/v1/");
-
-  const { isPending, isFetching, isError, data, error } = useQuery<
-    FullDataType[]
-  >({
-    queryKey: ["ExampleFull"],
-    queryFn: async () => apiClient.get("example"),
-    select: (data: FullDataType[]) =>
-      data.map((item) => ({
-        ...item,
-        createdAt: formatDate(item.createdAt),
-        updatedAt: formatDate(item.updatedAt),
-      })),
-  });
-
-  const columns = [
-    {
-      accessorKey: "name",
-      header: ({ column }: { column: Column<FullDataType, string> }) => (
-        <TableHeaderSort column={column} title="Name" />
-      ),
-    },
-    {
-      header: ({ column }: { column: Column<FullDataType, string> }) => (
-        <TableHeaderSort column={column} title="Count" />
-      ),
-      accessorKey: "count",
-      sortingFns: "alphanumeric",
-    },
-    {
-      header: "Price",
-      accessorKey: "price",
-    },
-    {
-      header: "Active",
-      accessorKey: "isActive",
-    },
-    {
-      header: "Created At",
-      accessorKey: "createdAt",
-    },
-    {
-      header: "Updated At",
-      accessorKey: "updatedAt",
-    },
-  ];
-
-  const toolbar = () => {
-    return (
-      <div className="flex items-center space-x-2">
-        <Button>
-          <PlusIcon size="lg" />
-        </Button>
-      </div>
-    );
-  };
-
-  return (
-    <Tile
-      title="Datatable from backend database"
-      description="Use API endpoints to get, add, update, and delete data from the database."
-    >
-      {isPending && <Spinner size="lg" />}
-      {isError && (
-        <div>An error has occurred: {error?.message || "Unknown error"}</div>
-      )}
-      {!isError && !isPending && !isFetching && (
-        <DataTableCore
-          data={data || []}
-          columns={columns}
-          actions={toolbar}
-          caption="Complete data set from the database, with formatted dates."
-        />
-      )}
-    </Tile>
-  );
-}
-
-interface SummaryDataType {
-  name: string;
-  count: number;
-  isActive: boolean;
-}
-
-function SummaryTableWithCustomDataShape() {
-  const apiClient = createApiClient("http://localhost:3000/v1/example");
-
-  const { isPending, isFetching, isError, data, error } = useQuery<
-    SummaryDataType[]
-  >({
-    queryKey: ["ExampleSummaries"],
-    queryFn: async () => apiClient.get("summaries"),
-  });
-  return (
-    <Tile
-      title="Custom DTO data shape"
-      description="Using a custom DTO, we can get only the data that we need instead of the full object."
-    >
-      <Header4>Custom data shape using dto.</Header4>
-      {isPending && <Spinner size="lg" />}
-      {isError && (
-        <div>An error has occurred: {error?.message || "Unknown error"}</div>
-      )}
-      {!isError && !isPending && !isFetching && (
-        <DataTableCore
-          columns={[
-            {
-              header: "Name",
-              accessorKey: "name",
-            },
-            {
-              header: "Count",
-              accessorKey: "count",
-            },
-            {
-              header: "Active",
-              accessorKey: "isActive",
-            },
-          ]}
-          data={data || []}
-          actions={(table) => <TableSearchBox table={table} />}
-          caption="This data comes from database, via custom DTO, reusable apiClient, and react-query!"
-        />
-      )}
-    </Tile>
-  );
-}
-
 const sections = [
   {
     id: "api-root-info",
     title: "API Root Info",
     children: <CheckApiStatus />,
-  },
-  {
-    id: "datatable-full",
-    title: "Full Datatable",
-    children: <TableFromDatabase />,
-  },
-  {
-    id: "database-custom-dto",
-    title: "Custom Shape Datatable",
-    children: <SummaryTableWithCustomDataShape />,
   },
 ];
 export const DatabaseExample = () => {
