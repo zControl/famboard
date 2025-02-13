@@ -55,7 +55,7 @@ export class TasksController {
   @ApiResponse({ status: 200, description: 'Task updated successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
   @ApiResponse({ status: 400, description: 'Validation error' })
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  update(@Param('taskId') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
 

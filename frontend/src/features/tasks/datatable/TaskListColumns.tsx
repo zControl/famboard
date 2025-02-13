@@ -50,7 +50,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <SearchInputHeader column={column} title="Description" />
     ),
-    // THIS IS CURSED RIGHT NOW.
     cell: ({ row }) => <EditableTextCell row={row} />,
   },
   {
