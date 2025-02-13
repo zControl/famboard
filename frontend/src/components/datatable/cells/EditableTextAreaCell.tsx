@@ -1,22 +1,28 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Textarea } from "@/components/ui/textarea";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 
-interface EditableTextCellProps {
-  row: Row<Task>;
-  accessor: keyof Task;
+interface EditableTextAreaCellProps<T> {
+  row: Row<T>;
+  accessor: keyof T;
+  onUpdate: (
+    rowId: string | number,
+    field: keyof T,
+    value: string,
+  ) => Promise<void>;
 }
 
-//TODO: Currently, this only works for <Task>, but it would be good to make it accept generic type.
-//? This means the mutation would need to be handled by the parent component and column definition would need to be updated.
-export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
+//TODO: FIGURE OUT THE IMPLEMENTATION WITH THE MUTATIONS.
+//? See EditableTextCell on the tasks datatable.
+export const EditableTextAreaCell = <T extends { id: string | number }>({
+  row,
+  accessor,
+  onUpdate,
+}: EditableTextAreaCellProps<T>) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [value, setValue] = useState(row.original[accessor] as string);
-  const { updateTaskMutation } = useTasks();
 
   useEffect(() => {
     setValue(row.original[accessor] as string);
@@ -47,26 +53,20 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
   };
 
   const handleSave = () => {
-    updateTaskMutation.mutate(
-      {
-        taskId: row.original.id,
-        task: { [accessor]: value },
-      },
-      {
-        onSuccess: () => {
-          setIsEditing(false);
-        },
-        onError: (error) => {
-          console.error(`Error updating task ${accessor}:`, error);
-        },
-      },
-    );
+    onUpdate(row.original.id, accessor, value)
+      .then(() => {
+        setIsEditing(false);
+      })
+      .catch((error) => {
+        console.error(`Error updating ${String(accessor)}:`, error);
+      });
   };
 
   const handleCancel = () => {
     setValue(row.original[accessor] as string);
     setIsEditing(false);
   };
+
   return (
     <>
       {isEditing ? (
@@ -94,7 +94,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
       )}
       <ActionModal
         title="Confirm Save!"
-        description={`Changed ${accessor.charAt(0).toUpperCase() + accessor.slice(1)} from "${row.original[accessor]}" to "${value}"`}
+        description={`Changed ${String(accessor).charAt(0).toUpperCase() + String(accessor).slice(1)} from "${row.original[accessor]}" to "${value}"`}
         open={showConfirmation}
         onConfirm={() => handleConfirmSave(true)}
         onCancel={() => handleConfirmSave(false)}

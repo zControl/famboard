@@ -17,6 +17,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  TableState,
   useReactTable,
   type Table as ReactTable,
 } from "@tanstack/react-table";
@@ -30,6 +31,7 @@ interface DataTableCoreProps<TData, TValue> {
   headerClassName?: string;
   showPagination?: boolean;
   showColumnVisibility?: boolean;
+  initialState?: Partial<TableState>;
 }
 
 export const DataTableCore = <TData, TValue>({
@@ -41,10 +43,12 @@ export const DataTableCore = <TData, TValue>({
   headerClassName,
   showPagination = true,
   showColumnVisibility = true,
+  initialState,
 }: DataTableCoreProps<TData, TValue>) => {
   const table = useReactTable({
     data,
     columns,
+    initialState,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),

@@ -44,13 +44,14 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
+    cell: ({ row }) => <EditableTextCell row={row} accessor="title" />,
   },
   {
     accessorKey: "description",
     header: ({ column }) => (
       <SearchInputHeader column={column} title="Description" />
     ),
-    cell: ({ row }) => <EditableTextCell row={row} />,
+    cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
   },
   {
     accessorKey: "assigned",
