@@ -23,6 +23,16 @@ export async function createTask(task: Partial<Task>): Promise<Task> {
   }
 }
 
+export async function updateTask(taskId: string, task: Partial<Task>): Promise<Task> {
+  try {
+    const response = await apiClient.patch<Task>(`/tasks/${taskId}`, task);
+    return response;
+  } catch (error) {
+    console.error("Error updating task:", error);
+    throw new Error("Failed to update task");
+  }
+}
+
 export const getAssignedUsers = async (taskId: string): Promise<AssignedTaskResponse[]> => {
   const response = await apiClient.get<AssignedTaskResponse[]>(`/tasks/${taskId}/assigned-users`);
   return response;

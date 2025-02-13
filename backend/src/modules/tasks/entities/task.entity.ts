@@ -25,6 +25,9 @@ export class Task {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ type: 'integer', default: 0, nullable: true })
+  pointValue: number;
+
   @Column({ nullable: true })
   category: string;
 

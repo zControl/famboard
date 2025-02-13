@@ -55,7 +55,7 @@ export class TasksController {
   @ApiResponse({ status: 200, description: 'Task updated successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
   @ApiResponse({ status: 400, description: 'Validation error' })
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
+  update(@Param('taskId') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(id, updateTaskDto);
   }
 
@@ -68,7 +68,7 @@ export class TasksController {
   @ApiOperation({ summary: 'Delete a task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  remove(@Param('id') id: string) {
+  remove(@Param('taskId') id: string) {
     return this.tasksService.remove(id);
   }
 

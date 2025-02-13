@@ -38,6 +38,7 @@ export const SearchInputHeader = <TData, TValue>({
             onChange={(event) => column.setFilterValue(event.target.value)}
             placeholder={`Search ${title}...`}
             className="h-8 w-[80%]"
+            autoFocus
           />
         </>
       ) : (

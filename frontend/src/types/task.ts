@@ -49,6 +49,7 @@ export interface Task {
   sequenceNumber: number;
   title: string;
   description?: string;
+  pointValue: number;
   category: TaskCategory;
   frequency: TaskFrequency;
   difficulty: TaskDifficulty;

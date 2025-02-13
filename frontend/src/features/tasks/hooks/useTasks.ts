@@ -1,4 +1,5 @@
-import { assignUsersToTask, createTask, getTasks } from "@/features/tasks/api/taskApi";
+import { assignUsersToTask, createTask, getTasks, updateTask } from "@/features/tasks/api/taskApi";
+import { Task } from "@/types/task";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useTasks = () => {
@@ -17,6 +18,11 @@ export const useTasks = () => {
     onSuccess: refreshTasks,
   })
 
+  const updateTaskMutation = useMutation({
+    mutationFn: ({ taskId, task }: { taskId: string, task: Partial<Task> }) => updateTask(taskId, task),
+    onSuccess: refreshTasks, 
+  })
+
   const assignTaskMutation = useMutation({
     mutationFn: ({ taskId, userIds }: { taskId: string, userIds: string[] }) => assignUsersToTask(taskId, userIds),
     onSuccess: refreshTasks,
@@ -30,6 +36,7 @@ export const useTasks = () => {
     tasks,
     refreshTasks,
     addTaskMutation,
+    updateTaskMutation,
     assignTaskMutation,
     isLoading,
     error,
