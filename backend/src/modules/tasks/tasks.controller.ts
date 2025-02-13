@@ -68,7 +68,7 @@ export class TasksController {
   @ApiOperation({ summary: 'Delete a task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  remove(@Param('id') id: string) {
+  remove(@Param('taskId') id: string) {
     return this.tasksService.remove(id);
   }
 

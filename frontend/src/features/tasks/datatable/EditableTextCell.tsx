@@ -1,4 +1,5 @@
-import { Input } from "@/components/ui/input";
+import { ActionModal } from "@/components/composites/ActionModal";
+import { Textarea } from "@/components/ui/textarea";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
@@ -11,12 +12,30 @@ interface EditableTextCellProps {
 
 export const EditableTextCell = ({ row }: EditableTextCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [value, setValue] = useState(row.original.description);
   const { updateTaskMutation } = useTasks();
 
   useEffect(() => {
     setValue(row.original.description);
   }, [row.original.description]);
+
+  const handleBlur = () => {
+    if (value !== row.original.description) {
+      setShowConfirmation(true);
+    } else {
+      setIsEditing(false);
+    }
+  };
+
+  const handleConfirmSave = (confirmed: boolean) => {
+    if (confirmed) {
+      handleSave();
+    } else {
+      handleCancel();
+    }
+    setShowConfirmation(false);
+  };
 
   const handleSave = () => {
     updateTaskMutation.mutate(
@@ -41,14 +60,15 @@ export const EditableTextCell = ({ row }: EditableTextCellProps) => {
     setIsEditing(false);
   };
   return (
-    <div>
+    <>
       {isEditing ? (
         <div className="flex items-center gap-1">
           <div className="flex flex-1">
-            <Input
-              type="text"
+            <Textarea
+              className="max-h-24 overflow-y-auto"
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              onBlur={handleBlur}
               autoFocus
             />
           </div>
@@ -67,6 +87,12 @@ export const EditableTextCell = ({ row }: EditableTextCellProps) => {
           {row.original.description}
         </div>
       )}
-    </div>
+      <ActionModal
+        title="Confirm changes?"
+        open={showConfirmation}
+        onConfirm={() => handleConfirmSave(true)}
+        onCancel={() => handleConfirmSave(false)}
+      />
+    </>
   );
 };
