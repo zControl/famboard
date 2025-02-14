@@ -22,14 +22,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const taskListColumns: ColumnDef<Task>[] = [
   {
     id: "actions",
-    cell: ({ row }) => (
-      <RowActionsMenu
-        onSave={() => {}}
-        onCancel={() => {}}
-        isChanged={false}
-        row={row}
-      />
-    ),
+    cell: ({ row }) => <RowActionsMenu row={row} />,
   },
   {
     accessorKey: "sequenceNumber",

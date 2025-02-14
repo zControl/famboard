@@ -1,6 +1,6 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { Card } from "@/components/ui/card";
-import { AddTaskModal } from "@/features/tasks/components/AddTaskModal";
+import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
 import { TaskListOptions } from "@/features/tasks/datatable/TaskListOptions";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
@@ -36,7 +36,7 @@ export const TaskListDatatable = () => {
       <DataTableCore
         columns={taskListColumns}
         data={tasks || []}
-        actions={<AddTaskModal />}
+        actions={<TaskModal />}
         options={<TaskListOptions />}
         initialState={initialState}
       />

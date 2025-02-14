@@ -32,7 +32,7 @@ export const ActionModal = ({
   onConfirm,
 }: ActionModalProps) => {
   return (
-    <AlertDialog open={open} onOpenChange={() => onOpenChange}>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent>
         <AlertDialogHeader>
