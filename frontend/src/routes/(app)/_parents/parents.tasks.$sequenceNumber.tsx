@@ -1,24 +1,30 @@
-import { getTask } from "@/features/tasks/api/taskApi";
+import { PageContainer } from "@/components/common/PageContainer";
+import { TaskTile } from "@/features/tasks/components/TaskTile";
+
+import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTasks";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/(app)/_parents/parents/tasks/$sequenceNumber",
 )({
-  loader: async ({ params }) => {
-    const taskDetails = getTask(params.sequenceNumber);
-    return taskDetails;
-  },
   component: TaskPage,
 });
 
 function TaskPage() {
   const { sequenceNumber } = Route.useParams();
-  const { ...task } = Route.useLoaderData();
+  const {
+    data: task,
+    isLoading,
+    error,
+  } = useTaskBySequenceNumber(sequenceNumber);
   return (
-    <>
-      <div>Task ID: {sequenceNumber}</div>
-      <div>Task from loader data: {task.id}</div>
-      <div>Title from loader data: {task.title}</div>
-    </>
+    <PageContainer
+      title={`${task?.title || "Task"}`}
+      description={`${task?.description || "Description"}`}
+    >
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {task && <TaskTile task={task} />}
+    </PageContainer>
   );
 }

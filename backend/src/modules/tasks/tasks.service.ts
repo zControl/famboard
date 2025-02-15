@@ -33,9 +33,9 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
-  async findTaskBySequenceNumber(sequenceNumber: number): Promise<Task> {
+  async findTaskBySequenceNumber(sequenceNumber: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({
-      where: { sequenceNumber },
+      where: { sequenceNumber: parseInt(sequenceNumber, 10) },
     });
     if (!task)
       throw new NotFoundException(

@@ -1,4 +1,4 @@
-import { assignUsersToTask, createTask, getTasks, updateTask } from "@/features/tasks/api/taskApi";
+import { assignUsersToTask, createTask, getTask, getTasks, updateTask } from "@/features/tasks/api/taskApi";
 import { Task } from "@/types/task";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -28,9 +28,6 @@ export const useTasks = () => {
     onSuccess: refreshTasks,
   })
 
-/*   console.log("useTasks hook generated:")
-  console.log("tasks", tasks); */
-
   return {
     queryClient,
     tasks,
@@ -42,3 +39,8 @@ export const useTasks = () => {
     error,
   };
 }
+
+export const useTaskBySequenceNumber = (sequenceNumber: string) => useQuery({
+  queryKey: ["taskDetails", sequenceNumber],
+  queryFn: () => getTask(sequenceNumber),
+});
