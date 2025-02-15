@@ -3,6 +3,7 @@ import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHea
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
+import { CustomLink } from "@/components/ui/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
@@ -17,7 +18,6 @@ import {
   TaskStatus,
 } from "@/types/task";
 import { enumToArray } from "@/utils/typeConverters";
-import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
@@ -31,11 +31,12 @@ export const taskListColumns: ColumnDef<Task>[] = [
     enableHiding: false,
     header: ({ column }) => <AscDescSortHeader column={column} />,
     cell: ({ row }) => (
-      <Link to={`/parents/tasks/${row.original.sequenceNumber}`}>
+      <CustomLink
+        to={`/parents/tasks/${row.original.sequenceNumber}`}
+        size="lg"
+      >
         {row.original.sequenceNumber}
-      </Link>
-      /*       const task = row.original;
-      return task.sequenceNumber; */
+      </CustomLink>
     ),
   },
   {
