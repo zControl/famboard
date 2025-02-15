@@ -9,6 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import React from "react";
 
 interface ActionModalProps {
@@ -35,11 +36,13 @@ export const ActionModal = ({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
-        </AlertDialogHeader>
-        {children}
+        <ScrollArea className="max-h-[80vh]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>{description}</AlertDialogDescription>
+          </AlertDialogHeader>
+          {children}
+        </ScrollArea>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>Confirm</AlertDialogAction>

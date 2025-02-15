@@ -1,6 +1,5 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { EnhancedSelector } from "@/components/composites/EnhancedSelector";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,15 +22,20 @@ import {
   TaskStatus,
 } from "@/types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 interface TaskModalProps {
+  modalOpen: boolean;
+  onModalOpenChange: (open: boolean) => void;
   existingTask?: Task;
 }
-export const TaskModal = ({ existingTask }: TaskModalProps) => {
-  const [open, setOpen] = useState(false);
+export const TaskModal = ({
+  modalOpen,
+  onModalOpenChange,
+  existingTask,
+}: TaskModalProps) => {
   const { addTaskMutation, updateTaskMutation } = useTasks();
 
   const isEditing = !!existingTask;
@@ -57,7 +61,7 @@ export const TaskModal = ({ existingTask }: TaskModalProps) => {
         { taskId: existingTask.id, task: data },
         {
           onSuccess: () => {
-            setOpen(false);
+            onModalOpenChange(false);
           },
           onError: (error) => {
             console.error(`Error updating task:`, error);
@@ -67,7 +71,7 @@ export const TaskModal = ({ existingTask }: TaskModalProps) => {
     } else {
       addTaskMutation.mutate(data, {
         onSuccess: () => {
-          setOpen(false);
+          onModalOpenChange(false);
         },
         onError: (error) => {
           console.error(`Error adding task:`, error);
@@ -76,7 +80,7 @@ export const TaskModal = ({ existingTask }: TaskModalProps) => {
     }
   };
   const handleCancel = () => {
-    setOpen(false);
+    onModalOpenChange(false);
   };
 
   const form = useForm<z.infer<typeof taskListSchema>>({
@@ -85,27 +89,25 @@ export const TaskModal = ({ existingTask }: TaskModalProps) => {
   });
 
   useEffect(() => {
-    if (open) {
+    if (modalOpen) {
       form.reset(defaultValues);
     }
-  }, [open, form, defaultValues]);
+  }, [modalOpen, form, defaultValues]);
 
-  const modalTitle = isEditing ? "Edit task" : "Add a new task";
+  const modalTitle = isEditing ? "Edit task" : "Add task";
   const modalDescription = isEditing
-    ? "Edit the existing task"
-    : "Add a new task to your task list";
-  const triggerButtonText = isEditing ? "Edit task" : "Add new task";
+    ? `Edit task "${existingTask?.sequenceNumber}"`
+    : "Add a new task and set initial values";
 
   return (
     <>
       <ActionModal
-        open={open}
-        onOpenChange={setOpen}
+        open={modalOpen}
+        onOpenChange={onModalOpenChange}
         onCancel={handleCancel}
         onConfirm={form.handleSubmit(handleSubmit)}
         title={modalTitle}
         description={modalDescription}
-        trigger={<Button variant="primary">{triggerButtonText}</Button>}
       >
         <Form {...form}>
           <form className="space-y-8">

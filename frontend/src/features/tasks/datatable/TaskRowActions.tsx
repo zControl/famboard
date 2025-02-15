@@ -11,12 +11,19 @@ import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
 
-interface RowActionsMenuProps {
+interface TaskRowActionProps {
   row: Row<Task>;
 }
 
-export const RowActionsMenu = ({ row }: RowActionsMenuProps) => {
+export const TaskRowActions = ({ row }: TaskRowActionProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleEdit = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className="flex items-center space-x-2">
       <DropdownMenu>
@@ -29,10 +36,17 @@ export const RowActionsMenu = ({ row }: RowActionsMenuProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <TaskModal existingTask={row.original} />
+          <DropdownMenuItem onSelect={handleEdit}>Edit Task</DropdownMenuItem>
           <DropdownMenuItem>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {isModalOpen && (
+        <TaskModal
+          modalOpen={isModalOpen}
+          onModalOpenChange={setModalOpen}
+          existingTask={row.original}
+        />
+      )}
     </div>
   );
 };

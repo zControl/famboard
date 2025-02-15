@@ -13,8 +13,6 @@ interface EditableTextAreaCellProps<T> {
   ) => Promise<void>;
 }
 
-//TODO: FIGURE OUT THE IMPLEMENTATION WITH THE MUTATIONS.
-//? See EditableTextCell on the tasks datatable.
 export const EditableTextAreaCell = <T extends { id: string | number }>({
   row,
   accessor,
@@ -28,6 +26,7 @@ export const EditableTextAreaCell = <T extends { id: string | number }>({
     setValue(row.original[accessor] as string);
   }, [row.original, accessor]);
 
+  // Set the enter key as the blur trigger
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();

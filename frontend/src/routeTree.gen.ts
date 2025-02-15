@@ -29,7 +29,7 @@ import { Route as appKidsKidsIndexImport } from './routes/(app)/_kids/kids.index
 import { Route as appAdminAdminIndexImport } from './routes/(app)/_admin/admin.index'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
-import { Route as appParentsParentsTasksImport } from './routes/(app)/_parents/parents.tasks'
+import { Route as appParentsParentsTasksImport } from './routes/(app)/_parents/parents.tasks_'
 import { Route as appParentsParentsRewardsImport } from './routes/(app)/_parents/parents.rewards'
 import { Route as appParentsParentsManageImport } from './routes/(app)/_parents/parents.manage'
 import { Route as appKidsKidsPlayImport } from './routes/(app)/_kids/kids.play'
@@ -41,6 +41,7 @@ import { Route as appExamplesDemoDialogsImport } from './routes/(app)/_examples/
 import { Route as appAdminAdminUsersImport } from './routes/(app)/_admin/admin.users'
 import { Route as appAdminAdminAnalyticsImport } from './routes/(app)/_admin/admin.analytics'
 import { Route as testTestABCImport } from './routes/(test)/test.a.b.c'
+import { Route as appParentsParentsTasksTaskIdImport } from './routes/(app)/_parents/parents.tasks.$taskId'
 
 // Create Virtual Routes
 
@@ -342,7 +343,7 @@ const testTestABRoute = testTestABImport.update({
 } as any)
 
 const appParentsParentsTasksRoute = appParentsParentsTasksImport.update({
-  id: '/parents/tasks',
+  id: '/parents/tasks_',
   path: '/parents/tasks',
   getParentRoute: () => appParentsRoute,
 } as any)
@@ -412,6 +413,13 @@ const testTestABCRoute = testTestABCImport.update({
   path: '/test/a/b/c',
   getParentRoute: () => rootRoute,
 } as any)
+
+const appParentsParentsTasksTaskIdRoute =
+  appParentsParentsTasksTaskIdImport.update({
+    id: '/parents/tasks/$taskId',
+    path: '/parents/tasks/$taskId',
+    getParentRoute: () => appParentsRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -627,8 +635,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsRewardsImport
       parentRoute: typeof appParentsImport
     }
-    '/(app)/_parents/parents/tasks': {
-      id: '/(app)/_parents/parents/tasks'
+    '/(app)/_parents/parents/tasks_': {
+      id: '/(app)/_parents/parents/tasks_'
       path: '/parents/tasks'
       fullPath: '/parents/tasks'
       preLoaderRoute: typeof appParentsParentsTasksImport
@@ -732,6 +740,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsIndexImport
       parentRoute: typeof appParentsImport
     }
+    '/(app)/_parents/parents/tasks/$taskId': {
+      id: '/(app)/_parents/parents/tasks/$taskId'
+      path: '/parents/tasks/$taskId'
+      fullPath: '/parents/tasks/$taskId'
+      preLoaderRoute: typeof appParentsParentsTasksTaskIdImport
+      parentRoute: typeof appParentsImport
+    }
     '/(test)/test/a/b/c': {
       id: '/(test)/test/a/b/c'
       path: '/test/a/b/c'
@@ -822,6 +837,7 @@ interface appParentsRouteChildren {
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
+  appParentsParentsTasksTaskIdRoute: typeof appParentsParentsTasksTaskIdRoute
 }
 
 const appParentsRouteChildren: appParentsRouteChildren = {
@@ -829,6 +845,7 @@ const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
+  appParentsParentsTasksTaskIdRoute: appParentsParentsTasksTaskIdRoute,
 }
 
 const appParentsRouteWithChildren = appParentsRoute._addFileChildren(
@@ -925,6 +942,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
+  '/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -968,6 +986,7 @@ export interface FileRoutesByTo {
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
+  '/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -1003,7 +1022,7 @@ export interface FileRoutesById {
   '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
   '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
   '/(app)/_parents/parents/rewards': typeof appParentsParentsRewardsRoute
-  '/(app)/_parents/parents/tasks': typeof appParentsParentsTasksRoute
+  '/(app)/_parents/parents/tasks_': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
   '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -1018,6 +1037,7 @@ export interface FileRoutesById {
   '/(app)/_admin/admin/': typeof appAdminAdminIndexRoute
   '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
   '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
+  '/(app)/_parents/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -1063,6 +1083,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/kids'
     | '/parents'
+    | '/parents/tasks/$taskId'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1105,6 +1126,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/kids'
     | '/parents'
+    | '/parents/tasks/$taskId'
     | '/test/a/b/c'
   id:
     | '__root__'
@@ -1138,7 +1160,7 @@ export interface FileRouteTypes {
     | '/(app)/_kids/kids/play'
     | '/(app)/_parents/parents/manage'
     | '/(app)/_parents/parents/rewards'
-    | '/(app)/_parents/parents/tasks'
+    | '/(app)/_parents/parents/tasks_'
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
     | '/(app)/_examples/demo/basic'
@@ -1153,6 +1175,7 @@ export interface FileRouteTypes {
     | '/(app)/_admin/admin/'
     | '/(app)/_kids/kids/'
     | '/(app)/_parents/parents/'
+    | '/(app)/_parents/parents/tasks/$taskId'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
@@ -1263,8 +1286,9 @@ export const routeTree = rootRoute
       "children": [
         "/(app)/_parents/parents/manage",
         "/(app)/_parents/parents/rewards",
-        "/(app)/_parents/parents/tasks",
-        "/(app)/_parents/parents/"
+        "/(app)/_parents/parents/tasks_",
+        "/(app)/_parents/parents/",
+        "/(app)/_parents/parents/tasks/$taskId"
       ]
     },
     "/(auth)": {
@@ -1368,8 +1392,8 @@ export const routeTree = rootRoute
       "filePath": "(app)/_parents/parents.rewards.tsx",
       "parent": "/(app)/_parents"
     },
-    "/(app)/_parents/parents/tasks": {
-      "filePath": "(app)/_parents/parents.tasks.tsx",
+    "/(app)/_parents/parents/tasks_": {
+      "filePath": "(app)/_parents/parents.tasks_.tsx",
       "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b_": {
@@ -1424,6 +1448,10 @@ export const routeTree = rootRoute
     },
     "/(app)/_parents/parents/": {
       "filePath": "(app)/_parents/parents.index.tsx",
+      "parent": "/(app)/_parents"
+    },
+    "/(app)/_parents/parents/tasks/$taskId": {
+      "filePath": "(app)/_parents/parents.tasks.$taskId.tsx",
       "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b/c": {

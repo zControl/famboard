@@ -1,4 +1,3 @@
-import { RowActionsMenu } from "@/components/datatable/cells/RowActionsMenu";
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
@@ -7,6 +6,7 @@ import { Coin } from "@/components/ui/coin";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
+import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
 import {
   Task,
@@ -17,22 +17,26 @@ import {
   TaskStatus,
 } from "@/types/task";
 import { enumToArray } from "@/utils/typeConverters";
+import { Link } from "@tanstack/react-router";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
   {
     id: "actions",
-    cell: ({ row }) => <RowActionsMenu row={row} />,
+    cell: ({ row }) => <TaskRowActions row={row} />,
   },
   {
     accessorKey: "sequenceNumber",
     enableSorting: true,
     enableHiding: false,
     header: ({ column }) => <AscDescSortHeader column={column} />,
-    cell: ({ row }) => {
-      const task = row.original;
-      return task.sequenceNumber;
-    },
+    cell: ({ row }) => (
+      <Link to={`/parents/tasks/${row.original.sequenceNumber}`}>
+        {row.original.sequenceNumber}
+      </Link>
+      /*       const task = row.original;
+      return task.sequenceNumber; */
+    ),
   },
   {
     accessorKey: "title",
