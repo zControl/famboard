@@ -7,35 +7,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
-import { MoreHorizontal, SaveAllIcon, XCircleIcon } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
 
-interface RowActionsMenuProps {
+interface TaskRowActionProps {
   row: Row<Task>;
-  isChanged: boolean;
-  onSave: () => void;
-  onCancel: () => void;
 }
 
-export const RowActionsMenu = ({
-  row,
-  isChanged,
-  onSave,
-  onCancel,
-}: RowActionsMenuProps) => {
+export const TaskRowActions = ({ row }: TaskRowActionProps) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleEdit = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className="flex items-center space-x-2">
-      {isChanged && (
-        <>
-          <Button variant="ghost" size="icon" onClick={onSave}>
-            <SaveAllIcon className="text-primary" />
-          </Button>
-          <Button variant="ghost" size="icon" onClick={onCancel}>
-            <XCircleIcon className="text-destructive" />
-          </Button>
-        </>
-      )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -45,17 +35,18 @@ export const RowActionsMenu = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(row.original.title)}
-          >
-            Copy task title
-          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Edit?</DropdownMenuItem>
-          <DropdownMenuItem>Assign?</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleEdit}>Edit Task</DropdownMenuItem>
           <DropdownMenuItem>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {isModalOpen && (
+        <TaskModal
+          modalOpen={isModalOpen}
+          onModalOpenChange={setModalOpen}
+          existingTask={row.original}
+        />
+      )}
     </div>
   );
 };

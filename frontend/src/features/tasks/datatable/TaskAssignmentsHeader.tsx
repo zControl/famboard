@@ -37,7 +37,6 @@ export const TaskAssignmentsHeader = <TData, TValue>({
 
   useEffect(() => {
     column.setFilterValue(selectedKids.length ? selectedKids : undefined);
-    console.log("selectedKids", selectedKids);
   }, [column, selectedKids]);
 
   const clearFilter = () => {

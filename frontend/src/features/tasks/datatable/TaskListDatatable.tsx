@@ -1,11 +1,14 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { AddTaskModal } from "@/features/tasks/components/AddTaskModal";
+import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
 import { TaskListOptions } from "@/features/tasks/datatable/TaskListOptions";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useState } from "react";
 
 export const TaskListDatatable = () => {
+  const [open, setOpen] = useState(false);
   const { tasks } = useTasks();
 
   const initialState = {
@@ -36,10 +39,15 @@ export const TaskListDatatable = () => {
       <DataTableCore
         columns={taskListColumns}
         data={tasks || []}
-        actions={<AddTaskModal />}
         options={<TaskListOptions />}
+        actions={
+          <Button variant={"primary"} onClick={() => setOpen(true)}>
+            Add Task
+          </Button>
+        }
         initialState={initialState}
       />
+      <TaskModal modalOpen={open} onModalOpenChange={setOpen} />
     </Card>
   );
 };
