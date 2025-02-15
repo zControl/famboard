@@ -13,6 +13,16 @@ export async function getTasks(): Promise<Task[]> {
   }
 }
 
+export async function getTask(sequenceNumber: string): Promise<Task> {
+  try {
+    const response = await apiClient.get<Task>(`/tasks/${sequenceNumber}`);
+    return response;
+  } catch (error) {
+    console.error("Error fetching task:", error);
+    throw new Error("Failed to fetch task");
+  }
+}
+
 export async function createTask(task: Partial<Task>): Promise<Task> {
   try {
     const response = await apiClient.post<Task>("/tasks", task);
