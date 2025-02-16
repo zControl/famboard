@@ -1,81 +1,69 @@
 import { Tile } from "@/components/composites/Tile";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Coin } from "@/components/ui/coin";
-import { Header3 } from "@/components/ui/typography";
-import { Task } from "@/types/task";
-import { IceCream2Icon } from "lucide-react";
 
-export const TaskTile = ({ task }: { task: Task }) => {
+import { Coin } from "@/components/ui/coin";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Header3 } from "@/components/ui/typography";
+import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard";
+import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";
+import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
+import { TaskDetailsCard } from "@/features/tasks/components/TaskDetailsCard";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { Task } from "@/types/task";
+
+export const TaskTile = ({
+  task,
+  sequenceNumber,
+}: {
+  task: Task;
+  sequenceNumber: string;
+}) => {
+  const isMobile = useIsMobile();
   return (
     <Tile
       title={
-        <div className="flex flex-row space-x-2">
+        <div className="flex flex-col md:flex-row space-x-2">
           <Header3>{`# ${task.sequenceNumber} `}</Header3>
           <Header3>{task.title}</Header3>
         </div>
       }
       description={
-        <div className="flex flex-row space-x-2 justify-start">
-          <Coin value={task.pointValue} />
+        <div className="flex flex-row space-x-4 justify-start">
           <Badge variant="primary">{task.status}</Badge>
+          <Coin value={task.pointValue} />
         </div>
       }
       menu={"Menu"}
     >
-      <Card className="max-w-3xl mx-auto overflow-hidden">
-        <CardHeader>
-          <CardTitle>Task Details</CardTitle>
-        </CardHeader>
-        <CardContent className="text-xl">
-          <div className="space-y-4">
-            {task.description && (
-              <div>
-                <IceCream2Icon className="inline mr-2" />
-                {task.description}
-              </div>
-            )}
-            {task.category && (
-              <div>
-                <IceCream2Icon className="inline mr-2" />
-                Category: {task.category}
-              </div>
-            )}
-            {task.frequency && (
-              <div>
-                <IceCream2Icon className="inline mr-2" />
-                Frequency: {task.frequency}
-              </div>
-            )}
-            {task.priority && (
-              <div>
-                <IceCream2Icon className="inline mr-2" />
-                Priority: {task.priority}
-              </div>
-            )}
-            {task.assignedTo && (
-              <div>
-                <IceCream2Icon className="inline mr-2" />
-                Assigned to:{" "}
-                {task.assignedTo.map((user) => user.username).join(", ")}
-              </div>
-            )}
-          </div>
-        </CardContent>
-        <CardFooter className="p-4 font-mono">
-          <div>ID: {task.id}</div>
-        </CardFooter>
-      </Card>
-      <div>Action menu</div>
-      <Card>Approvals</Card>
-      <Card>Analytics</Card>
-      <Card>Comments</Card>
+      <Tabs defaultValue="details">
+        {isMobile ? (
+          <TabsList className="grid grid-cols-2 h-auto">
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="approvals">Approvals</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="comments">Comments</TabsTrigger>
+          </TabsList>
+        ) : (
+          <TabsList className="w-full">
+            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="approvals">Approvals</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="comments">Comments</TabsTrigger>
+          </TabsList>
+        )}
+        <TabsContent value="details">
+          <TaskDetailsCard task={task} />
+        </TabsContent>
+        <TabsContent value="approvals">
+          <TaskApprovalsCard sequenceNumber={sequenceNumber} />
+        </TabsContent>
+        <TabsContent value="analytics">
+          <TaskAnalyticsCard sequenceNumber={sequenceNumber} />
+        </TabsContent>
+        <TabsContent value="comments">
+          <TaskCommentsCard sequenceNumber={sequenceNumber} />
+        </TabsContent>
+      </Tabs>
     </Tile>
   );
 };
