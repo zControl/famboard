@@ -5,7 +5,12 @@ import { RefreshCcw } from "lucide-react";
 export const TaskListOptions = () => {
   const { refreshTasks } = useTasks();
   return (
-    <Button variant={"ghost"} onClick={refreshTasks}>
+    <Button
+      variant="outline"
+      size="sm"
+      className="ml-auto hidden h-8 lg:flex"
+      onClick={refreshTasks}
+    >
       <RefreshCcw />
     </Button>
   );
