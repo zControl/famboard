@@ -1,21 +1,19 @@
 import { cva } from "class-variance-authority";
 
 const badgeVariants = cva(
-  "cursor-default inline-flex items-center rounded-full border border-4 px-3 py-1 text-xs font-medium font-mono text-spacing-smtransition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "cursor-default inline-flex items-center rounded-full border border-4 px-6 shadow text-foreground",
   {
     variants: {
       variant: {
-        default: "border-transparent bg-background text-foreground shadow",
-        primary: "border-blue-200 bg-blue-100 text-blue-800",
-        secondary: "border-transparent bg-secondary text-secondary-foreground",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow",
-        warning: "border-transparent bg-warning text-warning-foreground shadow",
-        highlight:
-          "border-transparent bg-highlight text-highlight-foreground shadow",
-        success: "border-transparent bg-green-500 text-white shadow",
-        info: "border-transparent bg-blue-500 text-white shadow",
-        error: "border-transparent bg-red-500 text-white shadow",
+        default: "border-accent bg-transparent",
+        primary: "bg-primary/30 border-primary/90",
+        secondary: "bg-secondary/30 border-secondary/90",
+        destructive: "bg-destructive/30 border-destructive/90",
+        warning: "bg-warning/30 border-warning/90",
+        highlight: "bg-highlight/30 border-highlight/90",
+        success: "bg-chart-2/30 border-chart-2/90",
+        info: "bg-blue-200 border-blue-600 text-black",
+        error: "bg-red-200 border-red-600 text-black",
       },
     },
     defaultVariants: {
