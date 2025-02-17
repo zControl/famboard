@@ -10,12 +10,7 @@ import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
 import { TaskDetailsCard } from "@/features/tasks/components/TaskDetailsCard";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Task } from "@/types/task";
-import {
-  Edit3Icon,
-  EllipsisIcon,
-  Share2Icon,
-  UserPlus2Icon,
-} from "lucide-react";
+import { EllipsisIcon, Share2Icon, UserPlus2Icon } from "lucide-react";
 
 export const TaskTile = ({
   task,
@@ -44,7 +39,6 @@ export const TaskTile = ({
           <EllipsisIcon />
         ) : (
           <div className="flex gap-2">
-            <Edit3Icon />
             <Share2Icon />
             <UserPlus2Icon />
           </div>

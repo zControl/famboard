@@ -30,11 +30,13 @@ interface TaskModalProps {
   modalOpen: boolean;
   onModalOpenChange: (open: boolean) => void;
   existingTask?: Task;
+  onTaskUpdated?: () => void;
 }
 export const TaskModal = ({
   modalOpen,
   onModalOpenChange,
   existingTask,
+  onTaskUpdated,
 }: TaskModalProps) => {
   const { addTaskMutation, updateTaskMutation } = useTasks();
 
@@ -62,6 +64,7 @@ export const TaskModal = ({
         {
           onSuccess: () => {
             onModalOpenChange(false);
+            onTaskUpdated?.();
           },
           onError: (error) => {
             console.error(`Error updating task:`, error);
