@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DetailListItem } from "@/components/ui/list-item";
+import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTasks";
@@ -66,10 +67,20 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
               Assignments
             </label>
             <article className="border border-accent p-4">
-              Make an assignment component instead of this dumb list.
-              {taskAssignments?.map((assignment) => (
-                <p key={assignment.id}>{assignment.username}</p>
-              ))}
+              <div className="flex py-2 space-x-2 justify-around">
+                {taskAssignments?.map((assignment) => (
+                  <div
+                    key={assignment.id}
+                    className="flex flex-col gap-4 place-items-center"
+                  >
+                    <AssignedUserAvatar
+                      key={assignment.id}
+                      userId={assignment.id}
+                    />
+                    <p className="text-center">{assignment.username}</p>
+                  </div>
+                ))}
+              </div>
             </article>
           </section>
           <section className="space-y-2">
@@ -77,7 +88,7 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
               <ReceiptTextIcon className="inline mr-2" />
               Details
             </label>
-            <article className="grid grid-cols-1 md:grid-cols-2 gap-x-8  md:gap-x-12 px-2 md:px-4 border border-accent">
+            <article className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12 px-2 md:px-4 py-4 border border-border gap-2">
               <DetailListItem
                 icon={<ContainerIcon />}
                 label="Category"

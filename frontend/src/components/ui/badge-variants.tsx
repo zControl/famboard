@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 const badgeVariants = cva(
-  "cursor-default inline-flex items-center rounded-full border border-4 px-6 shadow text-foreground",
+  "cursor-default inline-flex items-center rounded-full border border-2 px-6 shadow-md text-foreground",
   {
     variants: {
       variant: {
