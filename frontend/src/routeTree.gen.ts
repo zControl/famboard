@@ -41,7 +41,7 @@ import { Route as appExamplesDemoDialogsImport } from './routes/(app)/_examples/
 import { Route as appAdminAdminUsersImport } from './routes/(app)/_admin/admin.users'
 import { Route as appAdminAdminAnalyticsImport } from './routes/(app)/_admin/admin.analytics'
 import { Route as testTestABCImport } from './routes/(test)/test.a.b.c'
-import { Route as appParentsParentsTasksTaskIdImport } from './routes/(app)/_parents/parents.tasks.$taskId'
+import { Route as appParentsParentsTasksSequenceNumberImport } from './routes/(app)/_parents/parents.tasks.$sequenceNumber'
 
 // Create Virtual Routes
 
@@ -414,10 +414,10 @@ const testTestABCRoute = testTestABCImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const appParentsParentsTasksTaskIdRoute =
-  appParentsParentsTasksTaskIdImport.update({
-    id: '/parents/tasks/$taskId',
-    path: '/parents/tasks/$taskId',
+const appParentsParentsTasksSequenceNumberRoute =
+  appParentsParentsTasksSequenceNumberImport.update({
+    id: '/parents/tasks/$sequenceNumber',
+    path: '/parents/tasks/$sequenceNumber',
     getParentRoute: () => appParentsRoute,
   } as any)
 
@@ -740,11 +740,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsIndexImport
       parentRoute: typeof appParentsImport
     }
-    '/(app)/_parents/parents/tasks/$taskId': {
-      id: '/(app)/_parents/parents/tasks/$taskId'
-      path: '/parents/tasks/$taskId'
-      fullPath: '/parents/tasks/$taskId'
-      preLoaderRoute: typeof appParentsParentsTasksTaskIdImport
+    '/(app)/_parents/parents/tasks/$sequenceNumber': {
+      id: '/(app)/_parents/parents/tasks/$sequenceNumber'
+      path: '/parents/tasks/$sequenceNumber'
+      fullPath: '/parents/tasks/$sequenceNumber'
+      preLoaderRoute: typeof appParentsParentsTasksSequenceNumberImport
       parentRoute: typeof appParentsImport
     }
     '/(test)/test/a/b/c': {
@@ -837,7 +837,7 @@ interface appParentsRouteChildren {
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
-  appParentsParentsTasksTaskIdRoute: typeof appParentsParentsTasksTaskIdRoute
+  appParentsParentsTasksSequenceNumberRoute: typeof appParentsParentsTasksSequenceNumberRoute
 }
 
 const appParentsRouteChildren: appParentsRouteChildren = {
@@ -845,7 +845,8 @@ const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
-  appParentsParentsTasksTaskIdRoute: appParentsParentsTasksTaskIdRoute,
+  appParentsParentsTasksSequenceNumberRoute:
+    appParentsParentsTasksSequenceNumberRoute,
 }
 
 const appParentsRouteWithChildren = appParentsRoute._addFileChildren(
@@ -942,7 +943,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
-  '/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
+  '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -986,7 +987,7 @@ export interface FileRoutesByTo {
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
-  '/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
+  '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -1037,7 +1038,7 @@ export interface FileRoutesById {
   '/(app)/_admin/admin/': typeof appAdminAdminIndexRoute
   '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
   '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
-  '/(app)/_parents/parents/tasks/$taskId': typeof appParentsParentsTasksTaskIdRoute
+  '/(app)/_parents/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -1083,7 +1084,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/kids'
     | '/parents'
-    | '/parents/tasks/$taskId'
+    | '/parents/tasks/$sequenceNumber'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1126,7 +1127,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/kids'
     | '/parents'
-    | '/parents/tasks/$taskId'
+    | '/parents/tasks/$sequenceNumber'
     | '/test/a/b/c'
   id:
     | '__root__'
@@ -1175,7 +1176,7 @@ export interface FileRouteTypes {
     | '/(app)/_admin/admin/'
     | '/(app)/_kids/kids/'
     | '/(app)/_parents/parents/'
-    | '/(app)/_parents/parents/tasks/$taskId'
+    | '/(app)/_parents/parents/tasks/$sequenceNumber'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
@@ -1288,7 +1289,7 @@ export const routeTree = rootRoute
         "/(app)/_parents/parents/rewards",
         "/(app)/_parents/parents/tasks_",
         "/(app)/_parents/parents/",
-        "/(app)/_parents/parents/tasks/$taskId"
+        "/(app)/_parents/parents/tasks/$sequenceNumber"
       ]
     },
     "/(auth)": {
@@ -1450,8 +1451,8 @@ export const routeTree = rootRoute
       "filePath": "(app)/_parents/parents.index.tsx",
       "parent": "/(app)/_parents"
     },
-    "/(app)/_parents/parents/tasks/$taskId": {
-      "filePath": "(app)/_parents/parents.tasks.$taskId.tsx",
+    "/(app)/_parents/parents/tasks/$sequenceNumber": {
+      "filePath": "(app)/_parents/parents.tasks.$sequenceNumber.tsx",
       "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b/c": {

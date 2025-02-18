@@ -5,6 +5,7 @@ import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
 import { TaskListOptions } from "@/features/tasks/datatable/TaskListOptions";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export const TaskListDatatable = () => {
@@ -42,6 +43,7 @@ export const TaskListDatatable = () => {
         options={<TaskListOptions />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>
+            <PlusIcon />
             Add Task
           </Button>
         }

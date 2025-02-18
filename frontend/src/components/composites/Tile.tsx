@@ -11,14 +11,26 @@ import React from "react";
 interface TileProps {
   children: React.ReactNode;
   title?: React.ReactNode;
+  menu?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
 }
-export const Tile = ({ title, description, children, footer }: TileProps) => {
+export const Tile = ({
+  title,
+  menu,
+  description,
+  children,
+  footer,
+}: TileProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle>
+          <div className="flex justify-between">
+            <div>{title}</div>
+            <div>{menu}</div>
+          </div>
+        </CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
-const Coin = React.forwardRef<
+export const Coin = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { value: number }
 >(({ className, value, ...props }, ref) => (
@@ -23,5 +23,3 @@ const Coin = React.forwardRef<
 ));
 
 Coin.displayName = "Coin";
-
-export { Coin };
