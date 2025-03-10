@@ -1,18 +1,17 @@
 import { ConfigService } from '@nestjs/config';
-import * as dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-dotenv.config(); // This loads the .env file
-
-const configService = new ConfigService();
-
-export default new DataSource({
+export const getTypeOrmConfig = (
+  configService: ConfigService,
+): TypeOrmModuleOptions => ({
   type: 'postgres',
-  host: configService.get('DB_HOST'),
-  port: +configService.get<number>('DB_PORT'),
-  username: configService.get('DB_USERNAME'),
-  password: configService.get('DB_PASSWORD'),
-  database: configService.get('DB_NAME'),
-  entities: [__dirname + '/src/**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/src/database/migrations/**/*{.ts,.js}'],
+  host: configService.get<string>('DB_HOST', 'localhost'),
+  port: +configService.get<number>('DB_PORT', 5432),
+  username: configService.get<string>('DB_USERNAME', 'famboard_user'),
+  password: configService.get<string>('DB_PASSWORD', ''),
+  database: configService.get<string>('DB_NAME', 'famboard'),
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  synchronize: configService.get<string>('NODE_ENV') !== 'production',
+  migrationsRun: configService.get<string>('NODE_ENV') === 'production',
+  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
 });

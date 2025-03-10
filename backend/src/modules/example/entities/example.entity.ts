@@ -15,6 +15,9 @@ export class Example {
   name: string;
 
   @Column()
+  nickname: string;
+
+  @Column()
   description: string;
 
   @Column('int', { default: 0 })
