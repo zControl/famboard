@@ -50,11 +50,11 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   return (
     <>
       <div
-        className="rounded-md relative w-full h-8"
+        className="rounded-md relative w-full h-full"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex -space-x-2 overflow-hidden">
+        <div className="flex -space-x-2 overflow-hidden p-2">
           {taskAssignments?.map((assignment) => (
             <AssignedUserAvatar key={assignment.id} userId={assignment.id} />
           ))}

@@ -1,9 +1,9 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { EnhancedSelector } from "@/components/composites/EnhancedSelector";
+import { ValueSlider } from "@/components/composites/ValueSlider";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -47,10 +47,10 @@ export const TaskModal = ({
       title: existingTask?.title || "",
       description: existingTask?.description || "",
       pointValue: existingTask?.pointValue || 0,
-      category: existingTask?.category || TaskCategory.Personal,
+      category: existingTask?.category || TaskCategory.Household,
       frequency: existingTask?.frequency || TaskFrequency.Daily,
       difficulty: existingTask?.difficulty || TaskDifficulty.Easy,
-      status: existingTask?.status || TaskStatus.Pending,
+      status: existingTask?.status || TaskStatus.Active,
       priority: existingTask?.priority || TaskPriority.Low,
       note: existingTask?.note || "",
     }),
@@ -147,7 +147,12 @@ export const TaskModal = ({
                 <FormItem>
                   <FormLabel>Point Value</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} />
+                    <div className="flex flex-col pt-4">
+                      <ValueSlider
+                        defaultValue={[field.value]}
+                        onValueChange={(value) => field.onChange(value[0])}
+                      />
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -166,6 +171,24 @@ export const TaskModal = ({
                         onChange={field.onChange}
                         enumType={TaskCategory}
                         triggerText="Category"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <FormControl>
+                      <EnhancedSelector
+                        value={field.value}
+                        onChange={field.onChange}
+                        enumType={TaskStatus}
+                        triggerText="Status"
                       />
                     </FormControl>
                     <FormMessage />
@@ -204,31 +227,11 @@ export const TaskModal = ({
                         triggerText="Difficulty"
                       />
                     </FormControl>
-                    <FormDescription>
-                      How often should this task be completed?
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskStatus}
-                        triggerText="Status"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <FormField
                 control={form.control}
                 name="priority"
@@ -248,6 +251,22 @@ export const TaskModal = ({
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name="note"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Note</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter a note about this task."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
       </ActionModal>
