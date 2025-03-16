@@ -31,7 +31,7 @@ const handleRefresh = () => {
 )}`;
 
   const queryClient = useQueryClient();
-  const apiClient = createApiClient("http://localhost:3000/v1");
+  const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
   const { isPending, isFetching, isError, data, error } = useQuery({
     queryKey: ["ApiRoot"],

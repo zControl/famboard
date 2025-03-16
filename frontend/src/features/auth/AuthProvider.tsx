@@ -5,7 +5,7 @@ import { sleep } from "@/utils/utils";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 
-const apiClient = createApiClient("http://localhost:3000/v1");
+const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<User | null>(() => {

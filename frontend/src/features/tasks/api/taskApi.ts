@@ -1,7 +1,7 @@
 import { AssignedTaskResponse, Task, UserAssignedTaskResponse } from "@/types/task";
 import { createApiClient } from "@/utils/apiClient";
 
-const apiClient = createApiClient("http://localhost:3000/v1");
+const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
 export async function getTasks(): Promise<Task[]> {
   try {
