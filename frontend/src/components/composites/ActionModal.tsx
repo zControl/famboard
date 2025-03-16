@@ -9,35 +9,40 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import React from "react";
 
 interface ActionModalProps {
-  trigger: string;
-  title: string;
-  description: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  trigger?: React.ReactNode;
   children?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onCancel: () => void;
   onConfirm: () => void;
 }
-const ActionModal = ({
+export const ActionModal = ({
   trigger,
   title,
   description,
   children,
+  open,
+  onOpenChange,
   onCancel,
   onConfirm,
 }: ActionModalProps) => {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">{trigger}</Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
       <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
-        </AlertDialogHeader>
-        {children}
+        <ScrollArea className="max-h-[80vh]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>{description}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="pl-2 pr-4">{children}</div>
+        </ScrollArea>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>Confirm</AlertDialogAction>
@@ -46,5 +51,3 @@ const ActionModal = ({
     </AlertDialog>
   );
 };
-
-export { ActionModal };

@@ -93,8 +93,6 @@ const sections = [
     children: <LoadingBoxTile />,
   },
 ];
-const LoadersExample = () => {
+export const LoadersExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { LoadersExample };

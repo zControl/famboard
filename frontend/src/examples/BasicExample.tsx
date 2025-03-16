@@ -49,16 +49,22 @@ function BadgeTile() {
       title="Badge"
       description="A badge can show status or be a flag for something."
     >
-      <div className="flex flex-row gap-2 mb-4">
-        <Badge>Basic</Badge>
-        <Badge variant="primary">Primary</Badge>
-        <Badge variant="secondary">Secondary</Badge>
-        <Badge variant="destructive">Destructive</Badge>
-        <Badge variant="warning">Warning</Badge>
-        <Badge variant="highlight">Highlight</Badge>
-        <Badge variant="success">Success</Badge>
-        <Badge variant="info">Info</Badge>
-        <Badge variant="error">Error</Badge>
+      <div className="grid grid-cols-1 gap-y-6 mb-4">
+        <div className="flex gap-6">
+          <Badge>Basic</Badge>
+          <Badge variant="primary">Primary</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="destructive">Destructive</Badge>
+        </div>
+        <div className="flex gap-6">
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="highlight">Highlight</Badge>
+          <Badge variant="success">Success</Badge>
+        </div>
+        <div className="flex gap-6">
+          <Badge variant="info">Info</Badge>
+          <Badge variant="error">Error</Badge>
+        </div>
       </div>
       <Separator className="my-4" />
       <CodeBlock code={imp} />
@@ -90,6 +96,8 @@ function ButtonTile() {
         <Button>Default</Button>
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
+        <Button variant="warning">Warning</Button>
+        <Button variant="highlight">Highlight</Button>
         <Button variant="destructive">Destructive</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
@@ -162,8 +170,6 @@ const sections = [
   { id: "separator", title: "Separator", children: <SeparatorTile /> },
 ];
 
-const BasicExample = () => {
+export const BasicExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { BasicExample };

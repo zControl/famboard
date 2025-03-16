@@ -18,8 +18,6 @@ const sections = [
   { id: "form-groups", title: "Groups", children: <FormGroupsTile /> },
 ];
 
-const FormsExample = () => {
+export const FormsExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { FormsExample };

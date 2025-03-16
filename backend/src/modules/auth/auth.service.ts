@@ -20,31 +20,37 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findByUsername(username);
-    console.log('Found user:', user ? 'Yes' : 'No');
     if (user) {
-      console.log('Stored hashed password:', user.password);
-      console.log('Provided password:', password);
-
       const isPasswordValid = await bcrypt.compare(password, user.password);
-      console.log('Password valid:', isPasswordValid);
       if (isPasswordValid) {
         const { ...result } = user;
         return result;
       }
     }
-    /*     if (user && (await bcrypt.compare(password, user.password))) {
-      const { ...result } = user;
-      console.log(result);
-      return result;
-    } */
     return null;
   }
 
   async login(user: Partial<User>) {
     try {
       const payload = { username: user.username, sub: user.id };
+      const accessToken = this.jwtService.sign(payload);
+
+      // Update the last login time
+      await this.usersService.updateLastLogin(user.id);
+
+      const userResponse = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        group: user.group,
+      };
+      // Remove undefined properties
+      Object.keys(userResponse).forEach(
+        (key) => userResponse[key] === undefined && delete userResponse[key],
+      );
       return {
-        access_token: this.jwtService.sign(payload),
+        accessToken,
+        user: userResponse,
       };
     } catch (error) {
       console.error('Error in login:', error);
@@ -54,11 +60,11 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) {
     // Check if user already exists
-    const existingUser = await this.usersService.findByUsername(
+    const existingUser = await this.usersService.checkUsername(
       createUserDto.username,
     );
     if (existingUser) {
-      throw new ConflictException('Username already exists');
+      throw new ConflictException('User already exists');
     }
 
     try {
@@ -69,7 +75,6 @@ export class AuthService {
         user: {
           username: newUser.username,
           email: newUser.email,
-          name: newUser.name,
           group: newUser.group,
         },
       };

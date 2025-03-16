@@ -218,8 +218,6 @@ const sections = [
   { id: "scroll-area", title: "Scroll Area", children: <ScrollAreaTile /> },
   { id: "resizeable", title: "Resizeable", children: <ResizeableTile /> },
 ];
-const ContainerExample = () => {
+export const ContainerExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { ContainerExample };

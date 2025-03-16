@@ -1,6 +1,7 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { NotFound } from "@/components/common/NotFound";
 import { SidebarLayout } from "@/components/common/SidebarLayout";
+import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
 import { CustomLink } from "@/components/ui/custom-link";
 import {
   Sidebar,
@@ -132,9 +133,10 @@ function ExamplesLayout() {
       <ExamplesSidebar />
       <SidebarLayout
         logo={
-          <>
+          <div className="flex gap-1 items-center">
+            <ThemeToggle />
             <AppLogo />
-          </>
+          </div>
         }
         mobileMenu={<div className="text-primary-foreground">Menu</div>}
         navigation={

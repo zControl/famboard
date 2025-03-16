@@ -1,6 +1,6 @@
 import { Tile } from "@/components/composites/Tile";
 
-const TileExample = () => {
+export const TileExample = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <Tile title="Title" description="Description" footer="Footer">
@@ -20,5 +20,3 @@ const TileExample = () => {
     </div>
   );
 };
-
-export { TileExample };

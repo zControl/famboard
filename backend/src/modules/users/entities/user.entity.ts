@@ -1,9 +1,13 @@
 import * as bcrypt from 'bcrypt';
+import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
+import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -13,26 +17,23 @@ export enum UserGroup {
   KID = 'kid',
   GUEST = 'guest',
 }
+
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @OneToOne(() => UserProfile, (profile) => profile.user, { cascade: true })
+  profile: UserProfile;
 
   @Column()
   username: string;
 
-  // TODO: change to hash
   @Column()
   password: string;
 
   @Column()
-  name: string;
-
-  @Column()
   email: string;
-
-  @Column()
-  isActive: boolean;
 
   @Column({
     type: 'enum',
@@ -40,6 +41,9 @@ export class User {
     default: UserGroup.GUEST,
   })
   group: UserGroup;
+
+  @OneToMany(() => TaskAssignment, (assignment) => assignment.user)
+  taskAssignments: TaskAssignment[];
 
   @BeforeInsert()
   @BeforeUpdate()

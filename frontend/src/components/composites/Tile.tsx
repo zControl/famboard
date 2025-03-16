@@ -6,18 +6,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import React from "react";
 
 interface TileProps {
-  title: string;
   children: React.ReactNode;
-  description?: string;
+  title?: React.ReactNode;
+  menu?: React.ReactNode;
+  description?: React.ReactNode;
   footer?: React.ReactNode;
 }
-const Tile = ({ title, description, children, footer }: TileProps) => {
+export const Tile = ({
+  title,
+  menu,
+  description,
+  children,
+  footer,
+}: TileProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle>
+          <div className="flex justify-between">
+            <div>{title}</div>
+            <div>{menu}</div>
+          </div>
+        </CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
@@ -25,5 +38,3 @@ const Tile = ({ title, description, children, footer }: TileProps) => {
     </Card>
   );
 };
-
-export { Tile };

@@ -182,8 +182,6 @@ const sections = [
     children: <SidebarColorsTile />,
   },
 ];
-const ColorsExample = () => {
+export const ColorsExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { ColorsExample };

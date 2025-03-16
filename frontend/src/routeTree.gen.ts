@@ -17,19 +17,37 @@ import { Route as IndexImport } from './routes/index'
 import { Route as testTestImport } from './routes/(test)/test_'
 import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as authAuthImport } from './routes/(auth)/_auth'
+import { Route as appParentsImport } from './routes/(app)/_parents'
+import { Route as appKidsImport } from './routes/(app)/_kids'
 import { Route as appExamplesImport } from './routes/(app)/_examples'
+import { Route as appAdminImport } from './routes/(app)/_admin'
 import { Route as testTestAImport } from './routes/(test)/test.a_'
+import { Route as authAuthProfileImport } from './routes/(auth)/_auth.profile'
 import { Route as authAuthDashboardImport } from './routes/(auth)/_auth.dashboard'
+import { Route as appParentsParentsIndexImport } from './routes/(app)/_parents/parents.index'
+import { Route as appKidsKidsIndexImport } from './routes/(app)/_kids/kids.index'
+import { Route as appAdminAdminIndexImport } from './routes/(app)/_admin/admin.index'
 import { Route as testTestASomethingImport } from './routes/(test)/test.a.something'
 import { Route as testTestABImport } from './routes/(test)/test.a.b_'
+import { Route as appParentsParentsTasksImport } from './routes/(app)/_parents/parents.tasks_'
+import { Route as appParentsParentsRewardsImport } from './routes/(app)/_parents/parents.rewards'
+import { Route as appParentsParentsManageImport } from './routes/(app)/_parents/parents.manage'
+import { Route as appKidsKidsPlayImport } from './routes/(app)/_kids/kids.play'
+import { Route as appKidsKidsHelpImport } from './routes/(app)/_kids/kids.help'
+import { Route as appKidsKidsFitnessImport } from './routes/(app)/_kids/kids.fitness'
+import { Route as appKidsKidsEarnImport } from './routes/(app)/_kids/kids.earn'
 import { Route as appExamplesDemoTestingImport } from './routes/(app)/_examples/demo.testing'
 import { Route as appExamplesDemoDialogsImport } from './routes/(app)/_examples/demo.dialogs'
+import { Route as appAdminAdminUsersImport } from './routes/(app)/_admin/admin.users'
+import { Route as appAdminAdminAnalyticsImport } from './routes/(app)/_admin/admin.analytics'
 import { Route as testTestABCImport } from './routes/(test)/test.a.b.c'
+import { Route as appParentsParentsTasksSequenceNumberImport } from './routes/(app)/_parents/parents.tasks.$sequenceNumber'
 
 // Create Virtual Routes
 
 const authImport = createFileRoute('/(auth)')()
 const appImport = createFileRoute('/(app)')()
+const appUnauthorizedLazyImport = createFileRoute('/(app)/unauthorized')()
 const appTermsLazyImport = createFileRoute('/(app)/terms')()
 const appStatusLazyImport = createFileRoute('/(app)/status')()
 const appPrivacyLazyImport = createFileRoute('/(app)/privacy')()
@@ -83,6 +101,14 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const appUnauthorizedLazyRoute = appUnauthorizedLazyImport
+  .update({
+    id: '/unauthorized',
+    path: '/unauthorized',
+    getParentRoute: () => appRoute,
+  } as any)
+  .lazy(() => import('./routes/(app)/unauthorized.lazy').then((d) => d.Route))
+
 const appTermsLazyRoute = appTermsLazyImport
   .update({
     id: '/terms',
@@ -124,8 +150,23 @@ const authAuthRoute = authAuthImport.update({
   getParentRoute: () => authRoute,
 } as any)
 
+const appParentsRoute = appParentsImport.update({
+  id: '/_parents',
+  getParentRoute: () => appRoute,
+} as any)
+
+const appKidsRoute = appKidsImport.update({
+  id: '/_kids',
+  getParentRoute: () => appRoute,
+} as any)
+
 const appExamplesRoute = appExamplesImport.update({
   id: '/_examples',
+  getParentRoute: () => appRoute,
+} as any)
+
+const appAdminRoute = appAdminImport.update({
+  id: '/_admin',
   getParentRoute: () => appRoute,
 } as any)
 
@@ -163,10 +204,34 @@ const testTestARoute = testTestAImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const authAuthProfileRoute = authAuthProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => authAuthRoute,
+} as any)
+
 const authAuthDashboardRoute = authAuthDashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => authAuthRoute,
+} as any)
+
+const appParentsParentsIndexRoute = appParentsParentsIndexImport.update({
+  id: '/parents/',
+  path: '/parents/',
+  getParentRoute: () => appParentsRoute,
+} as any)
+
+const appKidsKidsIndexRoute = appKidsKidsIndexImport.update({
+  id: '/kids/',
+  path: '/kids/',
+  getParentRoute: () => appKidsRoute,
+} as any)
+
+const appAdminAdminIndexRoute = appAdminAdminIndexImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => appAdminRoute,
 } as any)
 
 const appExamplesDemoTypographyLazyRoute = appExamplesDemoTypographyLazyImport
@@ -277,6 +342,48 @@ const testTestABRoute = testTestABImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const appParentsParentsTasksRoute = appParentsParentsTasksImport.update({
+  id: '/parents/tasks_',
+  path: '/parents/tasks',
+  getParentRoute: () => appParentsRoute,
+} as any)
+
+const appParentsParentsRewardsRoute = appParentsParentsRewardsImport.update({
+  id: '/parents/rewards',
+  path: '/parents/rewards',
+  getParentRoute: () => appParentsRoute,
+} as any)
+
+const appParentsParentsManageRoute = appParentsParentsManageImport.update({
+  id: '/parents/manage',
+  path: '/parents/manage',
+  getParentRoute: () => appParentsRoute,
+} as any)
+
+const appKidsKidsPlayRoute = appKidsKidsPlayImport.update({
+  id: '/kids/play',
+  path: '/kids/play',
+  getParentRoute: () => appKidsRoute,
+} as any)
+
+const appKidsKidsHelpRoute = appKidsKidsHelpImport.update({
+  id: '/kids/help',
+  path: '/kids/help',
+  getParentRoute: () => appKidsRoute,
+} as any)
+
+const appKidsKidsFitnessRoute = appKidsKidsFitnessImport.update({
+  id: '/kids/fitness',
+  path: '/kids/fitness',
+  getParentRoute: () => appKidsRoute,
+} as any)
+
+const appKidsKidsEarnRoute = appKidsKidsEarnImport.update({
+  id: '/kids/earn',
+  path: '/kids/earn',
+  getParentRoute: () => appKidsRoute,
+} as any)
+
 const appExamplesDemoTestingRoute = appExamplesDemoTestingImport.update({
   id: '/demo/testing',
   path: '/demo/testing',
@@ -289,11 +396,30 @@ const appExamplesDemoDialogsRoute = appExamplesDemoDialogsImport.update({
   getParentRoute: () => appExamplesRoute,
 } as any)
 
+const appAdminAdminUsersRoute = appAdminAdminUsersImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => appAdminRoute,
+} as any)
+
+const appAdminAdminAnalyticsRoute = appAdminAdminAnalyticsImport.update({
+  id: '/admin/analytics',
+  path: '/admin/analytics',
+  getParentRoute: () => appAdminRoute,
+} as any)
+
 const testTestABCRoute = testTestABCImport.update({
   id: '/(test)/test/a/b/c',
   path: '/test/a/b/c',
   getParentRoute: () => rootRoute,
 } as any)
+
+const appParentsParentsTasksSequenceNumberRoute =
+  appParentsParentsTasksSequenceNumberImport.update({
+    id: '/parents/tasks/$sequenceNumber',
+    path: '/parents/tasks/$sequenceNumber',
+    getParentRoute: () => appParentsRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -313,12 +439,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appImport
       parentRoute: typeof rootRoute
     }
-    '/(app)/_examples': {
-      id: '/(app)/_examples'
+    '/(app)/_admin': {
+      id: '/(app)/_admin'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof appExamplesImport
+      preLoaderRoute: typeof appAdminImport
       parentRoute: typeof appRoute
+    }
+    '/(app)/_examples': {
+      id: '/(app)/_examples'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appExamplesImport
+      parentRoute: typeof appImport
+    }
+    '/(app)/_kids': {
+      id: '/(app)/_kids'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appKidsImport
+      parentRoute: typeof appImport
+    }
+    '/(app)/_parents': {
+      id: '/(app)/_parents'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof appParentsImport
+      parentRoute: typeof appImport
     }
     '/(auth)': {
       id: '/(auth)'
@@ -369,11 +516,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appTermsLazyImport
       parentRoute: typeof appImport
     }
+    '/(app)/unauthorized': {
+      id: '/(app)/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof appUnauthorizedLazyImport
+      parentRoute: typeof appImport
+    }
     '/(auth)/_auth/dashboard': {
       id: '/(auth)/_auth/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof authAuthDashboardImport
+      parentRoute: typeof authAuthImport
+    }
+    '/(auth)/_auth/profile': {
+      id: '/(auth)/_auth/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof authAuthProfileImport
       parentRoute: typeof authAuthImport
     }
     '/(test)/test/a_': {
@@ -404,6 +565,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesQueryLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_admin/admin/analytics': {
+      id: '/(app)/_admin/admin/analytics'
+      path: '/admin/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof appAdminAdminAnalyticsImport
+      parentRoute: typeof appAdminImport
+    }
+    '/(app)/_admin/admin/users': {
+      id: '/(app)/_admin/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof appAdminAdminUsersImport
+      parentRoute: typeof appAdminImport
+    }
     '/(app)/_examples/demo/dialogs': {
       id: '/(app)/_examples/demo/dialogs'
       path: '/demo/dialogs'
@@ -417,6 +592,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/testing'
       preLoaderRoute: typeof appExamplesDemoTestingImport
       parentRoute: typeof appExamplesImport
+    }
+    '/(app)/_kids/kids/earn': {
+      id: '/(app)/_kids/kids/earn'
+      path: '/kids/earn'
+      fullPath: '/kids/earn'
+      preLoaderRoute: typeof appKidsKidsEarnImport
+      parentRoute: typeof appKidsImport
+    }
+    '/(app)/_kids/kids/fitness': {
+      id: '/(app)/_kids/kids/fitness'
+      path: '/kids/fitness'
+      fullPath: '/kids/fitness'
+      preLoaderRoute: typeof appKidsKidsFitnessImport
+      parentRoute: typeof appKidsImport
+    }
+    '/(app)/_kids/kids/help': {
+      id: '/(app)/_kids/kids/help'
+      path: '/kids/help'
+      fullPath: '/kids/help'
+      preLoaderRoute: typeof appKidsKidsHelpImport
+      parentRoute: typeof appKidsImport
+    }
+    '/(app)/_kids/kids/play': {
+      id: '/(app)/_kids/kids/play'
+      path: '/kids/play'
+      fullPath: '/kids/play'
+      preLoaderRoute: typeof appKidsKidsPlayImport
+      parentRoute: typeof appKidsImport
+    }
+    '/(app)/_parents/parents/manage': {
+      id: '/(app)/_parents/parents/manage'
+      path: '/parents/manage'
+      fullPath: '/parents/manage'
+      preLoaderRoute: typeof appParentsParentsManageImport
+      parentRoute: typeof appParentsImport
+    }
+    '/(app)/_parents/parents/rewards': {
+      id: '/(app)/_parents/parents/rewards'
+      path: '/parents/rewards'
+      fullPath: '/parents/rewards'
+      preLoaderRoute: typeof appParentsParentsRewardsImport
+      parentRoute: typeof appParentsImport
+    }
+    '/(app)/_parents/parents/tasks_': {
+      id: '/(app)/_parents/parents/tasks_'
+      path: '/parents/tasks'
+      fullPath: '/parents/tasks'
+      preLoaderRoute: typeof appParentsParentsTasksImport
+      parentRoute: typeof appParentsImport
     }
     '/(test)/test/a/b_': {
       id: '/(test)/test/a/b_'
@@ -495,6 +719,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appExamplesDemoTypographyLazyImport
       parentRoute: typeof appExamplesImport
     }
+    '/(app)/_admin/admin/': {
+      id: '/(app)/_admin/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof appAdminAdminIndexImport
+      parentRoute: typeof appAdminImport
+    }
+    '/(app)/_kids/kids/': {
+      id: '/(app)/_kids/kids/'
+      path: '/kids'
+      fullPath: '/kids'
+      preLoaderRoute: typeof appKidsKidsIndexImport
+      parentRoute: typeof appKidsImport
+    }
+    '/(app)/_parents/parents/': {
+      id: '/(app)/_parents/parents/'
+      path: '/parents'
+      fullPath: '/parents'
+      preLoaderRoute: typeof appParentsParentsIndexImport
+      parentRoute: typeof appParentsImport
+    }
+    '/(app)/_parents/parents/tasks/$sequenceNumber': {
+      id: '/(app)/_parents/parents/tasks/$sequenceNumber'
+      path: '/parents/tasks/$sequenceNumber'
+      fullPath: '/parents/tasks/$sequenceNumber'
+      preLoaderRoute: typeof appParentsParentsTasksSequenceNumberImport
+      parentRoute: typeof appParentsImport
+    }
     '/(test)/test/a/b/c': {
       id: '/(test)/test/a/b/c'
       path: '/test/a/b/c'
@@ -506,6 +758,22 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
+
+interface appAdminRouteChildren {
+  appAdminAdminAnalyticsRoute: typeof appAdminAdminAnalyticsRoute
+  appAdminAdminUsersRoute: typeof appAdminAdminUsersRoute
+  appAdminAdminIndexRoute: typeof appAdminAdminIndexRoute
+}
+
+const appAdminRouteChildren: appAdminRouteChildren = {
+  appAdminAdminAnalyticsRoute: appAdminAdminAnalyticsRoute,
+  appAdminAdminUsersRoute: appAdminAdminUsersRoute,
+  appAdminAdminIndexRoute: appAdminAdminIndexRoute,
+}
+
+const appAdminRouteWithChildren = appAdminRoute._addFileChildren(
+  appAdminRouteChildren,
+)
 
 interface appExamplesRouteChildren {
   appExamplesDemoLazyRoute: typeof appExamplesDemoLazyRoute
@@ -545,28 +813,78 @@ const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
   appExamplesRouteChildren,
 )
 
+interface appKidsRouteChildren {
+  appKidsKidsEarnRoute: typeof appKidsKidsEarnRoute
+  appKidsKidsFitnessRoute: typeof appKidsKidsFitnessRoute
+  appKidsKidsHelpRoute: typeof appKidsKidsHelpRoute
+  appKidsKidsPlayRoute: typeof appKidsKidsPlayRoute
+  appKidsKidsIndexRoute: typeof appKidsKidsIndexRoute
+}
+
+const appKidsRouteChildren: appKidsRouteChildren = {
+  appKidsKidsEarnRoute: appKidsKidsEarnRoute,
+  appKidsKidsFitnessRoute: appKidsKidsFitnessRoute,
+  appKidsKidsHelpRoute: appKidsKidsHelpRoute,
+  appKidsKidsPlayRoute: appKidsKidsPlayRoute,
+  appKidsKidsIndexRoute: appKidsKidsIndexRoute,
+}
+
+const appKidsRouteWithChildren =
+  appKidsRoute._addFileChildren(appKidsRouteChildren)
+
+interface appParentsRouteChildren {
+  appParentsParentsManageRoute: typeof appParentsParentsManageRoute
+  appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
+  appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
+  appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
+  appParentsParentsTasksSequenceNumberRoute: typeof appParentsParentsTasksSequenceNumberRoute
+}
+
+const appParentsRouteChildren: appParentsRouteChildren = {
+  appParentsParentsManageRoute: appParentsParentsManageRoute,
+  appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
+  appParentsParentsTasksRoute: appParentsParentsTasksRoute,
+  appParentsParentsIndexRoute: appParentsParentsIndexRoute,
+  appParentsParentsTasksSequenceNumberRoute:
+    appParentsParentsTasksSequenceNumberRoute,
+}
+
+const appParentsRouteWithChildren = appParentsRoute._addFileChildren(
+  appParentsRouteChildren,
+)
+
 interface appRouteChildren {
+  appAdminRoute: typeof appAdminRouteWithChildren
   appExamplesRoute: typeof appExamplesRouteWithChildren
+  appKidsRoute: typeof appKidsRouteWithChildren
+  appParentsRoute: typeof appParentsRouteWithChildren
   appPrivacyLazyRoute: typeof appPrivacyLazyRoute
   appStatusLazyRoute: typeof appStatusLazyRoute
   appTermsLazyRoute: typeof appTermsLazyRoute
+  appUnauthorizedLazyRoute: typeof appUnauthorizedLazyRoute
 }
 
 const appRouteChildren: appRouteChildren = {
+  appAdminRoute: appAdminRouteWithChildren,
   appExamplesRoute: appExamplesRouteWithChildren,
+  appKidsRoute: appKidsRouteWithChildren,
+  appParentsRoute: appParentsRouteWithChildren,
   appPrivacyLazyRoute: appPrivacyLazyRoute,
   appStatusLazyRoute: appStatusLazyRoute,
   appTermsLazyRoute: appTermsLazyRoute,
+  appUnauthorizedLazyRoute: appUnauthorizedLazyRoute,
 }
 
 const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
 interface authAuthRouteChildren {
   authAuthDashboardRoute: typeof authAuthDashboardRoute
+  authAuthProfileRoute: typeof authAuthProfileRoute
 }
 
 const authAuthRouteChildren: authAuthRouteChildren = {
   authAuthDashboardRoute: authAuthDashboardRoute,
+  authAuthProfileRoute: authAuthProfileRoute,
 }
 
 const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
@@ -587,18 +905,30 @@ const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof authAuthRouteWithChildren
+  '': typeof appParentsRouteWithChildren
   '/login': typeof authLoginRoute
   '/test': typeof testTestRoute
   '/privacy': typeof appPrivacyLazyRoute
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
+  '/unauthorized': typeof appUnauthorizedLazyRoute
   '/dashboard': typeof authAuthDashboardRoute
+  '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
   '/query': typeof appExamplesQueryLazyRoute
+  '/admin/analytics': typeof appAdminAdminAnalyticsRoute
+  '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
+  '/kids/earn': typeof appKidsKidsEarnRoute
+  '/kids/fitness': typeof appKidsKidsFitnessRoute
+  '/kids/help': typeof appKidsKidsHelpRoute
+  '/kids/play': typeof appKidsKidsPlayRoute
+  '/parents/manage': typeof appParentsParentsManageRoute
+  '/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -610,23 +940,39 @@ export interface FileRoutesByFullPath {
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/admin': typeof appAdminAdminIndexRoute
+  '/kids': typeof appKidsKidsIndexRoute
+  '/parents': typeof appParentsParentsIndexRoute
+  '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof authAuthRouteWithChildren
+  '': typeof appParentsRouteWithChildren
   '/login': typeof authLoginRoute
   '/test': typeof testTestRoute
   '/privacy': typeof appPrivacyLazyRoute
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
+  '/unauthorized': typeof appUnauthorizedLazyRoute
   '/dashboard': typeof authAuthDashboardRoute
+  '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
   '/form': typeof appExamplesFormLazyRoute
   '/query': typeof appExamplesQueryLazyRoute
+  '/admin/analytics': typeof appAdminAdminAnalyticsRoute
+  '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
+  '/kids/earn': typeof appKidsKidsEarnRoute
+  '/kids/fitness': typeof appKidsKidsFitnessRoute
+  '/kids/help': typeof appKidsKidsHelpRoute
+  '/kids/play': typeof appKidsKidsPlayRoute
+  '/parents/manage': typeof appParentsParentsManageRoute
+  '/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -638,6 +984,10 @@ export interface FileRoutesByTo {
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/admin': typeof appAdminAdminIndexRoute
+  '/kids': typeof appKidsKidsIndexRoute
+  '/parents': typeof appParentsParentsIndexRoute
+  '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -645,7 +995,10 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/(app)': typeof appRouteWithChildren
+  '/(app)/_admin': typeof appAdminRouteWithChildren
   '/(app)/_examples': typeof appExamplesRouteWithChildren
+  '/(app)/_kids': typeof appKidsRouteWithChildren
+  '/(app)/_parents': typeof appParentsRouteWithChildren
   '/(auth)': typeof authRouteWithChildren
   '/(auth)/_auth': typeof authAuthRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
@@ -653,13 +1006,24 @@ export interface FileRoutesById {
   '/(app)/privacy': typeof appPrivacyLazyRoute
   '/(app)/status': typeof appStatusLazyRoute
   '/(app)/terms': typeof appTermsLazyRoute
+  '/(app)/unauthorized': typeof appUnauthorizedLazyRoute
   '/(auth)/_auth/dashboard': typeof authAuthDashboardRoute
+  '/(auth)/_auth/profile': typeof authAuthProfileRoute
   '/(test)/test/a_': typeof testTestARoute
   '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
   '/(app)/_examples/form': typeof appExamplesFormLazyRoute
   '/(app)/_examples/query': typeof appExamplesQueryLazyRoute
+  '/(app)/_admin/admin/analytics': typeof appAdminAdminAnalyticsRoute
+  '/(app)/_admin/admin/users': typeof appAdminAdminUsersRoute
   '/(app)/_examples/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/(app)/_examples/demo/testing': typeof appExamplesDemoTestingRoute
+  '/(app)/_kids/kids/earn': typeof appKidsKidsEarnRoute
+  '/(app)/_kids/kids/fitness': typeof appKidsKidsFitnessRoute
+  '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
+  '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
+  '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
+  '/(app)/_parents/parents/rewards': typeof appParentsParentsRewardsRoute
+  '/(app)/_parents/parents/tasks_': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
   '/(app)/_examples/demo/basic': typeof appExamplesDemoBasicLazyRoute
@@ -671,6 +1035,10 @@ export interface FileRoutesById {
   '/(app)/_examples/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/(app)/_examples/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/(app)/_examples/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/(app)/_admin/admin/': typeof appAdminAdminIndexRoute
+  '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
+  '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
+  '/(app)/_parents/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 
@@ -678,18 +1046,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | ''
     | '/login'
     | '/test'
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/unauthorized'
     | '/dashboard'
+    | '/profile'
     | '/test/a'
     | '/demo'
     | '/form'
     | '/query'
+    | '/admin/analytics'
+    | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
+    | '/kids/earn'
+    | '/kids/fitness'
+    | '/kids/help'
+    | '/kids/play'
+    | '/parents/manage'
+    | '/parents/rewards'
+    | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
@@ -701,22 +1081,38 @@ export interface FileRouteTypes {
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/admin'
+    | '/kids'
+    | '/parents'
+    | '/parents/tasks/$sequenceNumber'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | ''
     | '/login'
     | '/test'
     | '/privacy'
     | '/status'
     | '/terms'
+    | '/unauthorized'
     | '/dashboard'
+    | '/profile'
     | '/test/a'
     | '/demo'
     | '/form'
     | '/query'
+    | '/admin/analytics'
+    | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
+    | '/kids/earn'
+    | '/kids/fitness'
+    | '/kids/help'
+    | '/kids/play'
+    | '/parents/manage'
+    | '/parents/rewards'
+    | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
     | '/demo/basic'
@@ -728,12 +1124,19 @@ export interface FileRouteTypes {
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/admin'
+    | '/kids'
+    | '/parents'
+    | '/parents/tasks/$sequenceNumber'
     | '/test/a/b/c'
   id:
     | '__root__'
     | '/'
     | '/(app)'
+    | '/(app)/_admin'
     | '/(app)/_examples'
+    | '/(app)/_kids'
+    | '/(app)/_parents'
     | '/(auth)'
     | '/(auth)/_auth'
     | '/(auth)/login'
@@ -741,13 +1144,24 @@ export interface FileRouteTypes {
     | '/(app)/privacy'
     | '/(app)/status'
     | '/(app)/terms'
+    | '/(app)/unauthorized'
     | '/(auth)/_auth/dashboard'
+    | '/(auth)/_auth/profile'
     | '/(test)/test/a_'
     | '/(app)/_examples/demo_'
     | '/(app)/_examples/form'
     | '/(app)/_examples/query'
+    | '/(app)/_admin/admin/analytics'
+    | '/(app)/_admin/admin/users'
     | '/(app)/_examples/demo/dialogs'
     | '/(app)/_examples/demo/testing'
+    | '/(app)/_kids/kids/earn'
+    | '/(app)/_kids/kids/fitness'
+    | '/(app)/_kids/kids/help'
+    | '/(app)/_kids/kids/play'
+    | '/(app)/_parents/parents/manage'
+    | '/(app)/_parents/parents/rewards'
+    | '/(app)/_parents/parents/tasks_'
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
     | '/(app)/_examples/demo/basic'
@@ -759,6 +1173,10 @@ export interface FileRouteTypes {
     | '/(app)/_examples/demo/navigation'
     | '/(app)/_examples/demo/tables'
     | '/(app)/_examples/demo/typography'
+    | '/(app)/_admin/admin/'
+    | '/(app)/_kids/kids/'
+    | '/(app)/_parents/parents/'
+    | '/(app)/_parents/parents/tasks/$sequenceNumber'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
@@ -813,10 +1231,23 @@ export const routeTree = rootRoute
     "/(app)": {
       "filePath": "(app)",
       "children": [
+        "/(app)/_admin",
         "/(app)/_examples",
+        "/(app)/_kids",
+        "/(app)/_parents",
         "/(app)/privacy",
         "/(app)/status",
-        "/(app)/terms"
+        "/(app)/terms",
+        "/(app)/unauthorized"
+      ]
+    },
+    "/(app)/_admin": {
+      "filePath": "(app)/_admin.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/_admin/admin/analytics",
+        "/(app)/_admin/admin/users",
+        "/(app)/_admin/admin/"
       ]
     },
     "/(app)/_examples": {
@@ -839,6 +1270,28 @@ export const routeTree = rootRoute
         "/(app)/_examples/demo/typography"
       ]
     },
+    "/(app)/_kids": {
+      "filePath": "(app)/_kids.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/_kids/kids/earn",
+        "/(app)/_kids/kids/fitness",
+        "/(app)/_kids/kids/help",
+        "/(app)/_kids/kids/play",
+        "/(app)/_kids/kids/"
+      ]
+    },
+    "/(app)/_parents": {
+      "filePath": "(app)/_parents.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/_parents/parents/manage",
+        "/(app)/_parents/parents/rewards",
+        "/(app)/_parents/parents/tasks_",
+        "/(app)/_parents/parents/",
+        "/(app)/_parents/parents/tasks/$sequenceNumber"
+      ]
+    },
     "/(auth)": {
       "filePath": "(auth)",
       "children": [
@@ -850,7 +1303,8 @@ export const routeTree = rootRoute
       "filePath": "(auth)/_auth.tsx",
       "parent": "/(auth)",
       "children": [
-        "/(auth)/_auth/dashboard"
+        "/(auth)/_auth/dashboard",
+        "/(auth)/_auth/profile"
       ]
     },
     "/(auth)/login": {
@@ -872,8 +1326,16 @@ export const routeTree = rootRoute
       "filePath": "(app)/terms.lazy.tsx",
       "parent": "/(app)"
     },
+    "/(app)/unauthorized": {
+      "filePath": "(app)/unauthorized.lazy.tsx",
+      "parent": "/(app)"
+    },
     "/(auth)/_auth/dashboard": {
       "filePath": "(auth)/_auth.dashboard.tsx",
+      "parent": "/(auth)/_auth"
+    },
+    "/(auth)/_auth/profile": {
+      "filePath": "(auth)/_auth.profile.tsx",
       "parent": "/(auth)/_auth"
     },
     "/(test)/test/a_": {
@@ -891,6 +1353,14 @@ export const routeTree = rootRoute
       "filePath": "(app)/_examples/query.lazy.tsx",
       "parent": "/(app)/_examples"
     },
+    "/(app)/_admin/admin/analytics": {
+      "filePath": "(app)/_admin/admin.analytics.tsx",
+      "parent": "/(app)/_admin"
+    },
+    "/(app)/_admin/admin/users": {
+      "filePath": "(app)/_admin/admin.users.tsx",
+      "parent": "/(app)/_admin"
+    },
     "/(app)/_examples/demo/dialogs": {
       "filePath": "(app)/_examples/demo.dialogs.tsx",
       "parent": "/(app)/_examples"
@@ -898,6 +1368,34 @@ export const routeTree = rootRoute
     "/(app)/_examples/demo/testing": {
       "filePath": "(app)/_examples/demo.testing.tsx",
       "parent": "/(app)/_examples"
+    },
+    "/(app)/_kids/kids/earn": {
+      "filePath": "(app)/_kids/kids.earn.tsx",
+      "parent": "/(app)/_kids"
+    },
+    "/(app)/_kids/kids/fitness": {
+      "filePath": "(app)/_kids/kids.fitness.tsx",
+      "parent": "/(app)/_kids"
+    },
+    "/(app)/_kids/kids/help": {
+      "filePath": "(app)/_kids/kids.help.tsx",
+      "parent": "/(app)/_kids"
+    },
+    "/(app)/_kids/kids/play": {
+      "filePath": "(app)/_kids/kids.play.tsx",
+      "parent": "/(app)/_kids"
+    },
+    "/(app)/_parents/parents/manage": {
+      "filePath": "(app)/_parents/parents.manage.tsx",
+      "parent": "/(app)/_parents"
+    },
+    "/(app)/_parents/parents/rewards": {
+      "filePath": "(app)/_parents/parents.rewards.tsx",
+      "parent": "/(app)/_parents"
+    },
+    "/(app)/_parents/parents/tasks_": {
+      "filePath": "(app)/_parents/parents.tasks_.tsx",
+      "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b_": {
       "filePath": "(test)/test.a.b_.tsx"
@@ -940,6 +1438,22 @@ export const routeTree = rootRoute
     "/(app)/_examples/demo/typography": {
       "filePath": "(app)/_examples/demo.typography.lazy.tsx",
       "parent": "/(app)/_examples"
+    },
+    "/(app)/_admin/admin/": {
+      "filePath": "(app)/_admin/admin.index.tsx",
+      "parent": "/(app)/_admin"
+    },
+    "/(app)/_kids/kids/": {
+      "filePath": "(app)/_kids/kids.index.tsx",
+      "parent": "/(app)/_kids"
+    },
+    "/(app)/_parents/parents/": {
+      "filePath": "(app)/_parents/parents.index.tsx",
+      "parent": "/(app)/_parents"
+    },
+    "/(app)/_parents/parents/tasks/$sequenceNumber": {
+      "filePath": "(app)/_parents/parents.tasks.$sequenceNumber.tsx",
+      "parent": "/(app)/_parents"
     },
     "/(test)/test/a/b/c": {
       "filePath": "(test)/test.a.b.c.tsx"

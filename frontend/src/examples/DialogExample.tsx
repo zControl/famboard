@@ -257,8 +257,6 @@ const sections = [
   { id: "sheet", title: "Sheet", children: <SheetModal /> },
   { id: "toast", title: "Toast", children: <ToastModal /> },
 ];
-const DialogExample = () => {
+export const DialogExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { DialogExample };

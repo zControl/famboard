@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { useProfile } from "@/features/user/hooks/useProfile";
+import { useEffect, useMemo } from "react";
 import { Theme, ThemeProviderContext } from "./ThemeContext";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
   defaultTheme?: Theme;
-  storageKey?: string;
 };
 
-export function ThemeProvider({
+const DEFAULT_THEME = "system";
+
+export const ThemeProvider = ({
   children,
-  defaultTheme = "system",
-  storageKey = "ui-theme",
+  defaultTheme = DEFAULT_THEME,
   ...props
-}: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
-  );
+}: ThemeProviderProps) => {
+  const { user } = useAuth();
+  const { profile, updateProfile } = useProfile();
+
+  const theme = profile?.theme || defaultTheme;
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -35,17 +38,31 @@ export function ThemeProvider({
     root.classList.add(theme);
   }, [theme]);
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+  const value = useMemo(
+    () => ({
+      theme: theme as Theme,
+      setTheme: (newTheme: Theme) => {
+        if (user && profile) {
+          updateProfile.mutate(
+            { theme: newTheme },
+            {
+              onSuccess: () => {
+                console.log("Theme updated");
+              },
+              onError: () => {
+                console.error("Failed to update theme");
+              },
+            },
+          );
+        }
+      },
+    }),
+    [theme, user, profile, updateProfile],
+  );
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>
       {children}
     </ThemeProviderContext.Provider>
   );
-}
+};

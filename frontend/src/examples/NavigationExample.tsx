@@ -27,8 +27,6 @@ const sections = [
   { id: "context-menu", title: "Context Menu", children: <ContextMenuTile /> },
   { id: "tab-content", title: "Tab Content", children: <TabContentTile /> },
 ];
-const NavigationExample = () => {
+export const NavigationExample = () => {
   return <PageSections sections={sections} />;
 };
-
-export { NavigationExample };
