@@ -1,5 +1,5 @@
+import { createApiClient } from "@/api/apiClient";
 import { AssignedTaskResponse, Task, UserAssignedTaskResponse } from "@/types/task";
-import { createApiClient } from "@/utils/apiClient";
 
 const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 

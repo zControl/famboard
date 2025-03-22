@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { CircleXIcon, FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";

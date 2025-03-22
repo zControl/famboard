@@ -1,6 +1,6 @@
+import { createApiClient } from "@/api/apiClient";
+import { API_ENDPOINTS } from "@/api/apiEndpoints";
 import { UserProfile } from "@/types/user";
-import { createApiClient } from "@/utils/apiClient";
-import { API_ENDPOINTS } from "@/utils/apiEndpoints";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
 /**

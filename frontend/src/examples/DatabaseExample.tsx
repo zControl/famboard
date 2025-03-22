@@ -1,3 +1,4 @@
+import { createApiClient } from "@/api/apiClient";
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,6 @@ import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
-import { createApiClient } from "@/utils/apiClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 

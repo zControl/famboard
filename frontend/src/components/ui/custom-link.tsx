@@ -1,6 +1,6 @@
-import * as React from "react";
+import { cn } from "@/utils/classNames";
 import { createLink, LinkComponent } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
+import * as React from "react";
 
 interface BasicLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   size?: "default" | "sm" | "lg" | "huge";

@@ -17,7 +17,7 @@ import {
   TaskPriority,
   TaskStatus,
 } from "@/types/task";
-import { enumToArray } from "@/utils/typeConverters";
+import { enumToArray } from "@/utils/enumToArray";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [

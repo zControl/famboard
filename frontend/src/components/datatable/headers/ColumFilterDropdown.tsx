@@ -12,8 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { Option } from "@/types/common";
+import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";
