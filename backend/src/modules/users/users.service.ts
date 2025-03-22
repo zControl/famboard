@@ -10,7 +10,7 @@ import { DataSource, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User, UserGroup } from './entities/user.entity';
 
-const USER_SELECT_FIELDS: (keyof User)[] = ['id', 'username', 'email'];
+const USER_SELECT_FIELDS: (keyof User)[] = ['id', 'username', 'email', 'group'];
 
 @Injectable()
 export class UsersService {
