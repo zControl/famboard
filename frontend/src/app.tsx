@@ -6,7 +6,6 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "./components/common/theme/ThemeProvider";
 import { routeTree } from "./routeTree.gen";
-/* import { AuthProvider, useAuth } from "./utils/auth"; */
 
 const queryClient = new QueryClient();
 
