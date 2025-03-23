@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserProfile } from "@/types/user";
-import { firstInitial } from "@/utils/utils";
+import { firstInitial } from "@/utils/firstInitial";
 
 export const KidProfileSummaryCard = ({ kid }: { kid: UserProfile }) => {
   return (

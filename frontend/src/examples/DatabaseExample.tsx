@@ -1,3 +1,4 @@
+import { apiClient } from "@/api/apiClient";
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { Button } from "@/components/ui/button";
@@ -5,15 +6,13 @@ import { CodeBlock } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
-import { createApiClient } from "@/utils/apiClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 
 function CheckApiStatus() {
-  const imp = `import { createApiClient } from "@/utils/apiClient";
+  const imp = `import { apiClient } from "@/api/apiClient";
 import { useQuery, useQueryClient } from "@tanstack/react-query";`;
   const code = `const queryClient = useQueryClient();
-const apiClient = createApiClient("http://localhost:3000/v1");
 
 const { isPending, isFetching, isError, data, error } = useQuery({
     queryKey: ["ApiRoot"],
@@ -31,7 +30,6 @@ const handleRefresh = () => {
 )}`;
 
   const queryClient = useQueryClient();
-  const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
   const { isPending, isFetching, isError, data, error } = useQuery({
     queryKey: ["ApiRoot"],

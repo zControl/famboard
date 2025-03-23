@@ -1,59 +1,19 @@
+import { apiClient } from '@/api/apiClient';
+import { API_ENDPOINTS } from '@/api/apiEndpoints';
 import { AssignedTaskResponse, Task, UserAssignedTaskResponse } from "@/types/task";
-import { createApiClient } from "@/utils/apiClient";
 
-const apiClient = createApiClient("http://10.0.0.240:3000/v1");
+export const taskApi = {
+  getTasks: () => apiClient.get<Task[]>(API_ENDPOINTS.TASKS.GET_ALL),
 
-export async function getTasks(): Promise<Task[]> {
-  try {
-    const response = await apiClient.get<Task[]>("/tasks");
-    return response;
-  } catch (error) {
-    console.error("Error fetching tasks:", error);
-    throw new Error("Failed to fetch tasks");
-  }
-}
+  getTask: (sequenceNumber: string) => apiClient.get<Task>(API_ENDPOINTS.TASKS.GET_ONE(sequenceNumber)),
 
-export async function getTask(sequenceNumber: string): Promise<Task> {
-  try {
-    const response = await apiClient.get<Task>(`/tasks/${sequenceNumber}`);
-    return response;
-  } catch (error) {
-    console.error("Error fetching task:", error);
-    throw new Error("Failed to fetch task");
-  }
-}
+  createTask: (task: Partial<Task>) => apiClient.post<Task>(API_ENDPOINTS.TASKS.CREATE, task),
 
-export async function createTask(task: Partial<Task>): Promise<Task> {
-  try {
-    const response = await apiClient.post<Task>("/tasks", task);
-    return response;
-  } catch (error) {
-    console.error("Error creating task:", error);
-    throw new Error("Failed to create task");
-  }
-}
+  updateTask: (taskId: string, task: Partial<Task>) => apiClient.patch<Task>(API_ENDPOINTS.TASKS.UPDATE(taskId), task),
 
-export async function updateTask(taskId: string, task: Partial<Task>): Promise<Task> {
-  try {
-    const response = await apiClient.patch<Task>(`/tasks/${taskId}`, task);
-    return response;
-  } catch (error) {
-    console.error("Error updating task:", error);
-    throw new Error("Failed to update task");
-  }
-}
+  getAssignedUsers: (taskId: string) => apiClient.get<AssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_ASSIGNED_USERS(taskId)),
 
-export const getAssignedUsers = async (taskId: string): Promise<AssignedTaskResponse[]> => {
-  const response = await apiClient.get<AssignedTaskResponse[]>(`/tasks/${taskId}/assigned-users`);
-  return response;
-};
+  getAssignedTasks: (userId: string) => apiClient.get<UserAssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_USER_ASSIGNED(userId)),
 
-export const getAssignedTasks = async (userId: string): Promise<UserAssignedTaskResponse[]> => {
-  const response = await apiClient.get<UserAssignedTaskResponse[]>(`/tasks/user/${userId}`);
-  return response;
-};
-
-export const assignUsersToTask = async (taskId: string, userIds: string[]): Promise<Task> => {
-  const response = await apiClient.post<Task>(`/tasks/${taskId}/assign`, { userIds });
-  return response;
+  assignUsersToTask: (taskId: string, userIds: string[]) => apiClient.post<Task>(API_ENDPOINTS.TASKS.ASSIGN_USERS(taskId), { userIds }),
 };

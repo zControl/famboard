@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { Route } from "@/routes/(auth)/login";
 import { User } from "@/types/user";
-import { sleep } from "@/utils/utils";
+import { sleep } from "@/utils/sleep";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
@@ -74,13 +74,11 @@ export const LoginForm = () => {
     // Use the search.redirect if it exists, otherwise use the determined redirectPath
     const finalRedirectPath = search.redirect || redirectPath;
     navigate({ to: finalRedirectPath });
-    console.log("Login successful");
   }
 
   // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
     setIsLoading(true);
-    console.log("Submitting login");
     try {
       const user = await auth.login(data.username, data.password);
       await router.invalidate();
@@ -89,9 +87,9 @@ export const LoginForm = () => {
         await redirectToDashboard(user);
       } else {
         console.error("Login failed: No user returned");
-        // Handle login failure (e.g., show an error message)
       }
     } catch (error) {
+      //TODO: Handle login error better instead of console.log
       console.error("Login failed:", error);
     } finally {
       setIsLoading(false);

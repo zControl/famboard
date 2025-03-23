@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { DetailListItemProps } from "@/types/common";
+import { cn } from "@/utils/classNames";
 import React from "react";
 
 export const DetailListItem = React.forwardRef<

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/classNames";
 import React from "react";
 import { Helmet } from "react-helmet-async";
 

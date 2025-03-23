@@ -1,4 +1,4 @@
-import { assignUsersToTask, createTask, getTask, getTasks, updateTask } from "@/features/tasks/api/taskApi";
+import { taskApi } from "@/features/tasks/api/taskApi";
 import { Task } from "@/types/task";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -10,21 +10,21 @@ export const useTasks = () => {
 
   const {data: tasks, isLoading, error} = useQuery({
     queryKey: ["tasks"],
-    queryFn: getTasks,
+    queryFn: taskApi.getTasks,
   });
 
   const addTaskMutation = useMutation({
-    mutationFn: createTask,
+    mutationFn: taskApi.createTask,
     onSuccess: refreshTasks,
   })
 
   const updateTaskMutation = useMutation({
-    mutationFn: ({ taskId, task }: { taskId: string, task: Partial<Task> }) => updateTask(taskId, task),
+    mutationFn: ({ taskId, task }: { taskId: string, task: Partial<Task> }) => taskApi.updateTask(taskId, task),
     onSuccess: refreshTasks, 
   })
 
   const assignTaskMutation = useMutation({
-    mutationFn: ({ taskId, userIds }: { taskId: string, userIds: string[] }) => assignUsersToTask(taskId, userIds),
+    mutationFn: ({ taskId, userIds }: { taskId: string, userIds: string[] }) => taskApi.assignUsersToTask(taskId, userIds),
     onSuccess: refreshTasks,
   })
 
@@ -42,5 +42,5 @@ export const useTasks = () => {
 
 export const useTaskBySequenceNumber = (sequenceNumber: string) => useQuery({
   queryKey: ["taskDetails", sequenceNumber],
-  queryFn: () => getTask(sequenceNumber),
+  queryFn: () => taskApi.getTask(sequenceNumber),
 });

@@ -1,6 +1,5 @@
+import { apiClient } from "@/api/apiClient";
 import { UserProfile } from "@/types/user";
-import { createApiClient } from "@/utils/apiClient";
-import { API_ENDPOINTS } from "@/utils/apiEndpoints";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
 /**
@@ -14,8 +13,6 @@ import { useQueries, useQuery } from "@tanstack/react-query";
  *   - error: an optional error object or null if there was no error.
  */
 export const useKidManager = () => {
-  const apiClient = createApiClient(API_ENDPOINTS.BASE);
-
   const {
     data: kidIdsResponse,
     isLoading: isLoadingIds,
