@@ -1,11 +1,8 @@
-import { createApiClient } from "@/api/apiClient";
-import { API_ENDPOINTS } from "@/api/apiEndpoints";
+import { apiClient } from "@/api/apiClient";
 import { UserProfile } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";
 
 export const useUserProfile = (userId: string) => {
-  const apiClient = createApiClient(API_ENDPOINTS.BASE);
-
   return useQuery({
     queryKey: ["userProfile", userId],
     queryFn: async (): Promise<UserProfile> => {

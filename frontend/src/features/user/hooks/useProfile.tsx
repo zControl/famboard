@@ -1,11 +1,9 @@
-import { createApiClient } from "@/api/apiClient";
-import { API_ENDPOINTS } from "@/api/apiEndpoints";
+import { apiClient } from "@/api/apiClient";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserProfile } from "@/types/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useProfile = () => {
-  const apiClient = createApiClient(API_ENDPOINTS.BASE);
   const queryClient = useQueryClient();
 
   const { user } = useAuth();

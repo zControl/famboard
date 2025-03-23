@@ -1,11 +1,9 @@
-import { createApiClient } from "@/api/apiClient";
+import { apiClient } from "@/api/apiClient";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { User } from "@/types/user";
 import { sleep } from "@/utils/sleep";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
-
-const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<User | null>(() => {
