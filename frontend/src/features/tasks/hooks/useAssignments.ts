@@ -1,4 +1,4 @@
-import { getAssignedUsers } from "@/features/tasks/api/taskApi";
+import { taskApi } from "@/features/tasks/api/taskApi";
 import { AssignedTaskResponse } from "@/types/task";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 export const useAssignments = (taskId: string) => {
   const { data: taskAssignments, isLoading, isError, refetch } = useQuery<AssignedTaskResponse[], Error>({
     queryKey: ["task-assignments", taskId],
-    queryFn: () => getAssignedUsers(taskId),
+    queryFn: () => taskApi.getAssignedUsers(taskId),
   });
 
   return {
