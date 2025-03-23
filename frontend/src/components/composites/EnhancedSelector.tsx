@@ -45,7 +45,6 @@ export function EnhancedSelector<T extends string>({
 
   const handleSetValue = (newValue: string) => {
     onChange(newValue as T);
-    console.log("value changed: ", newValue);
   };
 
   return (

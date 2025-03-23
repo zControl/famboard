@@ -19,15 +19,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       ),
     onSuccess: (data) => {
       const { accessToken, user } = data;
-      console.log("Access token:", accessToken);
-      console.log("User:", user);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
     },
     onError: (error) => {
+      //TODO: Handle login error better instead of console.log
       console.error("Login error:", error);
-      // Handle login error (e.g., show an error message to the user)
     },
   });
 
