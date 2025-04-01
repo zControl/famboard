@@ -15,7 +15,7 @@ export const useAssignments = (taskId: string) => {
   });
 
   return {
-    taskAssignments,
+    taskAssignments: taskAssignments || [],
     isLoading,
     isError,
     refetch,

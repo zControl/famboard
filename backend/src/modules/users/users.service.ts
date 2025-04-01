@@ -46,7 +46,8 @@ export class UsersService {
     try {
       return await this.usersRepository.find({
         where: { group },
-        select: ['id'],
+        relations: ['profile'],
+        select: ['username', 'email', 'group', 'profile'],
       });
     } catch (error) {
       console.error('Error in findByGroup:', error);

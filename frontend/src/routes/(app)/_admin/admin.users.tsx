@@ -7,12 +7,13 @@ export const Route = createFileRoute("/(app)/_admin/admin/users")({
 
 function AdminUsersPage() {
   return (
-    <PageContainer title="Parents | Tasks" description="Manage each kid here.">
-      <section className="grid grid-cols-1 md:grid-cols-2 place-items-center border border-blue-500">
-        <div>List All Users</div>
-        <div>Parent Users</div>
-        <div>Kid Users</div>
-        <div>Kid Users</div>
+    <PageContainer
+      title="Admin | Users"
+      description="User administration page."
+    >
+      <section className="grid grid-cols-1 md:grid-cols-2 place-items-center">
+        <div>Kid Users Tile</div>
+        <div>Parent Users Tile</div>
       </section>
     </PageContainer>
   );

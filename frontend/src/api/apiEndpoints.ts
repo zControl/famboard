@@ -7,7 +7,6 @@ const BASE_URL = `http://${BASE_DOMAIN}:${BASE_PORT}/${BASE_VERSION}`;
 export const API_ENDPOINTS = {
   BASE: BASE_URL,
   TASKS: {
-    BASE: '/tasks',
     GET_ALL: '/tasks',
     GET_ONE: (id: string) => `/tasks/${id}`,
     CREATE: '/tasks',
@@ -16,5 +15,13 @@ export const API_ENDPOINTS = {
     ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
     GET_ASSIGNED_USERS: (id: string) => `/tasks/${id}/assigned-users`,
     GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
+  },
+  USERS: {
+    GET_ALL: '/users',
+    GET_ONE: (id: string) => `/users/${id}`,
+    GET_BY_GROUP: (group: string) => `/users/group/${group}`,
+    CREATE: '/users',
+    UPDATE: (id: string) => `/users/${id}`,
+    DELETE: (id: string) => `/users/${id}`,
   },
 }
