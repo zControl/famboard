@@ -1,9 +1,9 @@
 import { apiClient } from "@/api/apiClient";
 import { API_ENDPOINTS } from "@/api/apiEndpoints";
-import { ApiHealth, ApiRoot, ApiVersion } from "@/types/api";
+import { ApiHealthResponse, ApiRootResponse, ApiVersionResponse } from "@/types/api";
 
 export const apiStatus = {
-  getBase: () => apiClient.get<ApiRoot>(API_ENDPOINTS.BASE),
-  getHealth: () => apiClient.get<ApiHealth>(API_ENDPOINTS.BASE + '/health'),
-  getVersion: () => apiClient.get<ApiVersion>(API_ENDPOINTS.BASE + '/version'),
+  getRoot: () => apiClient.get<ApiRootResponse>(API_ENDPOINTS.BASE),
+  getHealth: () => apiClient.get<ApiHealthResponse>(API_ENDPOINTS.BASE + '/health'),
+  getVersion: () => apiClient.get<ApiVersionResponse>(API_ENDPOINTS.BASE + '/version'),
 };

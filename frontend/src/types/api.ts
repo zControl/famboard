@@ -1,4 +1,4 @@
-export interface ApiRoot {
+export interface ApiRootResponse {
     timestamp: string;
     greeting: string;
     message: string;
@@ -10,11 +10,11 @@ export interface ApiRoot {
     }
 }
 
-export interface ApiVersion {
+export interface ApiVersionResponse {
   version: string;
 }
 
-export interface ApiHealth {
+export interface ApiHealthResponse {
     status: string;
     info: {
       database: {

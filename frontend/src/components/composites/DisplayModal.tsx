@@ -7,10 +7,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Button } from "@/components/ui/button";
-
 interface DisplayModalProps {
-  trigger: string;
+  trigger: React.ReactNode;
   title: string;
   description: string;
   children?: React.ReactNode;
@@ -23,9 +21,7 @@ export const DisplayModal = ({
 }: DisplayModalProps) => {
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">{trigger}</Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
