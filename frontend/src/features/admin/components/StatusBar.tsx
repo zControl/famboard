@@ -91,7 +91,7 @@ const AppVersion = () => {
 
 export const StatusBar = () => {
   return (
-    <div className="w-full p-2 flex flex-row items-center space-x-4 justify-between border-2 border-highlight">
+    <div className="w-full p-2 mb-2 flex flex-row items-center space-x-4 justify-between border-2 border-highlight">
       <ApiRoot />
       <ApiHealth />
       <AppVersion />

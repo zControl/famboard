@@ -18,10 +18,9 @@ export const API_ENDPOINTS = {
   },
   USERS: {
     GET_ALL: '/users',
-    GET_ONE: (id: string) => `/users/${id}`,
     GET_BY_GROUP: (group: string) => `/users/group/${group}`,
-    CREATE: '/users',
-    UPDATE: (id: string) => `/users/${id}`,
-    DELETE: (id: string) => `/users/${id}`,
+    GET_BY_ID: (id: string) => `/users/${id}`,
+    UPDATE_PROFILE: (id: string) => `/users/${id}/profile`,
+    GET_PROFILE: (id: string) => `/users/${id}/profile`,
   },
 }
