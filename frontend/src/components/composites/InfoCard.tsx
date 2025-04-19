@@ -13,7 +13,7 @@ interface InfoCardProps {
   children: React.ReactNode;
   title?: React.ReactNode;
   description?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.ReactElement;
   footer?: React.ReactNode;
   loading?: boolean;
 }
@@ -29,12 +29,18 @@ export const InfoCard = ({
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-row space-y-2 justify-between">
+        <div className="flex flex-row justify-between items-stretch">
           <div className="flex flex-col space-y-1 flex-grow">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
-          <div>{icon}</div>
+          {icon && (
+            <div className="flex items-center justify-center">
+              {React.cloneElement(icon, {
+                className: "w-10 h-10 text-highlight",
+              })}
+            </div>
+          )}
         </div>
       </CardHeader>
       <CardContent>{loading ? <Spinner size="lg" /> : children}</CardContent>
