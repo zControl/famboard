@@ -8,7 +8,7 @@ export const useTasks = () => {
     queryClient.invalidateQueries({ queryKey: ["tasks"] });
   }
 
-  const {data: tasks, isLoading, error} = useQuery({
+  const {data: tasks, isLoading, error} = useQuery<Task[]>({
     queryKey: ["tasks"],
     queryFn: taskApi.getTasks,
   });

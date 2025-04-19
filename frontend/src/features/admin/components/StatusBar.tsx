@@ -4,8 +4,8 @@ import { Spinner } from "@/components/ui/spinner";
 import { useApiStatus } from "@/hooks/useApiStatus";
 import {
   AlertCircleIcon,
-  CpuIcon,
   DatabaseIcon,
+  WebhookIcon,
   XCircleIcon,
 } from "lucide-react";
 
@@ -50,7 +50,9 @@ const ApiHealth = () => {
   return (
     <div className="flex flex-row space-x-4">
       <DisplayModal
-        trigger={<CpuIcon color={apiStatusColor} className="cursor-pointer" />}
+        trigger={
+          <WebhookIcon color={apiStatusColor} className="cursor-pointer" />
+        }
         title="API Health Details"
         description="Detailed information about the API health."
       >
@@ -93,8 +95,10 @@ export const StatusBar = () => {
   return (
     <div className="w-full p-2 mb-2 flex flex-row items-center space-x-4 justify-between border-2 border-highlight">
       <ApiRoot />
-      <ApiHealth />
-      <AppVersion />
+      <div className="flex flex-row space-x-4 items-center">
+        <ApiHealth />
+        <AppVersion />
+      </div>
     </div>
   );
 };
