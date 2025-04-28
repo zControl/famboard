@@ -1,4 +1,4 @@
-import { kidApi } from "@/features/parents/api/kidApi";
+import { usersApi } from "@/features/admin/api/usersApi";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
 export const useKidManager = () => {
@@ -8,7 +8,7 @@ export const useKidManager = () => {
     error: idsError,
   } = useQuery({
     queryKey: ["kidIds"],
-    queryFn: kidApi.getKids,
+    queryFn: usersApi.getUserByGroup("kid"),
   });
 
   const kidIds =
@@ -17,7 +17,7 @@ export const useKidManager = () => {
   const kidProfileQueries = useQueries({
     queries: kidIds.map((kidData) => ({
       queryKey: ["kid-profile", kidData],
-      queryFn: kidApi.getUserProfile(kidData),
+      queryFn: usersApi.getUserProfile(kidData),
       staleTime: 5 * 60 * 1000, // 5 minutes
     })),
   });
