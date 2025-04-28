@@ -1,4 +1,4 @@
-import { adminApi } from "@/features/admin/api/adminApi"
+import { usersApi } from "@/features/admin/api/usersApi"
 import { User } from "@/types/user"
 import { useQuery } from "@tanstack/react-query"
 
@@ -6,7 +6,7 @@ export const useUserStatistics = () => {
   const {data, isLoading, isError} = useQuery({
     queryKey: ["userStatistics"],
     queryFn: async (): Promise<User[]> => {
-              const res = await adminApi.getUsers();
+              const res = await usersApi.getUsers();
               return res;
             },
   })

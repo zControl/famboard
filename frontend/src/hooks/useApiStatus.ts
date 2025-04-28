@@ -1,5 +1,4 @@
-import { apiStatus } from "@/api/apiStatus";
-import { ApiHealthResponse, ApiRootResponse, ApiVersionResponse } from "@/types/api";
+import { rootApi } from "@/api/rootApi";
 import { useQueries } from "@tanstack/react-query";
 
 export const useApiStatus = () => {
@@ -7,24 +6,15 @@ export const useApiStatus = () => {
     queries: [
       {
         queryKey: ["ApiRoot"],
-        queryFn: async (): Promise<ApiRootResponse> => {
-          const res = await apiStatus.getRoot();
-          return res;
-        },
+        queryFn: rootApi.getRoot,
       },
       {
         queryKey: ["ApiVersion"],
-        queryFn: async (): Promise<ApiVersionResponse> => {
-          const res = await apiStatus.getVersion();
-          return res;
-        },
+        queryFn: rootApi.getVersion,
       },
       {
         queryKey: ["ApiHealth"],
-        queryFn: async (): Promise<ApiHealthResponse> => {
-          const res = await apiStatus.getHealth();
-          return res;
-        },
+        queryFn: rootApi.getHealth
       },
     ],
   });

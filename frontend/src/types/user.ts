@@ -24,3 +24,10 @@ export interface UserProfile {
   theme: string;
   avatarUrl: string;
 }
+
+export interface UsersByGroupResponse {
+  email: string;
+  username: string;
+  group: UserGroup;
+  profile: UserProfile;
+}
