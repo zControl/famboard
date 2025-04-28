@@ -37,14 +37,14 @@ export const InfoCard = ({
           {icon && (
             <div className="flex items-center justify-center">
               {React.cloneElement(icon, {
-                className: "w-10 h-10 text-highlight",
+                className: "w-12 h-12 text-highlight",
               })}
             </div>
           )}
         </div>
       </CardHeader>
       <CardContent>{loading ? <Spinner size="lg" /> : children}</CardContent>
-      <CardFooter>{footer}</CardFooter>
+      {footer && <CardFooter>{footer}</CardFooter>}
     </Card>
   );
 };

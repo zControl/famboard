@@ -1,6 +1,7 @@
 import { InfoCard } from "@/components/composites/InfoCard";
+import { LabeledValue } from "@/components/ui/labeled-value";
 import { useUserStatistics } from "@/features/admin/hooks/useUserStatistics";
-import { ChartBarStackedIcon } from "lucide-react";
+import { UsersIcon } from "lucide-react";
 
 export const UserStatisticsCard = () => {
   const { totalUserCount, totalParentsCount, totalKidsCount } =
@@ -9,11 +10,24 @@ export const UserStatisticsCard = () => {
     <InfoCard
       title="Users"
       description="Basic user statistics"
-      icon={<ChartBarStackedIcon />}
+      icon={<UsersIcon />}
+      footer={<div>Footer</div>}
     >
-      <div>Total Users: {totalUserCount}</div>
-      <div>Total Parents: {totalParentsCount}</div>
-      <div>Total Kids: {totalKidsCount}</div>
+      <LabeledValue
+        label="Registered Users Count"
+        value={totalUserCount}
+        units="users"
+      />
+      <LabeledValue
+        label="Users in Parent Group"
+        value={totalParentsCount}
+        units="parents"
+      />
+      <LabeledValue
+        label="Users in Kid Group"
+        value={totalKidsCount}
+        units="kids"
+      />
     </InfoCard>
   );
 };
