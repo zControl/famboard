@@ -1,17 +1,6 @@
-import { apiClient } from "@/api/apiClient";
-import { UserProfile } from "@/types/user";
+import { kidApi } from "@/features/parents/api/kidApi";
 import { useQueries, useQuery } from "@tanstack/react-query";
 
-/**
- * @returns An object containing the following properties:
- * - kidIds: an array of strings containing the ids of the kids.
- * - isLoadingIds: a boolean indicating whether the fetch for the ids is in progress.
- * - idsError: an optional error object or null if there was no error.
- * - getKidProfile: a function that takes a kid's id and returns an object containing the following properties:
- *   - data: the UserProfile object of the kid with the given id.
- *   - isLoading: a boolean indicating whether the fetch for the kid's profile is in progress.
- *   - error: an optional error object or null if there was no error.
- */
 export const useKidManager = () => {
   const {
     data: kidIdsResponse,
@@ -19,19 +8,16 @@ export const useKidManager = () => {
     error: idsError,
   } = useQuery({
     queryKey: ["kidIds"],
-    queryFn: async () => {
-      const response =
-        await apiClient.get<{ id: string }[]>("/users/group/kid");
-      return response;
-    },
+    queryFn: kidApi.getKids,
   });
 
-  const kidIds = kidIdsResponse ?? [];
+  const kidIds =
+    kidIdsResponse?.map((userByGroup) => userByGroup.profile.userId) || [];
 
   const kidProfileQueries = useQueries({
     queries: kidIds.map((kidData) => ({
-      queryKey: ["kid-profile", kidData.id],
-      queryFn: () => apiClient.get<UserProfile>(`/users/${kidData.id}/profile`),
+      queryKey: ["kid-profile", kidData],
+      queryFn: kidApi.getUserProfile(kidData),
       staleTime: 5 * 60 * 1000, // 5 minutes
     })),
   });
@@ -48,7 +34,7 @@ export const useKidManager = () => {
   };
 
   return {
-    kidIds: kidIds.map((kid) => kid.id),
+    kidIds,
     isLoadingIds,
     idsError,
     getKidProfile,
