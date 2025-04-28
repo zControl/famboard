@@ -10,6 +10,10 @@ const axiosInstance: AxiosInstance = axios.create({
 
 export const apiClient = {
   get: async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+    if (url.includes('undefined')) {
+      console.error(`Attempting to make a GET request with undefined in the URL: ${url}`);
+      throw new Error('Invalid URL: contains undefined');
+    }
     try {
       const response = await axiosInstance.get<T>(url, config);
       return response.data;

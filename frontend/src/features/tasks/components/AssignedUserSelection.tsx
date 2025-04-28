@@ -21,9 +21,9 @@ export const AssignedUserSelection = ({
 
   useEffect(() => {
     if (taskAssignments) {
-      const initialSelectedKids = taskAssignments.map(
-        (assignment) => assignment.id,
-      );
+      const initialSelectedKids = taskAssignments
+        .map((assignment) => assignment.id)
+        .filter(Boolean); // Filter out any undefined IDs
       setSelectedKids(initialSelectedKids);
       onSelectedKidsChange(initialSelectedKids);
     }
@@ -41,6 +41,10 @@ export const AssignedUserSelection = ({
   return (
     <div className="flex flex-col space-y-4 w-3/4 mx-auto mb-4">
       {kidIds.map((kidId) => {
+        if (!kidId) {
+          console.warn("Encountered undefined kidId");
+          return null;
+        }
         const { data: kidProfile } = getKidProfile(kidId);
         const isSelected = selectedKids.includes(kidId);
         return (
@@ -52,7 +56,7 @@ export const AssignedUserSelection = ({
             onClick={() => handleKidSelection(kidId, !isSelected)}
           >
             <AssignedUserAvatar userId={kidId} />
-            <span>{kidProfile?.username}</span>
+            <span>{kidProfile?.username || "Unknown User"}</span>
           </div>
         );
       })}

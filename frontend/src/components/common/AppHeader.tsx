@@ -11,6 +11,8 @@ const AdminNavigation = () => (
   <div className="flex gap-1">
     <ButtonLink href="/admin">Dashboard</ButtonLink>
     <ButtonLink href="/admin/users">Users</ButtonLink>
+    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
+    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
     <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
   </div>
 );

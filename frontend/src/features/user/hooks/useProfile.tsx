@@ -36,11 +36,11 @@ export const useProfile = () => {
     },
   });
 
-  /*   console.log("useProfile hook generated:");
+  console.log("useProfile hook generated:");
   console.log("user", user);
   console.log("profile", profile);
   console.log("isLoading", isLoading);
-  console.log("error", error); */
+  console.log("error", error);
 
   return { updateProfile, profile, isLoading, error };
 };
