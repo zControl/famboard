@@ -53,6 +53,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "assigned",
+    filterFn: "arrIncludesSome",
     header: ({ column }) => (
       <TaskAssignmentsHeader column={column} title="Assigned" />
     ),
