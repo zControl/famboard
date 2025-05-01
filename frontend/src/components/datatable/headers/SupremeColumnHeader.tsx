@@ -1,5 +1,5 @@
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
-import { ColumFilterDropdown } from "@/components/datatable/headers/ColumFilterDropdown";
+import { ColumnFilterDropdown } from "@/components/datatable/headers/ColumnFilterDropdown";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
@@ -42,7 +42,9 @@ export const SupremeColumnHeader = <TData, TValue>({
       {toolsOpen && (
         <div className="flex items-center pr-2">
           <AscDescSortHeader column={column} />
-          {options && <ColumFilterDropdown column={column} options={options} />}
+          {options && (
+            <ColumnFilterDropdown column={column} options={options} />
+          )}
         </div>
       )}
       <Button variant="ghost" size="tight" onClick={handleToggleTools}>
