@@ -1,6 +1,6 @@
 export interface Option {
   value: string;
-  label: string;
+  label: React.ReactNode;
 }
 
 export interface DetailListItemProps {

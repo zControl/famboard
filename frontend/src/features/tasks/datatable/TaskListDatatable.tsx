@@ -37,6 +37,7 @@ export const TaskListDatatable = () => {
         desc: false,
       },
     ],
+    filters: [],
   };
 
   return (

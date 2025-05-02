@@ -52,15 +52,13 @@ export const taskListColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
   },
   {
-    accessorKey: "assigned",
+    accessorKey: "assignedUserIds",
+    filterFn: "arrIncludesSome",
+    enableSorting: false,
     header: ({ column }) => (
       <TaskAssignmentsHeader column={column} title="Assigned" />
     ),
-    cell: ({ row }) => (
-      <div className="flex flex-row justify-between items-center space-x-4">
-        <TaskAssignmentsCell row={row} />
-      </div>
-    ),
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
   },
   {
     accessorKey: "pointValue",
