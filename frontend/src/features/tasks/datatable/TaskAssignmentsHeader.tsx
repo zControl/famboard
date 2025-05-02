@@ -1,5 +1,6 @@
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
+import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 
@@ -27,7 +28,12 @@ export const TaskAssignmentsHeader = <TData, TValue>({
         options={kidIds.map((kidId) => {
           const { data: kidProfile } = getKidProfile(kidId);
           return {
-            label: kidProfile?.username ?? "",
+            label: (
+              <div className="flex items-center space-x-2">
+                <AssignedUserAvatar userId={kidId} />
+                <span>{kidProfile?.username}</span>
+              </div>
+            ),
             value: kidId,
           };
         })}
