@@ -12,4 +12,6 @@ export const getTypeOrmConfig = (
   database: configService.get<string>('DB_NAME', 'famboard'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
+  synchronize: true,
+  logging: true,
 });
