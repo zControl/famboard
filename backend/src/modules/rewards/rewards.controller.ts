@@ -27,16 +27,16 @@ export class RewardsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.rewardsService.findOne(+id);
+    return this.rewardsService.findRewardById(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRewardDto: UpdateRewardDto) {
-    return this.rewardsService.update(+id, updateRewardDto);
+    return this.rewardsService.update(id, updateRewardDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.rewardsService.remove(+id);
+    return this.rewardsService.remove(id);
   }
 }

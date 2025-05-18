@@ -72,8 +72,8 @@ export class TasksService {
     return await this.tasksRepository.save(updatedTask);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} task`;
+  async remove(taskId: string) {
+    return await this.tasksRepository.delete(taskId);
   }
 
   async assignUsersToTask(taskId: string, userIds: string[]): Promise<Task> {
