@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { RefreshCcw } from "lucide-react";
 
-export const TaskListOptions = () => {
-  const { refreshTasks } = useTasks();
+interface DatatableOptionsProps {
+  onRefresh: () => void;
+}
+
+export const TableOptions = ({ onRefresh }: DatatableOptionsProps) => {
   return (
     <Button
       variant="outline"
       size="sm"
       className="ml-auto hidden h-8 lg:flex"
-      onClick={refreshTasks}
+      onClick={onRefresh}
     >
       <RefreshCcw />
     </Button>

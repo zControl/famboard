@@ -1,16 +1,16 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
+import { TableOptions } from "@/components/datatable/TableOptions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
-import { TaskListOptions } from "@/features/tasks/datatable/TaskListOptions";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export const TaskListDatatable = () => {
   const [open, setOpen] = useState(false);
-  const { tasks } = useTasks();
+  const { tasks, refreshTasks } = useTasks();
 
   const initialState = {
     columnVisibility: {
@@ -45,7 +45,7 @@ export const TaskListDatatable = () => {
       <DataTableCore
         columns={taskListColumns}
         data={tasks || []}
-        options={<TaskListOptions />}
+        options={<TableOptions onRefresh={refreshTasks} />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>
             <PlusIcon />

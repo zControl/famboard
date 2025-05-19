@@ -14,7 +14,7 @@ export const useRewards = () => {
     queryFn: rewardsApi.getRewards,
   });
 
-  const createRewardMutation = useMutation({
+  const addRewardMutation = useMutation({
     mutationFn: rewardsApi.createReward,
     onSuccess: refreshRewards,
   })
@@ -33,7 +33,7 @@ export const useRewards = () => {
     queryClient,
     rewards,
     refreshRewards,
-    createRewardMutation,
+    addRewardMutation,
     updateRewardMutation,
     deleteRewardMutation,
     isLoading,
