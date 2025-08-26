@@ -2,30 +2,22 @@ import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { TableOptions } from "@/components/datatable/TableOptions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { RewardModal } from "@/features/rewards/components/RewardModal";
+import { rewardsListColumns } from "@/features/rewards/datatable/RewardsListColumns";
+import { useRewards } from "@/features/rewards/hooks/useRewards";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
-export const TaskListDatatable = () => {
+export const RewardsListDatatable = () => {
   const [open, setOpen] = useState(false);
-  const { tasks, refreshTasks } = useTasks();
+  const { rewards, refreshRewards } = useRewards();
 
   const initialState = {
     columnVisibility: {
-      id: false,
-      sequenceNumber: true,
       title: true,
       description: true,
-      assigned: true,
-      pointValue: true,
-      note: false,
-      frequency: false,
-      category: false,
-      status: false,
-      difficulty: false,
-      priority: false,
+      rewardValue: true,
+      note: true,
     },
     pagination: {
       pageIndex: 0,
@@ -33,28 +25,27 @@ export const TaskListDatatable = () => {
     },
     sorting: [
       {
-        id: "sequenceNumber",
+        id: "title",
         desc: false,
       },
     ],
     filters: [],
   };
-
   return (
     <Card className="p-2">
       <DataTableCore
-        columns={taskListColumns}
-        data={tasks || []}
-        options={<TableOptions onRefresh={refreshTasks} />}
+        columns={rewardsListColumns}
+        data={rewards || []}
+        options={<TableOptions onRefresh={refreshRewards} />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>
             <PlusIcon />
-            Add Task
+            Add Reward
           </Button>
         }
         initialState={initialState}
       />
-      <TaskModal modalOpen={open} onModalOpenChange={setOpen} />
+      <RewardModal modalOpen={open} onModalOpenChange={setOpen} />
     </Card>
   );
 };
