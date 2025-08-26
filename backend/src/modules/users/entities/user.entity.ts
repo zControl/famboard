@@ -1,6 +1,4 @@
 import * as bcrypt from 'bcrypt';
-import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -10,6 +8,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TaskAssignment } from '../../tasks/entities/task-assignment.entity';
+import { UserProfile } from '../../users/entities/user-profile.entity';
 
 export enum UserGroup {
   ADMIN = 'admin',
