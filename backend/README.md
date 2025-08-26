@@ -1,57 +1,56 @@
 ## FamBoard - Backend
-
-## Description
-
 A backend REST API that provides CRUD operations on a postgres database.
 
-## Tech Stack
+## Stack
 
-[NestJS](https://github.com/nestjs/nest) REST Api
+- [NestJS](https://github.com/nestjs/nest) - REST API
+- [TypeORM](https://github.com/typeorm/typeorm) - Relational Mapping
+- [Postgres](https://github.com/postgres/postgres) - Database
 
-## Install, complile, run
+## Commands
 
-```bash
-$ npm install
-```
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
+### Testing
 
 ```bash
 # unit tests
 $ npm run test
-
+```
+```bash
 # e2e tests
 $ npm run test:e2e
-
+```
+```bash
 # test coverage
 $ npm run test:cov
 ```
 
-## Database Migrations
+### Local Development
 
-### Whenever entities changes, generate a migration
-
-```sh
-npm run typeorm migration:generate -- -d ormconfig.ts -n InitialMigration
+```bash
+# install dependencies
+$ npm install
+```
+```bash
+# development
+$ npm run start
+```
+```bash
+# watch mode
+$ npm run start:dev
 ```
 
-This will create a migration file in `/src/migrations`
-
-### Apply migrations locally
-
-```sh
-npm run typeorm migration:run -- -d ormconfig.ts
+### Build
+```bash
+# build application
+npm run build
 ```
 
-### Run production migrations as part of CI/CD workflow.
+### Database Migrations
+```bash
+# generate a migration
+npm run typeorm migration:generate src/database/migrations/MigrationNameHere
+```
+```bash
+# run the migration
+npm run typeorm migration:run
+```

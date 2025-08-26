@@ -1,5 +1,3 @@
-import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { User } from 'src/modules/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -10,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TaskAssignment } from '../../tasks/entities/task-assignment.entity';
+import { User } from '../../users/entities/user.entity';
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn('uuid')
