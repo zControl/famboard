@@ -1,21 +1,10 @@
-import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { databaseConfig } from './database.config';
 
-export const getTypeOrmConfig = (
-  configService: ConfigService,
-): TypeOrmModuleOptions => {
-  const isProduction = configService.get<string>('NODE_ENV') === 'production';
+export const getTypeOrmConfig = (): TypeOrmModuleOptions => {
+  // You can still override specific settings if needed
   return {
-    type: 'postgres',
-    host: configService.get<string>('DB_HOST', 'localhost'),
-    port: +configService.get<number>('DB_PORT', 5432),
-    username: configService.get<string>('DB_USERNAME', 'famboard_user'),
-    password: configService.get<string>('DB_PASSWORD', ''),
-    database: configService.get<string>('DB_NAME', 'famboard'),
-    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-    synchronize: !isProduction,
-    logging: configService.get<boolean>('DB_LOGGING', !isProduction),
-    migrationsRun: isProduction,
+    ...databaseConfig,
+    // Any NestJS-specific overrides can go here
   };
 };
