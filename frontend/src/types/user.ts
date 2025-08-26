@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
   email: string;
   username: string;
   group: UserGroup;
@@ -23,4 +23,11 @@ export interface UserProfile {
   status: string;
   theme: string;
   avatarUrl: string;
+}
+
+export interface UsersByGroupResponse {
+  email: string;
+  username: string;
+  group: UserGroup;
+  profile: UserProfile;
 }

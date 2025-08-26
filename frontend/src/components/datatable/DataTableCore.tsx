@@ -10,7 +10,7 @@ import {
   TableCaption,
   TableHeader,
 } from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/classNames";
 import {
   ColumnDef,
   getCoreRowModel,

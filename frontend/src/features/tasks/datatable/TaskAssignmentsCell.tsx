@@ -55,9 +55,18 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex -space-x-2 overflow-hidden p-2">
-          {taskAssignments?.map((assignment) => (
-            <AssignedUserAvatar key={assignment.id} userId={assignment.id} />
-          ))}
+          {hasAssignments ? (
+            <div className="flex -space-x-2 overflow-hidden p-2">
+              {taskAssignments.map((assignment) => (
+                <AssignedUserAvatar
+                  key={assignment.id}
+                  userId={assignment.id}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-card-foreground p-2">No assignments</div>
+          )}
         </div>
         {isHovered && (
           <div

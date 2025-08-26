@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { XCircleIcon } from "lucide-react";
 import { useState } from "react";

@@ -12,8 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { Option } from "@/types/common";
+import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ interface ColumnFilterDropdownProps<TData, TValue>
   options: Option[];
 }
 
-export const ColumFilterDropdown = <TData, TValue>({
+export const ColumnFilterDropdown = <TData, TValue>({
   column,
   options,
   className,
@@ -43,12 +43,12 @@ export const ColumFilterDropdown = <TData, TValue>({
       }
     });
   };
-  const handleSelectAll = () => {
-    setSelectedOptions(options.map((option) => option.value));
+  const handleClearFilter = () => {
+    setSelectedOptions([]);
+    setOpen(false);
   };
 
   useEffect(() => {
-    console.log("selectedOptions", selectedOptions);
     column.setFilterValue(selectedOptions.length ? selectedOptions : undefined);
   }, [selectedOptions, column]);
 
@@ -74,11 +74,7 @@ export const ColumFilterDropdown = <TData, TValue>({
               <CommandGroup>
                 <div className="flex justify-between items-center p-2">
                   <div className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={selectedOptions.length === options.length}
-                      onCheckedChange={handleSelectAll}
-                    />
-                    <Label onClick={handleSelectAll}>All</Label>
+                    <Button onClick={handleClearFilter}>Clear</Button>
                   </div>
                 </div>
                 {options.map((option) => (

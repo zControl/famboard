@@ -1,11 +1,9 @@
+import { apiClient } from "@/api/apiClient";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { User } from "@/types/user";
-import { createApiClient } from "@/utils/apiClient";
-import { sleep } from "@/utils/utils";
+import { sleep } from "@/utils/sleep";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
-
-const apiClient = createApiClient("http://10.0.0.240:3000/v1");
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<User | null>(() => {
@@ -21,15 +19,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       ),
     onSuccess: (data) => {
       const { accessToken, user } = data;
-      console.log("Access token:", accessToken);
-      console.log("User:", user);
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
     },
     onError: (error) => {
+      //TODO: Handle login error better instead of console.log
       console.error("Login error:", error);
-      // Handle login error (e.g., show an error message to the user)
     },
   });
 
