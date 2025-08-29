@@ -7,9 +7,12 @@ import { getTypeOrmConfig } from 'src/config/typeorm.config';
   imports: [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: getTypeOrmConfig,
       inject: [ConfigService],
+      useFactory: getTypeOrmConfig,
     }),
   ],
+  controllers: [],
+  providers: [],
 })
-export class DatabaseModule {}
+// eslint-disable-next-line prettier/prettier
+export class DatabaseModule { }
