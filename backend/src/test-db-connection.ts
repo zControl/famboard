@@ -5,8 +5,8 @@ async function testConnection() {
     type: 'postgres',
     host: 'localhost',
     port: 5432,
-    username: 'postgres',
-    password: 'postgres',
+    username: 'famboard_user',
+    password: 'famboard_password',
     database: 'famboard',
   });
 
@@ -17,6 +17,9 @@ async function testConnection() {
     // Test a simple query
     const result = await dataSource.query('SELECT NOW()');
     console.log('Current database time:', result[0].now);
+
+    const queryTable = await dataSource.query('SELECT * FROM user');
+    console.log('Users table data:', queryTable);
 
   } catch (error) {
     console.error('❌ Unable to connect to the database:', error);
