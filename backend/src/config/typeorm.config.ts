@@ -1,25 +1,24 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
-
-// Get the root directory
-const rootDir = join(__dirname, '..', '..');
-const srcDir = join(rootDir, 'src');
+import { getTypeOrmPaths } from 'src/config/paths.config';
 
 export const getTypeOrmConfig = (
   configService: ConfigService,
 ): TypeOrmModuleOptions => {
   const isProduction = configService.get<string>('NODE_ENV') === 'production';
+  const paths = getTypeOrmPaths(join(__dirname, '..'));
+
   return {
     type: 'postgres' as const,
-    host: 'localhost',
-    port: 5432,
-    username: 'famboard_user',
-    password: 'famboard_password',
-    database: 'famboard',
-    logging: true,
-    entities: [join(srcDir, '**', '*.entity.{ts,js}')],
-    migrations: [join(srcDir, 'database', 'migrations', '*.{ts,js}')],
+    host: configService.get<string>('DB_HOST'),
+    port: configService.get<number>('DB_PORT'),
+    username: configService.get<string>('DB_USERNAME'),
+    password: configService.get<string>('DB_PASSWORD'),
+    database: configService.get<string>('DB_NAME'),
+    logging: !isProduction,
+    entities: [paths.entities],
+    migrations: [paths.migrations],
     synchronize: !isProduction,
     migrationsRun: isProduction,
     autoLoadEntities: true,

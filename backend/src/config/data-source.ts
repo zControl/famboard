@@ -1,19 +1,19 @@
 import { join } from 'path';
+import { getTypeOrmPaths } from 'src/config/paths.config';
 import { DataSource } from 'typeorm';
 
-const rootDir = join(__dirname, '..', '..');
-const srcDir = join(rootDir, 'src');
+const paths = getTypeOrmPaths(join(__dirname, '..'));
 
 export default new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST,
   port: +(process.env.DB_PORT || 5432),
-  username: process.env.DB_USERNAME || 'famboard_user',
-  password: process.env.DB_PASSWORD || 'famboard_password',
-  database: process.env.DB_NAME || 'famboard',
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   logging: process.env.DB_LOGGING === 'true',
-  entities: [join(srcDir, '**', '*.entity.{ts,js}')],
-  migrations: [join(srcDir, 'database', 'migrations', '*.{ts,js}')],
+  entities: [paths.entities],
+  migrations: [paths.migrations],
   synchronize: process.env.NODE_ENV !== 'production',
   migrationsRun: process.env.NODE_ENV === 'production',
 });
