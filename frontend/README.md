@@ -1,11 +1,8 @@
 # FamBoard - Frontend
 
-## Description
-A frontend where for families to track chores and allowances.
+A frontend React application that shows content from the backend.
 
-## Compile and run the project
-
-## Tech Stack
+## Stack
 
 - [Vite](https://vite.dev) development server
 - [React](https://react.dev) framework
@@ -20,10 +17,20 @@ A frontend where for families to track chores and allowances.
 - [React Hook Form](https://react-hook-form.com) form components
 - [Zod](https://zod.dev) form validation
 
-## Install, compile, run
+## Build, Test Deploy
 
 ```bash
-$ npm install
+# install dependencies
+npm install
+
+# start development server
+npm run dev
+
+# run linter
+npm run lint
+
+# compile and build
+npm run build
 ```
 
 ## Run tests
