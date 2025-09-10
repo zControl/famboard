@@ -1,4 +1,4 @@
-import { join } from "path";
+import { join } from 'path';
 
 export const getTypeOrmPaths = (fromDir: string) => ({
   entities: join(fromDir, 'modules', '**', '*.entity.{ts,js}'),

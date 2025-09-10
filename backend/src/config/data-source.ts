@@ -1,6 +1,6 @@
 import { join } from 'path';
-import { getTypeOrmPaths } from 'src/config/paths.config';
 import { DataSource } from 'typeorm';
+import { getTypeOrmPaths } from './paths.config';
 
 const paths = getTypeOrmPaths(join(__dirname, '..'));
 
