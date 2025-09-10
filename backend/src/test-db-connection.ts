@@ -20,7 +20,6 @@ async function testConnection() {
 
     const queryTable = await dataSource.query('SELECT * FROM user');
     console.log('Users table data:', queryTable);
-
   } catch (error) {
     console.error('❌ Unable to connect to the database:', error);
   } finally {
