@@ -22,5 +22,4 @@ import { UsersModule } from './modules/users/users.module';
   controllers: [AppController],
   providers: [],
 })
-// eslint-disable-next-line prettier/prettier
-export class AppModule { }
+export class AppModule {}

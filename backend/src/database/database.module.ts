@@ -14,5 +14,4 @@ import { getTypeOrmConfig } from 'src/config/typeorm.config';
   controllers: [],
   providers: [],
 })
-// eslint-disable-next-line prettier/prettier
-export class DatabaseModule { }
+export class DatabaseModule {}

@@ -18,7 +18,6 @@ export class TasksService {
     @InjectRepository(TaskAssignment)
     private taskAssignmentRepository: Repository<TaskAssignment>,
   ) {}
-
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = this.tasksRepository.create(createTaskDto);
     return await this.tasksRepository.save(newTask);
@@ -73,6 +72,10 @@ export class TasksService {
   }
 
   async remove(taskId: string) {
+    // First, delete all task assignments related to this task
+    await this.taskAssignmentRepository.delete({ task: { id: taskId } });
+
+    // Then delete the task
     return await this.tasksRepository.delete(taskId);
   }
 

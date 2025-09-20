@@ -8,7 +8,7 @@ export const useTasks = () => {
     queryClient.invalidateQueries({ queryKey: ["tasks"] });
   }
 
-  const {data: tasks, isLoading, error} = useQuery<Task[]>({
+  const { data: tasks, isLoading, error } = useQuery<Task[]>({
     queryKey: ["tasks"],
     queryFn: taskApi.getTasks,
   });
@@ -20,7 +20,12 @@ export const useTasks = () => {
 
   const updateTaskMutation = useMutation({
     mutationFn: ({ taskId, task }: { taskId: string, task: Partial<Task> }) => taskApi.updateTask(taskId, task),
-    onSuccess: refreshTasks, 
+    onSuccess: refreshTasks,
+  })
+
+  const deleteTaskMutation = useMutation({
+    mutationFn: (taskId: string) => taskApi.deleteTask(taskId),
+    onSuccess: refreshTasks,
   })
 
   const assignTaskMutation = useMutation({
@@ -34,6 +39,7 @@ export const useTasks = () => {
     refreshTasks,
     addTaskMutation,
     updateTaskMutation,
+    deleteTaskMutation,
     assignTaskMutation,
     isLoading,
     error,
