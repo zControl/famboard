@@ -1,3 +1,4 @@
+import { ApiError } from "@/api/apiClient";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,6 +36,7 @@ export const LoginForm = () => {
   const router = useRouter();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const search = Route.useSearch();
 
   // Create the form
@@ -47,8 +49,6 @@ export const LoginForm = () => {
   });
 
   async function redirectToDashboard(user: User) {
-    await sleep(250);
-
     // Determine the redirect based on the user's group
     let redirectPath = "/";
     if (user) {
@@ -86,11 +86,18 @@ export const LoginForm = () => {
       if (user) {
         await redirectToDashboard(user);
       } else {
-        console.error("Login failed: No user returned");
+        setWrongPassword(true);
       }
     } catch (error) {
-      //TODO: Handle login error better instead of console.log
-      console.error("Login failed:", error);
+      if (error instanceof ApiError) {
+        if (error.status === 401) {
+          setWrongPassword(true);
+        } else {
+          // Handle other API errors
+        }
+      } else {
+        // Handle unexpected errors
+      }
     } finally {
       setIsLoading(false);
     }
@@ -146,6 +153,11 @@ export const LoginForm = () => {
             </Button>
           </form>
         </Form>
+        {wrongPassword && (
+          <p className="mt-4 text-sm text-red-600">
+            Wrong username or password.
+          </p>
+        )}
       </CardContent>
     </Card>
   );

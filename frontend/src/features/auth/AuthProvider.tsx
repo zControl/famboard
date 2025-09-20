@@ -23,10 +23,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
     },
-    onError: (error) => {
-      //TODO: Handle login error better instead of console.log
-      console.error("Login error:", error);
-    },
   });
 
   const login = React.useCallback(
