@@ -16,6 +16,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       apiClient.post<{ accessToken: string; user: User }>(
         "/auth/login",
         credentials,
+        undefined, // config
+        {
+          errorContext: "Authentication mutation function",
+          showErrorToast: false,
+        },
       ),
     onSuccess: (data) => {
       const { accessToken, user } = data;

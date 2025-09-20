@@ -76,27 +76,18 @@ export const LoginForm = () => {
     navigate({ to: finalRedirectPath });
   }
 
-  // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
     setIsLoading(true);
     try {
       const user = await auth.login(data.username, data.password);
       await router.invalidate();
       await sleep(250);
-      if (user) {
-        await redirectToDashboard(user);
-      } else {
-        setWrongPassword(true);
-      }
+      await redirectToDashboard(user);
     } catch (error) {
       if (error instanceof ApiError) {
         if (error.status === 401) {
           setWrongPassword(true);
-        } else {
-          // Handle other API errors
         }
-      } else {
-        // Handle unexpected errors
       }
     } finally {
       setIsLoading(false);
@@ -107,9 +98,7 @@ export const LoginForm = () => {
     <Card>
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Enter your username and password to login
-        </CardDescription>
+        <CardDescription>Enter your username and password</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -155,7 +144,7 @@ export const LoginForm = () => {
         </Form>
         {wrongPassword && (
           <p className="mt-4 text-sm text-red-600">
-            Wrong username or password.
+            Invalid username or password. Please try again.
           </p>
         )}
       </CardContent>

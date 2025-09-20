@@ -30,19 +30,6 @@ const defaultErrorHandlerOptions: ApiErrorHandlerOptions = {
   showErrorToast: true,
 };
 
-/* axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => {
-    const status = error.response?.status || 500;
-    const message = error.message || 'Unknown error occurred';
-    const data = error.response?.data;
-
-    // We could add specific handling for different status codes here
-
-    return Promise.reject(new ApiError(message, status, data));
-  }
-); */
-
 export const handleApiError = (
   error: unknown,
   url: string,
@@ -58,8 +45,6 @@ export const handleApiError = (
         error.response.data
       )
       : new ApiError('Unknown error occurred', 500);
-
-
 
   // This is where we pop the toast.
   if (options.showErrorToast !== false) {
