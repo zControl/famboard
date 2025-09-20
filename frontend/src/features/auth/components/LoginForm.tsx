@@ -1,3 +1,4 @@
+import { ApiError } from "@/api/apiClient";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,6 +36,7 @@ export const LoginForm = () => {
   const router = useRouter();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const search = Route.useSearch();
 
   // Create the form
@@ -47,8 +49,6 @@ export const LoginForm = () => {
   });
 
   async function redirectToDashboard(user: User) {
-    await sleep(250);
-
     // Determine the redirect based on the user's group
     let redirectPath = "/";
     if (user) {
@@ -76,21 +76,19 @@ export const LoginForm = () => {
     navigate({ to: finalRedirectPath });
   }
 
-  // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
     setIsLoading(true);
     try {
       const user = await auth.login(data.username, data.password);
       await router.invalidate();
       await sleep(250);
-      if (user) {
-        await redirectToDashboard(user);
-      } else {
-        console.error("Login failed: No user returned");
-      }
+      await redirectToDashboard(user);
     } catch (error) {
-      //TODO: Handle login error better instead of console.log
-      console.error("Login failed:", error);
+      if (error instanceof ApiError) {
+        if (error.status === 401) {
+          setWrongPassword(true);
+        }
+      }
     } finally {
       setIsLoading(false);
     }
@@ -100,9 +98,7 @@ export const LoginForm = () => {
     <Card>
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Enter your username and password to login
-        </CardDescription>
+        <CardDescription>Enter your username and password</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -146,6 +142,11 @@ export const LoginForm = () => {
             </Button>
           </form>
         </Form>
+        {wrongPassword && (
+          <p className="mt-4 text-sm text-red-600">
+            Invalid username or password. Please try again.
+          </p>
+        )}
       </CardContent>
     </Card>
   );
