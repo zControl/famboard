@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         undefined, // config
         {
           errorContext: "Authentication mutation function",
-          showErrorToast: false,
+          showErrorToast: true,
         },
       ),
     onSuccess: (data) => {

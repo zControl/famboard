@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { toast } from 'sonner';
 import { API_ENDPOINTS } from './apiEndpoints';
 
 export class ApiError extends Error {
@@ -32,7 +33,6 @@ const defaultErrorHandlerOptions: ApiErrorHandlerOptions = {
 
 export const handleApiError = (
   error: unknown,
-  url: string,
   options: ApiErrorHandlerOptions = defaultErrorHandlerOptions
 ): never => {
   // Convert to ApiError if it's not already
@@ -48,7 +48,7 @@ export const handleApiError = (
 
   // This is where we pop the toast.
   if (options.showErrorToast !== false) {
-    console.error(`POPATOAST (Code ${apiError.status}) in ${options.errorContext || 'API call'} to ${url}:`);
+    toast.error(apiError.message);
   }
 
   // Call custom handler if provided
@@ -71,7 +71,7 @@ export const apiClient = {
       const response = await axiosInstance.get<T>(url, config);
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, options);
+      return handleApiError(error, options);
     }
   },
 
@@ -80,7 +80,7 @@ export const apiClient = {
       const response = await axiosInstance.post<T>(url, data, config);
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, options);
+      return handleApiError(error, options);
     }
   },
 
@@ -89,7 +89,7 @@ export const apiClient = {
       const response = await axiosInstance.put<T>(url, data, config);
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, options);
+      return handleApiError(error, options);
     }
   },
 
@@ -98,7 +98,7 @@ export const apiClient = {
       const response = await axiosInstance.patch<T>(url, data, config);
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, options);
+      return handleApiError(error, options);
     }
   },
 
@@ -107,7 +107,7 @@ export const apiClient = {
       const response = await axiosInstance.delete<T>(url, config);
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, options);
+      return handleApiError(error, options);
     }
   },
 
@@ -127,7 +127,7 @@ export const apiClient = {
       });
       return response.data;
     } catch (error) {
-      return handleApiError(error, url, {
+      return handleApiError(error, {
         ...options,
         errorContext: `${method.toUpperCase()} request`
       });
