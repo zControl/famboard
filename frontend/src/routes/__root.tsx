@@ -1,6 +1,5 @@
 import { ErrorPage } from "@/components/common/ErrorPage";
 import { NotFound } from "@/components/common/NotFound";
-import { Toaster } from "@/components/ui/toaster";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
@@ -23,7 +22,6 @@ function RootLayout() {
     <>
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-      <Toaster />
     </>
   );
 }
