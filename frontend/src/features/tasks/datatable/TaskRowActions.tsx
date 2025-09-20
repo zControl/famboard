@@ -1,3 +1,4 @@
+import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
+import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -19,9 +21,22 @@ interface TaskRowActionProps {
 
 export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const { deleteTaskMutation } = useTasks();
 
   const handleEdit = () => {
     setModalOpen(true);
+  };
+
+  const handleDeleteTask = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = (confirmed: boolean) => {
+    if (confirmed) {
+      deleteTaskMutation.mutate(row.original.id);
+    }
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -36,8 +51,10 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={handleEdit}>Edit Task</DropdownMenuItem>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleDeleteTask}>
+            Delete
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {isModalOpen && (
@@ -47,6 +64,15 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
           existingTask={row.original}
         />
       )}
+
+      <ActionModal
+        open={isDeleteModalOpen}
+        onOpenChange={setDeleteModalOpen}
+        title="Delete Task"
+        description={`Are you sure you want to delete task "${row.original.title}"?`}
+        onConfirm={() => handleConfirmDelete(true)}
+        onCancel={() => setDeleteModalOpen(false)}
+      />
     </div>
   );
 };
