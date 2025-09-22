@@ -1,7 +1,7 @@
 {
   "name": "react-tanstack",
   "private": true,
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -48,9 +48,8 @@
     "embla-carousel-react": "^8.5.1",
     "lucide-react": "^0.453.0",
     "postcss": "^8.4.38",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-helmet-async": "^2.0.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-hook-form": "^7.53.2",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.13.3",
@@ -75,9 +74,8 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "react-syntax-highlighter": "^15.6.1",
     "shiki": "^1.24.0",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^7.1.6"
   }
 }
