@@ -103,7 +103,7 @@ AlertDialogTrigger,
         </AlertDialogContent>
       </AlertDialog>
       <Separator className="my-4" />
-      <CodeBlock code={imp} language="tsx" />
+      <CodeBlock code={imp} />
       <Separator className="my-4" />
       <SectionTitle>Action Modal Component</SectionTitle>
       <SectionDescription>
@@ -120,8 +120,8 @@ AlertDialogTrigger,
         Content of modal here.
       </ActionModal>
       <Separator className="my-4" />
-      <CodeBlock code={imp2} language="tsx" />
-      <CodeBlock code={code2} language="tsx" />
+      <CodeBlock code={imp2} />
+      <CodeBlock code={code2} />
     </Tile>
   );
 }
@@ -149,7 +149,7 @@ function DisplayDialogModal() {
         </DialogContent>
       </Dialog>
       <Separator className="my-4" />
-      <CodeBlock code={imp} language="tsx" />
+      <CodeBlock code={imp} />
       <Separator className="my-4" />
       <SectionTitle>Display Modal Component</SectionTitle>
       <SectionDescription>
@@ -164,7 +164,7 @@ function DisplayDialogModal() {
         Dialog Content Here
       </DisplayModal>
       <Separator className="my-4" />
-      <CodeBlock code={imp2} language="tsx" />
+      <CodeBlock code={imp2} />
     </Tile>
   );
 }
@@ -195,7 +195,7 @@ function DrawerModal() {
         </DrawerContent>
       </Drawer>
       <Separator className="my-4" />
-      <CodeBlock code={imp} language="tsx" />
+      <CodeBlock code={imp} />
     </Tile>
   );
 }
@@ -233,7 +233,7 @@ function SheetModal() {
         ))}
       </div>
       <Separator className="my-4" />
-      <CodeBlock code={imp} language="tsx" />
+      <CodeBlock code={imp} />
     </Tile>
   );
 }

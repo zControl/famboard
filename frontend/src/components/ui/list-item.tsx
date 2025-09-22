@@ -11,7 +11,7 @@ export const DetailListItem = React.forwardRef<
     ref={ref}
     className={cn(
       "flex flex-row items-center py-4 px-6 justify-between rounded-lg transition-all",
-      "bg-background border border-border shadow-sm",
+      "bg-background border border-border shadow-xs",
       className,
     )}
   >

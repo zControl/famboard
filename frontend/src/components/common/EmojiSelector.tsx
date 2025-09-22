@@ -28,7 +28,7 @@ export const EmojiSelector = () => {
           {selectedEmoji}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-[8rem] p-2">
+      <DropdownMenuContent className="min-w-32 p-2">
         <div className="grid grid-cols-4 gap-2">
           {emojis.map((emoji) => (
             <DropdownMenuItem

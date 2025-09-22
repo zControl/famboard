@@ -13,7 +13,7 @@ export const ErrorCard = ({ title, message, error }: ErrorCardProps) => {
       <CardHeader>
         <div className="flex flex-row items-center space-x-4">
           <BanIcon size={48} className="text-destructive" />
-          <div className="flex flex-col space-y-1 flex-grow">
+          <div className="flex flex-col space-y-1 grow">
             <CardTitle className="text-destructive text-xl font-bold">
               {title ? title : "Something went wrong..."}
             </CardTitle>

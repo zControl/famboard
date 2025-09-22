@@ -17,7 +17,7 @@ export const Coin = React.forwardRef<
     )}
     {...props}
   >
-    <div className="absolute inset-0 bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-50"></div>
+    <div className="absolute inset-0 bg-linear-to-br from-yellow-300 to-yellow-500 opacity-50"></div>
     <span className="relative z-10">{value}</span>
   </div>
 ));
