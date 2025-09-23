@@ -9,7 +9,13 @@ export interface PageContainerProps {
   className?: string;
 }
 
-export const PageContainer = ({ children, className }: PageContainerProps) => {
+export const PageContainer = ({
+  children,
+  className,
+  title,
+  description,
+  keywords,
+}: PageContainerProps) => {
   return (
     <>
       <main
@@ -18,6 +24,9 @@ export const PageContainer = ({ children, className }: PageContainerProps) => {
           className,
         )}
       >
+        <title>{title ? `${title}` : "FamBoard"}</title>
+        {description && <meta name="description" content={description} />}
+        {keywords && <meta name="keywords" content={keywords} />}
         {children}
       </main>
     </>
