@@ -8,15 +8,16 @@ interface ProgressStepProps
   stepSize?: number;
 }
 
-const ProgressStep = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
-  ProgressStepProps
->(({ className, value, stepSize = 10, ...props }, ref) => {
+function ProgressStep({
+  className,
+  value,
+  stepSize = 10,
+  ...props
+}: ProgressStepProps) {
   const steps = Array.from({ length: 11 }, (_, i) => i * (stepSize || 10));
 
   return (
     <ProgressPrimitive.Root
-      ref={ref}
       className={cn(
         "relative h-4 w-full overflow-hidden  bg-primary/20",
         className,
@@ -36,7 +37,6 @@ const ProgressStep = React.forwardRef<
       ))}
     </ProgressPrimitive.Root>
   );
-});
-ProgressStep.displayName = ProgressPrimitive.Root.displayName;
+}
 
 export { ProgressStep };

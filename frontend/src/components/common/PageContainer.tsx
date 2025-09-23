@@ -1,6 +1,5 @@
 import { cn } from "@/utils/classNames";
 import React from "react";
-import { Helmet } from "react-helmet-async";
 
 export interface PageContainerProps {
   children: React.ReactNode;
@@ -10,20 +9,9 @@ export interface PageContainerProps {
   className?: string;
 }
 
-export const PageContainer = ({
-  children,
-  title,
-  description,
-  keywords,
-  className,
-}: PageContainerProps) => {
+export const PageContainer = ({ children, className }: PageContainerProps) => {
   return (
     <>
-      <Helmet>
-        {title && <title>{title}</title>}
-        {description && <meta name="description" content={description} />}
-        {keywords && <meta name="keywords" content={keywords} />}
-      </Helmet>
       <main
         className={cn(
           "max-w-[1680px] w-[90%] mx-auto p-1 md:p-2 lg:p-4 flex-1",

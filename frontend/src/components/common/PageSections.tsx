@@ -15,8 +15,8 @@ export const PageSections = ({
       ? "flex flex-col gap-4"
       : `grid grid-cols-1 md:grid-cols-${columns} gap-4`;
   return (
-    <div className="flex justify-between max-w-[100rem] mx-auto">
-      <div className="flex-grow">
+    <div className="flex justify-between max-w-400 mx-auto">
+      <div className="grow">
         <div className={layoutClass}>
           {sections.map((section) => (
             <section key={section.id} id={section.id}>

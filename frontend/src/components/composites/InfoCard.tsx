@@ -30,7 +30,7 @@ export const InfoCard = ({
     <Card>
       <CardHeader>
         <div className="flex flex-row justify-between items-stretch">
-          <div className="flex flex-col space-y-1 flex-grow">
+          <div className="flex flex-col space-y-1 grow">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>

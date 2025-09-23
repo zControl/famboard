@@ -3,7 +3,6 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "./components/common/theme/ThemeProvider";
 import { routeTree } from "./routeTree.gen";
 
@@ -37,15 +36,13 @@ function AppRouter() {
 
 export default function App() {
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <ThemeProvider defaultTheme="dark">
-            <AppRouter />
-            <ReactQueryDevtools />
-          </ThemeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ThemeProvider defaultTheme="dark">
+          <AppRouter />
+          <ReactQueryDevtools />
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
