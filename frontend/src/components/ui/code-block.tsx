@@ -1,4 +1,4 @@
-import CopyButton from "./copy-button";
+import { CopyButton } from "./copy-button";
 
 type CodeBlockProps = {
   code: string;
@@ -11,6 +11,7 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
         <div className="absolute top-4 right-4">
           <CopyButton content={code as string} />
         </div>
+        {/* TODO: Add syntax highlighting for the {code} */}
         <div className="border border-accent rounded-lg p-2">{code}</div>
       </div>
     </section>

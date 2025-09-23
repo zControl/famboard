@@ -1,5 +1,6 @@
+import { cn } from "@/utils/classNames";
 import { useState } from "react";
-import CopyButton from "./copy-button";
+import { CopyButton } from "./copy-button";
 import { Input } from "./input";
 import { Label } from "./label";
 import {
@@ -8,13 +9,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip";
-const CustomLabel = ({
+function CustomLabel({
   children,
   tooltip,
 }: {
   children: React.ReactNode;
   tooltip?: string;
-}) => {
+}) {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -27,8 +28,9 @@ const CustomLabel = ({
       </Tooltip>
     </TooltipProvider>
   );
-};
-const ColorSelector = () => {
+}
+
+function ColorSelector({ className, ...props }: React.ComponentProps<"div">) {
   const [hue, setHue] = useState(0);
   const [saturation, setSaturation] = useState(100);
   const [lightness, setLightness] = useState(50);
@@ -49,7 +51,13 @@ const ColorSelector = () => {
   const hslValues = `${hue} ${saturation}% ${lightness}%`;
 
   return (
-    <div className="grid grid-cols-1 place-items-center lg:grid-cols-2 lg:justify-center pb-4">
+    <div
+      className={cn(
+        "grid grid-cols-1 place-items-center lg:grid-cols-2 lg:justify-center pb-4",
+        className,
+      )}
+      {...props}
+    >
       <div className="flex flex-col">
         <div
           className="w-64 h-48 rounded-md"
@@ -106,6 +114,6 @@ const ColorSelector = () => {
       </div>
     </div>
   );
-};
+}
 
 export { ColorSelector };
