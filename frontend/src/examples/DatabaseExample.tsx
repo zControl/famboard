@@ -2,7 +2,8 @@ import { apiClient } from "@/api/apiClient";
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { Button } from "@/components/ui/button";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
@@ -10,9 +11,19 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 
 function CheckApiStatus() {
-  const imp = `import { apiClient } from "@/api/apiClient";
-import { useQuery, useQueryClient } from "@tanstack/react-query";`;
-  const code = `const queryClient = useQueryClient();
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "api-import",
+      code: `import { apiClient } from "@/api/apiClient";
+import { useQuery, useQueryClient } from "@tanstack/react-query";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "api-usage",
+      code: `const queryClient = useQueryClient();
 
 const { isPending, isFetching, isError, data, error } = useQuery({
     queryKey: ["ApiRoot"],
@@ -21,13 +32,20 @@ const { isPending, isFetching, isError, data, error } = useQuery({
 
 const handleRefresh = () => {
   queryClient.invalidateQueries({ queryKey: ["ApiRoot"] });
-};
-`;
-  const usage = `{!isPending && !isError && (
+};`,
+    },
+  ];
+  const usage: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "api-usage-output",
+      code: `{!isPending && !isError && (
   <BlockQuote className="max-h-80">
     <pre>{JSON.stringify(data, null, 2)}</pre>
   </BlockQuote>
-)}`;
+)}`,
+    },
+  ];
 
   const queryClient = useQueryClient();
 
@@ -81,9 +99,9 @@ const handleRefresh = () => {
         </>
       )}
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
-      <CodeBlock code={usage} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
+      <Code codeData={usage} />
     </Tile>
   );
 }

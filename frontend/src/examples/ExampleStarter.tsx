@@ -1,11 +1,16 @@
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 
 function SomeTile() {
-  const imp = `import here`;
-  const code = `code here`;
+  const imp: CodeBlockData[] = [
+    { language: "tsx", filename: "imp", code: `import here` },
+  ];
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "code", code: `code here` },
+  ];
   return (
     <Tile
       title="Tile"
@@ -13,8 +18,8 @@ function SomeTile() {
     >
       <p>Some Component Here</p>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
