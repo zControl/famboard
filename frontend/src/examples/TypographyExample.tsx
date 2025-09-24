@@ -1,6 +1,7 @@
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import {
   BlockQuote,
@@ -13,8 +14,14 @@ import {
 } from "@/components/ui/typography";
 
 function HeadingsTile() {
-  const code = `import { Header1 } from "@/components/ui/typography";
-<Header1>HeaderText</Header1>`;
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "headings-import",
+      code: `import { Header1 } from "@/components/ui/typography";
+<Header1>HeaderText</Header1>`,
+    },
+  ];
   return (
     <Tile
       title="Headings"
@@ -27,17 +34,22 @@ function HeadingsTile() {
         <Header4>Header 4</Header4>
       </div>
       <Separator className="my-4" />
-      <CodeBlock code={code} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
 function ParagraphTile() {
-  const code = `import { Paragraph, BlockQuote, TextBlock } from "@/components/ui/typography";
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "paragraph-import",
+      code: `import { Paragraph, BlockQuote, TextBlock } from "@/components/ui/typography";
 <Paragraph>Paragraph text goes here.</Paragraph>
 <BlockQuote>Blockquote text goes here.</BlockQuote>
-<TextBlock>Textblock text goes here.</TextBlock>
-`;
+<TextBlock>Textblock text goes here.</TextBlock>`,
+    },
+  ];
   return (
     <Tile
       title="Text"
@@ -63,7 +75,7 @@ function ParagraphTile() {
         deleniti sit! Aut, eaque?
       </TextBlock>
       <Separator className="my-4" />
-      <CodeBlock code={code} />
+      <Code codeData={code} />
     </Tile>
   );
 }

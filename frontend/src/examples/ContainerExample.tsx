@@ -20,20 +20,33 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 function AccordianTile() {
-  const imp = `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";`;
-  const code = `<Accordian type="single" collapsible>
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "accordion-import",
+      code: `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "accordion-usage",
+      code: `<Accordian type="single" collapsible>
 <AccordionItem value="itemId">
     <AccordionTrigger>Trigger</AccordionTrigger>
     <AccordionContent>
       Content
     </AccordionContent>
   </AccordionItem>
-</Accordian>`;
+</Accordian>`,
+    },
+  ];
   return (
     <Tile
       title="Accordian"
@@ -71,16 +84,26 @@ function AccordianTile() {
           </AccordionItem>
         </Accordion>
         <Separator className="my-4" />
-        <CodeBlock code={imp} />
-        <CodeBlock code={code} />
+        <Code codeData={imp} />
+        <Code codeData={code} />
       </div>
     </Tile>
   );
 }
 
 function CardTile() {
-  const imp = `import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";`;
-  const code = `<Card>
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "card-import",
+      code: `import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "card-usage",
+      code: `<Card>
   <CardHeader>
     <CardTitle>Card Title</CardTitle>
     <CardDescription>Card Description</CardDescription>
@@ -91,7 +114,9 @@ function CardTile() {
   <CardFooter>
     <span>Card footer</span>
   </CardFooter>
-</Card>`;
+</Card>`,
+    },
+  ];
   return (
     <Tile
       title="Card"
@@ -112,20 +137,31 @@ function CardTile() {
         </Card>
       </div>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
 function TileTile() {
-  const imp = `import { Tile } from "@/components/composites/Tile";`;
-  const code = `<Tile
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "tile-import",
+      code: `import { Tile } from "@/components/composites/Tile";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "tile-usage",
+      code: `<Tile
   title="Tile"
   description="Tile is a reusable wrapper that has props for title and description.">
   Tile Content
-</Tile>
-  `;
+</Tile>`,
+    },
+  ];
   return (
     <Tile
       title="Tile"
@@ -133,17 +169,29 @@ function TileTile() {
     >
       <p>Everything on this page is wrapped in a tile.</p>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
 function ScrollAreaTile() {
-  const imp = `import { ScrollArea } from "@/components/ui/scroll-area";`;
-  const code = `<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "scrollarea-import",
+      code: `import { ScrollArea } from "@/components/ui/scroll-area";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "scrollarea-usage",
+      code: `<ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
   Put some long text here and the scroll area will appear.
-</ScrollArea>`;
+</ScrollArea>`,
+    },
+  ];
   return (
     <Tile
       title="Scroll Area"
@@ -160,19 +208,31 @@ function ScrollAreaTile() {
           stop.
         </ScrollArea>
         <Separator className="my-4" />
-        <CodeBlock code={imp} />
-        <CodeBlock code={code} />
+        <Code codeData={imp} />
+        <Code codeData={code} />
       </div>
     </Tile>
   );
 }
 function ResizeableTile() {
-  const imp = `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"`;
-  const code = `<ResizablePanelGroup direction="horizontal">
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "resizable-import",
+      code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "resizable-usage",
+      code: `<ResizablePanelGroup direction="horizontal">
   <ResizablePanel>One</ResizablePanel>
   <ResizableHandle />
   <ResizablePanel>Two</ResizablePanel>
-</ResizablePanelGroup>`;
+</ResizablePanelGroup>`,
+    },
+  ];
   return (
     <Tile
       title="Resizeable Panels"
@@ -205,8 +265,8 @@ function ResizeableTile() {
         </ResizablePanel>
       </ResizablePanelGroup>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }

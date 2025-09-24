@@ -33,7 +33,8 @@ import {
 
 import { DisplayModal } from "@/components/composites/DisplayModal";
 import { Button } from "@/components/ui/button";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
@@ -49,7 +50,11 @@ import { SectionDescription, SectionTitle } from "@/components/ui/typography";
 import { FormSample } from "@/examples/FormSample";
 
 function ActionDialogModal() {
-  const imp = `import {
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "alertdialog-import",
+      code: `import {
 AlertDialog,
 AlertDialogAction,
 AlertDialogCancel,
@@ -59,10 +64,22 @@ AlertDialogFooter,
 AlertDialogHeader,
 AlertDialogTitle,
 AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";`;
+} from "@/components/ui/alert-dialog";`,
+    },
+  ];
 
-  const imp2 = `import { ActionModal } from "@/components/composites/ActionModal";`;
-  const code2 = `<ActionModal
+  const imp2: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "actionmodal-import",
+      code: `import { ActionModal } from "@/components/composites/ActionModal";`,
+    },
+  ];
+  const code2: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "actionmodal-usage",
+      code: `<ActionModal
   trigger="Open Confirm Action"
   title="Confirm Action"
   description="You should be sure about this action, because it is important."
@@ -70,8 +87,9 @@ AlertDialogTrigger,
   onConfirm={() => console.log("Confirm")}
 >
   Content of modal here.
-</ActionModal>
-`;
+</ActionModal>`,
+    },
+  ];
   return (
     <Tile
       title="Alert Dialog"
@@ -103,7 +121,7 @@ AlertDialogTrigger,
         </AlertDialogContent>
       </AlertDialog>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
+      <Code codeData={imp} />
       <Separator className="my-4" />
       <SectionTitle>Action Modal Component</SectionTitle>
       <SectionDescription>
@@ -120,15 +138,27 @@ AlertDialogTrigger,
         Content of modal here.
       </ActionModal>
       <Separator className="my-4" />
-      <CodeBlock code={imp2} />
-      <CodeBlock code={code2} />
+      <Code codeData={imp2} />
+      <Code codeData={code2} />
     </Tile>
   );
 }
 
 function DisplayDialogModal() {
-  const imp = `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";`;
-  const imp2 = `import { DisplayModal } from "@/components/composites/DisplayModal";`;
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "dialog-import",
+      code: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";`,
+    },
+  ];
+  const imp2: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "displaymodal-import",
+      code: `import { DisplayModal } from "@/components/composites/DisplayModal";`,
+    },
+  ];
   return (
     <Tile
       title="Display Modal"
@@ -149,7 +179,7 @@ function DisplayDialogModal() {
         </DialogContent>
       </Dialog>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
+      <Code codeData={imp} />
       <Separator className="my-4" />
       <SectionTitle>Display Modal Component</SectionTitle>
       <SectionDescription>
@@ -164,13 +194,19 @@ function DisplayDialogModal() {
         Dialog Content Here
       </DisplayModal>
       <Separator className="my-4" />
-      <CodeBlock code={imp2} />
+      <Code codeData={imp2} />
     </Tile>
   );
 }
 
 function DrawerModal() {
-  const imp = `import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/composites/Drawer";`;
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "drawer-import",
+      code: `import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/composites/Drawer";`,
+    },
+  ];
   return (
     <Tile
       title="Drawer"
@@ -195,7 +231,7 @@ function DrawerModal() {
         </DrawerContent>
       </Drawer>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
+      <Code codeData={imp} />
     </Tile>
   );
 }
@@ -203,7 +239,13 @@ function DrawerModal() {
 function SheetModal() {
   const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
 
-  const imp = `import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/Sheet";`;
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "sheet-import",
+      code: `import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/Sheet";`,
+    },
+  ];
   return (
     <Tile
       title="Sheet"
@@ -233,7 +275,7 @@ function SheetModal() {
         ))}
       </div>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
+      <Code codeData={imp} />
     </Tile>
   );
 }

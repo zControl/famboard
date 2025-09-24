@@ -1,7 +1,8 @@
 import { PageSections } from "@/components/common/PageSections";
 import { Tile } from "@/components/composites/Tile";
 import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -14,8 +15,18 @@ import {
 } from "@/components/ui/table";
 
 function TableTile() {
-  const imp = `import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";`;
-  const code = `<Table>
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "table-import",
+      code: `import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "table-usage",
+      code: `<Table>
   <TableCaption>Table Caption</TableCaption>
   <TableHeader>
     <TableRow>
@@ -33,9 +44,9 @@ function TableTile() {
       <TableCell className="text-right">Row 1, Cell 4</TableCell>
     </TableRow>
   </TableBody>
-</Table>
-  
-  `;
+</Table>`,
+    },
+  ];
   return (
     <Tile
       title="Raw Table"
@@ -62,8 +73,8 @@ function TableTile() {
       </Table>
 
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }

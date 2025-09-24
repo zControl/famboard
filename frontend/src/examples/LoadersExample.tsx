@@ -1,18 +1,31 @@
 import { PageSections } from "@/components/common/PageSections";
 import { LoadingBox, LoadingRows } from "@/components/composites/Loading";
 import { Tile } from "@/components/composites/Tile";
-import { CodeBlock } from "@/components/ui/code-block";
+import { Code } from "@/components/ui/code";
+import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { Header4 } from "@/components/ui/typography";
 
 function SpinnerTile() {
-  const imp = `import { Spinner } from "@/components/ui/spinner";`;
-  const code = `<Spinner />
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "spinner-import",
+      code: `import { Spinner } from "@/components/ui/spinner";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "spinner-usage",
+      code: `<Spinner />
 <Spinner size="sm" />
 <Spinner size="md" />
 <Spinner color="primary" />
-<Spinner color="highlight" />`;
+<Spinner color="highlight" />`,
+    },
+  ];
   return (
     <Tile
       title="Spinner"
@@ -40,15 +53,27 @@ function SpinnerTile() {
         <Spinner color="highlight" />
       </div>
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
 function LoadingRowsTile() {
-  const imp = `import { LoadingRows } from "@/components/composites/Loading";`;
-  const code = `<LoadingRows count={3} />`;
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "loadingrows-import",
+      code: `import { LoadingRows } from "@/components/composites/Loading";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "loadingrows-usage",
+      code: `<LoadingRows count={3} />`,
+    },
+  ];
   return (
     <Tile
       title="Loading Rows Skeleton"
@@ -57,15 +82,23 @@ function LoadingRowsTile() {
       <Header4>Loading Rows</Header4>
       <LoadingRows count={5} />
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
 function LoadingBoxTile() {
-  const imp = `import { LoadingBox } from "@/components/composites/Loading";`;
-  const code = `<LoadingBox />`;
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "loadingbox-import",
+      code: `import { LoadingBox } from "@/components/composites/Loading";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "loadingbox-usage", code: `<LoadingBox />` },
+  ];
 
   return (
     <Tile
@@ -74,8 +107,8 @@ function LoadingBoxTile() {
     >
       <LoadingBox />
       <Separator className="my-4" />
-      <CodeBlock code={imp} />
-      <CodeBlock code={code} />
+      <Code codeData={imp} />
+      <Code codeData={code} />
     </Tile>
   );
 }
