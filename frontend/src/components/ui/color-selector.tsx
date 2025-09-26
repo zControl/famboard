@@ -31,24 +31,23 @@ function CustomLabel({
 }
 
 function ColorSelector({ className, ...props }: React.ComponentProps<"div">) {
+  const [lightness, setLightness] = useState(0);
+  const [chroma, setChroma] = useState(0.12);
   const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(100);
-  const [lightness, setLightness] = useState(50);
-
-  const handleHueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHue(e.target.valueAsNumber);
-  };
-
-  const handleSaturationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSaturation(e.target.valueAsNumber);
-  };
 
   const handleLightnessChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLightness(e.target.valueAsNumber);
   };
 
-  const hslColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  const hslValues = `${hue} ${saturation}% ${lightness}%`;
+  const handleChromaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChroma(Number(e.target.value));
+  };
+
+  const handleHueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHue(e.target.valueAsNumber);
+  };
+
+  const oklchColor = `oklch(${lightness} ${chroma} ${hue})`;
 
   return (
     <div
@@ -61,55 +60,53 @@ function ColorSelector({ className, ...props }: React.ComponentProps<"div">) {
       <div className="flex flex-col">
         <div
           className="w-64 h-48 rounded-md"
-          style={{ backgroundColor: hslColor }}
+          style={{ backgroundColor: oklchColor }}
         />
       </div>
       <div className="w-full space-y-4 my-auto">
         <div className="flex items-center space-x-2">
-          <CustomLabel tooltip="Hue is determined by the wavelength of the light and is typically represented on a color wheel. The hue is measured in degrees on the color wheel, where 0° represents red, 120° represents green, 240° represents blue, and so on, wrapping back around to red at 360°.">
-            Hue:
-          </CustomLabel>
+          <CustomLabel tooltip="Lightness">Lightness:</CustomLabel>
           <Input
             type="range"
             min="0"
-            max="360"
-            value={hue}
-            onChange={handleHueChange}
-            className="w-5/6"
-          />
-          <CustomLabel>{hue}</CustomLabel>
-        </div>
-        <div className="flex items-center space-x-2">
-          <CustomLabel tooltip="Saturation is a measure of how pure the color is. It is represented on a scale from 0% to 100%, where 0% represents a gray color and 100% represents the full saturation of the primary color.">
-            Saturation:
-          </CustomLabel>
-          <Input
-            type="range"
-            min="0"
-            max="100"
-            value={saturation}
-            onChange={handleSaturationChange}
-            className="w-5/6"
-          />
-          <CustomLabel>{saturation}%</CustomLabel>
-        </div>
-        <div className="flex items-center space-x-2">
-          <CustomLabel tooltip="Lightness is a measure of how light or dark the color is. It is represented on a scale from 0% to 100%, where 0% represents a black color and 100% represents a white color.">
-            Lightness:
-          </CustomLabel>
-          <Input
-            type="range"
-            min="0"
-            max="100"
+            max="1"
+            step="0.0001"
             value={lightness}
             onChange={handleLightnessChange}
             className="w-5/6"
           />
-          <CustomLabel>{lightness}%</CustomLabel>
+          <CustomLabel>{lightness.toFixed(4)}</CustomLabel>
         </div>
-        <div className="w-1/2 mx-auto flex items-center justify-center space-x-2 border border-accent">
-          <span className="text-lg">{hslColor}</span>
-          <CopyButton content={hslValues} />
+        <div className="flex items-center space-x-2">
+          <CustomLabel tooltip="Chroma">Chroma:</CustomLabel>
+          <Input
+            type="range"
+            min="0"
+            max="0.4"
+            step="0.001"
+            value={chroma}
+            onChange={handleChromaChange}
+            className="w-5/6"
+          />
+          <CustomLabel>{chroma.toFixed(3)}</CustomLabel>
+        </div>
+        <div className="flex items-center space-x-2">
+          <CustomLabel tooltip="Hue">Hue:</CustomLabel>
+          <Input
+            type="range"
+            min="0"
+            max="360"
+            step="0.01"
+            value={hue}
+            onChange={handleHueChange}
+            className="w-5/6"
+          />
+          <CustomLabel>{hue.toFixed(2)}</CustomLabel>
+        </div>
+
+        <div className="mx-auto flex items-center justify-center space-x-2 border border-accent">
+          <span className="text-lg">{oklchColor}</span>
+          <CopyButton content={oklchColor} />
         </div>
       </div>
     </div>

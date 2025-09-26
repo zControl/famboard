@@ -15,7 +15,7 @@ function ColorSelectorTile() {
 function ColorsTile() {
   return (
     <Tile title="Colors" description="These are the basic colors of the app">
-      <div className="px-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-4">
         <ColorBox
           label="Background"
           bgColor="bg-background"
@@ -87,6 +87,7 @@ function ColorsTile() {
           textColor="text-foreground"
         />
         <ColorBox label="Ring" bgColor="bg-ring" textColor="text-foreground" />
+        <ColorBox label="Ring" bgColor="bg-ring" textColor="text-foreground" />
       </div>
     </Tile>
   );
@@ -95,32 +96,12 @@ function ColorsTile() {
 function ChartColorsTile() {
   return (
     <Tile title="Chart Colors" description="These colors are used for charts.">
-      <div className="px-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <ColorBox
-          label="Chart 1"
-          bgColor="bg-chart-1"
-          textColor="text-foreground"
-        />
-        <ColorBox
-          label="Chart 2"
-          bgColor="bg-chart-2"
-          textColor="text-foreground"
-        />
-        <ColorBox
-          label="Chart 3"
-          bgColor="bg-chart-3"
-          textColor="text-foreground"
-        />
-        <ColorBox
-          label="Chart 4"
-          bgColor="bg-chart-4"
-          textColor="text-foreground"
-        />
-        <ColorBox
-          label="Chart 5"
-          bgColor="bg-chart-5"
-          textColor="text-foreground"
-        />
+      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+        <ColorBox label="Chart 1" bgColor="bg-chart-1" textColor="text-white" />
+        <ColorBox label="Chart 2" bgColor="bg-chart-2" textColor="text-white" />
+        <ColorBox label="Chart 3" bgColor="bg-chart-3" textColor="text-white" />
+        <ColorBox label="Chart 4" bgColor="bg-chart-4" textColor="text-white" />
+        <ColorBox label="Chart 5" bgColor="bg-chart-5" textColor="text-white" />
       </div>
     </Tile>
   );
