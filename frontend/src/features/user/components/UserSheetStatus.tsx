@@ -1,6 +1,7 @@
 import { EmojiSelector } from "@/components/common/EmojiSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Paragraph } from "@/components/ui/typography";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserProfile } from "@/types/user";
 import { CheckIcon, XIcon } from "lucide-react";
@@ -61,10 +62,11 @@ export const UserSheetStatus = () => {
         </div>
       ) : (
         <>
-          <div className="flex items-center my-2 cursor-pointer">
+          <Paragraph className="text-center underline">Status</Paragraph>
+          <div className="flex items-center cursor-pointer px-2 py-4 hover:bg-accent">
             <EmojiSelector />
             <div className="ml-4" onClick={() => setChanged(!changed)}>
-              <div>{profile?.status}</div>
+              <div className="text-lg">{profile?.status}</div>
             </div>
           </div>
         </>

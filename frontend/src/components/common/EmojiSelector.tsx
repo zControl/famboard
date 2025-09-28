@@ -25,7 +25,7 @@ export const EmojiSelector = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          {selectedEmoji}
+          <div className="text-4xl">{selectedEmoji}</div>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-32 p-2">
