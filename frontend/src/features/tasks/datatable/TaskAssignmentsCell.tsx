@@ -50,7 +50,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   return (
     <>
       <div
-        className="rounded-md relative w-full h-full"
+        className="rounded-md relative w-full h-full cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

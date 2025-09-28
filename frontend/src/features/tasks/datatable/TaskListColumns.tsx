@@ -52,6 +52,17 @@ export const taskListColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
   },
   {
+    accessorKey: "pointValue",
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Points" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex justify-center items-center text-center">
+        <Coin value={row.original.pointValue} />
+      </div>
+    ),
+  },
+  {
     accessorKey: "assignedUserIds",
     filterFn: "arrIncludesSome",
     enableSorting: false,
@@ -60,17 +71,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => <TaskAssignmentsCell row={row} />,
   },
-  {
-    accessorKey: "pointValue",
-    header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Points" />
-    ),
-    cell: ({ row }) => (
-      <div className="text-center">
-        <Coin value={row.original.pointValue} />
-      </div>
-    ),
-  },
+
   {
     accessorKey: "note",
     header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
