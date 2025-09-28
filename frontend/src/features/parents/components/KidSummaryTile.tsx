@@ -1,10 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Tile } from "@/components/composites/Tile";
+import { Card } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
 import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
@@ -26,35 +21,20 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
   if (isErrorProfile) return <div>Error fetching kid profile</div>;
 
   const NeedsApprovalCard = () => {
-    return <Card className="rounded-none w-full">approvals</Card>;
+    return <Card className="w-full">approvals</Card>;
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-row justify-between items-center">
-          <div>
-            <CardTitle className="text-xl">
-              {kid?.firstName || "No Name!"}
-            </CardTitle>
-          </div>
-          <div>actions</div>
+    <Tile title={kid?.firstName || "No Name!"} menu="actions" footer="footer">
+      <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
+        <div className="w-1/4 mx-auto p-4">
+          {kid && <KidProfileSummaryCard kid={kid} />}
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
-          <div className="w-1/4 mx-auto p-4">
-            {kid && <KidProfileSummaryCard kid={kid} />}
-          </div>
-          <div className="flex flex-row justify-around w-full gap-x-4">
-            <KidActiveTasksCard userId={kid?.userId ?? ""} />
-            <NeedsApprovalCard />
-          </div>
+        <div className="flex flex-row justify-around w-full gap-x-4">
+          <KidActiveTasksCard userId={kid?.userId ?? ""} />
+          <NeedsApprovalCard />
         </div>
-      </CardContent>
-      <CardFooter>
-        <div className="w-full mx-auto text-center">{kid?.userId}</div>
-      </CardFooter>
-    </Card>
+      </div>
+    </Tile>
   );
 };

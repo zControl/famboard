@@ -10,7 +10,7 @@ export const KidProfileSummaryCard = ({ kid }: { kid: UserProfile }) => {
         <AvatarFallback>{firstInitial(kid?.username ?? "")}</AvatarFallback>
       </Avatar>
       <div>{kid?.username}</div>
-      <div>{kid?.bio}</div>
+      <div>{kid?.status}</div>
     </div>
   );
 };
