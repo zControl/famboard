@@ -73,7 +73,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
         <div className="flex items-center gap-1">
           <div className="flex flex-1">
             <Textarea
-              className="max-h-24 overflow-y-auto"
+              className="max-h-24 w-[300px] resize-none overflow-y-auto"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onBlur={handleBlur}
@@ -84,7 +84,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
         </div>
       ) : (
         <div
-          className="cursor-pointer"
+          className="max-w-[250px] truncate cursor-pointer"
           onClick={() => {
             setIsEditing(true);
           }}

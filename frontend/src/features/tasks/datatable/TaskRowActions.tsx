@@ -1,18 +1,10 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { CopyIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import { useState } from "react";
 
 interface TaskRowActionProps {
@@ -28,7 +20,12 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
     setModalOpen(true);
   };
 
-  const handleDeleteTask = () => {
+  const handleDuplicate = () => {
+    // Implement duplication logic here
+    console.log("Duplicate task:", row.original);
+  };
+
+  const handleDelete = () => {
     setDeleteModalOpen(true);
   };
 
@@ -40,23 +37,16 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
-          <DropdownMenuItem onSelect={handleDeleteTask}>
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <div className="flex items-center">
+      <Button variant="highlight" size="icon" onClick={handleDelete}>
+        <Trash2Icon />
+      </Button>
+      <Button variant="highlight" size="icon" onClick={handleEdit}>
+        <PencilIcon />
+      </Button>
+      <Button variant="highlight" size="icon" onClick={handleDuplicate}>
+        <CopyIcon className="size-4" />
+      </Button>
       {isModalOpen && (
         <TaskModal
           modalOpen={isModalOpen}
