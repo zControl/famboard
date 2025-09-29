@@ -8,7 +8,7 @@ import { CheckIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export const UserSheetStatus = () => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfileMutation } = useProfile();
   const [status, setStatus] = useState(profile?.status ?? "");
   const [changed, setChanged] = useState(false);
 
@@ -24,7 +24,7 @@ export const UserSheetStatus = () => {
 
   const handleStatusSave = (updatedData: Partial<UserProfile>) => {
     if (profile?.userId) {
-      updateProfile.mutate(updatedData);
+      updateProfileMutation.mutate(updatedData);
       setChanged(false);
     } else {
       console.error("User ID is missing");

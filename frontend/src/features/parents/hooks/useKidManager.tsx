@@ -15,9 +15,9 @@ export const useKidManager = () => {
     kidIdsResponse?.map((userByGroup) => userByGroup.profile.userId) || [];
 
   const kidProfileQueries = useQueries({
-    queries: kidIds.map((kidData) => ({
-      queryKey: ["kid-profile", kidData],
-      queryFn: usersApi.getUserProfile(kidData),
+    queries: kidIds.map((userId) => ({
+      queryKey: ["kid-profile", userId],
+      queryFn: usersApi.getProfile(userId),
       staleTime: 5 * 60 * 1000, // 5 minutes
     })),
   });

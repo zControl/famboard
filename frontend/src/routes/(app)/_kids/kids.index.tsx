@@ -3,7 +3,6 @@ import { ProgressStep } from "@/components/ui/progress-step";
 import { Header2 } from "@/components/ui/typography";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
-import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_kids/kids/")({
@@ -12,7 +11,6 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 
 function KidsIndexPage() {
   const { profile } = useProfile();
-  const userProfile = useUserProfile(profile?.userId || "");
   const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
 
   return (
@@ -28,7 +26,7 @@ function KidsIndexPage() {
       <section>
         <article>
           <Header2>Todays Tasks</Header2>
-          <p>Status: {userProfile.data?.status}</p>
+          <p>Status: {profile?.status}</p>
 
           {assignedTasks?.map((task) => (
             <p key={task.sequenceNumber}>
