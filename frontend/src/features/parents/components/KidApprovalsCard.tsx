@@ -1,16 +1,8 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
+import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Spinner } from "@/components/ui/spinner";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { ColumnDef } from "@tanstack/react-table";
-
-interface CustomHeaderProps {
-  title: string;
-  className?: string;
-}
-
-export const CustomHeader = ({ title, className }: CustomHeaderProps) => (
-  <div className={className}>{title}</div>
-);
 
 const activeTasksColumns: ColumnDef<{
   sequenceNumber: number;
@@ -18,14 +10,15 @@ const activeTasksColumns: ColumnDef<{
 }>[] = [
   {
     accessorKey: "title",
-    header: () => <CustomHeader title="Title" />,
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Task Name" />
+    ),
     cell: ({ row }) => <div>{row.original.title}</div>,
   },
 ];
 
-export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
+export const KidApprovalsCard = ({ userId }: { userId: string }) => {
   const { assignedTasks, isLoading } = useUserAssignedTasks(userId);
-  console.log("assignedTasks", assignedTasks);
   return (
     <div className="w-full border rounded-lg px-2">
       {isLoading ? (
@@ -34,8 +27,8 @@ export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
         <DataTableCore
           columns={activeTasksColumns}
           data={assignedTasks || []}
-          title="Active Tasks"
-          caption={assignedTasks?.length + " tasks"}
+          title="Waiting Approval - THIS IS NOT CORRECT."
+          caption={assignedTasks?.length + " approvals"}
           showPagination={false}
           showColumnVisibility={false}
           headerClassName="bg-transparent"

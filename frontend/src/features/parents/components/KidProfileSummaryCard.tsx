@@ -9,8 +9,7 @@ export const KidProfileSummaryCard = ({ kid }: { kid: UserProfile }) => {
         <AvatarImage src={kid?.avatarUrl} alt="Avatar" />
         <AvatarFallback>{firstInitial(kid?.username ?? "")}</AvatarFallback>
       </Avatar>
-      <div>{kid?.username}</div>
-      <div>{kid?.status}</div>
+      <div className="text-center">{kid?.status}</div>
     </div>
   );
 };

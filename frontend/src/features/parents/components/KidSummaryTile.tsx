@@ -1,7 +1,7 @@
 import { Tile } from "@/components/composites/Tile";
-import { Card } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
+import { KidApprovalsCard } from "@/features/parents/components/KidApprovalsCard";
 import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 
@@ -10,6 +10,8 @@ interface KidSummaryTileProps {
 }
 
 export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
+  //TODO: this summary tile, just needs the profile for the name
+  //TODO: The other components will just get the id, and do their own data logic.
   const { getKidProfile } = useKidManager();
   const {
     data: kid,
@@ -20,19 +22,16 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
   if (isLoadingProfile) return <Spinner />;
   if (isErrorProfile) return <div>Error fetching kid profile</div>;
 
-  const NeedsApprovalCard = () => {
-    return <Card className="w-full">approvals</Card>;
-  };
-
   return (
     <Tile title={kid?.firstName || "No Name!"} menu="actions" footer="footer">
       <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
         <div className="w-1/4 mx-auto p-4">
+          {/* TODO For example here, we should just pass the id, and the profile summary should get the data. */}
           {kid && <KidProfileSummaryCard kid={kid} />}
         </div>
         <div className="flex flex-row justify-around w-full gap-x-4">
           <KidActiveTasksCard userId={kid?.userId ?? ""} />
-          <NeedsApprovalCard />
+          <KidApprovalsCard userId={kid?.userId ?? ""} />
         </div>
       </div>
     </Tile>
