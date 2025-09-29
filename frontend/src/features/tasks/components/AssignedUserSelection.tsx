@@ -1,5 +1,6 @@
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
+import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
@@ -16,7 +17,7 @@ export const AssignedUserSelection = ({
 }: AssignedUserSelectionProps) => {
   const taskId = row.original.id;
   const { taskAssignments } = useAssignments(taskId);
-  const { kidIds, getKidProfile } = useKidManager();
+  const { kidIds } = useKidManager();
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
 
   useEffect(() => {
@@ -45,7 +46,6 @@ export const AssignedUserSelection = ({
           console.warn("Encountered undefined kidId");
           return null;
         }
-        const { data: kidProfile } = getKidProfile(kidId);
         const isSelected = selectedKids.includes(kidId);
         return (
           <div
@@ -56,7 +56,7 @@ export const AssignedUserSelection = ({
             onClick={() => handleKidSelection(kidId, !isSelected)}
           >
             <AssignedUserAvatar userId={kidId} />
-            <span>{kidProfile?.username || "Unknown User"}</span>
+            <AssignedUserName userId={kidId} />
           </div>
         );
       })}
