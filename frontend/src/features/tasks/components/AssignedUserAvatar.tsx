@@ -5,8 +5,11 @@ export const AssignedUserAvatar = ({ userId }: { userId: string }) => {
   if (!userId) {
     console.warn("AssignedUserAvatar received undefined userId");
   }
-  const { data: userProfile, isLoading } = useUserProfile(userId);
+  const { data: userProfile, isLoading, error } = useUserProfile(userId);
   if (isLoading) return <div>Loading...</div>;
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
   return (
     <Avatar className="inline-block h-8 w-8 rounded-full ring-2">
       <AvatarImage src={userProfile?.avatarUrl} alt={userProfile?.username} />

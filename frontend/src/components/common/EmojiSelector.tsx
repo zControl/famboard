@@ -9,7 +9,7 @@ import { useProfile } from "@/features/user/hooks/useProfile";
 import { useState } from "react";
 
 export const EmojiSelector = () => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfileMutation } = useProfile();
   const [selectedEmoji, setSelectedEmoji] = useState(
     profile?.statusEmoji ?? "😀",
   );
@@ -18,7 +18,7 @@ export const EmojiSelector = () => {
 
   const handleEmojiSelect = (emoji: string) => {
     setSelectedEmoji(emoji);
-    updateProfile.mutate({ statusEmoji: emoji });
+    updateProfileMutation.mutate({ statusEmoji: emoji });
   };
 
   return (

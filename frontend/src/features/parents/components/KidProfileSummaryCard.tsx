@@ -1,16 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserProfile } from "@/types/user";
+import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { firstInitial } from "@/utils/firstInitial";
 
-export const KidProfileSummaryCard = ({ kid }: { kid: UserProfile }) => {
+export const KidProfileSummaryCard = ({ id }: { id: string }) => {
+  const { data: userProfile } = useUserProfile(id);
   return (
     <div className="mx-auto flex flex-col items-center gap-2">
       <Avatar className="h-24 w-24">
-        <AvatarImage src={kid?.avatarUrl} alt="Avatar" />
-        <AvatarFallback>{firstInitial(kid?.username ?? "")}</AvatarFallback>
+        <AvatarImage src={userProfile?.avatarUrl} alt="Avatar" />
+        <AvatarFallback>
+          {firstInitial(userProfile?.username ?? "")}
+        </AvatarFallback>
       </Avatar>
-      <div>{kid?.username}</div>
-      <div>{kid?.bio}</div>
+      <div className="text-center">{userProfile?.status}</div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ export const ThemeProvider = ({
   ...props
 }: ThemeProviderProps) => {
   const { user } = useAuth();
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfileMutation } = useProfile();
 
   const theme = profile?.theme || defaultTheme;
 
@@ -43,7 +43,7 @@ export const ThemeProvider = ({
       theme: theme as Theme,
       setTheme: (newTheme: Theme) => {
         if (user && profile) {
-          updateProfile.mutate(
+          updateProfileMutation.mutate(
             { theme: newTheme },
             {
               onSuccess: () => {
@@ -57,7 +57,7 @@ export const ThemeProvider = ({
         }
       },
     }),
-    [theme, user, profile, updateProfile],
+    [theme, user, profile, updateProfileMutation],
   );
 
   return (

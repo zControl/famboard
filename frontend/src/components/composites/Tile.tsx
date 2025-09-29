@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Header3 } from "@/components/ui/typography";
 import React from "react";
 
 interface TileProps {
@@ -27,7 +28,7 @@ export const Tile = ({
       <CardHeader>
         <CardTitle>
           <div className="flex justify-between">
-            <div>{title}</div>
+            <Header3>{title}</Header3>
             <div>{menu}</div>
           </div>
         </CardTitle>

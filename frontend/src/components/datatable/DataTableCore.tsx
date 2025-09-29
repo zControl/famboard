@@ -10,6 +10,7 @@ import {
   TableCaption,
   TableHeader,
 } from "@/components/ui/table";
+import { Header4 } from "@/components/ui/typography";
 import { cn } from "@/utils/classNames";
 import {
   ColumnDef,
@@ -21,10 +22,12 @@ import {
   useReactTable,
   type Table as ReactTable,
 } from "@tanstack/react-table";
+import React from "react";
 
 interface DataTableCoreProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  title?: React.ReactNode;
   actions?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   options?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
   caption?: React.ReactNode | ((table: ReactTable<TData>) => React.ReactNode);
@@ -37,6 +40,7 @@ interface DataTableCoreProps<TData, TValue> {
 export const DataTableCore = <TData, TValue>({
   columns,
   data,
+  title,
   actions,
   caption,
   options,
@@ -66,6 +70,7 @@ export const DataTableCore = <TData, TValue>({
 
   return (
     <div className="space-y-2">
+      <Header4 className="mb-0 text-center">{title}</Header4>
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           {showColumnVisibility && <TableColumnVisibility table={table} />}

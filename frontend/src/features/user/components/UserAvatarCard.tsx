@@ -12,7 +12,7 @@ import { UserProfile } from "@/types/user";
 import React from "react";
 
 export const UserAvatarCard = () => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfileMutation } = useProfile();
   const [avatar, setAvatar] = React.useState<string | null>(
     profile?.avatarUrl ?? null,
   );
@@ -25,7 +25,7 @@ export const UserAvatarCard = () => {
   }, [profile]);
 
   const handleUpdateProfile = (updatedData: Partial<UserProfile>) => {
-    updateProfile.mutate(updatedData);
+    updateProfileMutation.mutate(updatedData);
     setIsDirty(false);
   };
 

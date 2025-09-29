@@ -1,16 +1,22 @@
-import { apiClient } from "@/api/apiClient";
-import { UserProfile } from "@/types/user";
+import { usersApi } from "@/features/admin/api/usersApi";
 import { useQuery } from "@tanstack/react-query";
 
 export const useUserProfile = (userId: string) => {
   if (!userId) {
-    console.error("useUserProfile called with undefined userId");
+    console.error("userId is undefined. Can't fetch user profile.");
   }
-  return useQuery({
+
+  const query = useQuery({
     queryKey: ["userProfile", userId],
-    queryFn: async (): Promise<UserProfile> => {
-      const res = await apiClient.get<UserProfile>(`/users/${userId}/profile`);
-      return res;
+    queryFn: async () => {
+      if (!userId) throw new Error("User not found");
+      return usersApi.getProfile(userId)();
     },
+    enabled: !!userId,
   });
+
+  return {
+    ...query,
+    userProfile: query.data,
+  };
 };
