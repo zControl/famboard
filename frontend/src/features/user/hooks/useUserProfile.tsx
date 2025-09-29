@@ -7,7 +7,7 @@ export const useUserProfile = (userId: string) => {
   }
 
   const query = useQuery({
-    queryKey: ["userProfile", userId],
+    queryKey: ["user-profile", userId],
     queryFn: async () => {
       if (!userId) throw new Error("User not found");
       return usersApi.getProfile(userId)();

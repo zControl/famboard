@@ -1,8 +1,5 @@
 import { Tile } from "@/components/composites/Tile";
 import { Spinner } from "@/components/ui/spinner";
-import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
-import { KidApprovalsCard } from "@/features/parents/components/KidApprovalsCard";
-import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 
 interface KidSummaryTileProps {
@@ -25,11 +22,14 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
     >
       <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
         <div className="w-1/4 mx-auto p-4">
-          <KidProfileSummaryCard id={id} />
+          {/* <KidProfileSummaryCard id={id} /> */}
+          <div>Summary</div>
         </div>
         <div className="flex flex-row justify-around w-full gap-x-4">
-          <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
-          <KidApprovalsCard userId={userProfile?.userId ?? ""} />
+          <div>Active Tasks</div>
+          <div>Approvals</div>
+          {/* <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
+          <KidApprovalsCard userId={userProfile?.userId ?? ""} /> */}
         </div>
       </div>
     </Tile>
