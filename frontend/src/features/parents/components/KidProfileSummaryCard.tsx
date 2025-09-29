@@ -13,6 +13,7 @@ export const KidProfileSummaryCard = ({ id }: { id: string }) => {
         </AvatarFallback>
       </Avatar>
       <div className="text-center">{userProfile?.status}</div>
+      <div>{userProfile?.statusEmoji}</div>
     </div>
   );
 };
