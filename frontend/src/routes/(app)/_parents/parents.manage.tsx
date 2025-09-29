@@ -4,7 +4,6 @@ import { useKidManager } from "@/features/parents/hooks/useKidManager";
 
 import { createFileRoute } from "@tanstack/react-router";
 
-//TODO: Implement the loader on this page to get the kidIds
 export const Route = createFileRoute("/(app)/_parents/parents/manage")({
   component: ParentsManagePage,
 });

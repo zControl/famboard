@@ -25,7 +25,6 @@ const activeTasksColumns: ColumnDef<{
 
 export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
   const { assignedTasks, isLoading } = useUserAssignedTasks(userId);
-  console.log("assignedTasks", assignedTasks);
   return (
     <div className="w-full border rounded-lg px-2">
       {isLoading ? (
