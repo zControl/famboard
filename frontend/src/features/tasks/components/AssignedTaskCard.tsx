@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -14,7 +15,6 @@ interface AssignedTaskCardProps {
   task: UserAssignedTaskResponse;
   icon?: React.ReactElement;
   loading?: boolean;
-  children: React.ReactNode;
   footer?: React.ReactNode;
 }
 
@@ -22,19 +22,20 @@ export const AssignedTaskCard = ({
   task,
   icon,
   loading,
-  children,
   footer,
 }: AssignedTaskCardProps) => {
   return (
-    <Card className="p-2">
-      <CardHeader className="px-1 py-2">
-        <div className="flex flex-row justify-between items-stretch">
+    <Card className="p-2 gap-0 h-full">
+      <CardHeader className="px-1">
+        <div className="flex flex-col lg:flex-row justify-between gap-1">
           <div className="flex flex-col space-y-1 grow">
-            <CardTitle>{task.title}</CardTitle>
-            <CardDescription>{task.category}</CardDescription>
+            <CardTitle className="p-0">{task.title}</CardTitle>
+            <CardDescription>
+              <Badge variant="secondary">{task.category}</Badge>
+            </CardDescription>
           </div>
           {icon && (
-            <div className="flex items-center justify-center">
+            <div>
               {React.cloneElement(icon, {
                 className: "w-12 h-12 text-highlight",
               })}
@@ -42,7 +43,15 @@ export const AssignedTaskCard = ({
           )}
         </div>
       </CardHeader>
-      <CardContent>{loading ? <Spinner size="lg" /> : children}</CardContent>
+      {loading ? (
+        <Spinner size="lg" />
+      ) : (
+        <CardContent className="flex flex-col p-0">
+          <CardDescription className="overflow-x-auto max-h-20 overflow-y-auto">
+            {task.description}
+          </CardDescription>
+        </CardContent>
+      )}
       {footer && <CardFooter>{footer}</CardFooter>}
     </Card>
   );

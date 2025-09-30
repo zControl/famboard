@@ -11,22 +11,21 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 });
 
 function KidsIndexPage() {
-  const { profile } = useProfile();
+  const { profile, isLoading } = useProfile();
   const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
-  console.log("assignedTasks", assignedTasks);
 
   return (
     <PageContainer
       title={profile?.firstName || "Dashboard"}
-      description="This is the dashbaord for a kid user!"
+      description="This is the dashboard for a kid user!"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div id="left">
-          <KidShowcaseCard />
+          <KidShowcaseCard profile={profile} loading={isLoading} />
         </div>
-        <div id="right">
-          <MyActiveTasksCard />
-          <MyApprovalsCard />
+        <div id="right" className="flex flex-col gap-6">
+          <MyActiveTasksCard assignedTasks={assignedTasks} />
+          <MyApprovalsCard assignedTasks={assignedTasks} />
         </div>
       </div>
     </PageContainer>
