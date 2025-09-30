@@ -32,10 +32,10 @@ export const LandingHero = () => {
     <>
       <section className="container w-full mx-auto px-4 py-16 flex flex-col md:flex-row items-center space-x-4">
         <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0">
-          <Header1 className="bg-linear-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
+          <Header1 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
             FamBoard: Turning tasks into treasure!
           </Header1>
-          <Paragraph className="text-blue-500">
+          <Paragraph className="font-semibold text-primary">
             FamBoard is a fun and interactive app that helps kids manage their
             chores while earning points that can be redeemed for rewards.
           </Paragraph>

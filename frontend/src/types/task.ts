@@ -25,7 +25,7 @@ export enum TaskDifficulty {
 }
 
 export enum TaskStatus {
-  Pending ='PENDING',
+  Pending = 'PENDING',
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
   Removed = 'REMOVED',
@@ -66,4 +66,8 @@ export interface AssignedTaskResponse {
 export interface UserAssignedTaskResponse {
   sequenceNumber: number;
   title: string;
+  description: string;
+  pointValue: number;
+  category: TaskCategory;
+  status: TaskStatus;
 }

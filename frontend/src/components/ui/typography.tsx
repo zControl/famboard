@@ -2,7 +2,7 @@ import { cn } from "@/utils/classNames";
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
 
-const headingVariants = cva("m-2", {
+const typographyVariants = cva("m-2", {
   variants: {
     color: {
       default: "text-foreground",
@@ -10,6 +10,14 @@ const headingVariants = cva("m-2", {
       secondary: "text-secondary",
       muted: "text-muted-foreground",
       accent: "text-accent-foreground",
+      highlight: "text-highlight-foreground",
+      chart1: "text-chart-1",
+      chart2: "text-chart-2",
+      chart3: "text-chart-3",
+      chart4: "text-chart-4",
+      chart5: "text-chart-5",
+      gradient:
+        "bg-linear-to-r from-primary to-secondary text-transparent bg-clip-text",
     },
   },
   defaultVariants: {
@@ -17,60 +25,82 @@ const headingVariants = cva("m-2", {
   },
 });
 
-interface HeadingProps extends VariantProps<typeof headingVariants> {
+interface TypographyProps extends VariantProps<typeof typographyVariants> {
   children: React.ReactNode;
   className?: string;
 }
 
-const Header1 = ({ children, className, color }: HeadingProps) => {
+const Header1 = ({ children, className, color }: TypographyProps) => {
   const baseClasses = "font-extrabold text-5xl";
   return (
-    <h1 className={cn(baseClasses, headingVariants({ color, className }))}>
+    <h1 className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </h1>
   );
 };
 
-const Header2 = ({ children, className, color }: HeadingProps) => {
+const Header2 = ({ children, className, color }: TypographyProps) => {
   const baseClasses = "font-extrabold text-4xl";
   return (
-    <h2 className={cn(baseClasses, headingVariants({ color, className }))}>
+    <h2 className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </h2>
   );
 };
 
-const Header3 = ({ children, className, color }: HeadingProps) => {
+const Header3 = ({ children, className, color }: TypographyProps) => {
   const baseClasses = "font-bold text-3xl";
   return (
-    <h3 className={cn(baseClasses, headingVariants({ color, className }))}>
+    <h3 className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </h3>
   );
 };
 
-const Header4 = ({ children, className, color }: HeadingProps) => {
+const Header4 = ({ children, className, color }: TypographyProps) => {
   const baseClasses = "font-semibold text-2xl";
   return (
-    <h4 className={cn(baseClasses, headingVariants({ color, className }))}>
+    <h4 className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </h4>
   );
 };
 
-const SectionTitle = ({ children, className, color }: HeadingProps) => {
+const SectionTitle = ({ children, className, color }: TypographyProps) => {
   const baseClasses = "pt-2 font-semibold leading-none tracking-tight";
   return (
-    <div className={cn(baseClasses, headingVariants({ color, className }))}>
+    <div className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </div>
   );
 };
 
-const SectionDescription = ({ children, className, color }: HeadingProps) => {
+const SectionDescription = ({
+  children,
+  className,
+  color,
+}: TypographyProps) => {
   const baseClasses = "pb-4 text-sm text-muted-foreground";
   return (
-    <div className={cn(baseClasses, headingVariants({ color, className }))}>
+    <div className={cn(baseClasses, typographyVariants({ color, className }))}>
+      {children}
+    </div>
+  );
+};
+
+const StatLabel = ({ children, className, color }: TypographyProps) => {
+  const baseClasses = "text-xl font-bold text-muted-foreground";
+  return (
+    <div className={cn(baseClasses, typographyVariants({ color, className }))}>
+      {children}
+    </div>
+  );
+};
+
+const StatValue = ({ children, className, color }: TypographyProps) => {
+  const baseClasses = "text-lg font-medium tracking-tight text-foreground";
+  return (
+    <div className={cn(baseClasses, typographyVariants({ color, className }))}>
       {children}
     </div>
   );
@@ -125,5 +155,7 @@ export {
   Paragraph,
   SectionDescription,
   SectionTitle,
+  StatLabel,
+  StatValue,
   TextBlock,
 };

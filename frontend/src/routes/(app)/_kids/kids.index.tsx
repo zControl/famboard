@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/common/PageContainer";
-import { Header4 } from "@/components/ui/typography";
-import { AssignedTaskCard } from "@/features/kids/components/AssignedTaskCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
+import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
+import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
@@ -22,27 +22,13 @@ function KidsIndexPage() {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div id="left">
-          <Header4>Welcome, {profile?.firstName}</Header4>
           <KidShowcaseCard />
         </div>
         <div id="right">
-          <div>
-            <Header4>Due This Week</Header4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <AssignedTaskCard />
-              <AssignedTaskCard />
-            </div>
-          </div>
-          <div>
-            <Header4>Due This Week</Header4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <AssignedTaskCard />
-              <AssignedTaskCard />
-            </div>
-          </div>
+          <MyActiveTasksCard />
+          <MyApprovalsCard />
         </div>
       </div>
-      <div>Second Section.</div>
     </PageContainer>
   );
 }

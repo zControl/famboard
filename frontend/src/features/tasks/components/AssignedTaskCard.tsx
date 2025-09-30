@@ -1,5 +1,3 @@
-import { Spinner } from "@/components/ui/spinner";
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,32 +5,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
+import { UserAssignedTaskResponse } from "@/types/task";
+import React from "react";
 
-interface InfoCardProps {
-  children: React.ReactNode;
-  title?: React.ReactNode;
-  description?: React.ReactNode;
+interface AssignedTaskCardProps {
+  task: UserAssignedTaskResponse;
   icon?: React.ReactElement;
-  footer?: React.ReactNode;
   loading?: boolean;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
-export const InfoCard = ({
-  title,
-  description,
+export const AssignedTaskCard = ({
+  task,
   icon,
+  loading,
   children,
   footer,
-  loading,
-}: InfoCardProps) => {
+}: AssignedTaskCardProps) => {
   return (
     <Card className="p-2">
       <CardHeader className="px-1 py-2">
         <div className="flex flex-row justify-between items-stretch">
           <div className="flex flex-col space-y-1 grow">
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+            <CardTitle>{task.title}</CardTitle>
+            <CardDescription>{task.category}</CardDescription>
           </div>
           {icon && (
             <div className="flex items-center justify-center">
