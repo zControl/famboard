@@ -1,6 +1,7 @@
 import { PageContainer } from "@/components/common/PageContainer";
-import { ProgressStep } from "@/components/ui/progress-step";
-import { Header2 } from "@/components/ui/typography";
+import { Header4 } from "@/components/ui/typography";
+import { AssignedTaskCard } from "@/features/kids/components/AssignedTaskCard";
+import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
@@ -12,39 +13,36 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 function KidsIndexPage() {
   const { profile } = useProfile();
   const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
+  console.log("assignedTasks", assignedTasks);
 
   return (
     <PageContainer
-      title="USER Dashboard"
+      title={profile?.firstName || "Dashboard"}
       description="This is the dashbaord for a kid user!"
     >
-      <section>
-        <article className="flex flex-row items-center gap-4">
-          <ProgressStep value={50} />
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Todays Tasks</Header2>
-          <p>Status: {profile?.status}</p>
-
-          {assignedTasks?.map((task) => (
-            <p key={task.sequenceNumber}>
-              {task.sequenceNumber} - {task.title}
-            </p>
-          ))}
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Weekly Tasks</Header2>
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Completed Tasks</Header2>
-        </article>
-      </section>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="left">
+          <Header4>Welcome, {profile?.firstName}</Header4>
+          <KidShowcaseCard />
+        </div>
+        <div id="right">
+          <div>
+            <Header4>Due This Week</Header4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignedTaskCard />
+              <AssignedTaskCard />
+            </div>
+          </div>
+          <div>
+            <Header4>Due This Week</Header4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignedTaskCard />
+              <AssignedTaskCard />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>Second Section.</div>
     </PageContainer>
   );
 }
