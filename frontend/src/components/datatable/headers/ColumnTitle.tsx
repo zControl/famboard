@@ -1,8 +1,12 @@
+import { cn } from "@/utils/classNames";
+
 interface ColumnTitleProps {
   title: string;
+  className?: string;
 }
 
-// This component might not be necessary...standby.
-export const ColumnTitle = ({ title }: ColumnTitleProps) => {
-  return <span>{title}</span>;
+export const ColumnTitle = ({ title, className }: ColumnTitleProps) => {
+  return (
+    <div className={cn("font-semibold px-2 underline", className)}>{title}</div>
+  );
 };
