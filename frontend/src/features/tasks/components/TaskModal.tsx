@@ -16,7 +16,6 @@ import { useTasks } from "@/features/tasks/hooks/useTasks";
 import {
   Task,
   TaskCategory,
-  TaskDifficulty,
   TaskFrequency,
   TaskPriority,
   TaskStatus,
@@ -49,7 +48,6 @@ export const TaskModal = ({
       pointValue: existingTask?.pointValue || 0,
       category: existingTask?.category || TaskCategory.Household,
       frequency: existingTask?.frequency || TaskFrequency.Daily,
-      difficulty: existingTask?.difficulty || TaskDifficulty.Easy,
       status: existingTask?.status || TaskStatus.Active,
       priority: existingTask?.priority || TaskPriority.Low,
       note: existingTask?.note || "",
@@ -213,25 +211,6 @@ export const TaskModal = ({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="difficulty"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Difficulty</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskDifficulty}
-                        triggerText="Difficulty"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <FormField
                 control={form.control}
                 name="priority"

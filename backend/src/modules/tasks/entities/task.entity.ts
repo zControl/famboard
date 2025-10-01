@@ -35,9 +35,6 @@ export class Task {
   frequency: string;
 
   @Column({ nullable: true })
-  difficulty: string;
-
-  @Column({ nullable: true })
   status: string;
 
   @Column({ nullable: true })
