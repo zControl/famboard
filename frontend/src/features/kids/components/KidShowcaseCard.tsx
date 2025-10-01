@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Spinner } from "@/components/ui/spinner";
 import { Header2, StatLabel, StatValue } from "@/components/ui/typography";
 import { UserProfile } from "@/types/user";
 
@@ -21,7 +21,7 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
   return (
     <Card className="p-0">
       {loading ? (
-        <Skeleton className="h-8 w-full" />
+        <Spinner size="xl" />
       ) : (
         <div className="flex flex-col justify-start gap-2">
           <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">

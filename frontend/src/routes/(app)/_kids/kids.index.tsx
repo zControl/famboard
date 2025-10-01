@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/common/PageContainer";
+import { Spinner } from "@/components/ui/spinner";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
 import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";
@@ -11,20 +12,43 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 });
 
 function KidsIndexPage() {
-  const { profile, isLoading } = useProfile();
-  const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
+  const { profile, isLoading: profileLoading } = useProfile();
+  const { assignedTasks, isLoading: tasksLoading } = useUserAssignedTasks(
+    profile?.userId ? profile.userId : "",
+  );
+
+  // Wait for profile to load before rendering content that depends on it
+  if (profileLoading) {
+    return (
+      <PageContainer title="Loading..." description="Loading your dashboard">
+        <Spinner size="xl" />
+      </PageContainer>
+    );
+  }
+
+  // Handle case where profile failed to load
+  if (!profile) {
+    return (
+      <PageContainer title="Dashboard" description="Unable to load profile">
+        <div>Unable to load your profile information.</div>
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer
-      title={profile?.firstName || "Dashboard"}
+      title={profile.firstName || "Dashboard"}
       description="This is the dashboard for a kid user!"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div id="left">
-          <KidShowcaseCard profile={profile} loading={isLoading} />
+          <KidShowcaseCard profile={profile} loading={profileLoading} />
         </div>
         <div id="right" className="flex flex-col gap-6">
-          <MyActiveTasksCard assignedTasks={assignedTasks} />
+          <MyActiveTasksCard
+            assignedTasks={assignedTasks}
+            loading={tasksLoading}
+          />
           <MyApprovalsCard assignedTasks={assignedTasks} />
         </div>
       </div>

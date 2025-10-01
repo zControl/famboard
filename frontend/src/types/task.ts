@@ -61,4 +61,6 @@ export interface UserAssignedTaskResponse {
   pointValue: number;
   category: TaskCategory;
   status: TaskStatus;
+  frequency: TaskFrequency;
+  note: string;
 }

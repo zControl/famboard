@@ -35,7 +35,6 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
 
   const handleEdit = () => {
     setEditOpen(true);
-    console.log("Edit button clicked");
   };
   return (
     <>
