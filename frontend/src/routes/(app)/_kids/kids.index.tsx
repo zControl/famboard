@@ -1,6 +1,8 @@
 import { PageContainer } from "@/components/common/PageContainer";
-import { ProgressStep } from "@/components/ui/progress-step";
-import { Header2 } from "@/components/ui/typography";
+import { Spinner } from "@/components/ui/spinner";
+import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
+import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
+import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
@@ -10,41 +12,46 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 });
 
 function KidsIndexPage() {
-  const { profile } = useProfile();
-  const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
+  const { profile, isLoading: profileLoading } = useProfile();
+  const { assignedTasks, isLoading: tasksLoading } = useUserAssignedTasks(
+    profile?.userId ? profile.userId : "",
+  );
+
+  // Wait for profile to load before rendering content that depends on it
+  if (profileLoading) {
+    return (
+      <PageContainer title="Loading..." description="Loading your dashboard">
+        <Spinner size="xl" />
+      </PageContainer>
+    );
+  }
+
+  // Handle case where profile failed to load
+  if (!profile) {
+    return (
+      <PageContainer title="Dashboard" description="Unable to load profile">
+        <div>Unable to load your profile information.</div>
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer
-      title="USER Dashboard"
-      description="This is the dashbaord for a kid user!"
+      title={profile.firstName || "Dashboard"}
+      description="This is the dashboard for a kid user!"
     >
-      <section>
-        <article className="flex flex-row items-center gap-4">
-          <ProgressStep value={50} />
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Todays Tasks</Header2>
-          <p>Status: {profile?.status}</p>
-
-          {assignedTasks?.map((task) => (
-            <p key={task.sequenceNumber}>
-              {task.sequenceNumber} - {task.title}
-            </p>
-          ))}
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Weekly Tasks</Header2>
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Completed Tasks</Header2>
-        </article>
-      </section>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div id="left">
+          <KidShowcaseCard profile={profile} loading={profileLoading} />
+        </div>
+        <div id="right" className="flex flex-col gap-6">
+          <MyActiveTasksCard
+            assignedTasks={assignedTasks}
+            loading={tasksLoading}
+          />
+          <MyApprovalsCard assignedTasks={assignedTasks} />
+        </div>
+      </div>
     </PageContainer>
   );
 }

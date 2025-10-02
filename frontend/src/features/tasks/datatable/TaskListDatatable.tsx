@@ -15,28 +15,20 @@ export const TaskListDatatable = () => {
   const initialState = {
     columnVisibility: {
       id: false,
-      sequenceNumber: true,
       title: true,
       description: true,
       assigned: true,
       pointValue: true,
-      note: false,
       frequency: true,
       category: true,
-      status: false,
-      difficulty: true,
+      status: true,
       priority: true,
+      note: false,
     },
     pagination: {
       pageIndex: 0,
       pageSize: 20,
     },
-    sorting: [
-      {
-        id: "sequenceNumber",
-        desc: false,
-      },
-    ],
     filters: [],
   };
 
