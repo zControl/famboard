@@ -27,8 +27,8 @@ export const InfoCard = ({
   loading,
 }: InfoCardProps) => {
   return (
-    <Card>
-      <CardHeader>
+    <Card className="p-2">
+      <CardHeader className="px-1 py-2">
         <div className="flex flex-row justify-between items-stretch">
           <div className="flex flex-col space-y-1 grow">
             <CardTitle>{title}</CardTitle>

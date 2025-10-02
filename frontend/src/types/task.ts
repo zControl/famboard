@@ -17,18 +17,10 @@ export enum TaskFrequency {
   Special = 'SPECIAL'
 }
 
-export enum TaskDifficulty {
-  Easy = 'EASY',
-  Medium = 'MEDIUM',
-  Tricky = 'TRICKY',
-  Hard = 'HARD'
-}
-
 export enum TaskStatus {
-  Pending ='PENDING',
+  Pending = 'PENDING',
   Active = 'ACTIVE',
   Inactive = 'INACTIVE',
-  Removed = 'REMOVED',
 }
 
 export enum TaskPriority {
@@ -52,7 +44,6 @@ export interface Task {
   pointValue: number;
   category: TaskCategory;
   frequency: TaskFrequency;
-  difficulty: TaskDifficulty;
   status: TaskStatus;
   priority: TaskPriority;
   note?: string;
@@ -66,4 +57,10 @@ export interface AssignedTaskResponse {
 export interface UserAssignedTaskResponse {
   sequenceNumber: number;
   title: string;
+  description: string;
+  pointValue: number;
+  category: TaskCategory;
+  status: TaskStatus;
+  frequency: TaskFrequency;
+  note: string;
 }

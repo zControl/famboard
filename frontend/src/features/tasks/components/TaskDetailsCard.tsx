@@ -20,7 +20,6 @@ import {
   ContainerIcon,
   EditIcon,
   ListTodoIcon,
-  PickaxeIcon,
   ReceiptTextIcon,
   UsersIcon,
 } from "lucide-react";
@@ -36,7 +35,6 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
 
   const handleEdit = () => {
     setEditOpen(true);
-    console.log("Edit button clicked");
   };
   return (
     <>
@@ -103,11 +101,6 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
                 icon={<CalendarCheckIcon />}
                 label="Frequency"
                 value={task?.frequency}
-              />
-              <DetailListItem
-                icon={<PickaxeIcon />}
-                label="Difficulty"
-                value={task?.difficulty}
               />
             </article>
           </section>

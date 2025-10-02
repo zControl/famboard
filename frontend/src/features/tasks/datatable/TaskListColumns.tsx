@@ -1,5 +1,4 @@
 import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
-import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
@@ -12,7 +11,6 @@ import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 import {
   Task,
   TaskCategory,
-  TaskDifficulty,
   TaskFrequency,
   TaskPriority,
   TaskStatus,
@@ -26,23 +24,26 @@ export const taskListColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => <TaskRowActions row={row} />,
   },
   {
-    accessorKey: "sequenceNumber",
-    enableSorting: true,
-    enableHiding: false,
-    header: ({ column }) => <AscDescSortHeader column={column} />,
+    accessorKey: "assignedUserIds",
+    filterFn: "arrIncludesSome",
+    enableSorting: false,
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+  },
+
+  {
+    accessorKey: "title",
+    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
     cell: ({ row }) => (
       <CustomLink
         to={`/parents/tasks/${row.original.sequenceNumber}`}
         size="lg"
       >
-        {row.original.sequenceNumber}
+        {row.original.sequenceNumber}-{row.original.title}
       </CustomLink>
     ),
-  },
-  {
-    accessorKey: "title",
-    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
-    cell: ({ row }) => <EditableTextCell row={row} accessor="title" />,
   },
   {
     accessorKey: "description",
@@ -61,20 +62,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
         <Coin value={row.original.pointValue} />
       </div>
     ),
-  },
-  {
-    accessorKey: "assignedUserIds",
-    filterFn: "arrIncludesSome",
-    enableSorting: false,
-    header: ({ column }) => (
-      <TaskAssignmentsHeader column={column} title="Assigned" />
-    ),
-    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
-  },
-
-  {
-    accessorKey: "note",
-    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
   },
   {
     accessorKey: "category",
@@ -128,24 +115,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
   },
   {
-    accessorKey: "difficulty",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Difficulty"
-        options={enumToArray(TaskDifficulty)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.difficulty}
-        options={enumToArray(TaskDifficulty)}
-      />
-    ),
-  },
-
-  {
     accessorKey: "priority",
     filterFn: "arrIncludesSome",
     header: ({ column }) => (
@@ -161,5 +130,10 @@ export const taskListColumns: ColumnDef<Task>[] = [
         options={enumToArray(TaskPriority)}
       />
     ),
+  },
+  {
+    accessorKey: "note",
+    header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
+    cell: ({ row }) => <EditableTextCell row={row} accessor="note" />,
   },
 ];
