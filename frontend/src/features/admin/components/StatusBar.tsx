@@ -1,6 +1,8 @@
 import { DisplayModal } from "@/components/composites/DisplayModal";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
+import { Header4 } from "@/components/ui/typography";
 import { useApiStatus } from "@/hooks/useApiStatus";
 import {
   AlertCircleIcon,
@@ -24,10 +26,14 @@ const ApiRoot = () => {
       <DisplayModal
         trigger={<Button>Hit ROOT endpoint</Button>}
         title="BLAM!"
-        description="After calling, the Api responded with this, in your face."
+        description="You just hit the root endpoint of the API."
       >
-        <pre>{JSON.stringify(apiRoot.data, null, 2)}</pre>
-        <div>The message is: {apiRoot.data?.message}</div>
+        <Header4>Response:</Header4>
+        <ScrollArea className="max-h-[300px] w-full">
+          <pre className="whitespace-pre-wrap break-words">
+            {JSON.stringify(apiRoot.data, null, 2)}
+          </pre>
+        </ScrollArea>
       </DisplayModal>
     </>
   );
@@ -57,7 +63,9 @@ const ApiHealth = () => {
         description="Detailed information about the API health."
       >
         {apiHealth.data?.status === "ok" && (
-          <div>Be cool, the API status is ok!</div>
+          <ScrollArea className="max-h-[300px] w-full">
+            <div>Be cool, the API status is ok!</div>
+          </ScrollArea>
         )}
       </DisplayModal>
       <DisplayModal
@@ -67,7 +75,11 @@ const ApiHealth = () => {
         title="Database Health Details"
         description="Detailed information about the Database health."
       >
-        <pre>{JSON.stringify(apiHealth.data?.details.database, null, 2)}</pre>
+        <ScrollArea className="max-h-[300px] w-full">
+          <pre className="whitespace-pre-wrap break-words">
+            {JSON.stringify(apiHealth.data?.details.database, null, 2)}
+          </pre>
+        </ScrollArea>
       </DisplayModal>
     </div>
   );
@@ -86,7 +98,7 @@ const AppVersion = () => {
   return (
     <div className="grid grid-rows-2 gap-2 px-2 font-mono font-bold text-xs leading-tight">
       <div>API: {apiVersion.data?.version}</div>
-      <div>UI: 0.a.b.c</div>
+      <div>UI: {import.meta.env.VITE_UI_VERSION || "0.d.e.v"}</div>
     </div>
   );
 };
