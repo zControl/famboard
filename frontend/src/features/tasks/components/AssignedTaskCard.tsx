@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Coin } from "@/components/ui/coin";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAssignedTaskResponse } from "@/types/task";
 import { SquareCheckBigIcon } from "lucide-react";
 
@@ -16,6 +17,11 @@ interface AssignedTaskCardProps {
 }
 
 export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
+  const { user } = useAuth();
+
+  const handleTaskCompletionMutation = () => {
+    console.log(user?.id, task.id);
+  };
   return (
     <Card className="p-2 gap-0 h-full">
       <CardHeader className="px-1">
@@ -34,7 +40,7 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
       </CardContent>
       <CardFooter className="mt-auto pt-2 px-0">
         <div className="flex gap-2 w-full justify-end">
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleTaskCompletionMutation}>
             <SquareCheckBigIcon />
           </Button>
         </div>

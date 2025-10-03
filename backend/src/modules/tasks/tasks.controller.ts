@@ -124,6 +124,9 @@ export class TasksController {
       completeTaskDto.userId,
       completeTaskDto.note,
     );
-    return new TaskCompletionResponseDto(completion);
+    return {
+      message: 'Task marked as complete!',
+      data: new TaskCompletionResponseDto(completion),
+    };
   }
 }

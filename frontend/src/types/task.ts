@@ -55,6 +55,7 @@ export interface AssignedTaskResponse {
 }
 
 export interface UserAssignedTaskResponse {
+  id: string;
   sequenceNumber: number;
   title: string;
   description: string;
