@@ -134,6 +134,7 @@ export class UsersService {
       status: profile.status,
       theme: profile.theme,
       avatarUrl: profile.avatarUrl,
+      pointTotal: profile.pointTotal,
     };
   }
 

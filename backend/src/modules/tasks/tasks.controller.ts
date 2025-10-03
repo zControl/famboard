@@ -1,14 +1,19 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TaskCompletionResponseDto } from 'src/modules/tasks/dto/complete-task-response.dto';
+import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
+import { TaskCompletionService } from 'src/modules/tasks/task-completion.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -16,7 +21,10 @@ import { TasksService } from './tasks.service';
 @ApiTags('Tasks')
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(
+    private readonly tasksService: TasksService,
+    private readonly taskCompletionService: TaskCompletionService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new task' })
@@ -95,5 +103,27 @@ export class TasksController {
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   findTasksByUser(@Param('userId') userId: string) {
     return this.tasksService.findTasksByUser(userId);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('complete/:taskId')
+  @ApiOperation({ summary: 'Mark a task as complete (by kid)' })
+  @ApiResponse({
+    status: 201,
+    description: 'Task completion approved!',
+    type: TaskCompletionResponseDto,
+  })
+  @ApiResponse({ status: 404, description: 'Task not found' })
+  @ApiBody({ type: CompleteTaskDto })
+  async completeTask(
+    @Param('taskId') taskId: string,
+    @Body() completeTaskDto: CompleteTaskDto,
+  ) {
+    const completion = await this.taskCompletionService.completeTask(
+      taskId,
+      completeTaskDto.userId,
+      completeTaskDto.note,
+    );
+    return new TaskCompletionResponseDto(completion);
   }
 }

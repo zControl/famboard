@@ -43,4 +43,7 @@ export class UserProfile {
 
   @Column()
   avatarUrl: string;
+
+  @Column({ type: 'integer', nullable: true })
+  pointTotal: number;
 }

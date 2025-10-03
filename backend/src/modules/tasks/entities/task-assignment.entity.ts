@@ -13,12 +13,6 @@ export class TaskAssignment {
   @ManyToOne(() => User, (user) => user.taskAssignments)
   user: User;
 
-  @Column({ default: false })
-  completed: boolean;
-
   @Column({ type: 'timestamp', nullable: true })
   assignedAt: Date;
-
-  @Column({ type: 'timestamp', nullable: true })
-  completedAt: Date;
 }
