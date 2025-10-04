@@ -66,3 +66,20 @@ export interface UserAssignedTaskResponse {
   frequency: TaskFrequency;
   note: string;
 }
+
+export interface TaskCompletionResponse {
+  approvalId: string;
+  completedAt: Date;
+  note: string;
+  taskId: string;
+  taskTitle: string;
+  taskDescription: string;
+  pointsPossible: number;
+  userId: string;
+}
+
+// Define the structure for the pending completions response
+export interface PendingCompletionsResponse {
+  count: number;
+  data: TaskCompletionResponse[];
+}

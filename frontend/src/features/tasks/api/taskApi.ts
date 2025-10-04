@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, Task, UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse, PendingCompletionsResponse, Task, UserAssignedTaskResponse } from "@/types/task";
 
 export const taskApi = {
   getTasks: () => apiClient.get<Task[]>(API_ENDPOINTS.TASKS.GET_ALL),
@@ -12,4 +12,5 @@ export const taskApi = {
   getAssignedTasks: (userId: string) => apiClient.get<UserAssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_USER_ASSIGNED(userId)),
   assignUsersToTask: (taskId: string, userIds: string[]) => apiClient.post<Task>(API_ENDPOINTS.TASKS.ASSIGN_USERS(taskId), { userIds }),
   completeTask: (taskId: string, userId: string, pointsPossible: number, note?: string) => apiClient.post<Task>(API_ENDPOINTS.TASKS.COMPLETE_TASK(taskId), { userId, pointsPossible, note }),
+  getPendingCompletions: () => apiClient.get<PendingCompletionsResponse>(API_ENDPOINTS.TASKS.GET_PENDING_COMPLETIONS),
 };

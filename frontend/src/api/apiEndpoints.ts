@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
     GET_ASSIGNED_USERS: (id: string) => `/tasks/${id}/assigned-users`,
     GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
+    GET_PENDING_COMPLETIONS: `/tasks/completions/pending`,
   },
   REWARDS: {
     GET_ALL: '/rewards',
