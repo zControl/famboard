@@ -6,11 +6,12 @@ export enum TaskCategory {
   Friendly = 'FRIENDLY',
   Helpful = 'HELPFUL',
   Improvement = 'IMPROVEMENT',
+  Fitness = 'FITNESS',
   Other = 'OTHER'
 }
 
 export enum TaskFrequency {
-  Always = 'ALWAYS',
+  Once = 'ONCE',
   Daily = 'DAILY',
   Weekly = 'WEEKLY',
   Monthly = 'MONTHLY',

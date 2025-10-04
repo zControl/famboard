@@ -33,5 +33,14 @@ export class TaskCompletion {
   approvedAt: Date;
 
   @Column({ type: 'boolean', default: false })
-  pointsAwarded: boolean;
+  bonusAwarded: boolean;
+
+  @Column({ type: 'integer', default: 0 })
+  bonusValue: number;
+
+  @Column({ type: 'integer', default: null, nullable: true })
+  pointsPossible: number;
+
+  @Column({ type: 'integer', default: null, nullable: true })
+  pointsAwarded: number;
 }
