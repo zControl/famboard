@@ -1,18 +1,18 @@
-// frontend/src/features/tasks/hooks/useTaskCompletion.ts
 import { taskApi } from "@/features/tasks/api/taskApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface CompleteTaskParams {
   taskId: string;
   userId: string;
+  pointsPossible: number;
   note?: string;
 }
 
 export const useTaskCompletion = () => {
   const queryClient = useQueryClient();
   const completeTaskMutation = useMutation({
-    mutationFn: ({ taskId, userId, note }: CompleteTaskParams) =>
-      taskApi.completeTask(taskId, userId, note),
+    mutationFn: ({ taskId, userId, pointsPossible, note }: CompleteTaskParams) =>
+      taskApi.completeTask(taskId, userId, pointsPossible, note,),
 
     // When the mutation succeeds, invalidate relevant queries
     onSuccess: () => {

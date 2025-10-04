@@ -10,8 +10,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApproveTaskCompletionDto } from 'src/modules/tasks/dto/approve-task-completion.dto';
 import { TaskCompletionResponseDto } from 'src/modules/tasks/dto/complete-task-response.dto';
 import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
+import { PendingCompletionResponseDto } from 'src/modules/tasks/dto/pending-completion-response.dto';
+import { RejectTaskCompletionDto } from 'src/modules/tasks/dto/reject-task-completion.dto';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
 import { TaskCompletionService } from 'src/modules/tasks/task-completion.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -116,6 +119,7 @@ export class TasksController {
     const completion = await this.taskCompletionService.completeTask(
       taskId,
       completeTaskDto.userId,
+      completeTaskDto.pointsPossible,
       completeTaskDto.note,
     );
     return {
@@ -129,5 +133,70 @@ export class TasksController {
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   findTasksByUser(@Param('userId') userId: string) {
     return this.tasksService.findTasksByUser(userId);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('completions/pending')
+  @ApiOperation({ summary: 'Get tasks that are pending approval.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all pending task completions',
+    type: PendingCompletionResponseDto,
+    isArray: true,
+  })
+  async getPendingCompletions() {
+    const completions = await this.taskCompletionService.getPendingApprovals();
+    return {
+      count: completions.length,
+      data: completions.map(
+        (completion) => new PendingCompletionResponseDto(completion),
+      ),
+    };
+  }
+
+  @Patch('completions/:approvalId/approve')
+  @ApiOperation({ summary: 'Approve a task completion' })
+  @ApiResponse({
+    status: 200,
+    description: 'Task completion approved',
+  })
+  @ApiBody({ type: ApproveTaskCompletionDto })
+  async approveTaskCompletion(
+    @Param('approvalId') approvalId: string,
+    @Body() approveDto: ApproveTaskCompletionDto,
+  ) {
+    const completion = await this.taskCompletionService.approveTaskCompletion(
+      approvalId,
+      approveDto.parentId,
+      approveDto.note,
+    );
+
+    return {
+      message: 'Task completion approved!',
+      data: new TaskCompletionResponseDto(completion),
+    };
+  }
+
+  @Patch('completions/:completionId/reject')
+  @ApiOperation({ summary: 'Reject a task completion' })
+  @ApiResponse({
+    status: 200,
+    description: 'Task completion rejected',
+  })
+  @ApiBody({ type: RejectTaskCompletionDto })
+  async rejectTaskCompletion(
+    @Param('completionId') completionId: string,
+    @Body() rejectDto: RejectTaskCompletionDto,
+  ) {
+    const completion = await this.taskCompletionService.rejectTaskCompletion(
+      completionId,
+      rejectDto.parentId,
+      rejectDto.note,
+    );
+
+    return {
+      message: 'Task completion rejected',
+      data: new TaskCompletionResponseDto(completion),
+    };
   }
 }

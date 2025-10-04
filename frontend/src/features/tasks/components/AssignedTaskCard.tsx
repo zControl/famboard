@@ -34,7 +34,8 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
       {
         taskId: task.id,
         userId: user.id,
-        note: note || undefined,
+        pointsPossible: task.pointValue,
+        note: note,
       },
       {
         onSuccess: () => {
