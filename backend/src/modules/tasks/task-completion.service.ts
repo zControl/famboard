@@ -42,7 +42,7 @@ export class TaskCompletionService {
     taskCompletion.user = user;
     taskCompletion.completedAt = new Date();
     taskCompletion.status = 'PENDING_APPROVAL';
-    taskCompletion.note = note;
+    taskCompletion.note = note || '';
 
     // Save and return the task completion
     return this.taskCompletionRepository.save(taskCompletion);

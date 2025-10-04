@@ -76,6 +76,7 @@ export class TasksController {
   }
 
   @Get(':taskId/assigned-users')
+  @ApiOperation({ summary: 'Get all users that are assigned to a task' })
   async getAssignedUsers(@Param('taskId') taskId: string) {
     return this.tasksService.getAssignedUsers(taskId);
   }
@@ -98,15 +99,8 @@ export class TasksController {
     return this.tasksService.assignUsersToTask(taskId, body.userIds);
   }
 
-  @Get('user/:userId')
-  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
-  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
-  findTasksByUser(@Param('userId') userId: string) {
-    return this.tasksService.findTasksByUser(userId);
-  }
-
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('complete/:taskId')
+  @Post(':taskId/complete')
   @ApiOperation({ summary: 'Mark a task as complete (by kid)' })
   @ApiResponse({
     status: 201,
@@ -128,5 +122,12 @@ export class TasksController {
       message: 'Task marked as complete!',
       data: new TaskCompletionResponseDto(completion),
     };
+  }
+
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
+  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
+  findTasksByUser(@Param('userId') userId: string) {
+    return this.tasksService.findTasksByUser(userId);
   }
 }
