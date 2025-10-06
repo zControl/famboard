@@ -39,7 +39,6 @@ export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
           columns={activeTasksColumns}
           data={assignedTasks || []}
           title="Active Tasks"
-          caption={assignedTasks?.length + " tasks"}
           showPagination={false}
           showColumnVisibility={false}
           headerClassName="bg-transparent"

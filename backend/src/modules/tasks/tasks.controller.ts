@@ -199,4 +199,26 @@ export class TasksController {
       data: new TaskCompletionResponseDto(completion),
     };
   }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('completions/pending/user/:userId')
+  @ApiOperation({
+    summary: 'Get tasks that are pending approval for a specific user',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all pending task completions for a specific user',
+    type: PendingCompletionResponseDto,
+    isArray: true,
+  })
+  async getPendingCompletionsByUser(@Param('userId') userId: string) {
+    const completions =
+      await this.taskCompletionService.getPendingApprovalsByUser(userId);
+    return {
+      count: completions.length,
+      data: completions.map(
+        (completion) => new PendingCompletionResponseDto(completion),
+      ),
+    };
+  }
 }

@@ -200,4 +200,35 @@ export class TaskCompletionService {
     // Save the updated completion
     return this.taskCompletionRepository.save(completion);
   }
+
+  async getPendingApprovalsByUser(
+    userId: string,
+  ): Promise<PendingCompletionResponseDto[]> {
+    const completions = this.taskCompletionRepository.find({
+      where: {
+        status: 'PENDING_APPROVAL',
+        user: { id: userId },
+      },
+      relations: ['task', 'user'],
+      select: {
+        id: true,
+        completedAt: true,
+        note: true,
+        status: true,
+        pointsPossible: true,
+        task: {
+          id: true,
+          title: true,
+          description: true,
+          pointValue: true,
+        },
+        user: {
+          id: true,
+        },
+      },
+    });
+    return (await completions).map(
+      (completion) => new PendingCompletionResponseDto(completion),
+    );
+  }
 }

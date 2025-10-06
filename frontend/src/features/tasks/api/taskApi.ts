@@ -13,4 +13,6 @@ export const taskApi = {
   assignUsersToTask: (taskId: string, userIds: string[]) => apiClient.post<Task>(API_ENDPOINTS.TASKS.ASSIGN_USERS(taskId), { userIds }),
   completeTask: (taskId: string, userId: string, pointsPossible: number, note?: string) => apiClient.post<Task>(API_ENDPOINTS.TASKS.COMPLETE_TASK(taskId), { userId, pointsPossible, note }),
   getPendingCompletions: () => apiClient.get<PendingCompletionsResponse>(API_ENDPOINTS.TASKS.GET_PENDING_COMPLETIONS),
+  getPendingCompletionsByUser: (userId: string) =>
+    apiClient.get<PendingCompletionsResponse>(`${API_ENDPOINTS.TASKS.GET_PENDING_COMPLETIONS_BY_USER(userId)}`),
 };

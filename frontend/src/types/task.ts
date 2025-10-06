@@ -78,7 +78,6 @@ export interface TaskCompletionResponse {
   userId: string;
 }
 
-// Define the structure for the pending completions response
 export interface PendingCompletionsResponse {
   count: number;
   data: TaskCompletionResponse[];
