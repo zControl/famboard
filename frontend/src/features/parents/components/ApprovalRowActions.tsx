@@ -1,15 +1,14 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
 import { TaskCompletionResponse } from "@/types/task";
-import { Row } from "@tanstack/react-table";
 import { CheckSquare2Icon, XSquareIcon } from "lucide-react";
 import { useState } from "react";
 
-interface TaskRowActionProps {
-  row: Row<TaskCompletionResponse>;
+interface ApprovalRowActionsProps {
+  approval: TaskCompletionResponse;
 }
 
-export const ApprovalRowActions = ({ row }: TaskRowActionProps) => {
+export const ApprovalRowActions = ({ approval }: ApprovalRowActionsProps) => {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   const handleApprove = () => {
@@ -22,33 +21,34 @@ export const ApprovalRowActions = ({ row }: TaskRowActionProps) => {
 
   const handleConfirmApprove = (
     confirmed: boolean,
-    row: Row<TaskCompletionResponse>,
+    approval: TaskCompletionResponse,
   ) => {
     console.log(
       "this is where we do the confirm mutation for .",
       confirmed,
-      row.original.approvalId,
+      approval.approvalId,
     );
     setConfirmModalOpen(false);
   };
 
   return (
-    <div className="flex items-center">
-      <Button variant="highlight" size="icon" onClick={handleReject}>
-        <XSquareIcon />
-      </Button>
-      <Button variant="highlight" size="icon" onClick={handleApprove}>
-        <CheckSquare2Icon />
-      </Button>
-
+    <>
+      <div className="flex items-center gap-2">
+        <Button variant="destructive" size="sm" onClick={handleReject}>
+          <XSquareIcon />
+        </Button>
+        <Button variant="secondary" size="sm" onClick={handleApprove}>
+          <CheckSquare2Icon />
+        </Button>
+      </div>
       <ActionModal
         open={isConfirmModalOpen}
         onOpenChange={setConfirmModalOpen}
         title="Approve or Reject?"
         description={`We need to confirm the approve or reject here."?`}
-        onConfirm={() => handleConfirmApprove(true, row)}
+        onConfirm={() => handleConfirmApprove(true, approval)}
         onCancel={() => setConfirmModalOpen(false)}
       />
-    </div>
+    </>
   );
 };

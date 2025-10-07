@@ -27,7 +27,7 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
         <div className="w-1/4 mx-auto p-4">
           <KidProfileSummaryCard id={id} />
         </div>
-        <div className="flex flex-row justify-around w-full gap-x-4">
+        <div className="flex flex-col md:flex-row justify-around w-full gap-x-2">
           <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
           <KidApprovalsCard userId={userProfile?.userId ?? ""} />
         </div>
