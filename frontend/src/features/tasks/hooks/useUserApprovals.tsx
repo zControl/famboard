@@ -8,7 +8,7 @@ export const useUserApprovals = (userId: string) => {
     error,
   } = useQuery({
     queryKey: ["user-approvals", userId],
-    queryFn: () => taskApi.getPendingCompletionsByUser(userId),
+    queryFn: () => taskApi.getApprovalsByUser(userId),
     enabled: !!userId,
   });
 

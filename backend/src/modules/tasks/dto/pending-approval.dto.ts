@@ -1,7 +1,7 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 
 @Exclude()
-export class PendingCompletionResponseDto {
+export class PendingApprovalDto {
   @Expose()
   @Transform(({ obj }) => obj.id)
   approvalId: string;
@@ -32,7 +32,7 @@ export class PendingCompletionResponseDto {
   @Transform(({ obj }) => obj.user?.id)
   userId: string;
 
-  constructor(partial: Partial<PendingCompletionResponseDto>) {
+  constructor(partial: Partial<PendingApprovalDto>) {
     Object.assign(this, partial);
   }
 }

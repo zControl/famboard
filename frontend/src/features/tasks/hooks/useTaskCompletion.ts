@@ -17,7 +17,6 @@ export const useTaskCompletion = () => {
     // When the mutation succeeds, invalidate relevant queries
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-assigned-tasks"] });
-      queryClient.invalidateQueries({ queryKey: ["task-completions"] });
     },
   });
 

@@ -8,7 +8,8 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
   const { approvalsList, isLoading, error } = useUserApprovals(userId);
   if (error) return <ErrorCard message="Error getting user approval list." />;
   return (
-    <Card className="w-full flex flex-col gap-1 p-2">
+    <Card>
+      <div className="flex justify-end">Approval All</div>
       {isLoading ? (
         <Spinner />
       ) : (

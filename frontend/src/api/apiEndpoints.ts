@@ -14,17 +14,21 @@ export const API_ENDPOINTS = {
     GET_PROFILE: (id: string) => `/users/${id}/profile`,
   },
   TASKS: {
+    CREATE: '/tasks',
     GET_ALL: '/tasks',
     GET_ONE: (id: string) => `/tasks/${id}`,
-    CREATE: '/tasks',
     UPDATE: (id: string) => `/tasks/${id}`,
     DELETE: (id: string) => `/tasks/${id}`,
-    ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
     GET_ASSIGNED_USERS: (id: string) => `/tasks/${id}/assigned-users`,
     GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
+    ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
-    GET_PENDING_COMPLETIONS: `/tasks/completions/pending`,
-    GET_PENDING_COMPLETIONS_BY_USER: (userId: string) => `/tasks/completions/pending/user/${userId}`,
+
+    // we might move these to an APPROVALS controller.
+    GET_APPROVALS: `/tasks/approvals`,
+    GET_APPROVALS_BY_USER: (userId: string) => `/tasks/approvals/user/${userId}`,
+    APPROVE: (approvalId: string) => `/tasks/approvals/${approvalId}/approve`,
+    REJECT: (approvalId: string) => `/tasks/aprovals/${approvalId}/reject`,
   },
   REWARDS: {
     GET_ALL: '/rewards',

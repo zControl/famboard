@@ -8,7 +8,7 @@ export const useApprovals = () => {
     error: approvalsError,
   } = useQuery({
     queryKey: ["approvals"],
-    queryFn: taskApi.getPendingCompletions,
+    queryFn: taskApi.getPendingApprovals,
   });
 
   return {
