@@ -1,11 +1,11 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
-import { TaskCompletionResponse } from "@/types/task";
+import { ApprovalResponse } from "@/types/task";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 interface ApprovalRowActionsProps {
-  approval: TaskCompletionResponse;
+  approval: ApprovalResponse;
 }
 
 export const ApprovalRowActions = ({ approval }: ApprovalRowActionsProps) => {
@@ -20,7 +20,7 @@ export const ApprovalRowActions = ({ approval }: ApprovalRowActionsProps) => {
     setConfirmModalOpen(true);
   };
 
-  const handleConfirmApprove = (approval: TaskCompletionResponse) => {
+  const handleConfirmApprove = (approval: ApprovalResponse) => {
     console.log(
       "this is where we do the confirm mutation for .",
       approval.approvalId,

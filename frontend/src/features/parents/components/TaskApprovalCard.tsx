@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { ApprovalRowActions } from "@/features/parents/components/ApprovalRowActions";
-import { TaskCompletionResponse } from "@/types/task";
+import { ApprovalResponse } from "@/types/task";
 
-export interface AssignedTaskCardProps {
-  approval: TaskCompletionResponse;
+export interface TaskApprovalCardProps {
+  approval: ApprovalResponse;
 }
 
-export const TaskApprovalCard = ({ approval }: AssignedTaskCardProps) => {
+export const TaskApprovalCard = ({ approval }: TaskApprovalCardProps) => {
   return (
     <div className="border rounded-lg shadow-sm hover:shadow-md transition-all mb-4 overflow-hidden">
       <div className="bg-muted/20 p-4">

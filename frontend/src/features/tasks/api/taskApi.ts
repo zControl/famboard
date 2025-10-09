@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, PendingCompletionsResponse, Task, UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse, PendingApprovalsResponse, Task, UserAssignedTaskResponse } from "@/types/task";
 
 export const taskApi = {
   getTasks: () =>
@@ -28,11 +28,18 @@ export const taskApi = {
     apiClient.post<Task>(API_ENDPOINTS.TASKS.ASSIGN_USERS(taskId), { userIds }),
 
   completeTask: (taskId: string, userId: string, pointsPossible: number, note?: string) =>
-    apiClient.post<Task>(API_ENDPOINTS.TASKS.COMPLETE_TASK(taskId), { userId, pointsPossible, note }),
+    apiClient.post<Task>(
+      API_ENDPOINTS.TASKS.COMPLETE_TASK(taskId),
+      {
+        userId,
+        pointsPossible: typeof pointsPossible === 'number' ? pointsPossible : null,
+        note
+      }
+    ),
 
   getPendingApprovals: () =>
-    apiClient.get<PendingCompletionsResponse>(API_ENDPOINTS.TASKS.GET_APPROVALS),
+    apiClient.get<PendingApprovalsResponse>(API_ENDPOINTS.APROVALS.GET_APPROVALS),
 
   getApprovalsByUser: (userId: string) =>
-    apiClient.get<PendingCompletionsResponse>(`${API_ENDPOINTS.TASKS.GET_APPROVALS_BY_USER(userId)}`),
+    apiClient.get<PendingApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
 };

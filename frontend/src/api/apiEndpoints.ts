@@ -23,12 +23,12 @@ export const API_ENDPOINTS = {
     GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
     ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
-
-    // we might move these to an APPROVALS controller.
-    GET_APPROVALS: `/tasks/approvals`,
-    GET_APPROVALS_BY_USER: (userId: string) => `/tasks/approvals/user/${userId}`,
-    APPROVE: (approvalId: string) => `/tasks/approvals/${approvalId}/approve`,
-    REJECT: (approvalId: string) => `/tasks/aprovals/${approvalId}/reject`,
+  },
+  APROVALS: {
+    GET_APPROVALS: `/approvals`,
+    GET_APPROVALS_BY_USER: (userId: string) => `/approvals/user/${userId}`,
+    APPROVE: (approvalId: string) => `/approvals/${approvalId}/approve`,
+    REJECT: (approvalId: string) => `/aprovals/${approvalId}/reject`,
   },
   REWARDS: {
     GET_ALL: '/rewards',

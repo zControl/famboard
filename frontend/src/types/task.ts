@@ -67,7 +67,7 @@ export interface UserAssignedTaskResponse {
   note: string;
 }
 
-export interface TaskCompletionResponse {
+export interface ApprovalResponse {
   approvalId: string;
   completedAt: Date;
   note: string;
@@ -78,7 +78,7 @@ export interface TaskCompletionResponse {
   userId: string;
 }
 
-export interface PendingCompletionsResponse {
+export interface PendingApprovalsResponse {
   count: number;
-  data: TaskCompletionResponse[];
+  data: ApprovalResponse[];
 }

@@ -1,7 +1,7 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 
 @Exclude()
-export class TaskCompletionResponseDto {
+export class ApprovalResponseDto {
   @Expose()
   @Transform(({ obj }) => obj.task.title)
   taskTitle: string;
@@ -12,7 +12,7 @@ export class TaskCompletionResponseDto {
   @Expose()
   note?: string;
 
-  constructor(partial: Partial<TaskCompletionResponseDto>) {
+  constructor(partial: Partial<ApprovalResponseDto>) {
     Object.assign(this, partial);
   }
 }

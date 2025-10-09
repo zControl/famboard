@@ -10,10 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TaskCompletionResponseDto } from 'src/modules/tasks/dto/complete-task-response.dto';
 import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
-import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
-import { TaskActionBodyDto } from 'src/modules/tasks/dto/task-action-body.dto';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
 import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -71,6 +68,11 @@ export class TasksController {
 
   @Get(':taskId/assigned-users')
   @ApiOperation({ summary: 'Get all users that are assigned to a task' })
+  @ApiResponse({
+    status: 200,
+    description: 'Assigned tasks retrieved successfully',
+  })
+  @ApiResponse({ status: 404, description: 'Task not found' })
   async getAssignedUsers(@Param('taskId') taskId: string) {
     return this.tasksService.getAssignedUsers(taskId);
   }
@@ -78,6 +80,7 @@ export class TasksController {
   @Get('user/:userId')
   @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
   findTasksByUser(@Param('userId') userId: string) {
     return this.tasksService.findTasksByUser(userId);
   }
@@ -105,8 +108,7 @@ export class TasksController {
   @ApiOperation({ summary: 'Mark a task as complete (by kid)' })
   @ApiResponse({
     status: 201,
-    description: 'Task completion approved!',
-    type: TaskCompletionResponseDto,
+    description: 'Task marked as complete!',
   })
   @ApiResponse({ status: 404, description: 'Task not found' })
   @ApiBody({ type: CompleteTaskDto })
@@ -114,7 +116,8 @@ export class TasksController {
     @Param('taskId') taskId: string,
     @Body() completeTaskDto: CompleteTaskDto,
   ) {
-    const completion = await this.taskApprovalService.completeTask(
+    console.log('Received DTO:', completeTaskDto);
+    await this.taskApprovalService.completeTask(
       taskId,
       completeTaskDto.userId,
       completeTaskDto.pointsPossible,
@@ -122,91 +125,6 @@ export class TasksController {
     );
     return {
       message: 'Task marked as complete!',
-      data: new TaskCompletionResponseDto(completion),
-    };
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get('approvals')
-  @ApiOperation({ summary: 'Get tasks that are pending approval' })
-  @ApiResponse({
-    status: 200,
-    description: 'Returns all tasks that are pending approval',
-    type: PendingApprovalDto,
-    isArray: true,
-  })
-  async getPendingApprovals() {
-    const approvals = await this.taskApprovalService.getPendingApprovals();
-    return {
-      count: approvals.length,
-      data: approvals.map((approval) => new PendingApprovalDto(approval)),
-    };
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get('approvals/user/:userId')
-  @ApiOperation({
-    summary: 'Get tasks that are pending approval for a specific user',
-  })
-  @ApiResponse({
-    status: 200,
-    description:
-      'Returns all pending task pending approvals for a specific user',
-    type: PendingApprovalDto,
-    isArray: true,
-  })
-  async getPendingCompletionsByUser(@Param('userId') userId: string) {
-    const approvals =
-      await this.taskApprovalService.getPendingApprovalsByUser(userId);
-    return {
-      count: approvals.length,
-      data: approvals.map((approval) => new PendingApprovalDto(approval)),
-    };
-  }
-
-  @Patch('approvals/:approvalId/approve')
-  @ApiOperation({ summary: 'Approve a task' })
-  @ApiResponse({
-    status: 200,
-    description: 'Task has been approved',
-  })
-  @ApiBody({ type: TaskActionBodyDto })
-  async approveTask(
-    @Param('approvalId') approvalId: string,
-    @Body() approveDto: TaskActionBodyDto,
-  ) {
-    const approval = await this.taskApprovalService.approveTask(
-      approvalId,
-      approveDto.parentId,
-      approveDto.note,
-    );
-
-    return {
-      message: 'Task approved!',
-      data: new TaskCompletionResponseDto(approval),
-    };
-  }
-
-  @Patch('approvals/:approvalId/reject')
-  @ApiOperation({ summary: 'Reject a task' })
-  @ApiResponse({
-    status: 200,
-    description: 'Task rejected',
-  })
-  @ApiBody({ type: TaskActionBodyDto })
-  async rejectTask(
-    @Param('approvalId') approvalId: string,
-    @Body() rejectDto: TaskActionBodyDto,
-  ) {
-    const rejection = await this.taskApprovalService.rejectTask(
-      approvalId,
-      rejectDto.parentId,
-      rejectDto.note,
-    );
-
-    return {
-      message: 'Task rejected',
-      data: new TaskCompletionResponseDto(rejection),
     };
   }
 }

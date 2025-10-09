@@ -7,10 +7,8 @@ export class PendingApprovalDto {
   approvalId: string;
 
   @Expose()
-  completedAt: Date;
-
-  @Expose()
-  note: string;
+  @Transform(({ obj }) => obj.user?.id)
+  userId: string;
 
   @Expose()
   @Transform(({ obj }) => obj.task?.id)
@@ -29,8 +27,10 @@ export class PendingApprovalDto {
   pointsPossible: number;
 
   @Expose()
-  @Transform(({ obj }) => obj.user?.id)
-  userId: string;
+  note: string;
+
+  @Expose()
+  completedAt: Date;
 
   constructor(partial: Partial<PendingApprovalDto>) {
     Object.assign(this, partial);

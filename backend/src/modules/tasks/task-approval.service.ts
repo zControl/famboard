@@ -77,6 +77,7 @@ export class TaskApprovalService {
         },
       },
     });
+    console.log('Approvals:', approvals);
     return (await approvals).map(
       (approval) => new PendingApprovalDto(approval),
     );

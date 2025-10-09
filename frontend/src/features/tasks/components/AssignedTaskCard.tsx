@@ -28,13 +28,13 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
   const [note, setNote] = useState("");
 
   const handleTaskCompletion = () => {
+    console.log("this is where we do the mutation .");
     if (!user?.id) return;
-
     completeTaskMutation.mutate(
       {
         taskId: task.id,
         userId: user.id,
-        pointsPossible: task.pointValue,
+        pointsPossible: 22,
         note: note,
       },
       {
@@ -70,20 +70,20 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
         <div className="flex gap-2 w-full justify-end">
           <ActionModal
             trigger={
-              <Button variant="secondary">
+              <Button variant="primary">
                 {isCompleting ? <Spinner size="sm" /> : <SquareCheckBigIcon />}
               </Button>
             }
             title={`Did you complete "${task.title}"?`}
             description={`This will earn you ${task.pointValue} points!`}
-            onConfirm={handleTaskCompletion}
+            onConfirm={() => handleTaskCompletion()}
             onCancel={() => console.log("Cancel")}
           >
             <Textarea
               placeholder="Leave a note if you want...."
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full min-h-12 mt-4"
+              className="w-full min-h-20 mt-4"
               maxLength={300}
             />
           </ActionModal>

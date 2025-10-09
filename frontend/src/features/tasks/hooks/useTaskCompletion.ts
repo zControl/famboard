@@ -12,11 +12,12 @@ export const useTaskCompletion = () => {
   const queryClient = useQueryClient();
   const completeTaskMutation = useMutation({
     mutationFn: ({ taskId, userId, pointsPossible, note }: CompleteTaskParams) =>
-      taskApi.completeTask(taskId, userId, pointsPossible, note,),
+      taskApi.completeTask(taskId, userId, pointsPossible, note),
 
     // When the mutation succeeds, invalidate relevant queries
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user-assigned-tasks"] });
+
     },
   });
 
