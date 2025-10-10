@@ -33,7 +33,7 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
               className="size-8 text-green-600 mr-2"
             />
             <StatLabel>Points:</StatLabel>
-            <StatValue>|completed number|</StatValue>
+            <StatValue>{profile?.pointTotal}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
             <Calendar1Icon className="size-8 text-blue-600 mr-2" />

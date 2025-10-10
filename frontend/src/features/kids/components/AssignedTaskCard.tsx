@@ -28,13 +28,12 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
   const [note, setNote] = useState("");
 
   const handleTaskCompletion = () => {
-    console.log("this is where we do the mutation .");
     if (!user?.id) return;
     completeTaskMutation.mutate(
       {
         taskId: task.id,
         userId: user.id,
-        pointsPossible: 22,
+        pointsPossible: task.pointValue,
         note: note,
       },
       {

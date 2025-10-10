@@ -32,7 +32,7 @@ export const taskApi = {
       API_ENDPOINTS.TASKS.COMPLETE_TASK(taskId),
       {
         userId,
-        pointsPossible: typeof pointsPossible === 'number' ? pointsPossible : null,
+        pointsPossible: pointsPossible,
         note
       }
     ),
@@ -42,4 +42,10 @@ export const taskApi = {
 
   getApprovalsByUser: (userId: string) =>
     apiClient.get<PendingApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
+
+  approveTask: (approvalId: string) =>
+    apiClient.patch<void>(API_ENDPOINTS.APROVALS.APPROVE(approvalId)),
+
+  rejectTask: (approvalId: string) =>
+    apiClient.patch<void>(API_ENDPOINTS.APROVALS.REJECT(approvalId)),
 };

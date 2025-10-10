@@ -1,23 +1,39 @@
 import { ErrorCard } from "@/components/common/ErrorCard";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { TaskApprovalCard } from "@/features/parents/components/TaskApprovalCard";
 import { useUserApprovals } from "@/features/tasks/hooks/useUserApprovals";
+import { PartyPopperIcon } from "lucide-react";
 
 export const KidApprovalsCard = ({ userId }: { userId: string }) => {
   const { approvalsList, isLoading, error } = useUserApprovals(userId);
   if (error) return <ErrorCard message="Error getting user approval list." />;
   return (
-    <Card>
-      <div className="flex justify-end">Approval All</div>
+    <Card className="p-4">
+      <div className="flex justify-end">
+        <Button
+          variant={"secondary"}
+          size={"lg"}
+          disabled={approvalsList?.count === 0}
+        >
+          {approvalsList?.count === 0
+            ? "No Approvals"
+            : `Approve All (${approvalsList?.count})`}
+        </Button>
+      </div>
       {isLoading ? (
         <Spinner />
+      ) : approvalsList?.count === 0 ? (
+        <CardContent className="flex flex-col items-center justify-center">
+          <PartyPopperIcon className="size-48 text-highlight" />
+        </CardContent>
       ) : (
-        <>
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
           {approvalsList?.data.map((approval) => (
             <TaskApprovalCard key={approval.approvalId} approval={approval} />
           ))}
-        </>
+        </div>
       )}
     </Card>
   );

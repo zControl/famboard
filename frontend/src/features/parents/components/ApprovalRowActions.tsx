@@ -1,5 +1,6 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
+import { useApprovals } from "@/features/parents/hooks/useApprovals";
 import { ApprovalResponse } from "@/types/task";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useState } from "react";
@@ -9,32 +10,29 @@ interface ApprovalRowActionsProps {
 }
 
 export const ApprovalRowActions = ({ approval }: ApprovalRowActionsProps) => {
+  const { approveTaskMutation } = useApprovals();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
-  const handleApprove = () => {
-    setConfirmModalOpen(true);
-    console.log("this is where we do the approve mutation .");
-  };
-
-  const handleReject = () => {
-    setConfirmModalOpen(true);
-  };
-
   const handleConfirmApprove = (approval: ApprovalResponse) => {
-    console.log(
-      "this is where we do the confirm mutation for .",
-      approval.approvalId,
-    );
+    approveTaskMutation(approval.approvalId);
     setConfirmModalOpen(false);
   };
 
   return (
     <>
       <div className="flex items-center gap-2">
-        <Button variant="warning" size="sm" onClick={handleReject}>
+        <Button
+          variant="warning"
+          size="sm"
+          onClick={() => setConfirmModalOpen(true)}
+        >
           <XIcon />
         </Button>
-        <Button variant="primary" size="sm" onClick={handleApprove}>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => setConfirmModalOpen(true)}
+        >
           <CheckIcon />
         </Button>
       </div>

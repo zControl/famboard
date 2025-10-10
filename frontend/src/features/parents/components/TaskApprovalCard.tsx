@@ -9,7 +9,7 @@ export interface TaskApprovalCardProps {
 
 export const TaskApprovalCard = ({ approval }: TaskApprovalCardProps) => {
   return (
-    <div className="border rounded-lg shadow-sm hover:shadow-md transition-all mb-4 overflow-hidden">
+    <div className="border rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden">
       <div className="bg-muted/20 p-4">
         <div className="flex justify-between items-start">
           <div className="space-y-2">
