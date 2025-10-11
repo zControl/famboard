@@ -20,16 +20,16 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
   return (
     <Tile
       title={userProfile?.firstName || "No Name!"}
-      menu="actions"
+      menu="actions can go here"
       footer="footer"
     >
       <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
         <div className="w-1/4 mx-auto p-4">
           <KidProfileSummaryCard id={id} />
         </div>
-        <div className="flex flex-row justify-around w-full gap-x-4">
-          <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
+        <div className="flex flex-col justify-around w-full gap-x-2">
           <KidApprovalsCard userId={userProfile?.userId ?? ""} />
+          <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
         </div>
       </div>
     </Tile>

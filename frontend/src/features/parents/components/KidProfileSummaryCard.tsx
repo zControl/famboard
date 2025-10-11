@@ -4,6 +4,8 @@ import { firstInitial } from "@/utils/firstInitial";
 
 export const KidProfileSummaryCard = ({ id }: { id: string }) => {
   const { data: userProfile } = useUserProfile(id);
+
+  //TODO: expand this to show all profile fields, and make it editable.
   return (
     <div className="mx-auto flex flex-col items-center gap-2">
       <Avatar className="h-24 w-24">

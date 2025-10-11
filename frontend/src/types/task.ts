@@ -6,11 +6,12 @@ export enum TaskCategory {
   Friendly = 'FRIENDLY',
   Helpful = 'HELPFUL',
   Improvement = 'IMPROVEMENT',
+  Fitness = 'FITNESS',
   Other = 'OTHER'
 }
 
 export enum TaskFrequency {
-  Always = 'ALWAYS',
+  Once = 'ONCE',
   Daily = 'DAILY',
   Weekly = 'WEEKLY',
   Monthly = 'MONTHLY',
@@ -55,6 +56,7 @@ export interface AssignedTaskResponse {
 }
 
 export interface UserAssignedTaskResponse {
+  id: string;
   sequenceNumber: number;
   title: string;
   description: string;
@@ -63,4 +65,20 @@ export interface UserAssignedTaskResponse {
   status: TaskStatus;
   frequency: TaskFrequency;
   note: string;
+}
+
+export interface ApprovalResponse {
+  approvalId: string;
+  completedAt: Date;
+  note: string;
+  taskId: string;
+  taskTitle: string;
+  taskDescription: string;
+  pointsPossible: number;
+  userId: string;
+}
+
+export interface PendingApprovalsResponse {
+  count: number;
+  data: ApprovalResponse[];
 }

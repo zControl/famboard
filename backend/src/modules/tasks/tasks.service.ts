@@ -32,17 +32,6 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
-  async findTaskBySequenceNumber(sequenceNumber: string): Promise<Task> {
-    const task = await this.tasksRepository.findOne({
-      where: { sequenceNumber: parseInt(sequenceNumber, 10) },
-    });
-    if (!task)
-      throw new NotFoundException(
-        `Task with sequence number "${sequenceNumber}" not found`,
-      );
-    return task;
-  }
-
   async findTaskById(taskId: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({ where: { id: taskId } });
     if (!task)
@@ -177,50 +166,4 @@ export class TasksService {
 
     return assignments.map((assignment) => assignment.task);
   }
-
-  // This was the old method of assigning a task to multiple users...might not be needed anymore.
-  /*   async assignTask(
-    assignTaskDto: AssignTaskDto,
-    assignerId: string,
-  ): Promise<{ message: string }> {
-    const task = await this.tasksRepository.findOne({
-      where: { id: assignTaskDto.taskId },
-    });
-    if (!task) {
-      throw new NotFoundException('Task not found');
-    }
-
-    const assigner = await this.usersRepository.findOne({
-      where: { id: assignerId },
-    });
-    if (
-      !assigner ||
-      (assigner.group !== UserGroup.ADMIN &&
-        assigner.group !== UserGroup.PARENT)
-    ) {
-      throw new ForbiddenException('You are not authorized to assign tasks');
-    }
-
-    const users = await this.usersRepository.findByIds(assignTaskDto.userIds);
-    const kidUsers = users.filter((user) => user.group === UserGroup.KID);
-
-    if (kidUsers.length !== assignTaskDto.userIds.length) {
-      throw new BadRequestException(
-        'All assigned users must be in the KID group',
-      );
-    }
-
-    const assignments = kidUsers.map((user) => {
-      const assignment = new TaskAssignment();
-      assignment.task = task;
-      assignment.user = user;
-      return assignment;
-    });
-
-    await this.taskAssignmentRepository.save(assignments);
-
-    return {
-      message: 'Task assigned successfully',
-    };
-  } */
 }

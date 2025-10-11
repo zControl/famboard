@@ -1,14 +1,18 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
+import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
@@ -16,7 +20,10 @@ import { TasksService } from './tasks.service';
 @ApiTags('Tasks')
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(
+    private readonly tasksService: TasksService,
+    private readonly taskApprovalService: TaskApprovalService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new task' })
@@ -42,14 +49,6 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
-  @Get(':sequenceNumber')
-  @ApiOperation({ summary: 'Get a task by Sequence Number' })
-  @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
-  @ApiResponse({ status: 404, description: 'Task not found' })
-  findBySequenceNumber(@Param('sequenceNumber') sequenceNumber: string) {
-    return this.tasksService.findTaskBySequenceNumber(sequenceNumber);
-  }
-
   @Get(':taskId')
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
@@ -68,8 +67,22 @@ export class TasksController {
   }
 
   @Get(':taskId/assigned-users')
+  @ApiOperation({ summary: 'Get all users that are assigned to a task' })
+  @ApiResponse({
+    status: 200,
+    description: 'Assigned tasks retrieved successfully',
+  })
+  @ApiResponse({ status: 404, description: 'Task not found' })
   async getAssignedUsers(@Param('taskId') taskId: string) {
     return this.tasksService.getAssignedUsers(taskId);
+  }
+
+  @Get('user/:userId')
+  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
+  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  findTasksByUser(@Param('userId') userId: string) {
+    return this.tasksService.findTasksByUser(userId);
   }
 
   @Delete(':taskId')
@@ -90,10 +103,28 @@ export class TasksController {
     return this.tasksService.assignUsersToTask(taskId, body.userIds);
   }
 
-  @Get('user/:userId')
-  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
-  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
-  findTasksByUser(@Param('userId') userId: string) {
-    return this.tasksService.findTasksByUser(userId);
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post(':taskId/complete')
+  @ApiOperation({ summary: 'Mark a task as complete (by kid)' })
+  @ApiResponse({
+    status: 201,
+    description: 'Task marked as complete!',
+  })
+  @ApiResponse({ status: 404, description: 'Task not found' })
+  @ApiBody({ type: CompleteTaskDto })
+  async completeTask(
+    @Param('taskId') taskId: string,
+    @Body() completeTaskDto: CompleteTaskDto,
+  ) {
+    console.log('Received DTO:', completeTaskDto);
+    await this.taskApprovalService.completeTask(
+      taskId,
+      completeTaskDto.userId,
+      completeTaskDto.pointsPossible,
+      completeTaskDto.note,
+    );
+    return {
+      message: 'Task marked as complete!',
+    };
   }
 }

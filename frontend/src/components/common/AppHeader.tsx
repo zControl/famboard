@@ -4,6 +4,7 @@ import { ButtonLink } from "@/components/composites/ButtonLink";
 import { Header3 } from "@/components/ui/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
+import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserGroup } from "@/types/user";
 import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
 
@@ -60,9 +61,12 @@ const ParentActions = () => (
 );
 
 const KidActions = () => {
+  const { profile } = useProfile();
   return (
     <div className="flex items-center gap-2">
-      <Header3 className="text-highlight">Points: 72</Header3>
+      <Header3 className="text-highlight">
+        Points: {profile?.pointTotal || 0}
+      </Header3>
     </div>
   );
 };

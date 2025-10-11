@@ -23,6 +23,7 @@ export interface UserProfile {
   status: string;
   theme: string;
   avatarUrl: string;
+  pointTotal: number;
 }
 
 export interface UsersByGroupResponse {

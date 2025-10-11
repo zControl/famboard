@@ -11,10 +11,16 @@ export const useKidManager = () => {
     queryFn: usersApi.getUserByGroup("kid"),
   });
 
+  // Sort the response by firstName
+  const sortedKidProfiles = [...(kidIdsResponse || [])].sort((a, b) =>
+    (a.profile.firstName || "").localeCompare(b.profile.firstName || ""),
+  );
+
   const kidIds =
-    kidIdsResponse?.map((userByGroup) => userByGroup.profile.userId) || [];
+    sortedKidProfiles?.map((userByGroup) => userByGroup.profile.userId) || [];
 
   return {
+    kidProfiles: sortedKidProfiles,
     kidIds,
     isLoadingIds,
     idsError,
