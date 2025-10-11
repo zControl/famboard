@@ -28,7 +28,7 @@ export const API_ENDPOINTS = {
     GET_APPROVALS: `/approvals`,
     GET_APPROVALS_BY_USER: (userId: string) => `/approvals/user/${userId}`,
     APPROVE: (approvalId: string) => `/approvals/${approvalId}/approve`,
-    REJECT: (approvalId: string) => `/aprovals/${approvalId}/reject`,
+    REJECT: (approvalId: string) => `/approvals/${approvalId}/reject`,
   },
   REWARDS: {
     GET_ALL: '/rewards',

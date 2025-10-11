@@ -43,9 +43,17 @@ export const taskApi = {
   getApprovalsByUser: (userId: string) =>
     apiClient.get<PendingApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
 
-  approveTask: (approvalId: string) =>
-    apiClient.patch<void>(API_ENDPOINTS.APROVALS.APPROVE(approvalId)),
+  approveTask: (approvalId: string, parentId: string, note?: string) =>
+    apiClient.patch<void>(API_ENDPOINTS.APROVALS.APPROVE(approvalId),
+      {
+        parentId,
+        note
+      }),
 
-  rejectTask: (approvalId: string) =>
-    apiClient.patch<void>(API_ENDPOINTS.APROVALS.REJECT(approvalId)),
+  rejectTask: (approvalId: string, parentId: string, note?: string) =>
+    apiClient.patch<void>(API_ENDPOINTS.APROVALS.REJECT(approvalId),
+      {
+        parentId,
+        note
+      }),
 };
