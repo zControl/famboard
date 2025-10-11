@@ -9,7 +9,7 @@ interface ValueSliderProps {
   step?: number;
 }
 export const ValueSlider = ({
-  defaultValue = [50],
+  defaultValue = [25],
   onValueChange,
   max = 100,
   min = 0,

@@ -3,29 +3,56 @@ import * as React from "react";
 
 import { cn } from "@/utils/classNames";
 
+interface SliderProps
+  extends React.ComponentProps<typeof SliderPrimitive.Root> {
+  indicator?: React.ReactNode | ((value: number) => React.ReactNode);
+}
+
 function Slider({
   className,
   defaultValue,
   value,
+  onValueChange,
   min = 0,
   max = 100,
+  indicator,
   ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
-  const _values = React.useMemo(
-    () =>
-      Array.isArray(value)
-        ? value
-        : Array.isArray(defaultValue)
-          ? defaultValue
-          : [min, max],
-    [value, defaultValue, min, max],
+}: SliderProps) {
+  const [localValue, setLocalValue] = React.useState(defaultValue || [0]);
+
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : localValue;
+
+  const handleValueChange = React.useCallback(
+    (newValue: number[]) => {
+      if (!isControlled) {
+        setLocalValue(newValue);
+      }
+      onValueChange?.(newValue);
+    },
+    [isControlled, onValueChange],
   );
+
+  const renderIndicator = () => {
+    if (indicator) {
+      if (typeof indicator === "function") {
+        return indicator(currentValue[0]);
+      }
+      return indicator;
+    }
+    return (
+      <div className="flex h-full w-full items-center justify-center text-sm font-medium">
+        {currentValue[0]}
+      </div>
+    );
+  };
 
   return (
     <SliderPrimitive.Root
       data-slot="slider"
       defaultValue={defaultValue}
-      value={value}
+      value={currentValue}
+      onValueChange={handleValueChange}
       min={min}
       max={max}
       className={cn(
@@ -47,13 +74,11 @@ function Slider({
           )}
         />
       </SliderPrimitive.Track>
-      {Array.from({ length: _values.length }, (_, index) => (
-        <SliderPrimitive.Thumb
-          data-slot="slider-thumb"
-          key={index}
-          className="border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
-        />
-      ))}
+      <SliderPrimitive.Thumb className="block rounded-full border border-primary/50 bg-background shadow-sm transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+        <div className="flex h-full w-full items-center justify-center text-sm font-medium">
+          {renderIndicator()}
+        </div>
+      </SliderPrimitive.Thumb>
     </SliderPrimitive.Root>
   );
 }

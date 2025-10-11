@@ -147,7 +147,6 @@ export const TaskModal = ({
                   <FormControl>
                     <div className="flex flex-col pt-4">
                       <ValueSlider
-                        defaultValue={[field.value]}
                         onValueChange={(value) => field.onChange(value[0])}
                       />
                     </div>
