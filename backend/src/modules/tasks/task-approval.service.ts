@@ -70,6 +70,7 @@ export class TaskApprovalService {
           id: true,
           title: true,
           description: true,
+          category: true,
           pointValue: true,
         },
         user: {
@@ -204,6 +205,7 @@ export class TaskApprovalService {
           id: true,
           title: true,
           description: true,
+          category: true,
           pointValue: true,
         },
         user: {
