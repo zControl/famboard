@@ -49,6 +49,14 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
+  @Get(':sequenceNumber')
+  @ApiOperation({ summary: 'Get a task by Sequence Number' })
+  @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
+  @ApiResponse({ status: 404, description: 'Task not found' })
+  findBySequenceNumber(@Param('sequenceNumber') sequenceNumber: string) {
+    return this.tasksService.findTaskBySequenceNumber(sequenceNumber);
+  }
+
   @Get(':taskId')
   @ApiOperation({ summary: 'Get a task by ID' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
