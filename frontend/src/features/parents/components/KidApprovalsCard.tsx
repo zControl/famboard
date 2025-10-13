@@ -18,6 +18,7 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
   const { user } = useAuth();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [note, setNote] = useState("Bulk approved");
+
   if (error) return <ErrorCard message="Error getting user approval list." />;
 
   const handleApprovalAll = () => {

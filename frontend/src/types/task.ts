@@ -74,6 +74,7 @@ export interface ApprovalResponse {
   taskId: string;
   taskTitle: string;
   taskDescription: string;
+  taskCategory: TaskCategory;
   pointsPossible: number;
   userId: string;
 }

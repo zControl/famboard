@@ -32,6 +32,17 @@ export class TasksService {
     return await this.tasksRepository.find();
   }
 
+  async findTaskBySequenceNumber(sequenceNumber: string): Promise<Task> {
+    const task = await this.tasksRepository.findOne({
+      where: { sequenceNumber: parseInt(sequenceNumber, 10) },
+    });
+    if (!task)
+      throw new NotFoundException(
+        `Task with sequence number "${sequenceNumber}" not found`,
+      );
+    return task;
+  }
+
   async findTaskById(taskId: string): Promise<Task> {
     const task = await this.tasksRepository.findOne({ where: { id: taskId } });
     if (!task)

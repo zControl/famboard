@@ -23,6 +23,10 @@ export class PendingApprovalDto {
   taskDescription: string;
 
   @Expose()
+  @Transform(({ obj }) => obj.task?.category)
+  taskCategory: string;
+
+  @Expose()
   @Transform(({ obj }) => obj.task?.pointValue)
   pointsPossible: number;
 
