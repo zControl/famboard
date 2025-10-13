@@ -12,7 +12,7 @@ export const TaskApprovalCard = ({ approval }: TaskApprovalCardProps) => {
     <div className="border rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden">
       <div className="bg-muted/20 p-4">
         <div className="flex justify-between items-start">
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col lg:flex-row  items-start gap-4">
             <TaskCategoryBadge category={approval.taskCategory} />
             <div>
               <CardTitle className="text-lg font-semibold">
@@ -35,13 +35,13 @@ export const TaskApprovalCard = ({ approval }: TaskApprovalCardProps) => {
         </div>
       </div>
 
-      <CardContent className="p-4 pt-3">
-        {approval.note && (
+      {approval.note && (
+        <CardContent className="pt-3">
           <div className="bg-muted/10 rounded-md p-3 border-l-2 border-primary">
             <p className="text-sm italic">{approval.note}</p>
           </div>
-        )}
-      </CardContent>
+        </CardContent>
+      )}
     </div>
   );
 };
