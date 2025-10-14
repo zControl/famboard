@@ -55,10 +55,55 @@ export class TaskApprovalService {
     return this.taskApprovalRepository.save(taskCompletion);
   }
 
-  // Get all tasks from approval table with PENDING_APPROVAL status
+  async getApprovals(
+    filters?: Partial<TaskApproval>,
+  ): Promise<PendingApprovalDto[]> {
+    const queryOptions = {
+      relations: ['task', 'user'],
+      select: {
+        id: true,
+        completedAt: true,
+        note: true,
+        status: true,
+        pointsPossible: true,
+        task: {
+          id: true,
+          title: true,
+          description: true,
+          category: true,
+          pointValue: true,
+        },
+        user: {
+          id: true,
+        },
+      },
+    };
+
+    // Add where clause if filters provided
+    if (filters) {
+      queryOptions['where'] = filters;
+    }
+
+    const approvals = await this.taskApprovalRepository.find(queryOptions);
+    return approvals.map((approval) => new PendingApprovalDto(approval));
+  }
+
+  async getAllApprovals(): Promise<PendingApprovalDto[]> {
+    return this.getApprovals();
+  }
+
   async getPendingApprovals(): Promise<PendingApprovalDto[]> {
+    return this.getApprovals({ status: 'PENDING_APPROVAL' });
+  }
+
+  async getPendingApprovalsByUser(
+    userId: string,
+  ): Promise<PendingApprovalDto[]> {
     const approvals = this.taskApprovalRepository.find({
-      where: { status: 'PENDING_APPROVAL' },
+      where: {
+        status: 'PENDING_APPROVAL',
+        user: { id: userId },
+      },
       relations: ['task', 'user'],
       select: {
         id: true,
@@ -78,7 +123,6 @@ export class TaskApprovalService {
         },
       },
     });
-    console.log('Approvals:', approvals);
     return (await approvals).map(
       (approval) => new PendingApprovalDto(approval),
     );
@@ -184,37 +228,5 @@ export class TaskApprovalService {
 
     // Save the approval record
     return this.taskApprovalRepository.save(approval);
-  }
-
-  async getPendingApprovalsByUser(
-    userId: string,
-  ): Promise<PendingApprovalDto[]> {
-    const approvals = this.taskApprovalRepository.find({
-      where: {
-        status: 'PENDING_APPROVAL',
-        user: { id: userId },
-      },
-      relations: ['task', 'user'],
-      select: {
-        id: true,
-        completedAt: true,
-        note: true,
-        status: true,
-        pointsPossible: true,
-        task: {
-          id: true,
-          title: true,
-          description: true,
-          category: true,
-          pointValue: true,
-        },
-        user: {
-          id: true,
-        },
-      },
-    });
-    return (await approvals).map(
-      (approval) => new PendingApprovalDto(approval),
-    );
   }
 }

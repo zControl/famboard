@@ -24,6 +24,7 @@ const ParentNavigation = () => (
     <ButtonLink href="/parents/manage">Manage</ButtonLink>
     <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
     <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
+    <ButtonLink href="/parents/approvals">Approvals</ButtonLink>
   </div>
 );
 
