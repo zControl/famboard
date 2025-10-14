@@ -30,6 +30,7 @@ import { Route as testTestABRouteImport } from './routes/(test)/test.a.b_'
 import { Route as appParentsParentsTasksRouteImport } from './routes/(app)/_parents/parents.tasks_'
 import { Route as appParentsParentsRewardsRouteImport } from './routes/(app)/_parents/parents.rewards_'
 import { Route as appParentsParentsManageRouteImport } from './routes/(app)/_parents/parents.manage'
+import { Route as appParentsParentsApprovalsRouteImport } from './routes/(app)/_parents/parents.approvals'
 import { Route as appKidsKidsPlayRouteImport } from './routes/(app)/_kids/kids.play'
 import { Route as appKidsKidsHelpRouteImport } from './routes/(app)/_kids/kids.help'
 import { Route as appKidsKidsFitnessRouteImport } from './routes/(app)/_kids/kids.fitness'
@@ -326,6 +327,12 @@ const appParentsParentsManageRoute = appParentsParentsManageRouteImport.update({
   path: '/parents/manage',
   getParentRoute: () => appParentsRoute,
 } as any)
+const appParentsParentsApprovalsRoute =
+  appParentsParentsApprovalsRouteImport.update({
+    id: '/parents/approvals',
+    path: '/parents/approvals',
+    getParentRoute: () => appParentsRoute,
+  } as any)
 const appKidsKidsPlayRoute = appKidsKidsPlayRouteImport.update({
   id: '/kids/play',
   path: '/kids/play',
@@ -400,6 +407,7 @@ export interface FileRoutesByFullPath {
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
+  '/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
@@ -442,6 +450,7 @@ export interface FileRoutesByTo {
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
+  '/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
@@ -492,6 +501,7 @@ export interface FileRoutesById {
   '/(app)/_kids/kids/fitness': typeof appKidsKidsFitnessRoute
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
   '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
+  '/(app)/_parents/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
   '/(app)/_parents/parents/rewards_': typeof appParentsParentsRewardsRoute
   '/(app)/_parents/parents/tasks_': typeof appParentsParentsTasksRoute
@@ -536,6 +546,7 @@ export interface FileRouteTypes {
     | '/kids/fitness'
     | '/kids/help'
     | '/kids/play'
+    | '/parents/approvals'
     | '/parents/manage'
     | '/parents/rewards'
     | '/parents/tasks'
@@ -578,6 +589,7 @@ export interface FileRouteTypes {
     | '/kids/fitness'
     | '/kids/help'
     | '/kids/play'
+    | '/parents/approvals'
     | '/parents/manage'
     | '/parents/rewards'
     | '/parents/tasks'
@@ -627,6 +639,7 @@ export interface FileRouteTypes {
     | '/(app)/_kids/kids/fitness'
     | '/(app)/_kids/kids/help'
     | '/(app)/_kids/kids/play'
+    | '/(app)/_parents/parents/approvals'
     | '/(app)/_parents/parents/manage'
     | '/(app)/_parents/parents/rewards_'
     | '/(app)/_parents/parents/tasks_'
@@ -920,6 +933,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsManageRouteImport
       parentRoute: typeof appParentsRoute
     }
+    '/(app)/_parents/parents/approvals': {
+      id: '/(app)/_parents/parents/approvals'
+      path: '/parents/approvals'
+      fullPath: '/parents/approvals'
+      preLoaderRoute: typeof appParentsParentsApprovalsRouteImport
+      parentRoute: typeof appParentsRoute
+    }
     '/(app)/_kids/kids/play': {
       id: '/(app)/_kids/kids/play'
       path: '/kids/play'
@@ -1067,6 +1087,7 @@ const appKidsRouteWithChildren =
   appKidsRoute._addFileChildren(appKidsRouteChildren)
 
 interface appParentsRouteChildren {
+  appParentsParentsApprovalsRoute: typeof appParentsParentsApprovalsRoute
   appParentsParentsManageRoute: typeof appParentsParentsManageRoute
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
@@ -1075,6 +1096,7 @@ interface appParentsRouteChildren {
 }
 
 const appParentsRouteChildren: appParentsRouteChildren = {
+  appParentsParentsApprovalsRoute: appParentsParentsApprovalsRoute,
   appParentsParentsManageRoute: appParentsParentsManageRoute,
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
