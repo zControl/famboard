@@ -2,8 +2,6 @@ import { PageContainer } from "@/components/common/PageContainer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { KidSummaryTile } from "@/features/parents/components/KidSummaryTile";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
-import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
-import { TaskCategory } from "@/types/task";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_parents/parents/")({
@@ -45,8 +43,6 @@ function ParentsIndexPage() {
       ) : (
         <div>No kids found</div>
       )}
-      <TaskCategoryBadge category={TaskCategory.Personal} />
-      <TaskCategoryBadge category={TaskCategory.Academic} />
     </PageContainer>
   );
 }

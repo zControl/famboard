@@ -17,6 +17,8 @@ export const useUserProfile = (userId: string) => {
 
   return {
     ...query,
+    isLoading: query.isLoading,
+    error: query.error,
     userProfile: query.data,
   };
 };

@@ -1,21 +1,72 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
+import {
+  StyledGemIcon,
+  StyledPiggyBankIcon,
+} from "@/components/ui/styled-icons";
+import { StatLabel, StatValue } from "@/components/ui/typography";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { firstInitial } from "@/utils/firstInitial";
 
 export const KidProfileSummaryCard = ({ id }: { id: string }) => {
-  const { data: userProfile } = useUserProfile(id);
+  const { userProfile, isLoading } = useUserProfile(id);
 
-  //TODO: expand this to show all profile fields, and make it editable.
+  if (!userProfile) {
+    return (
+      <Card className="w-full">
+        <CardContent className="p-6 flex flex-col items-center gap-4">
+          <Avatar className="h-24 w-24">
+            <AvatarFallback>{"??"}</AvatarFallback>
+          </Avatar>
+          <div className="text-lg">No Profile</div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
-    <div className="mx-auto flex flex-col items-center gap-2">
-      <Avatar className="h-24 w-24">
-        <AvatarImage src={userProfile?.avatarUrl} alt="Avatar" />
-        <AvatarFallback>
-          {firstInitial(userProfile?.username ?? "")}
-        </AvatarFallback>
-      </Avatar>
-      <div className="text-center">{userProfile?.status}</div>
-      <div>{userProfile?.statusEmoji}</div>
+    <div className="p-0 flex flex-col gap-4">
+      <div className="flex flex-col items-center gap-2">
+        <Avatar className="h-24 w-24 border-4 border-background shadow-lg">
+          <AvatarImage src={userProfile.avatarUrl} alt="Avatar" />
+          <AvatarFallback>
+            {firstInitial(userProfile.username ?? "")}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex items-center justify-around gap-2">
+          <div>{userProfile.statusEmoji}</div>
+          <div className="text-muted-foreground">{userProfile.status}</div>
+        </div>
+      </div>
+
+      <div className="flex flex-row justify-around">
+        <div className="flex flex-col items-center">
+          <StyledPiggyBankIcon />
+          <StatValue>{userProfile.pointTotal || 1}</StatValue>
+        </div>
+
+        <div className="flex flex-col items-center">
+          <StyledGemIcon />
+          <StatValue>{userProfile.pointTotal || 0}</StatValue>
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col">
+          <StatLabel>Achievements</StatLabel>
+          {/* <StatValue>{userProfile.achievements?.length || 0}</StatValue> */}
+          <StatValue>TBD</StatValue>
+        </div>
+
+        <div className="flex flex-col">
+          <StatLabel>About</StatLabel>
+          <StatValue>{userProfile.bio}</StatValue>
+        </div>
+      </div>
     </div>
   );
 };

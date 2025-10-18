@@ -55,7 +55,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
   {
     accessorKey: "pointValue",
     header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Points" />
+      <SupremeColumnHeader column={column} title="Coins" />
     ),
     cell: ({ row }) => (
       <div className="flex justify-center items-center text-center">
