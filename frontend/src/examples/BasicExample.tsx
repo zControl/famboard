@@ -7,6 +7,14 @@ import { Code } from "@/components/ui/code";
 import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  StyledCalendar1Icon,
+  StyledCalendarCheckIcon,
+  StyledFlameIcon,
+  StyledGemIcon,
+  StyledPiggyBankIcon,
+  StyledTrophyIcon,
+} from "@/components/ui/styled-icons";
 import { Header4 } from "@/components/ui/typography";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { IceCream } from "lucide-react";
@@ -171,6 +179,43 @@ function ButtonTile() {
   );
 }
 
+function StyledIconsTile() {
+  const imp: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "badge-import",
+      code: `import { StyledPiggyBankIcon } from "@/components/ui/styled-icons";`,
+    },
+  ];
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "styled-icon-usage",
+      code: `<StyledPiggyBankIcon />`,
+    },
+  ];
+  return (
+    <Tile
+      title="Styled Icons"
+      description="Specific styled icons that can be used."
+    >
+      <div className="grid grid-cols-1 gap-y-6 mb-4">
+        <div className="flex gap-6">
+          <StyledPiggyBankIcon />
+          <StyledGemIcon />
+          <StyledCalendar1Icon />
+          <StyledCalendarCheckIcon />
+          <StyledFlameIcon />
+          <StyledTrophyIcon />
+        </div>
+      </div>
+      <Separator className="my-4" />
+      <Code codeData={imp} />
+      <Code codeData={code} />
+    </Tile>
+  );
+}
+
 function SeparatorTile() {
   const imp: CodeBlockData[] = [
     {
@@ -222,6 +267,7 @@ const sections = [
   { id: "badge", title: "Badge", children: <BadgeTile /> },
   { id: "button", title: "Button", children: <ButtonTile /> },
   { id: "separator", title: "Separator", children: <SeparatorTile /> },
+  { id: "styled-icons", title: "Styled Icons", children: <StyledIconsTile /> },
 ];
 
 export const BasicExample = () => {

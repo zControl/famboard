@@ -1,6 +1,10 @@
 import { AppLogo } from "@/components/common/AppLogo";
 import { HeaderContainer } from "@/components/common/HeaderContainer";
 import { ButtonLink } from "@/components/composites/ButtonLink";
+import {
+  StyledGemIcon,
+  StyledPiggyBankIcon,
+} from "@/components/ui/styled-icons";
 import { Header3 } from "@/components/ui/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
@@ -65,9 +69,14 @@ const KidActions = () => {
   const { profile } = useProfile();
   return (
     <div className="flex items-center gap-2">
-      <Header3 className="text-highlight">
-        Points: {profile?.pointTotal || 0}
-      </Header3>
+      <div className="flex items-center">
+        <StyledPiggyBankIcon />
+        <Header3>{profile?.pointTotal || 0}</Header3>
+      </div>
+      <div className="flex items-center">
+        <StyledGemIcon />
+        <Header3>{profile?.pointTotal || 0}</Header3>
+      </div>
     </div>
   );
 };

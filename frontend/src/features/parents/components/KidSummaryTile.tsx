@@ -23,11 +23,11 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
       menu="actions can go here"
       footer="footer"
     >
-      <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
-        <div className="w-1/4 mx-auto p-4">
+      <div className="grid grid-cols-1 md:flex md:flex-row justify-center gap-2">
+        <div className="min-w-1/4">
           <KidProfileSummaryCard id={id} />
         </div>
-        <div className="flex flex-col justify-around w-full gap-x-2">
+        <div className="flex flex-col gap-2">
           <KidApprovalsCard userId={userProfile?.userId ?? ""} />
           <KidActiveTasksCard userId={userProfile?.userId ?? ""} />
         </div>

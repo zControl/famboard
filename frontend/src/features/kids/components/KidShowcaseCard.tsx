@@ -1,16 +1,15 @@
 import { Card } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
+import {
+  StyledCalendar1Icon,
+  StyledCalendarCheckIcon,
+  StyledFlameIcon,
+  StyledGemIcon,
+  StyledPiggyBankIcon,
+  StyledTrophyIcon,
+} from "@/components/ui/styled-icons";
 import { Header2, StatLabel, StatValue } from "@/components/ui/typography";
 import { UserProfile } from "@/types/user";
-
-import {
-  AwardIcon,
-  Calendar1Icon,
-  CalendarCheckIcon,
-  FlameIcon,
-  PiggyBankIcon,
-  TrophyIcon,
-} from "lucide-react";
 
 interface KidShowcaseCardProps {
   profile: UserProfile | null | undefined;
@@ -28,25 +27,27 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
             Welcome, {profile?.firstName}!
           </Header2>
           <div className="flex flex-row items-center px-4">
-            <PiggyBankIcon
-              fill="green"
-              className="size-8 text-green-600 mr-2"
-            />
-            <StatLabel>Points:</StatLabel>
+            <StyledPiggyBankIcon />
+            <StatLabel>Coins:</StatLabel>
             <StatValue>{profile?.pointTotal}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
-            <Calendar1Icon className="size-8 text-blue-600 mr-2" />
+            <StyledGemIcon />
+            <StatLabel>Gems:</StatLabel>
+            <StatValue>100</StatValue>
+          </div>
+          <div className="flex flex-row items-center px-4">
+            <StyledCalendar1Icon />
             <StatLabel>Weekly Completed:</StatLabel>
             <StatValue>|completed number|</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
-            <CalendarCheckIcon className="size-8 text-blue-600 mr-2" />
+            <StyledCalendarCheckIcon />
             <StatLabel>Daily Completed:</StatLabel>
             <StatValue>|completed number|</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
-            <TrophyIcon fill="yellow" className="size-8 text-yellow-400 mr-2" />
+            <StyledTrophyIcon />
             <StatLabel>Achievements:</StatLabel>
           </div>
           <div>
@@ -57,16 +58,7 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
             </div>
           </div>
           <div className="flex flex-row items-center px-4">
-            <AwardIcon className="size-8 text-orange-600 mr-2" />
-            <StatLabel>Badges:</StatLabel>
-          </div>
-          <div className="flex flex-col justify-start px-16 pt-0">
-            <StatValue>|list|</StatValue>
-            <StatValue>|earned|</StatValue>
-            <StatValue>|badges|</StatValue>
-          </div>
-          <div className="flex flex-row items-center px-4">
-            <FlameIcon fill="red" className="size-8 text-orange-600 mr-2" />
+            <StyledFlameIcon />
             <StatLabel>Streaks:</StatLabel>
           </div>
           <div className="flex flex-col justify-start px-16 pt-0">
