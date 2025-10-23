@@ -59,7 +59,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
           <div className="cursor-pointer flex items-center">
             <Tooltip>
               <TooltipTrigger>
-                <TaskCategoryBadge category={selectedCategory} />
+                <TaskCategoryBadge size="sm" category={selectedCategory} />
               </TooltipTrigger>
               <TooltipContent>{selectedCategory}</TooltipContent>
             </Tooltip>
