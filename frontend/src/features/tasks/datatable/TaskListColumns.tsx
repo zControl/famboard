@@ -6,6 +6,7 @@ import { CustomLink } from "@/components/ui/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
+import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
 import { Task, TaskCategory, TaskFrequency } from "@/types/task";
@@ -36,12 +37,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
         options={enumToArray(TaskCategory)}
       />
     ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.category}
-        options={enumToArray(TaskCategory)}
-      />
-    ),
+    cell: ({ row }) => <TaskCategoryCell row={row} />,
   },
 
   {
