@@ -47,7 +47,6 @@ export class TaskApprovalService {
     taskCompletion.task = task;
     taskCompletion.user = user;
     taskCompletion.completedAt = new Date();
-    taskCompletion.status = 'PENDING_APPROVAL';
     taskCompletion.pointsPossible = pointsPossible;
     taskCompletion.note = note || '';
 

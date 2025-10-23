@@ -19,7 +19,6 @@ import {
   ClipboardListIcon,
   ContainerIcon,
   EditIcon,
-  ListTodoIcon,
   ReceiptTextIcon,
   UsersIcon,
 } from "lucide-react";
@@ -91,11 +90,6 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
                 icon={<ContainerIcon />}
                 label="Category"
                 value={task?.category}
-              />
-              <DetailListItem
-                icon={<ListTodoIcon />}
-                label="Priority"
-                value={task?.priority}
               />
               <DetailListItem
                 icon={<CalendarCheckIcon />}

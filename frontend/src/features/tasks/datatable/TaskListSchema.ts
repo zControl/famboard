@@ -1,4 +1,4 @@
-import { TaskCategory, TaskFrequency, TaskPriority, TaskStatus } from "@/types/task";
+import { TaskCategory, TaskFrequency } from "@/types/task";
 import { z } from "zod";
 
 export const taskListSchema = z.object({
@@ -7,7 +7,5 @@ export const taskListSchema = z.object({
   pointValue: z.preprocess((val) => Number(val), z.number().min(0, "Point Value must be a positive number").max(100, "Point Value must be less than 100")),
   category: z.nativeEnum(TaskCategory),
   frequency: z.nativeEnum(TaskFrequency),
-  status: z.nativeEnum(TaskStatus),
-  priority: z.nativeEnum(TaskPriority),
   note: z.string().optional(),
 });

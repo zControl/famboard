@@ -22,8 +22,7 @@ export const TaskListDatatable = () => {
       frequency: true,
       category: true,
       status: true,
-      priority: true,
-      note: false,
+      note: true,
     },
     pagination: {
       pageIndex: 0,

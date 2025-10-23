@@ -8,13 +8,7 @@ import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsC
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
-import {
-  Task,
-  TaskCategory,
-  TaskFrequency,
-  TaskPriority,
-  TaskStatus,
-} from "@/types/task";
+import { Task, TaskCategory, TaskFrequency } from "@/types/task";
 import { enumToArray } from "@/utils/enumToArray";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -32,6 +26,23 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => <TaskAssignmentsCell row={row} />,
   },
+  {
+    accessorKey: "category",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Category"
+        options={enumToArray(TaskCategory)}
+      />
+    ),
+    cell: ({ row }) => (
+      <SelectOptionCell
+        initialValue={row.original.category}
+        options={enumToArray(TaskCategory)}
+      />
+    ),
+  },
 
   {
     accessorKey: "title",
@@ -41,7 +52,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
         to={`/parents/tasks/${row.original.sequenceNumber}`}
         size="lg"
       >
-        {row.original.sequenceNumber}-{row.original.title}
+        {row.original.title}
       </CustomLink>
     ),
   },
@@ -64,40 +75,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
   },
   {
-    accessorKey: "category",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Category"
-        options={enumToArray(TaskCategory)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.category}
-        options={enumToArray(TaskCategory)}
-      />
-    ),
-  },
-  {
-    accessorKey: "status",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Status"
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.status}
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-  },
-  {
     accessorKey: "frequency",
     filterFn: "arrIncludesSome",
     header: ({ column }) => (
@@ -111,23 +88,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
       <SelectOptionCell
         initialValue={row.original.frequency}
         options={enumToArray(TaskFrequency)}
-      />
-    ),
-  },
-  {
-    accessorKey: "priority",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Priority"
-        options={enumToArray(TaskPriority)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.priority}
-        options={enumToArray(TaskPriority)}
       />
     ),
   },
