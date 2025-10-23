@@ -45,7 +45,7 @@ export const TaskModal = ({
     () => ({
       title: existingTask?.title || "",
       description: existingTask?.description || "",
-      pointValue: existingTask?.pointValue || 0,
+      pointValue: existingTask?.pointValue || 50,
       category: existingTask?.category || TaskCategory.Household,
       frequency: existingTask?.frequency || TaskFrequency.Daily,
       status: existingTask?.status || TaskStatus.Active,
@@ -92,6 +92,7 @@ export const TaskModal = ({
   useEffect(() => {
     if (modalOpen) {
       form.reset(defaultValues);
+      form.setValue("pointValue", defaultValues.pointValue);
     }
   }, [modalOpen, form, defaultValues]);
 
@@ -147,6 +148,7 @@ export const TaskModal = ({
                   <FormControl>
                     <div className="flex flex-col pt-4">
                       <ValueSlider
+                        defaultValue={[field.value || 50]}
                         onValueChange={(value) => field.onChange(value[0])}
                       />
                     </div>
