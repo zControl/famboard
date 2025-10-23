@@ -18,18 +18,6 @@ export enum TaskFrequency {
   Special = 'SPECIAL'
 }
 
-export enum TaskStatus {
-  Pending = 'PENDING',
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
-}
-
-export enum TaskPriority {
-  Low = 'LOW',
-  Medium = 'MEDIUM',
-  High = 'HIGH',
-}
-
 export interface Comment {
   id: string;
   content: string;
@@ -45,8 +33,6 @@ export interface Task {
   pointValue: number;
   category: TaskCategory;
   frequency: TaskFrequency;
-  status: TaskStatus;
-  priority: TaskPriority;
   note?: string;
   assignedTo?: User[];
 }
@@ -62,7 +48,6 @@ export interface UserAssignedTaskResponse {
   description: string;
   pointValue: number;
   category: TaskCategory;
-  status: TaskStatus;
   frequency: TaskFrequency;
   note: string;
 }

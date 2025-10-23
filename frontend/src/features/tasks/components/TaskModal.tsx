@@ -13,13 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { taskListSchema } from "@/features/tasks/datatable/TaskListSchema";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
-import {
-  Task,
-  TaskCategory,
-  TaskFrequency,
-  TaskPriority,
-  TaskStatus,
-} from "@/types/task";
+import { Task, TaskCategory, TaskFrequency } from "@/types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -48,8 +42,6 @@ export const TaskModal = ({
       pointValue: existingTask?.pointValue || 50,
       category: existingTask?.category || TaskCategory.Household,
       frequency: existingTask?.frequency || TaskFrequency.Daily,
-      status: existingTask?.status || TaskStatus.Active,
-      priority: existingTask?.priority || TaskPriority.Low,
       note: existingTask?.note || "",
     }),
     [existingTask],
@@ -178,24 +170,6 @@ export const TaskModal = ({
               />
               <FormField
                 control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskStatus}
-                        triggerText="Status"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="frequency"
                 render={({ field }) => (
                   <FormItem>
@@ -206,24 +180,6 @@ export const TaskModal = ({
                         onChange={field.onChange}
                         enumType={TaskFrequency}
                         triggerText="Frequency"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Priority</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskPriority}
-                        triggerText="Priority"
                       />
                     </FormControl>
                     <FormMessage />

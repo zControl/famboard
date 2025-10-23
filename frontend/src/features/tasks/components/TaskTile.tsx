@@ -1,5 +1,4 @@
 import { Tile } from "@/components/composites/Tile";
-import { Badge } from "@/components/ui/badge";
 
 import { Coin } from "@/components/ui/coin";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,7 +29,6 @@ export const TaskTile = ({
       }
       description={
         <div className="flex flex-row space-x-4 justify-start">
-          <Badge variant="primary">{task.status}</Badge>
           <Coin value={task.pointValue} />
         </div>
       }

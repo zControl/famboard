@@ -20,18 +20,6 @@ export enum TaskFrequency {
   Special = 'SPECIAL',
 }
 
-export enum TaskStatus {
-  Pending = 'PENDING',
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
-}
-
-export enum TaskPriority {
-  Low = 'LOW',
-  Medium = 'MEDIUM',
-  High = 'HIGH',
-}
-
 export class CreateTaskDto {
   @ApiProperty({ description: 'The title of the task' })
   @IsString()
@@ -60,16 +48,6 @@ export class CreateTaskDto {
   @IsEnum(TaskFrequency)
   @IsOptional()
   frequency?: TaskFrequency;
-
-  @ApiProperty({ enum: TaskStatus, description: 'The status of the task' })
-  @IsEnum(TaskStatus)
-  @IsOptional()
-  status?: TaskStatus;
-
-  @ApiProperty({ enum: TaskPriority, description: 'The priority of the task' })
-  @IsEnum(TaskPriority)
-  @IsOptional()
-  priority?: TaskPriority;
 
   @ApiProperty({ description: 'Additional notes for the task' })
   @IsString()

@@ -35,12 +35,6 @@ export class Task {
   frequency: string;
 
   @Column({ nullable: true })
-  status: string;
-
-  @Column({ nullable: true })
-  priority: string;
-
-  @Column({ nullable: true })
   note: string;
 
   @CreateDateColumn()
