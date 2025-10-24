@@ -53,7 +53,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-end justify-end">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <div className="cursor-pointer flex items-center">
@@ -79,6 +79,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
                     className="flex items-center gap-2"
                   >
                     <TaskCategoryBadge
+                      size="sm"
                       category={option.value as TaskCategory}
                     />
                     <span>{option.label}</span>

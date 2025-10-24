@@ -34,8 +34,15 @@ export interface Task {
   category: TaskCategory;
   frequency: TaskFrequency;
   note?: string;
-  assignedTo?: User[];
+  assignments: {
+    id: string;
+    assignedAt: Date;
+    user: {
+      id: string;
+    }
+  }[];
 }
+
 export interface AssignedTaskResponse {
   id: string;
   username: string;

@@ -19,7 +19,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => <TaskRowActions row={row} />,
   },
   {
-    accessorKey: "assignedUserIds",
+    accessorKey: "assigned",
     filterFn: "arrIncludesSome",
     enableSorting: false,
     header: ({ column }) => (
@@ -33,7 +33,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <SupremeColumnHeader
         column={column}
-        title="Category"
+        title="Type"
         options={enumToArray(TaskCategory)}
       />
     ),

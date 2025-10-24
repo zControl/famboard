@@ -29,7 +29,28 @@ export class TasksService {
   }
 
   async findAll(): Promise<Task[]> {
-    return await this.tasksRepository.find();
+    return await this.tasksRepository.find({
+      relations: ['assignments', 'assignments.user'],
+      select: {
+        id: true,
+        sequenceNumber: true,
+        title: true,
+        description: true,
+        pointValue: true,
+        category: true,
+        frequency: true,
+        note: true,
+        createdAt: true,
+        updatedAt: true,
+        assignments: {
+          id: true,
+          assignedAt: true,
+          user: {
+            id: true,
+          },
+        },
+      },
+    });
   }
 
   async findTaskBySequenceNumber(sequenceNumber: string): Promise<Task> {
@@ -86,10 +107,6 @@ export class TasksService {
       throw new NotFoundException('Task not found');
     }
 
-    // Update the task's assignedUserIds
-    task.assignedUserIds = [...new Set(userIds)]; // Ensure uniqueness
-    await this.tasksRepository.save(task);
-
     // Get existing assignments
     const existingAssignments = await this.taskAssignmentRepository.find({
       where: { task: { id: taskId } },
@@ -137,36 +154,29 @@ export class TasksService {
       throw new NotFoundException('Task not found');
     }
 
-    const users = await this.usersRepository.find({
-      where: {
-        id: In(task.assignedUserIds),
-      },
-      select: ['id', 'username'],
+    const assignments = await this.taskAssignmentRepository.find({
+      where: { task: { id: taskId } },
+      relations: ['user'],
     });
 
-    return users.map((user) => ({
-      id: user.id,
-      username: user.username,
+    return assignments.map((assignment) => ({
+      id: assignment.user.id,
+      username: assignment.user.username,
     }));
   }
 
   async findUsersByTask(taskId: string): Promise<User[]> {
     const task = await this.findTaskById(taskId);
-    console.log('Task:', task);
-    console.log('Assigned User IDs:', task.assignedUserIds);
-
-    if (!task.assignedUserIds || task.assignedUserIds.length === 0) {
-      return []; // Return an empty array if no users are assigned
+    if (!task) {
+      throw new NotFoundException('Task not found');
     }
-    const users = await this.usersRepository.find({
-      where: {
-        id: In(task.assignedUserIds),
-      },
+
+    const assignments = await this.taskAssignmentRepository.find({
+      where: { task: { id: taskId } },
+      relations: ['user'],
     });
 
-    console.log('Found Users:', users);
-
-    return users;
+    return assignments.map((assignment) => assignment.user);
   }
 
   async findTasksByUser(userId: string): Promise<Task[]> {

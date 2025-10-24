@@ -46,9 +46,6 @@ export class Task {
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
 
-  @Column('text', { array: true, default: '{}', nullable: true })
-  assignedUserIds: string[];
-
   @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
   assignments: TaskAssignment[];
 
