@@ -1,4 +1,3 @@
-import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
@@ -7,6 +6,7 @@ import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
 import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
+import { TaskFrequencyCell } from "@/features/tasks/datatable/TaskFrequencyCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
 import { Task, TaskCategory, TaskFrequency } from "@/types/task";
@@ -80,12 +80,7 @@ export const taskListColumns: ColumnDef<Task>[] = [
         options={enumToArray(TaskFrequency)}
       />
     ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.frequency}
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
+    cell: ({ row }) => <TaskFrequencyCell row={row} />,
   },
   {
     accessorKey: "note",

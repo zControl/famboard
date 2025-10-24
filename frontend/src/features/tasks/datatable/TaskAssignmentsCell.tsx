@@ -47,6 +47,13 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
     setIsModalOpen(false);
   };
 
+  const handleSelectedKidsChange = (newSelectedKids: string[]) => {
+    // Only update if the selection actually changed
+    if (JSON.stringify(newSelectedKids) !== JSON.stringify(selectedKids)) {
+      setSelectedKids(newSelectedKids);
+    }
+  };
+
   return (
     <>
       <div
@@ -96,7 +103,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
       >
         <AssignedUserSelection
           row={row}
-          onSelectedKidsChange={setSelectedKids}
+          onSelectedKidsChange={handleSelectedKidsChange}
         />
       </ActionModal>
     </>
