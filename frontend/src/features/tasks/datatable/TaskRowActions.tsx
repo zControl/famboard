@@ -1,10 +1,23 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
-import { CopyIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import {
+  CopyIcon,
+  MoreHorizontalIcon,
+  PencilIcon,
+  Trash2Icon,
+} from "lucide-react";
 import { useState } from "react";
 
 interface TaskRowActionProps {
@@ -16,16 +29,16 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const { deleteTaskMutation } = useTasks();
 
-  const handleEdit = () => {
+  const handleEditTask = () => {
     setModalOpen(true);
   };
 
-  const handleDuplicate = () => {
+  const handleDuplicateTask = () => {
     // Implement duplication logic here
     console.log("Duplicate task:", row.original);
   };
 
-  const handleDelete = () => {
+  const handleDeleteTask = () => {
     setDeleteModalOpen(true);
   };
 
@@ -38,15 +51,30 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
 
   return (
     <div className="flex items-center">
-      <Button variant="highlight" size="icon" onClick={handleDelete}>
-        <Trash2Icon />
-      </Button>
-      <Button variant="highlight" size="icon" onClick={handleEdit}>
-        <PencilIcon />
-      </Button>
-      <Button variant="highlight" size="icon" onClick={handleDuplicate}>
-        <CopyIcon className="size-4" />
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontalIcon className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={handleEditTask}>
+            <PencilIcon className="mr-2 h-4 w-4" />
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleDeleteTask}>
+            <Trash2Icon className="mr-2 h-4 w-4" />
+            Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={handleDuplicateTask}>
+            <CopyIcon className="mr-2 h-4 w-4" />
+            Duplicate
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       {isModalOpen && (
         <TaskModal
           modalOpen={isModalOpen}

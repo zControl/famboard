@@ -18,14 +18,18 @@ export const taskListColumns: ColumnDef<Task>[] = [
     id: "actions",
     cell: ({ row }) => <TaskRowActions row={row} />,
   },
+
   {
-    accessorKey: "assigned",
+    accessorKey: "frequency",
     filterFn: "arrIncludesSome",
-    enableSorting: false,
     header: ({ column }) => (
-      <TaskAssignmentsHeader column={column} title="Assigned" />
+      <SupremeColumnHeader
+        column={column}
+        title="Repeat"
+        options={enumToArray(TaskFrequency)}
+      />
     ),
-    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+    cell: ({ row }) => <TaskFrequencyCell row={row} />,
   },
   {
     accessorKey: "category",
@@ -39,7 +43,26 @@ export const taskListColumns: ColumnDef<Task>[] = [
     ),
     cell: ({ row }) => <TaskCategoryCell row={row} />,
   },
-
+  {
+    accessorKey: "pointValue",
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Coins" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex justify-center items-center text-center">
+        <Coin value={row.original.pointValue} />
+      </div>
+    ),
+  },
+  {
+    accessorKey: "assigned",
+    filterFn: "arrIncludesSome",
+    enableSorting: false,
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+  },
   {
     accessorKey: "title",
     header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
@@ -58,29 +81,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
       <SearchInputHeader column={column} title="Description" />
     ),
     cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
-  },
-  {
-    accessorKey: "pointValue",
-    header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Coins" />
-    ),
-    cell: ({ row }) => (
-      <div className="flex justify-center items-center text-center">
-        <Coin value={row.original.pointValue} />
-      </div>
-    ),
-  },
-  {
-    accessorKey: "frequency",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Frequency"
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
-    cell: ({ row }) => <TaskFrequencyCell row={row} />,
   },
   {
     accessorKey: "note",
