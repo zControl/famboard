@@ -23,11 +23,6 @@ export class TasksService {
     return await this.tasksRepository.save(newTask);
   }
 
-  async findByTaskCode(taskCode: string): Promise<Task> {
-    const sequenceNumber = parseInt(taskCode.split('-')[1], 10);
-    return this.tasksRepository.findOne({ where: { sequenceNumber } });
-  }
-
   async findAll(): Promise<Task[]> {
     return await this.tasksRepository.find({
       relations: ['assignments', 'assignments.user'],
@@ -92,12 +87,18 @@ export class TasksService {
     return await this.tasksRepository.save(updatedTask);
   }
 
-  async remove(taskId: string) {
+  async remove(taskId: string): Promise<{ message: string }> {
     // First, delete all task assignments related to this task
     await this.taskAssignmentRepository.delete({ task: { id: taskId } });
 
-    // Then delete the task
-    return await this.tasksRepository.delete(taskId);
+    // Then delete the task and return appropriate message
+    const result = await this.tasksRepository.delete(taskId);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID ${taskId} not found`);
+    }
+
+    return { message: `Task with ID ${taskId} successfully deleted` };
   }
 
   async assignUsersToTask(taskId: string, userIds: string[]): Promise<Task> {
@@ -180,6 +181,11 @@ export class TasksService {
   }
 
   async findTasksByUser(userId: string): Promise<Task[]> {
+    // First check if the user exists
+    // If user doesn't exist, findUserById will throw a NotFoundException
+    // Otherwise, continue with finding tasks
+    await this.findUserById(userId);
+
     const assignments = await this.taskAssignmentRepository.find({
       where: { user: { id: userId } },
       relations: ['task'],

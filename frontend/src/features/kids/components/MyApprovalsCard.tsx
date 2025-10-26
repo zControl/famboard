@@ -15,7 +15,7 @@ export const MyApprovalsCard = ({ assignedTasks }: MyActiveTasksCardProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 p-2">
         {assignedTasks?.map((task) => (
           <InfoCard
-            key={task.sequenceNumber}
+            key={task.id}
             title={task.title}
             description="These are all the assigned tasks. We still need to only get the ones for approval here."
             icon={<CheckCircleIcon />}

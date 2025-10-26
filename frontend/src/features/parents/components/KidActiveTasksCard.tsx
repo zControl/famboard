@@ -1,26 +1,12 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { ColumnTitle } from "@/components/datatable/headers/ColumnTitle";
-import { CustomLink } from "@/components/ui/custom-link";
 import { Spinner } from "@/components/ui/spinner";
 import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
 import { ColumnDef } from "@tanstack/react-table";
 
 const activeTasksColumns: ColumnDef<{
-  sequenceNumber: number;
   title: string;
 }>[] = [
-  {
-    accessorKey: "number",
-    header: () => <ColumnTitle title="ID" />,
-    cell: ({ row }) => (
-      <CustomLink
-        to={`/parents/tasks/${row.original.sequenceNumber}`}
-        size="lg"
-      >
-        {row.original.sequenceNumber}
-      </CustomLink>
-    ),
-  },
   {
     accessorKey: "title",
     header: () => <ColumnTitle title="Title" />,

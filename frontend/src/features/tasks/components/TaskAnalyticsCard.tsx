@@ -1,16 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Task } from "@/types/task";
 
-export const TaskAnalyticsCard = ({
-  sequenceNumber,
-}: {
-  sequenceNumber: string;
-}) => {
+export const TaskAnalyticsCard = ({ task }: { task: Task }) => {
   return (
     <Card className="max-w-4xl mx-auto overflow-hidden">
       <CardHeader>
         <CardTitle>Analytics</CardTitle>
       </CardHeader>
-      <CardContent>Analytics for {sequenceNumber}</CardContent>
+      <CardContent>Analytics for {task.title}</CardContent>
     </Card>
   );
 };

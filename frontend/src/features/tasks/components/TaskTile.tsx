@@ -1,5 +1,4 @@
 import { Tile } from "@/components/composites/Tile";
-
 import { Coin } from "@/components/ui/coin";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header3 } from "@/components/ui/typography";
@@ -11,19 +10,12 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Task } from "@/types/task";
 import { EllipsisIcon, Share2Icon, UserPlus2Icon } from "lucide-react";
 
-export const TaskTile = ({
-  task,
-  sequenceNumber,
-}: {
-  task: Task;
-  sequenceNumber: string;
-}) => {
+export const TaskTile = ({ task }: { task: Task }) => {
   const isMobile = useIsMobile();
   return (
     <Tile
       title={
         <div className="flex flex-col md:flex-row space-x-2">
-          <Header3>{`# ${task.sequenceNumber} `}</Header3>
           <Header3>{task.title}</Header3>
         </div>
       }
@@ -63,13 +55,13 @@ export const TaskTile = ({
           <TaskDetailsCard task={task} />
         </TabsContent>
         <TabsContent value="approvals">
-          <TaskApprovalsCard sequenceNumber={sequenceNumber} />
+          <TaskApprovalsCard task={task} />
         </TabsContent>
         <TabsContent value="analytics">
-          <TaskAnalyticsCard sequenceNumber={sequenceNumber} />
+          <TaskAnalyticsCard task={task} />
         </TabsContent>
         <TabsContent value="comments">
-          <TaskCommentsCard sequenceNumber={sequenceNumber} />
+          <TaskCommentsCard task={task} />
         </TabsContent>
       </Tabs>
     </Tile>

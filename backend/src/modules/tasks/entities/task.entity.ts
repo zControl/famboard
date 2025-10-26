@@ -48,16 +48,6 @@ export class Task {
 
   @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
   assignments: TaskAssignment[];
-
-  get taskCode(): string {
-    return this.formatTaskCode(this.sequenceNumber);
-  }
-
-  private formatTaskCode(num: number): string {
-    const prefix = 'TASK';
-    const paddedNum = num.toString().padStart(3, '0');
-    return `${prefix}-${paddedNum}`;
-  }
 }
 
 @Entity()

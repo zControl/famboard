@@ -26,6 +26,9 @@ import { useState } from "react";
 
 export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
   const { sequenceNumber } = initialTask;
+  //TODO: Refactor this to use id instead of sequenceNumber
+  const { id } = initialTask;
+  console.log("TaskDetailsCard - task id:", id);
   const { data: task, refetch } = useTaskBySequenceNumber(
     sequenceNumber.toString(),
   );
