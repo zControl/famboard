@@ -45,7 +45,11 @@ export const TaskListDatatable = () => {
         }
         initialState={initialState}
       />
-      <TaskModal modalOpen={open} onModalOpenChange={setOpen} />
+      <TaskModal
+        modalOpen={open}
+        onModalOpenChange={setOpen}
+        onTaskUpdated={refreshTasks}
+      />
     </Card>
   );
 };

@@ -26,9 +26,8 @@ export const AssignedUserSelection = ({
         .map((assignment) => assignment.id)
         .filter(Boolean); // Filter out any undefined IDs
       setSelectedKids(initialSelectedKids);
-      onSelectedKidsChange(initialSelectedKids);
     }
-  }, [taskAssignments, onSelectedKidsChange]);
+  }, [taskAssignments]);
 
   const handleKidSelection = (kidId: string, isSelected: boolean) => {
     const newSelectedKids = isSelected

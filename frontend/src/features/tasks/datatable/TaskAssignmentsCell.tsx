@@ -1,7 +1,6 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserSelection } from "@/features/tasks/components/AssignedUserSelection";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
 import { useTasks } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
@@ -14,13 +13,15 @@ interface TaskAssignmentsCellProps {
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   const taskId = row.original.id;
-  const { taskAssignments, refetch } = useAssignments(taskId);
+  const assignments = row.original.assignments;
   const { assignTaskMutation, queryClient } = useTasks();
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
 
-  const hasAssignments = taskAssignments && taskAssignments.length > 0;
+  console.log("Assignments from row", assignments);
+
+  const hasAssignments = assignments && assignments.length > 0;
 
   const handleRowClick = () => {
     setIsModalOpen(true);
@@ -37,7 +38,6 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
           setIsModalOpen(false);
           setSelectedKids([]);
           queryClient.invalidateQueries({ queryKey: ["tasks", taskId] });
-          refetch();
         },
       },
     );
@@ -47,6 +47,13 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
     setIsModalOpen(false);
   };
 
+  const handleSelectedKidsChange = (newSelectedKids: string[]) => {
+    // Only update if the selection actually changed
+    if (JSON.stringify(newSelectedKids) !== JSON.stringify(selectedKids)) {
+      setSelectedKids(newSelectedKids);
+    }
+  };
+
   return (
     <>
       <div
@@ -54,18 +61,20 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex -space-x-2 overflow-hidden p-2">
+        <div>
           {hasAssignments ? (
             <div className="flex -space-x-2 overflow-hidden p-2">
-              {taskAssignments.map((assignment) => (
-                <AssignedUserAvatar
-                  key={assignment.id}
-                  userId={assignment.id}
-                />
-              ))}
+              {assignments.map((assignment) => {
+                return (
+                  <AssignedUserAvatar
+                    key={assignment.id}
+                    userId={assignment.user.id}
+                  />
+                );
+              })}
             </div>
           ) : (
-            <div className="text-card-foreground p-2">No assignments</div>
+            <div className="text-card-foreground p-2">None</div>
           )}
         </div>
         {isHovered && (
@@ -94,7 +103,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
       >
         <AssignedUserSelection
           row={row}
-          onSelectedKidsChange={setSelectedKids}
+          onSelectedKidsChange={handleSelectedKidsChange}
         />
       </ActionModal>
     </>

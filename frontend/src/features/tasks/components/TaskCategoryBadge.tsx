@@ -1,5 +1,10 @@
+import {
+  badgeIconVariants,
+  badgeShellVariants,
+} from "@/features/tasks/components/badge-variants";
 import { TaskCategory } from "@/types/task";
 import { cn } from "@/utils/classNames";
+import { type VariantProps } from "class-variance-authority";
 import {
   ActivityIcon,
   GraduationCapIcon,
@@ -11,35 +16,49 @@ import {
   UserStarIcon,
 } from "lucide-react";
 
-interface TaskCategoryBadgeProps {
+interface TaskCategoryBadgeProps
+  extends VariantProps<typeof badgeShellVariants> {
   category: TaskCategory;
   className?: string;
 }
 
-const iconClassName = "size-9 text-highlight-foreground";
-const categoryIconMap: Record<TaskCategory, React.ReactNode> = {
-  [TaskCategory.Personal]: <UserStarIcon className={iconClassName} />,
-  [TaskCategory.Academic]: <GraduationCapIcon className={iconClassName} />,
-  [TaskCategory.Household]: <HomeIcon className={iconClassName} />,
-  [TaskCategory.Friendly]: <HeartHandshakeIcon className={iconClassName} />,
-  [TaskCategory.Helpful]: <HandMetalIcon className={iconClassName} />,
-  [TaskCategory.Improvement]: <TrendingUpIcon className={iconClassName} />,
-  [TaskCategory.Fitness]: <ActivityIcon className={iconClassName} />,
-  [TaskCategory.Other]: <ShieldQuestionIcon className={iconClassName} />,
-};
+function TaskCategoryBadge({
+  category,
+  className,
+  size,
+}: TaskCategoryBadgeProps) {
+  // Create a map of icons with the appropriate size class
+  const categoryIconMap: Record<TaskCategory, React.ReactNode> = {
+    [TaskCategory.Personal]: (
+      <UserStarIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Academic]: (
+      <GraduationCapIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Household]: (
+      <HomeIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Friendly]: (
+      <HeartHandshakeIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Helpful]: (
+      <HandMetalIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Improvement]: (
+      <TrendingUpIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Fitness]: (
+      <ActivityIcon className={badgeIconVariants({ size })} />
+    ),
+    [TaskCategory.Other]: (
+      <ShieldQuestionIcon className={badgeIconVariants({ size })} />
+    ),
+  };
 
-function TaskCategoryBadge({ category, className }: TaskCategoryBadgeProps) {
   const icon = categoryIconMap[category];
+
   return (
-    <div
-      className={cn(
-        "relative flex items-center justify-center size-14 shrink-0 overflow-hidden",
-        "rounded-full bg-highlight/60 border-2 border-highlight/80",
-        className,
-      )}
-    >
-      {icon}
-    </div>
+    <div className={cn(badgeShellVariants({ size }), className)}>{icon}</div>
   );
 }
 

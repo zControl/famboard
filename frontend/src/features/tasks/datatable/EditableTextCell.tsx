@@ -10,8 +10,6 @@ interface EditableTextCellProps {
   accessor: keyof Task;
 }
 
-//TODO: Currently, this only works for <Task>, but it would be good to make it accept generic type.
-//? This means the mutation would need to be handled by the parent component and column definition would need to be updated.
 export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);

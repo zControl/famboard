@@ -1,4 +1,3 @@
-import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
 import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
@@ -6,6 +5,8 @@ import { CustomLink } from "@/components/ui/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
+import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
+import { TaskFrequencyCell } from "@/features/tasks/datatable/TaskFrequencyCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
 import { Task, TaskCategory, TaskFrequency } from "@/types/task";
@@ -17,14 +18,18 @@ export const taskListColumns: ColumnDef<Task>[] = [
     id: "actions",
     cell: ({ row }) => <TaskRowActions row={row} />,
   },
+
   {
-    accessorKey: "assignedUserIds",
+    accessorKey: "frequency",
     filterFn: "arrIncludesSome",
-    enableSorting: false,
     header: ({ column }) => (
-      <TaskAssignmentsHeader column={column} title="Assigned" />
+      <SupremeColumnHeader
+        column={column}
+        title="Repeat"
+        options={enumToArray(TaskFrequency)}
+      />
     ),
-    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+    cell: ({ row }) => <TaskFrequencyCell row={row} />,
   },
   {
     accessorKey: "category",
@@ -32,18 +37,32 @@ export const taskListColumns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <SupremeColumnHeader
         column={column}
-        title="Category"
+        title="Type"
         options={enumToArray(TaskCategory)}
       />
+    ),
+    cell: ({ row }) => <TaskCategoryCell row={row} />,
+  },
+  {
+    accessorKey: "pointValue",
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Coins" />
     ),
     cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.category}
-        options={enumToArray(TaskCategory)}
-      />
+      <div className="flex justify-center items-center text-center">
+        <Coin value={row.original.pointValue} />
+      </div>
     ),
   },
-
+  {
+    accessorKey: "assigned",
+    filterFn: "arrIncludesSome",
+    enableSorting: false,
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+  },
   {
     accessorKey: "title",
     header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
@@ -62,34 +81,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
       <SearchInputHeader column={column} title="Description" />
     ),
     cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
-  },
-  {
-    accessorKey: "pointValue",
-    header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Coins" />
-    ),
-    cell: ({ row }) => (
-      <div className="flex justify-center items-center text-center">
-        <Coin value={row.original.pointValue} />
-      </div>
-    ),
-  },
-  {
-    accessorKey: "frequency",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Frequency"
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.frequency}
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
   },
   {
     accessorKey: "note",
