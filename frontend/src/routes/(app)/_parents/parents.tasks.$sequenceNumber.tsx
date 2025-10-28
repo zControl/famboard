@@ -11,7 +11,6 @@ export const Route = createFileRoute(
 });
 
 function TaskPage() {
-  //TODO: Refactor this to use id instead of sequenceNumber
   const { sequenceNumber } = Route.useParams();
   const {
     data: task,

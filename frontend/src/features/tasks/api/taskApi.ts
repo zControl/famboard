@@ -6,6 +6,9 @@ export const taskApi = {
   getTasks: () =>
     apiClient.get<Task[]>(API_ENDPOINTS.TASKS.GET_ALL),
 
+  getTaskBySequenceNumber: (sequenceNumber: string) =>
+    apiClient.get<Task>(API_ENDPOINTS.TASKS.GET_ONE_BY_SEQUENCE(sequenceNumber)),
+
   getTask: (taskId: string) =>
     apiClient.get<Task>(API_ENDPOINTS.TASKS.GET_ONE(taskId)),
 

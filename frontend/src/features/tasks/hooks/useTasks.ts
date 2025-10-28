@@ -47,6 +47,11 @@ export const useTasks = () => {
 }
 
 export const useTaskBySequenceNumber = (sequenceNumber: string) => useQuery({
-  queryKey: ["taskDetails", sequenceNumber],
-  queryFn: () => taskApi.getTask(sequenceNumber),
+  queryKey: ["taskBySequenceNumber", sequenceNumber],
+  queryFn: () => taskApi.getTaskBySequenceNumber(sequenceNumber),
+});
+
+export const useTaskById = (taskId: string) => useQuery({
+  queryKey: ["taskById", taskId],
+  queryFn: () => taskApi.getTask(taskId),
 });
