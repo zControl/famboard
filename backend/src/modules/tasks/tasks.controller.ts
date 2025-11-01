@@ -45,8 +45,12 @@ export class TasksController {
   @ApiOperation({ summary: 'Get all tasks' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Tasks not found' })
-  findAll() {
-    return this.tasksService.findAll();
+  async getAllTasks() {
+    const tasks = await this.tasksService.findAll();
+    return {
+      count: tasks.length,
+      data: tasks,
+    };
   }
 
   @Get('by-sequence/:sequenceNumber')

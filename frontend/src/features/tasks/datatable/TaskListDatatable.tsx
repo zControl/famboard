@@ -35,7 +35,7 @@ export const TaskListDatatable = () => {
     <Card className="p-2">
       <DataTableCore
         columns={taskListColumns}
-        data={tasks || []}
+        data={tasks?.data || []}
         options={<TableOptions onRefresh={refreshTasks} />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>

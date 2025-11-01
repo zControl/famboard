@@ -1,5 +1,5 @@
 import { taskApi } from "@/features/tasks/api/taskApi";
-import { Task } from "@/types/task";
+import { Task, TaskListResponse } from "@/types/task";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useTasks = () => {
@@ -8,7 +8,7 @@ export const useTasks = () => {
     queryClient.invalidateQueries({ queryKey: ["tasks"] });
   }
 
-  const { data: tasks, isLoading, error } = useQuery<Task[]>({
+  const { data: tasks, isLoading, error } = useQuery<TaskListResponse>({
     queryKey: ["tasks"],
     queryFn: taskApi.getTasks,
   });
