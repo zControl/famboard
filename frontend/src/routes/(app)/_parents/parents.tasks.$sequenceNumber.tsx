@@ -24,7 +24,7 @@ function TaskPage() {
     >
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
-      {task && <TaskTile task={task} sequenceNumber={sequenceNumber} />}
+      {task && <TaskTile task={task} />}
     </PageContainer>
   );
 }

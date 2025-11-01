@@ -10,7 +10,7 @@ import { DetailListItem } from "@/components/ui/list-item";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
-import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTasks";
+import { useTaskById } from "@/features/tasks/hooks/useTasks";
 import { Task } from "@/types/task";
 
 import {
@@ -25,11 +25,10 @@ import {
 import { useState } from "react";
 
 export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
-  const { sequenceNumber } = initialTask;
-  const { data: task, refetch } = useTaskBySequenceNumber(
-    sequenceNumber.toString(),
-  );
-  const { taskAssignments } = useAssignments(task?.id || "");
+  const { id } = initialTask;
+  console.log("TaskDetailsCard rendering for task ID:", id);
+  const { data: task } = useTaskById(id);
+  const { taskAssignments, refetch } = useAssignments(id);
   const [editOpen, setEditOpen] = useState(false);
 
   const handleEdit = () => {

@@ -20,7 +20,7 @@ export const MyActiveTasksCard = ({
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
           {assignedTasks?.map((task) => (
-            <AssignedTaskCard key={task.sequenceNumber} task={task} />
+            <AssignedTaskCard key={task.id} task={task} />
           ))}
         </div>
       )}

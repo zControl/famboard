@@ -49,7 +49,7 @@ export class TasksController {
     return this.tasksService.findAll();
   }
 
-  @Get(':sequenceNumber')
+  @Get('by-sequence/:sequenceNumber')
   @ApiOperation({ summary: 'Get a task by Sequence Number' })
   @ApiResponse({ status: 200, description: 'Task retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Task not found' })
@@ -74,7 +74,7 @@ export class TasksController {
     return this.tasksService.update(id, updateTaskDto);
   }
 
-  @Get(':taskId/assigned-users')
+  @Get('assigned-users/:taskId')
   @ApiOperation({ summary: 'Get all users that are assigned to a task' })
   @ApiResponse({
     status: 200,
