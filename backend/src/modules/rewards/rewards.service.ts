@@ -47,7 +47,13 @@ export class RewardsService {
     return await this.rewardsRepository.save(updatedReward);
   }
 
-  async remove(rewardId: string) {
-    return await this.rewardsRepository.delete(rewardId);
+  async remove(rewardId: string): Promise<{ message: string }> {
+    const result = await this.rewardsRepository.delete(rewardId);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Reward with ID "${rewardId}" not found`);
+    }
+
+    return { message: `Reward with ID ${rewardId} deleted successfully` };
   }
 }

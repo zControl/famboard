@@ -30,15 +30,8 @@ export class TasksController {
   @ApiResponse({ status: 201, description: 'Task created successfully' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiBody({ type: CreateTaskDto })
-  async create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService
-      .create(createTaskDto)
-      .then((task) => {
-        return { message: 'Task created successfully', task };
-      })
-      .catch((error) => {
-        throw error;
-      });
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
   }
 
   @Get()
