@@ -1,10 +1,10 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, PendingApprovalsResponse, Task, UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/types/task";
 
 export const taskApi = {
   getTasks: () =>
-    apiClient.get<Task[]>(API_ENDPOINTS.TASKS.GET_ALL),
+    apiClient.get<TaskListResponse>(API_ENDPOINTS.TASKS.GET_ALL),
 
   getTaskBySequenceNumber: (sequenceNumber: string) =>
     apiClient.get<Task>(API_ENDPOINTS.TASKS.GET_ONE_BY_SEQUENCE(sequenceNumber)),

@@ -30,23 +30,20 @@ export class TasksController {
   @ApiResponse({ status: 201, description: 'Task created successfully' })
   @ApiResponse({ status: 400, description: 'Validation error' })
   @ApiBody({ type: CreateTaskDto })
-  async create(@Body() createTaskDto: CreateTaskDto) {
-    return this.tasksService
-      .create(createTaskDto)
-      .then((task) => {
-        return { message: 'Task created successfully', task };
-      })
-      .catch((error) => {
-        throw error;
-      });
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Get all tasks' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Tasks not found' })
-  findAll() {
-    return this.tasksService.findAll();
+  async getAllTasks() {
+    const tasks = await this.tasksService.findAll();
+    return {
+      count: tasks.length,
+      data: tasks,
+    };
   }
 
   @Get('by-sequence/:sequenceNumber')

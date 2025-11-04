@@ -11,8 +11,6 @@ export const TasksSummaryCard = () => {
       <ErrorCard message="Getting tasks summary has failed." error={error} />
     );
 
-  const totalTasks = tasks?.length || 0;
-
   return (
     <InfoCard
       title="Tasks Summary"
@@ -22,7 +20,7 @@ export const TasksSummaryCard = () => {
     >
       <div className="flex flex-col space-y-2">
         <div className="text-sm">
-          <p>Total Tasks: {totalTasks}</p>
+          <p>Total Tasks: {tasks?.count}</p>
         </div>
         <div className="flex flex-row space-x-2">
           <ButtonLink href="/tasks" icon={<SquareLibraryIcon />}>

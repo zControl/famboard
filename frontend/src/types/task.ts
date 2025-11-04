@@ -75,3 +75,8 @@ export interface PendingApprovalsResponse {
   count: number;
   data: ApprovalResponse[];
 }
+
+export interface TaskListResponse {
+  count: number;
+  data: Task[];
+}

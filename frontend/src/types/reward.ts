@@ -5,3 +5,8 @@ export interface Reward {
   rewardValue: number;
   note: string;
 }
+
+export interface RewardListResponse {
+  count: number;
+  data: Reward[];
+}

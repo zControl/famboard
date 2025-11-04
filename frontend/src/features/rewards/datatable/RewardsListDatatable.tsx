@@ -35,7 +35,7 @@ export const RewardsListDatatable = () => {
     <Card className="p-2">
       <DataTableCore
         columns={rewardsListColumns}
-        data={rewards || []}
+        data={rewards?.data || []}
         options={<TableOptions onRefresh={refreshRewards} />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>
