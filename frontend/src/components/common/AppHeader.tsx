@@ -25,10 +25,9 @@ const AdminNavigation = () => (
 const ParentNavigation = () => (
   <div className="flex gap-2 justify-center">
     <ButtonLink href="/parents">Dashboard</ButtonLink>
-    <ButtonLink href="/parents/manage">Manage</ButtonLink>
     <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
     <ButtonLink href="/parents/approvals">Approvals</ButtonLink>
+    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
   </div>
 );
 
