@@ -21,7 +21,6 @@ import { Route as appExamplesRouteImport } from './routes/(app)/_examples'
 import { Route as appAdminRouteImport } from './routes/(app)/_admin'
 import { Route as testTestARouteImport } from './routes/(test)/test.a_'
 import { Route as authAuthProfileRouteImport } from './routes/(auth)/_auth.profile'
-import { Route as authAuthDashboardRouteImport } from './routes/(auth)/_auth.dashboard'
 import { Route as appParentsParentsIndexRouteImport } from './routes/(app)/_parents/parents.index'
 import { Route as appKidsKidsIndexRouteImport } from './routes/(app)/_kids/kids.index'
 import { Route as appAdminAdminIndexRouteImport } from './routes/(app)/_admin/admin.index'
@@ -29,7 +28,6 @@ import { Route as testTestASomethingRouteImport } from './routes/(test)/test.a.s
 import { Route as testTestABRouteImport } from './routes/(test)/test.a.b_'
 import { Route as appParentsParentsTasksRouteImport } from './routes/(app)/_parents/parents.tasks_'
 import { Route as appParentsParentsRewardsRouteImport } from './routes/(app)/_parents/parents.rewards_'
-import { Route as appParentsParentsManageRouteImport } from './routes/(app)/_parents/parents.manage'
 import { Route as appParentsParentsApprovalsRouteImport } from './routes/(app)/_parents/parents.approvals'
 import { Route as appKidsKidsPlayRouteImport } from './routes/(app)/_kids/kids.play'
 import { Route as appKidsKidsHelpRouteImport } from './routes/(app)/_kids/kids.help'
@@ -191,11 +189,6 @@ const authAuthProfileRoute = authAuthProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => authAuthRoute,
 } as any)
-const authAuthDashboardRoute = authAuthDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => authAuthRoute,
-} as any)
 const appParentsParentsIndexRoute = appParentsParentsIndexRouteImport.update({
   id: '/parents/',
   path: '/parents/',
@@ -322,11 +315,6 @@ const appParentsParentsRewardsRoute =
     path: '/parents/rewards',
     getParentRoute: () => appParentsRoute,
   } as any)
-const appParentsParentsManageRoute = appParentsParentsManageRouteImport.update({
-  id: '/parents/manage',
-  path: '/parents/manage',
-  getParentRoute: () => appParentsRoute,
-} as any)
 const appParentsParentsApprovalsRoute =
   appParentsParentsApprovalsRouteImport.update({
     id: '/parents/approvals',
@@ -393,7 +381,6 @@ export interface FileRoutesByFullPath {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/unauthorized': typeof appUnauthorizedLazyRoute
-  '/dashboard': typeof authAuthDashboardRoute
   '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
@@ -408,7 +395,6 @@ export interface FileRoutesByFullPath {
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/approvals': typeof appParentsParentsApprovalsRoute
-  '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
@@ -436,7 +422,6 @@ export interface FileRoutesByTo {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/unauthorized': typeof appUnauthorizedLazyRoute
-  '/dashboard': typeof authAuthDashboardRoute
   '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
@@ -451,7 +436,6 @@ export interface FileRoutesByTo {
   '/kids/help': typeof appKidsKidsHelpRoute
   '/kids/play': typeof appKidsKidsPlayRoute
   '/parents/approvals': typeof appParentsParentsApprovalsRoute
-  '/parents/manage': typeof appParentsParentsManageRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
@@ -487,7 +471,6 @@ export interface FileRoutesById {
   '/(app)/status': typeof appStatusLazyRoute
   '/(app)/terms': typeof appTermsLazyRoute
   '/(app)/unauthorized': typeof appUnauthorizedLazyRoute
-  '/(auth)/_auth/dashboard': typeof authAuthDashboardRoute
   '/(auth)/_auth/profile': typeof authAuthProfileRoute
   '/(test)/test/a_': typeof testTestARoute
   '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
@@ -502,7 +485,6 @@ export interface FileRoutesById {
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
   '/(app)/_kids/kids/play': typeof appKidsKidsPlayRoute
   '/(app)/_parents/parents/approvals': typeof appParentsParentsApprovalsRoute
-  '/(app)/_parents/parents/manage': typeof appParentsParentsManageRoute
   '/(app)/_parents/parents/rewards_': typeof appParentsParentsRewardsRoute
   '/(app)/_parents/parents/tasks_': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
@@ -532,7 +514,6 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/unauthorized'
-    | '/dashboard'
     | '/profile'
     | '/test/a'
     | '/demo'
@@ -547,7 +528,6 @@ export interface FileRouteTypes {
     | '/kids/help'
     | '/kids/play'
     | '/parents/approvals'
-    | '/parents/manage'
     | '/parents/rewards'
     | '/parents/tasks'
     | '/test/a/b'
@@ -575,7 +555,6 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/unauthorized'
-    | '/dashboard'
     | '/profile'
     | '/test/a'
     | '/demo'
@@ -590,7 +569,6 @@ export interface FileRouteTypes {
     | '/kids/help'
     | '/kids/play'
     | '/parents/approvals'
-    | '/parents/manage'
     | '/parents/rewards'
     | '/parents/tasks'
     | '/test/a/b'
@@ -625,7 +603,6 @@ export interface FileRouteTypes {
     | '/(app)/status'
     | '/(app)/terms'
     | '/(app)/unauthorized'
-    | '/(auth)/_auth/dashboard'
     | '/(auth)/_auth/profile'
     | '/(test)/test/a_'
     | '/(app)/_examples/demo_'
@@ -640,7 +617,6 @@ export interface FileRouteTypes {
     | '/(app)/_kids/kids/help'
     | '/(app)/_kids/kids/play'
     | '/(app)/_parents/parents/approvals'
-    | '/(app)/_parents/parents/manage'
     | '/(app)/_parents/parents/rewards_'
     | '/(app)/_parents/parents/tasks_'
     | '/(test)/test/a/b_'
@@ -807,13 +783,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthProfileRouteImport
       parentRoute: typeof authAuthRoute
     }
-    '/(auth)/_auth/dashboard': {
-      id: '/(auth)/_auth/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof authAuthDashboardRouteImport
-      parentRoute: typeof authAuthRoute
-    }
     '/(app)/_parents/parents/': {
       id: '/(app)/_parents/parents/'
       path: '/parents'
@@ -924,13 +893,6 @@ declare module '@tanstack/react-router' {
       path: '/parents/rewards'
       fullPath: '/parents/rewards'
       preLoaderRoute: typeof appParentsParentsRewardsRouteImport
-      parentRoute: typeof appParentsRoute
-    }
-    '/(app)/_parents/parents/manage': {
-      id: '/(app)/_parents/parents/manage'
-      path: '/parents/manage'
-      fullPath: '/parents/manage'
-      preLoaderRoute: typeof appParentsParentsManageRouteImport
       parentRoute: typeof appParentsRoute
     }
     '/(app)/_parents/parents/approvals': {
@@ -1088,7 +1050,6 @@ const appKidsRouteWithChildren =
 
 interface appParentsRouteChildren {
   appParentsParentsApprovalsRoute: typeof appParentsParentsApprovalsRoute
-  appParentsParentsManageRoute: typeof appParentsParentsManageRoute
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
@@ -1097,7 +1058,6 @@ interface appParentsRouteChildren {
 
 const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsApprovalsRoute: appParentsParentsApprovalsRoute,
-  appParentsParentsManageRoute: appParentsParentsManageRoute,
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
@@ -1134,12 +1094,10 @@ const appRouteChildren: appRouteChildren = {
 const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
 
 interface authAuthRouteChildren {
-  authAuthDashboardRoute: typeof authAuthDashboardRoute
   authAuthProfileRoute: typeof authAuthProfileRoute
 }
 
 const authAuthRouteChildren: authAuthRouteChildren = {
-  authAuthDashboardRoute: authAuthDashboardRoute,
   authAuthProfileRoute: authAuthProfileRoute,
 }
 
