@@ -56,6 +56,21 @@ export class TaskApprovalService {
       );
     }
 
+    // Check if there's already a pending approval for this task/user combination
+    const existingApproval = await this.taskApprovalRepository.findOne({
+      where: {
+        task: { id: taskId },
+        user: { id: userId },
+        status: 'PENDING_APPROVAL',
+      },
+    });
+
+    if (existingApproval) {
+      throw new BadRequestException(
+        'This task is already pending approval. Cannot submit again.',
+      );
+    }
+
     // Update assignment status
     assignment.status = 'PENDING_APPROVAL';
     await this.taskAssignmentRepository.save(assignment);
