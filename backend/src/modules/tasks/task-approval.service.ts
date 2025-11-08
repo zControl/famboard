@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
+import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { EntityManager, Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
@@ -14,6 +15,8 @@ import { Task } from './entities/task.entity';
 @Injectable()
 export class TaskApprovalService {
   constructor(
+    @InjectRepository(TaskAssignment)
+    private taskAssignmentRepository: Repository<TaskAssignment>,
     @InjectRepository(TaskApproval)
     private taskApprovalRepository: Repository<TaskApproval>,
     @InjectRepository(Task)
@@ -42,16 +45,31 @@ export class TaskApprovalService {
       throw new NotFoundException(`User with ID "${userId}" not found`);
     }
 
-    // Create a new approval record
-    const taskCompletion = new TaskApproval();
-    taskCompletion.task = task;
-    taskCompletion.user = user;
-    taskCompletion.completedAt = new Date();
-    taskCompletion.pointsPossible = pointsPossible;
-    taskCompletion.note = note || '';
+    // Find the assignment
+    const assignment = await this.taskAssignmentRepository.findOne({
+      where: { task: { id: taskId }, user: { id: userId } },
+    });
 
-    // Save the new completion in the approvals table
-    return this.taskApprovalRepository.save(taskCompletion);
+    if (!assignment) {
+      throw new NotFoundException(
+        `Task assignment with ID "${taskId}" not found`,
+      );
+    }
+
+    // Update assignment status
+    assignment.status = 'PENDING_APPROVAL';
+    await this.taskAssignmentRepository.save(assignment);
+
+    // Create a new approval record
+    const taskAproval = new TaskApproval();
+    taskAproval.task = task;
+    taskAproval.user = user;
+    taskAproval.completedAt = new Date();
+    taskAproval.pointsPossible = pointsPossible;
+    taskAproval.note = note || '';
+
+    // Save the new record in the approvals table
+    return this.taskApprovalRepository.save(taskAproval);
   }
 
   async getApprovals(
@@ -146,6 +164,20 @@ export class TaskApprovalService {
       throw new BadRequestException(`Status is not PENDING_APPROVAL`);
     }
 
+    // Find and update the corresponding assignment
+    const assignment = await this.taskAssignmentRepository.findOne({
+      where: {
+        task: { id: approval.task.id },
+        user: { id: approval.user.id },
+      },
+    });
+
+    // Set the assignment status to COMPLETED
+    if (assignment) {
+      assignment.status = 'COMPLETED';
+      await this.taskAssignmentRepository.save(assignment);
+    }
+
     // Find the parent user
     const parent = await this.usersRepository.findOne({
       where: { id: parentId },
@@ -154,7 +186,7 @@ export class TaskApprovalService {
       throw new NotFoundException(`Parent with ID "${parentId}" not found`);
     }
 
-    // Update the task
+    // Update the approval fields
     approval.status = 'APPROVED';
     approval.approvedBy = parent;
     approval.approvedAt = new Date();
@@ -211,6 +243,20 @@ export class TaskApprovalService {
 
     if (approval.status !== 'PENDING_APPROVAL') {
       throw new BadRequestException(`Task is not pending approval`);
+    }
+
+    // Find and update the corresponding assignment
+    const assignment = await this.taskAssignmentRepository.findOne({
+      where: {
+        task: { id: approval.task.id },
+        user: { id: approval.user.id },
+      },
+    });
+
+    // Set the assignment status to REJECTED
+    if (assignment) {
+      assignment.status = 'REJECTED';
+      await this.taskAssignmentRepository.save(assignment);
     }
 
     // Find the parent user
