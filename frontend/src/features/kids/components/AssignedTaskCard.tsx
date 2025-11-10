@@ -13,13 +13,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";
-import { UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTask } from "@/types/task";
 import { SquareCheckBigIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface AssignedTaskCardProps {
-  task: UserAssignedTaskResponse;
+  task: AssignedTask;
 }
 
 export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
@@ -31,7 +31,7 @@ export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
     if (!user?.id) return;
     completeTaskMutation.mutate(
       {
-        taskId: task.id,
+        taskId: task.taskId,
         userId: user.id,
         pointsPossible: task.pointValue,
         note: note,
