@@ -78,22 +78,33 @@ export class TasksController {
     description: 'Assigned tasks retrieved successfully',
   })
   @ApiResponse({ status: 404, description: 'Task not found' })
-  async getAssignedUsers(@Param('taskId') taskId: string) {
-    return this.tasksService.getAssignedUsers(taskId);
+  getAssignedUsers(@Param('taskId') taskId: string) {
+    return this.tasksService.findAssignedUsers(taskId);
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('assigned-tasks/:userId')
+  @ApiOperation({ summary: 'Get task assignment details for a specific user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Task assignments retrieved successfully',
+  })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  getAssignedTasks(@Param('userId') userId: string) {
+    return this.tasksService.findAssignedTasks(userId);
   }
 
   @Get('user/:userId')
-  @ApiOperation({ summary: 'Get tasks assigned to a specific user' })
+  @ApiOperation({ summary: 'Get an array of task objects for a specific user' })
   @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
   @ApiResponse({ status: 404, description: 'User not found' })
-  findTasksByUser(@Param('userId') userId: string) {
+  getTasksByUser(@Param('userId') userId: string) {
     return this.tasksService.findTasksByUser(userId);
   }
 
   @Delete(':taskId')
   @ApiOperation({ summary: 'Delete a task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
-  @ApiResponse({ status: 404, description: 'Task not found' })
   remove(@Param('taskId') id: string) {
     return this.tasksService.remove(id);
   }
