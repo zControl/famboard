@@ -150,7 +150,7 @@ export class TasksService {
     return this.findTaskById(taskId);
   }
 
-  async findAssignedUsers(taskId: string): Promise<AssignedUserDto[]> {
+  async findAssignedUsersByTask(taskId: string): Promise<AssignedUserDto[]> {
     const task = await this.findTaskById(taskId);
     if (!task) {
       throw new NotFoundException('Task not found');
@@ -167,7 +167,9 @@ export class TasksService {
     }));
   }
 
-  async findAssignedTasks(userId: string): Promise<TaskAssignmentDetailDto[]> {
+  async findAssignedTasksByUser(
+    userId: string,
+  ): Promise<TaskAssignmentDetailDto[]> {
     // First check if the user exists
     // If user doesn't exist, findUserById will throw a NotFoundException
     // Otherwise, continue with finding tasks

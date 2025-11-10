@@ -79,7 +79,7 @@ export class TasksController {
   })
   @ApiResponse({ status: 404, description: 'Task not found' })
   getAssignedUsers(@Param('taskId') taskId: string) {
-    return this.tasksService.findAssignedUsers(taskId);
+    return this.tasksService.findAssignedUsersByTask(taskId);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -90,8 +90,12 @@ export class TasksController {
     description: 'Task assignments retrieved successfully',
   })
   @ApiResponse({ status: 404, description: 'User not found' })
-  getAssignedTasks(@Param('userId') userId: string) {
-    return this.tasksService.findAssignedTasks(userId);
+  async getAssignedTasks(@Param('userId') userId: string) {
+    const tasks = await this.tasksService.findAssignedTasksByUser(userId);
+    return {
+      count: tasks.length,
+      data: tasks,
+    };
   }
 
   @Get('user/:userId')

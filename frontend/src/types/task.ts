@@ -37,15 +37,28 @@ export interface Task {
   assignments: {
     id: string;
     assignedAt: Date;
+    status: string;
     user: {
       id: string;
     }
   }[];
 }
 
-export interface AssignedTaskResponse {
+export interface AssignedUserResponse {
   id: string;
   username: string;
+}
+
+export interface AssignedTask {
+  id: string;
+  status: string;
+  taskId: string;
+  title: string;
+  description: string;
+  category: string;
+  frequency: string;
+  pointValue: number;
+  note?: string;
 }
 
 export interface UserAssignedTaskResponse {
@@ -79,4 +92,9 @@ export interface PendingApprovalsResponse {
 export interface TaskListResponse {
   count: number;
   data: Task[];
+}
+
+export interface AssignedTaskResponse {
+  count: number;
+  data: AssignedTask[];
 }

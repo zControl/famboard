@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse, AssignedUserResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/types/task";
 
 export const taskApi = {
   getTasks: () =>
@@ -22,9 +22,12 @@ export const taskApi = {
     apiClient.delete<void>(API_ENDPOINTS.TASKS.DELETE(taskId)),
 
   getAssignedUsers: (taskId: string) =>
-    apiClient.get<AssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_ASSIGNED_USERS(taskId)),
+    apiClient.get<AssignedUserResponse[]>(API_ENDPOINTS.TASKS.GET_ASSIGNED_USERS(taskId)),
 
   getAssignedTasks: (userId: string) =>
+    apiClient.get<AssignedTaskResponse>(API_ENDPOINTS.TASKS.GET_ASSIGNED_TASKS(userId)),
+
+  getUserAssignedTasks: (userId: string) =>
     apiClient.get<UserAssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_USER_ASSIGNED(userId)),
 
   assignUsersToTask: (taskId: string, userIds: string[]) =>
