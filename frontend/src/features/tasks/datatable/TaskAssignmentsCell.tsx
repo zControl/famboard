@@ -64,14 +64,20 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         <div>
           {hasAssignments ? (
             <div className="flex -space-x-2 overflow-hidden p-2">
-              {assignments.map((assignment) => {
-                return (
-                  <AssignedUserAvatar
-                    key={assignment.id}
-                    userId={assignment.user.id}
-                  />
-                );
-              })}
+              {assignments
+                .filter(
+                  (assignment, index, self) =>
+                    index ===
+                    self.findIndex((a) => a.user.id === assignment.user.id),
+                )
+                .map((assignment) => {
+                  return (
+                    <AssignedUserAvatar
+                      key={assignment.id}
+                      userId={assignment.user.id}
+                    />
+                  );
+                })}
             </div>
           ) : (
             <div className="text-card-foreground p-2">None</div>
