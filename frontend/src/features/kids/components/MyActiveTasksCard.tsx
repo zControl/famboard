@@ -2,10 +2,10 @@ import { Card } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { StatLabel } from "@/components/ui/typography";
 import { AssignedTaskCard } from "@/features/kids/components/AssignedTaskCard";
-import { UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTask } from "@/types/task";
 
 interface MyActiveTasksCardProps {
-  assignedTasks: UserAssignedTaskResponse[] | undefined;
+  assignedTasks: AssignedTask[] | undefined;
   loading: boolean;
 }
 export const MyActiveTasksCard = ({

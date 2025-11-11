@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
+import { TaskAssignmentDetailDto } from 'src/modules/tasks/dto/task-assignment-detail.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User } from 'src/modules/users/entities/user.entity';
@@ -149,7 +150,7 @@ export class TasksService {
     return this.findTaskById(taskId);
   }
 
-  async getAssignedUsers(taskId: string): Promise<AssignedUserDto[]> {
+  async findAssignedUsersByTask(taskId: string): Promise<AssignedUserDto[]> {
     const task = await this.findTaskById(taskId);
     if (!task) {
       throw new NotFoundException('Task not found');
@@ -164,6 +165,24 @@ export class TasksService {
       id: assignment.user.id,
       username: assignment.user.username,
     }));
+  }
+
+  async findAssignedTasksByUser(
+    userId: string,
+  ): Promise<TaskAssignmentDetailDto[]> {
+    // First check if the user exists
+    // If user doesn't exist, findUserById will throw a NotFoundException
+    // Otherwise, continue with finding tasks
+    await this.findUserById(userId);
+
+    const assignments = await this.taskAssignmentRepository.find({
+      where: { user: { id: userId } },
+      relations: ['task'],
+    });
+
+    return assignments.map(
+      (assignment) => new TaskAssignmentDetailDto(assignment),
+    );
   }
 
   async findUsersByTask(taskId: string): Promise<User[]> {

@@ -3,7 +3,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
 import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";
-import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
+import { useAssignedTasks } from "@/features/tasks/hooks/useAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -13,7 +13,8 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 
 function KidsIndexPage() {
   const { profile, isLoading: profileLoading } = useProfile();
-  const { assignedTasks, isLoading: tasksLoading } = useUserAssignedTasks(
+
+  const { assignedTasks, isLoading, pendingApprovalTasks } = useAssignedTasks(
     profile?.userId ? profile.userId : "",
   );
 
@@ -47,9 +48,9 @@ function KidsIndexPage() {
         <div id="right" className="flex flex-col gap-6">
           <MyActiveTasksCard
             assignedTasks={assignedTasks}
-            loading={tasksLoading}
+            loading={isLoading}
           />
-          <MyApprovalsCard assignedTasks={assignedTasks} />
+          <MyApprovalsCard assignedTasks={pendingApprovalTasks} />
         </div>
       </div>
     </PageContainer>

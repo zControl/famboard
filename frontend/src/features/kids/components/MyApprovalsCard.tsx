@@ -1,11 +1,11 @@
 import { InfoCard } from "@/components/composites/InfoCard";
 import { Card } from "@/components/ui/card";
 import { BlockQuote, StatLabel } from "@/components/ui/typography";
-import { UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTask } from "@/types/task";
 import { CheckCircleIcon } from "lucide-react";
 
 interface MyActiveTasksCardProps {
-  assignedTasks: UserAssignedTaskResponse[] | undefined;
+  assignedTasks: AssignedTask[] | undefined;
 }
 
 export const MyApprovalsCard = ({ assignedTasks }: MyActiveTasksCardProps) => {
