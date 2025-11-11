@@ -14,11 +14,9 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 function KidsIndexPage() {
   const { profile, isLoading: profileLoading } = useProfile();
 
-  const {
-    assignedTasks: userAssignedTasks,
-    isLoading,
-    pendingApprovalTasks,
-  } = useAssignedTasks(profile?.userId ? profile.userId : "");
+  const { assignedTasks, isLoading, pendingApprovalTasks } = useAssignedTasks(
+    profile?.userId ? profile.userId : "",
+  );
 
   // Wait for profile to load before rendering content that depends on it
   if (profileLoading) {
@@ -49,7 +47,7 @@ function KidsIndexPage() {
         </div>
         <div id="right" className="flex flex-col gap-6">
           <MyActiveTasksCard
-            assignedTasks={userAssignedTasks}
+            assignedTasks={assignedTasks}
             loading={isLoading}
           />
           <MyApprovalsCard assignedTasks={pendingApprovalTasks} />

@@ -52,11 +52,12 @@ export interface AssignedUserResponse {
 export interface AssignedTask {
   id: string;
   status: string;
+  assignedAt: Date;
   taskId: string;
   title: string;
   description: string;
-  category: string;
-  frequency: string;
+  category: TaskCategory;
+  frequency: TaskFrequency;
   pointValue: number;
   note?: string;
 }

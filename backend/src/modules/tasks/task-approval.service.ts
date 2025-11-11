@@ -179,20 +179,6 @@ export class TaskApprovalService {
       throw new BadRequestException(`Status is not PENDING_APPROVAL`);
     }
 
-    // Find and update the corresponding assignment
-    const assignment = await this.taskAssignmentRepository.findOne({
-      where: {
-        task: { id: approval.task.id },
-        user: { id: approval.user.id },
-      },
-    });
-
-    // Set the assignment status to COMPLETED
-    if (assignment) {
-      assignment.status = 'COMPLETED';
-      await this.taskAssignmentRepository.save(assignment);
-    }
-
     // Find the parent user
     const parent = await this.usersRepository.findOne({
       where: { id: parentId },
@@ -236,6 +222,65 @@ export class TaskApprovalService {
         await transactionalEntityManager.save(userProfile);
       }
     });
+
+    // Handle task re-assignment based on frequency type
+    // Find the corresponding assignment
+    const assignment = await this.taskAssignmentRepository.findOne({
+      where: {
+        task: { id: approval.task.id },
+        user: { id: approval.user.id },
+      },
+    });
+
+    if (assignment) {
+      // For one-time tasks, unassign
+      if (approval.task.frequency === 'ONCE') {
+        await this.taskAssignmentRepository.delete(assignment.id);
+      }
+      // For recurring tasks, create a new assignment with ASSIGNED status
+      else if (
+        ['DAILY', 'WEEKLY', 'MONTHLY'].includes(approval.task.frequency)
+      ) {
+        // Set current assignment to COMPLETED
+        assignment.status = 'COMPLETED';
+        await this.taskAssignmentRepository.save(assignment);
+
+        // Create new assignment for next occurrence
+        const newAssignment = new TaskAssignment();
+        newAssignment.task = approval.task;
+        newAssignment.user = approval.user;
+        newAssignment.status = 'ASSIGNED';
+        // Set next assignment date based on frequency
+        const now = new Date();
+        switch (approval.task.frequency) {
+          case 'DAILY':
+            // Next day
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            newAssignment.assignedAt = tomorrow;
+            break;
+
+          case 'WEEKLY':
+            // Next week
+            const nextWeek = new Date(now);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            newAssignment.assignedAt = nextWeek;
+            break;
+
+          case 'MONTHLY':
+            // Next month
+            const nextMonth = new Date(now);
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            newAssignment.assignedAt = nextMonth;
+            break;
+
+          default:
+            newAssignment.assignedAt = now;
+        }
+
+        await this.taskAssignmentRepository.save(newAssignment);
+      }
+    }
 
     // Save the approval record
     return this.taskApprovalRepository.save(approval);

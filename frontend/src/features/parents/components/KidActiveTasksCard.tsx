@@ -1,7 +1,7 @@
 import { DataTableCore } from "@/components/datatable/DataTableCore";
 import { ColumnTitle } from "@/components/datatable/headers/ColumnTitle";
 import { Spinner } from "@/components/ui/spinner";
-import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
+import { useAssignedTasks } from "@/features/tasks/hooks/useAssignedTasks";
 import { ColumnDef } from "@tanstack/react-table";
 
 const activeTasksColumns: ColumnDef<{
@@ -15,7 +15,7 @@ const activeTasksColumns: ColumnDef<{
 ];
 
 export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
-  const { assignedTasks, isLoading } = useUserAssignedTasks(userId);
+  const { assignedTasks, isLoading } = useAssignedTasks(userId);
   return (
     <div className="w-full border rounded-lg">
       {isLoading ? (
@@ -24,7 +24,7 @@ export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
         <DataTableCore
           columns={activeTasksColumns}
           data={assignedTasks || []}
-          title="Active Tasks"
+          title="Assigned"
           showPagination={false}
           showColumnVisibility={false}
           headerClassName="bg-transparent"

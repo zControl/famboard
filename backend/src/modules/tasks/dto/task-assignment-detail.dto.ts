@@ -6,10 +6,10 @@ export class TaskAssignmentDetailDto {
   id: string;
 
   @Expose()
-  assigneeId: string;
+  status: string;
 
   @Expose()
-  status: string;
+  assignedAt: Date;
 
   @Expose()
   @Transform(({ obj }) => obj.task?.id)
