@@ -19,8 +19,6 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
 
-  console.log("Assignments from row", assignments);
-
   const hasAssignments = assignments && assignments.length > 0;
 
   const handleRowClick = () => {
