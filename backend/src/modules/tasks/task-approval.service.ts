@@ -76,15 +76,15 @@ export class TaskApprovalService {
     await this.taskAssignmentRepository.save(assignment);
 
     // Create a new approval record
-    const taskAproval = new TaskApproval();
-    taskAproval.task = task;
-    taskAproval.user = user;
-    taskAproval.completedAt = new Date();
-    taskAproval.pointsPossible = pointsPossible;
-    taskAproval.note = note || '';
+    const taskApproval = new TaskApproval();
+    taskApproval.task = task;
+    taskApproval.user = user;
+    taskApproval.completedAt = new Date();
+    taskApproval.pointsPossible = pointsPossible;
+    taskApproval.note = note || '';
 
     // Save the new record in the approvals table
-    return this.taskApprovalRepository.save(taskAproval);
+    return this.taskApprovalRepository.save(taskApproval);
   }
 
   async getApprovals(
@@ -163,6 +163,7 @@ export class TaskApprovalService {
   async approveTask(
     approvalId: string,
     parentId: string,
+    bonusPoints?: number,
     note?: string,
   ): Promise<TaskApproval> {
     // 1. Fetch and validate the approval and parent
@@ -172,7 +173,7 @@ export class TaskApprovalService {
     );
 
     // 2. Update the approval record
-    await this.updateApprovalRecord(approval, parent, note);
+    await this.updateApprovalRecord(approval, parent, bonusPoints, note);
 
     // 3. Process the task assignment based on frequency
     await this.processTaskAssignment(approval);
@@ -210,6 +211,7 @@ export class TaskApprovalService {
   private async updateApprovalRecord(
     approval: TaskApproval,
     parent: User,
+    bonusPoints?: number,
     note?: string,
   ) {
     // Update the approval fields
@@ -217,10 +219,13 @@ export class TaskApprovalService {
     approval.approvedBy = parent;
     approval.approvedAt = new Date();
 
-    // Handle points
-    if (approval.pointsPossible) {
-      approval.pointsAwarded = approval.pointsPossible;
-    } else if (approval.task.pointValue) {
+    // Handle points awarded and bonus
+    if (bonusPoints > 0) {
+      approval.bonusAwarded = true;
+      approval.bonusValue = bonusPoints;
+      approval.pointsAwarded = approval.pointsPossible + bonusPoints;
+    } else {
+      approval.bonusValue = 0;
       approval.pointsAwarded = approval.task.pointValue;
     }
 

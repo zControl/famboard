@@ -69,6 +69,7 @@ export class TaskApprovalController {
     await this.taskApprovalService.approveTask(
       approvalId,
       approveDto.parentId,
+      approveDto.bonusPoints,
       approveDto.note,
     );
 

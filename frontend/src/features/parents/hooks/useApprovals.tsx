@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export interface TaskActionRequest {
   approvalId: string;
   parentId: string;
+  bonusPoints?: number;
   note?: string;
 }
 export const useApprovals = () => {
@@ -19,8 +20,13 @@ export const useApprovals = () => {
   });
 
   const { mutate: approveTaskMutation, isPending: isApproving } = useMutation({
-    mutationFn: ({ approvalId, parentId, note }: TaskActionRequest) =>
-      taskApi.approveTask(approvalId, parentId, note),
+    mutationFn: ({
+      approvalId,
+      parentId,
+      bonusPoints,
+      note,
+    }: TaskActionRequest) =>
+      taskApi.approveTask(approvalId, parentId, bonusPoints, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
       queryClient.invalidateQueries({ queryKey: ["user-approvals"] });

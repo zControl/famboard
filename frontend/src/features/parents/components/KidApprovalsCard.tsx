@@ -53,7 +53,6 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
           onOpenChange={setConfirmModalOpen}
           actionType="approve"
           approvals={approvalsList.data}
-          defaultNote="Bulk approved"
         />
       )}
     </Card>

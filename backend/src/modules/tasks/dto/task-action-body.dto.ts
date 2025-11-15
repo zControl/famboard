@@ -6,6 +6,13 @@ export class TaskActionBodyDto {
   @IsString()
   parentId?: string;
 
+  @ApiProperty({
+    description: 'Optional bonus points to award',
+    required: false,
+  })
+  @IsOptional()
+  bonusPoints?: number;
+
   @ApiProperty({ description: 'Optional note from parent', required: false })
   @IsString()
   @IsOptional()
