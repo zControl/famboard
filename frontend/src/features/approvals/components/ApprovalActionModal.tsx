@@ -1,5 +1,6 @@
 import { ActionModal } from "@/components/composites/ActionModal";
-import { Card, CardContent } from "@/components/ui/card";
+import { Coin } from "@/components/ui/coin";
+import { Input } from "@/components/ui/input";
 import { LabeledValue } from "@/components/ui/labeled-value";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
@@ -54,7 +55,6 @@ export const ApprovalActionModal = ({
         const promises = approvals.map(
           (approval) =>
             new Promise<void>((resolve) => {
-              console.log("Processing approval ID:", approval.approvalId);
               mutation(
                 {
                   approvalId: approval.approvalId,
@@ -96,11 +96,27 @@ export const ApprovalActionModal = ({
       }
 
       onOpenChange(false);
+      setNote("");
+      setBonusPoints(undefined);
       if (onComplete) onComplete();
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleCancelAction = () => {
+    setNote("");
+    setBonusPoints(undefined);
+    onOpenChange(false);
+  };
+
+  // Calculate total base points for bulk approvals
+  const totalBasePoints = Array.isArray(approvals)
+    ? approvals.reduce(
+        (sum, approval) => sum + (approval.pointsPossible || 0),
+        0,
+      )
+    : approvals.pointsPossible;
 
   return (
     <ActionModal
@@ -110,135 +126,50 @@ export const ApprovalActionModal = ({
         actionType === "approve"
           ? isBulkAction
             ? `Approve ${approvalsCount} Tasks?`
-            : "Approve Task?"
+            : `Approve ${approvals.taskTitle}?`
           : "Reject Task?"
       }
       onConfirm={handleConfirmAction}
-      onCancel={() => onOpenChange(false)}
+      onCancel={handleCancelAction}
     >
       {/* Task Summary Section */}
-      <Card>
-        <CardContent>
-          {!isBulkAction ? (
-            <div className="space-y-2">
-              <LabeledValue
-                label="Task Title"
-                value={approvals.taskTitle || "Unnamed Task"}
+      {actionType === "approve" && (
+        <div className="space-y-4">
+          <LabeledValue
+            label="Base Points"
+            value={<Coin value={totalBasePoints} />}
+          />
+          <LabeledValue
+            label="Add Bonus Points"
+            value={
+              <Input
+                type="number"
+                step={1}
+                min={0}
+                max={100}
+                defaultValue={0}
+                onChange={(e) =>
+                  setBonusPoints(
+                    e.target.value ? parseInt(e.target.value) : undefined,
+                  )
+                }
+                className="w-24 text-center rounded border p-1"
               />
-              {actionType === "approve" && (
-                <div className="mt-4 space-y-2">
-                  <LabeledValue
-                    label="Task Points"
-                    value={approvals.pointsPossible}
-                  />
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Bonus Points:</span>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="number"
-                        value={bonusPoints !== undefined ? bonusPoints : ""}
-                        onChange={(e) =>
-                          setBonusPoints(
-                            e.target.value
-                              ? parseInt(e.target.value)
-                              : undefined,
-                          )
-                        }
-                        className="w-16 text-center rounded border p-1"
-                        min="0"
-                        max="100"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-between text-primary font-medium">
-                    <span>Total Points:</span>
-                    <span>{approvals.pointsPossible + (bonusPoints || 0)}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-2">
-              {/* Calculate total points from all approvals */}
-              {(() => {
-                const totalBasePoints = Array.isArray(approvals)
-                  ? approvals.reduce(
-                      (sum, approval) => sum + (approval.pointsPossible || 0),
-                      0,
-                    )
-                  : 0;
-
-                return (
-                  <div className="flex justify-between">
-                    <span className="font-medium">Total Possible Points:</span>
-                    <span>{totalBasePoints}</span>
-                  </div>
-                );
-              })()}
-
-              {actionType === "approve" && (
-                <div className="mt-4 space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Bonus Points:</span>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="number"
-                        value={bonusPoints !== undefined ? bonusPoints : ""}
-                        onChange={(e) =>
-                          setBonusPoints(
-                            e.target.value
-                              ? parseInt(e.target.value)
-                              : undefined,
-                          )
-                        }
-                        className="w-16 text-center rounded border p-1"
-                        min="0"
-                        max="100"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Display per-task bonus */}
-                  {bonusPoints && bonusPoints > 0 && (
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Bonus per task:</span>
-                      <span>
-                        {Math.round((bonusPoints / approvalsCount) * 100) / 100}{" "}
-                        points
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Calculate and display total points */}
-                  {(() => {
-                    const totalBasePoints = Array.isArray(approvals)
-                      ? approvals.reduce(
-                          (sum, approval) =>
-                            sum + (approval.pointsPossible || 0),
-                          0,
-                        )
-                      : 0;
-
-                    return (
-                      <div className="flex justify-between text-primary font-medium">
-                        <span>Total Points:</span>
-                        <span>{totalBasePoints + (bonusPoints || 0)}</span>
-                      </div>
-                    );
-                  })()}
-                </div>
-              )}
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            }
+          />
+          <LabeledValue
+            label="Points Awarded"
+            value={<Coin value={totalBasePoints + (bonusPoints || 0)} />}
+          />
+        </div>
+      )}
 
       {/* Note Section */}
       <Textarea
         placeholder="Add a note (optional)"
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        className="w-full min-h-20 mt-2"
+        className="w-full min-h-20 my-4"
         maxLength={300}
       />
     </ActionModal>

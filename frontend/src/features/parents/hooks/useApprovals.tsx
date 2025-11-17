@@ -30,6 +30,7 @@ export const useApprovals = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
       queryClient.invalidateQueries({ queryKey: ["user-approvals"] });
+      queryClient.invalidateQueries({ queryKey: ["user-profile"] });
     },
   });
 
