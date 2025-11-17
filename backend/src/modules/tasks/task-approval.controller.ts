@@ -69,6 +69,7 @@ export class TaskApprovalController {
     await this.taskApprovalService.approveTask(
       approvalId,
       approveDto.parentId,
+      approveDto.bonusPoints,
       approveDto.note,
     );
 
@@ -88,11 +89,7 @@ export class TaskApprovalController {
     @Param('approvalId') approvalId: string,
     @Body() rejectDto: TaskActionBodyDto,
   ) {
-    await this.taskApprovalService.rejectTask(
-      approvalId,
-      rejectDto.parentId,
-      rejectDto.note,
-    );
+    await this.taskApprovalService.rejectTask(approvalId, rejectDto.note);
 
     return {
       message: 'Task rejected',

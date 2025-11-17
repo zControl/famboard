@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { DetailListItemProps } from "@/types/common";
 import { cn } from "@/utils/classNames";
 import React from "react";
@@ -14,18 +13,14 @@ function LabeledValue({
     <div
       {...props}
       className={cn(
-        "flex flex-row items-center px-6 py-2 justify-between rounded-lg transition-all",
+        "flex flex-row items-center justify-between rounded-lg transition-all",
         className,
       )}
     >
-      <div className="flex flex-row items-center justify-between">
-        <div className="text-lg font-medium text-foreground">{label}</div>
-      </div>
-      <div className="text-md flex flex-row items-center justify-end">
-        <Badge className="text-lg font-normal rounded-lg">
-          {value}
-          {units && <div className="ml-2 text-muted-foreground">{units}</div>}
-        </Badge>
+      <div className="text-lg font-medium text-foreground">{label}</div>
+      <div className="text-lg flex flex-row items-center justify-end">
+        {value}
+        {units && <div className="ml-2 text-muted-foreground">{units}</div>}
       </div>
     </div>
   );

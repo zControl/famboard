@@ -6,6 +6,7 @@ export const useAssignedTasks = (userId: string) => {
   const { data: tasks, isLoading, isError, refetch } = useQuery<AssignedTaskResponse, Error>({
     queryKey: ["assigned-tasks-by-user", userId],
     queryFn: () => taskApi.getAssignedTasks(userId),
+    refetchInterval: 10000, // This will update the assigned tasks every 10 seconds
     enabled: !!userId, // Only run the query if userId exists
   });
 

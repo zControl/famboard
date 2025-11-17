@@ -76,15 +76,15 @@ export class TaskApprovalService {
     await this.taskAssignmentRepository.save(assignment);
 
     // Create a new approval record
-    const taskAproval = new TaskApproval();
-    taskAproval.task = task;
-    taskAproval.user = user;
-    taskAproval.completedAt = new Date();
-    taskAproval.pointsPossible = pointsPossible;
-    taskAproval.note = note || '';
+    const taskApproval = new TaskApproval();
+    taskApproval.task = task;
+    taskApproval.user = user;
+    taskApproval.completedAt = new Date();
+    taskApproval.pointsPossible = pointsPossible;
+    taskApproval.note = note || '';
 
     // Save the new record in the approvals table
-    return this.taskApprovalRepository.save(taskAproval);
+    return this.taskApprovalRepository.save(taskApproval);
   }
 
   async getApprovals(
@@ -163,8 +163,26 @@ export class TaskApprovalService {
   async approveTask(
     approvalId: string,
     parentId: string,
+    bonusPoints?: number,
     note?: string,
   ): Promise<TaskApproval> {
+    // 1. Fetch and validate the approval and parent
+    const { approval, parent } = await this.validateApprovalRequest(
+      approvalId,
+      parentId,
+    );
+
+    // 2. Update the approval record
+    await this.updateApprovalRecord(approval, parent, bonusPoints, note);
+
+    // 3. Process the task assignment based on frequency
+    await this.processTaskAssignment(approval);
+
+    // 4. Return the updated approval
+    return approval;
+  }
+
+  private async validateApprovalRequest(approvalId: string, parentId: string) {
     // Find the task to be approved
     const approval = await this.taskApprovalRepository.findOne({
       where: { id: approvalId },
@@ -187,16 +205,27 @@ export class TaskApprovalService {
       throw new NotFoundException(`Parent with ID "${parentId}" not found`);
     }
 
+    return { approval, parent };
+  }
+
+  private async updateApprovalRecord(
+    approval: TaskApproval,
+    parent: User,
+    bonusPoints?: number,
+    note?: string,
+  ) {
     // Update the approval fields
     approval.status = 'APPROVED';
     approval.approvedBy = parent;
     approval.approvedAt = new Date();
 
-    // Handle points
-    // TODO: #154 - Create the structure for bonus points being awarded.
-    if (approval.pointsPossible) {
-      approval.pointsAwarded = approval.pointsPossible;
-    } else if (approval.task.pointValue) {
+    // Handle points awarded and bonus
+    if (bonusPoints > 0) {
+      approval.bonusAwarded = true;
+      approval.bonusValue = bonusPoints;
+      approval.pointsAwarded = approval.pointsPossible + bonusPoints;
+    } else {
+      approval.bonusValue = 0;
       approval.pointsAwarded = approval.task.pointValue;
     }
 
@@ -204,93 +233,138 @@ export class TaskApprovalService {
       approval.note = note;
     }
 
-    // Use the transactional entity manager to update user profile with points awarded
-    await this.entityManager.transaction(async (transactionalEntityManager) => {
-      // Save approval
-      await transactionalEntityManager.save(approval);
-
-      // Update user profile with awarded points
-      const userProfile = await transactionalEntityManager.findOne(
-        UserProfile,
-        {
-          where: { userId: approval.user.id },
-        },
-      );
-      if (userProfile) {
-        userProfile.pointTotal =
-          (userProfile.pointTotal || 0) + approval.pointsAwarded;
-        await transactionalEntityManager.save(userProfile);
-      }
-    });
-
-    // Handle task re-assignment based on frequency type
-    // Find the corresponding assignment
-    const assignment = await this.taskAssignmentRepository.findOne({
-      where: {
-        task: { id: approval.task.id },
-        user: { id: approval.user.id },
-      },
-    });
-
-    if (assignment) {
-      // For one-time tasks, unassign
-      if (approval.task.frequency === 'ONCE') {
-        await this.taskAssignmentRepository.delete(assignment.id);
-      }
-      // For recurring tasks, create a new assignment with ASSIGNED status
-      else if (
-        ['DAILY', 'WEEKLY', 'MONTHLY'].includes(approval.task.frequency)
-      ) {
-        // Set current assignment to COMPLETED
-        assignment.status = 'COMPLETED';
-        await this.taskAssignmentRepository.save(assignment);
-
-        // Create new assignment for next occurrence
-        const newAssignment = new TaskAssignment();
-        newAssignment.task = approval.task;
-        newAssignment.user = approval.user;
-        newAssignment.status = 'ASSIGNED';
-        // Set next assignment date based on frequency
-        const now = new Date();
-        switch (approval.task.frequency) {
-          case 'DAILY':
-            // Next day
-            const tomorrow = new Date(now);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            newAssignment.assignedAt = tomorrow;
-            break;
-
-          case 'WEEKLY':
-            // Next week
-            const nextWeek = new Date(now);
-            nextWeek.setDate(nextWeek.getDate() + 7);
-            newAssignment.assignedAt = nextWeek;
-            break;
-
-          case 'MONTHLY':
-            // Next month
-            const nextMonth = new Date(now);
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            newAssignment.assignedAt = nextMonth;
-            break;
-
-          default:
-            newAssignment.assignedAt = now;
-        }
-
-        await this.taskAssignmentRepository.save(newAssignment);
-      }
-    }
-
-    // Save the approval record
-    return this.taskApprovalRepository.save(approval);
+    // Save the updated approval
+    await this.taskApprovalRepository.save(approval);
   }
 
-  async rejectTask(
-    approvalId: string,
-    parentId: string,
-    note?: string,
-  ): Promise<TaskApproval> {
+  private async processTaskAssignment(approval: TaskApproval) {
+    return this.entityManager.transaction(
+      async (transactionalEntityManager) => {
+        // Find the current assignment
+        const currentAssignment = await transactionalEntityManager.findOne(
+          TaskAssignment,
+          {
+            where: {
+              task: { id: approval.task.id },
+              user: { id: approval.user.id },
+            },
+            relations: ['task', 'user'],
+          },
+        );
+
+        if (!currentAssignment) {
+          throw new NotFoundException(
+            `Assignment not found for task ${approval.task.id}`,
+          );
+        }
+
+        // Update user profile with awarded points
+        await this.updateUserPoints(transactionalEntityManager, approval);
+
+        // Handle the assignment based on task frequency
+        if (approval.task.frequency === 'ONCE') {
+          await this.handleOneTimeTask(
+            transactionalEntityManager,
+            currentAssignment,
+          );
+        } else if (
+          ['DAILY', 'WEEKLY', 'MONTHLY'].includes(approval.task.frequency)
+        ) {
+          await this.handleRecurringTask(
+            transactionalEntityManager,
+            currentAssignment,
+            approval.task.frequency,
+          );
+        } else {
+          // TODO: Ensure all task frequencies are handled
+          console.log(`Unexpected frequency: ${approval.task.frequency}`);
+        }
+      },
+    );
+  }
+
+  private async updateUserPoints(
+    manager: EntityManager,
+    approval: TaskApproval,
+  ) {
+    // Find the user profile
+    const userProfile = await manager.findOne(UserProfile, {
+      where: { user: { id: approval.user.id } },
+    });
+
+    if (!userProfile) {
+      throw new NotFoundException(
+        `User profile for user ${approval.user.id} not found`,
+      );
+    }
+
+    // Update points
+    if (approval.pointsAwarded) {
+      userProfile.pointTotal += approval.pointsAwarded;
+      await manager.save(userProfile);
+    }
+  }
+
+  private async handleOneTimeTask(
+    manager: EntityManager,
+    assignment: TaskAssignment,
+  ) {
+    // Mark the assignment as completed
+    assignment.status = 'COMPLETED';
+    await manager.save(assignment);
+  }
+
+  private async handleRecurringTask(
+    manager: EntityManager,
+    currentAssignment: TaskAssignment,
+    frequency: string,
+  ) {
+    // Mark the current assignment as completed
+    currentAssignment.status = 'COMPLETED';
+    await manager.save(currentAssignment);
+
+    // Create a new assignment for the next occurrence
+    const newAssignment = new TaskAssignment();
+    console.log('Inside the handleRecurringTask function');
+    console.log('Current Assignment:', currentAssignment);
+    console.log('New Assignment before setting fields:', newAssignment);
+    newAssignment.task = currentAssignment.task;
+    newAssignment.user = currentAssignment.user;
+    newAssignment.status = 'ASSIGNED';
+
+    // Calculate the next due date based on frequency
+    const nextDueDate = this.calculateNextDueDate(frequency);
+    newAssignment.assignedAt = nextDueDate;
+
+    console.log('New Assignment after setting fields:', newAssignment);
+
+    // Save the new assignment
+    await manager.save(newAssignment);
+  }
+
+  private calculateNextDueDate(frequency: string): Date {
+    const today = new Date();
+    const nextDueDate = new Date();
+
+    switch (frequency) {
+      case 'DAILY':
+        nextDueDate.setDate(today.getDate() + 1);
+        break;
+      case 'WEEKLY':
+        nextDueDate.setDate(today.getDate() + 7);
+        break;
+      case 'MONTHLY':
+        nextDueDate.setMonth(today.getMonth() + 1);
+        break;
+      default:
+        console.log(`Unhandled frequency: ${frequency}`);
+        nextDueDate.setDate(today.getDate() + 1); // Default to daily
+    }
+
+    return nextDueDate;
+  }
+
+  async rejectTask(approvalId: string, note?: string): Promise<TaskApproval> {
     // Find the approval
     const approval = await this.taskApprovalRepository.findOne({
       where: { id: approvalId },
@@ -305,6 +379,10 @@ export class TaskApprovalService {
       throw new BadRequestException(`Task is not pending approval`);
     }
 
+    // Update the approval fields
+    approval.status = 'REJECTED';
+    approval.note = note;
+
     // Find and update the corresponding assignment
     const assignment = await this.taskAssignmentRepository.findOne({
       where: {
@@ -313,23 +391,13 @@ export class TaskApprovalService {
       },
     });
 
-    // Set the assignment status to REJECTED
-    if (assignment) {
-      assignment.status = 'REJECTED';
-      await this.taskAssignmentRepository.save(assignment);
+    if (!assignment) {
+      throw new NotFoundException(`Error:"${assignment}" not found`);
     }
 
-    // Find the parent user
-    const parent = await this.usersRepository.findOne({
-      where: { id: parentId },
-    });
-    if (!parent) {
-      throw new NotFoundException(`Parent with ID "${parentId}" not found`);
-    }
-
-    // Update the task
-    approval.status = 'REJECTED';
-    approval.note = note;
+    // Update assignment status
+    assignment.status = 'ASSIGNED';
+    await this.taskAssignmentRepository.save(assignment);
 
     // Save the approval record
     return this.taskApprovalRepository.save(approval);
