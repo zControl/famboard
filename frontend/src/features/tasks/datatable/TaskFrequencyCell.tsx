@@ -9,11 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskFrequency } from "@/types/task";
@@ -57,12 +52,7 @@ export const TaskFrequencyCell = ({ row }: TaskFrequencyCellProps) => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <div className="cursor-pointer flex items-center">
-            <Tooltip>
-              <TooltipTrigger>
-                <TaskFrequencyBadge size="sm" frequency={selectedFrequency} />
-              </TooltipTrigger>
-              <TooltipContent>{selectedFrequency}</TooltipContent>
-            </Tooltip>
+            <TaskFrequencyBadge size="sm" frequency={selectedFrequency} />
           </div>
         </PopoverTrigger>
         <PopoverContent className="p-0 w-[200px]" side="bottom" align="start">

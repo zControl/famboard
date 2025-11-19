@@ -1,4 +1,9 @@
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   badgeIconVariants,
   badgeShellVariants,
 } from "@/features/tasks/components/badge-variants";
@@ -46,7 +51,14 @@ function TaskFrequencyBadge({
   const icon = frequencyIconMap[frequency];
 
   return (
-    <div className={cn(badgeShellVariants({ size }), className)}>{icon}</div>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className={cn(badgeShellVariants({ size }), className)}>
+          {icon}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>{frequency}</TooltipContent>
+    </Tooltip>
   );
 }
 
