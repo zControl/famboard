@@ -15,17 +15,17 @@ import {
 
 interface TaskFrequencyBadgeProps
   extends VariantProps<typeof badgeShellVariants> {
-  category: TaskFrequency;
+  frequency: TaskFrequency;
   className?: string;
 }
 
 function TaskFrequencyBadge({
-  category,
+  frequency,
   className,
   size,
 }: TaskFrequencyBadgeProps) {
   // Create a map of icons with the appropriate size class
-  const categoryIconMap: Record<TaskFrequency, React.ReactNode> = {
+  const frequencyIconMap: Record<TaskFrequency, React.ReactNode> = {
     [TaskFrequency.Once]: (
       <Calendar1Icon className={badgeIconVariants({ size })} />
     ),
@@ -43,7 +43,7 @@ function TaskFrequencyBadge({
     ),
   };
 
-  const icon = categoryIconMap[category];
+  const icon = frequencyIconMap[frequency];
 
   return (
     <div className={cn(badgeShellVariants({ size }), className)}>{icon}</div>

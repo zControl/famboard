@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskFrequency } from "@/types/task";
 import { enumToArray } from "@/utils/enumToArray";
 import { Row } from "@tanstack/react-table";
@@ -30,7 +30,7 @@ export const TaskFrequencyCell = ({ row }: TaskFrequencyCellProps) => {
   const [selectedFrequency, setSelectedFrequency] = useState<TaskFrequency>(
     row.original.frequency,
   );
-  const { updateTaskMutation } = useTasks();
+  const { updateTaskMutation } = useTaskMutations();
 
   const handleCategoryChange = (frequency: TaskFrequency) => {
     setSelectedFrequency(frequency);
@@ -59,7 +59,7 @@ export const TaskFrequencyCell = ({ row }: TaskFrequencyCellProps) => {
           <div className="cursor-pointer flex items-center">
             <Tooltip>
               <TooltipTrigger>
-                <TaskFrequencyBadge size="sm" category={selectedFrequency} />
+                <TaskFrequencyBadge size="sm" frequency={selectedFrequency} />
               </TooltipTrigger>
               <TooltipContent>{selectedFrequency}</TooltipContent>
             </Tooltip>
@@ -80,7 +80,7 @@ export const TaskFrequencyCell = ({ row }: TaskFrequencyCellProps) => {
                   >
                     <TaskFrequencyBadge
                       size="sm"
-                      category={option.value as TaskFrequency}
+                      frequency={option.value as TaskFrequency}
                     />
                     <span>{option.label}</span>
                   </CommandItem>

@@ -1,7 +1,5 @@
 import { Tile } from "@/components/composites/Tile";
-import { Coin } from "@/components/ui/coin";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Header3 } from "@/components/ui/typography";
 import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard";
 import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";
 import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
@@ -14,16 +12,7 @@ export const TaskTile = ({ task }: { task: Task }) => {
   const isMobile = useIsMobile();
   return (
     <Tile
-      title={
-        <div className="flex flex-col md:flex-row space-x-2">
-          <Header3>{task.title}</Header3>
-        </div>
-      }
-      description={
-        <div className="flex flex-row space-x-4 justify-start">
-          <Coin value={task.pointValue} />
-        </div>
-      }
+      title={task.title}
       menu={
         isMobile ? (
           <EllipsisIcon />

@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskCategory } from "@/types/task";
 import { enumToArray } from "@/utils/enumToArray";
 import { Row } from "@tanstack/react-table";
@@ -30,7 +30,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
   const [selectedCategory, setSelectedCategory] = useState<TaskCategory>(
     row.original.category,
   );
-  const { updateTaskMutation } = useTasks();
+  const { updateTaskMutation } = useTaskMutations();
 
   const handleCategoryChange = (category: TaskCategory) => {
     setSelectedCategory(category);
