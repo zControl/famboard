@@ -1,6 +1,6 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Textarea } from "@/components/ui/textarea";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [value, setValue] = useState(row.original[accessor] as string);
-  const { updateTaskMutation } = useTasks();
+  const { updateTaskMutation } = useTaskMutations();
 
   useEffect(() => {
     setValue(row.original[accessor] as string);

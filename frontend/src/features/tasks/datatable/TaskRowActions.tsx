@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import {
@@ -27,7 +27,7 @@ interface TaskRowActionProps {
 export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const { deleteTaskMutation } = useTasks();
+  const { deleteTaskMutation } = useTaskMutations();
 
   const handleEditTask = () => {
     setModalOpen(true);

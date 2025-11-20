@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { taskListSchema } from "@/features/tasks/datatable/TaskListSchema";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskCategory, TaskFrequency } from "@/types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
@@ -31,7 +31,7 @@ export const TaskModal = ({
   existingTask,
   onTaskUpdated,
 }: TaskModalProps) => {
-  const { addTaskMutation, updateTaskMutation } = useTasks();
+  const { addTaskMutation, updateTaskMutation } = useTaskMutations();
 
   const isEditing = !!existingTask;
 
@@ -104,7 +104,12 @@ export const TaskModal = ({
         description={modalDescription}
       >
         <Form {...form}>
-          <form className="space-y-8">
+          <form
+            className="space-y-8"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <FormField
               control={form.control}
               name="title"

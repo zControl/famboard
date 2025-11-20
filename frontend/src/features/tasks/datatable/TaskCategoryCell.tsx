@@ -9,13 +9,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskCategory } from "@/types/task";
 import { enumToArray } from "@/utils/enumToArray";
 import { Row } from "@tanstack/react-table";
@@ -30,7 +25,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
   const [selectedCategory, setSelectedCategory] = useState<TaskCategory>(
     row.original.category,
   );
-  const { updateTaskMutation } = useTasks();
+  const { updateTaskMutation } = useTaskMutations();
 
   const handleCategoryChange = (category: TaskCategory) => {
     setSelectedCategory(category);
@@ -57,12 +52,7 @@ export const TaskCategoryCell = ({ row }: TaskCategoryCellProps) => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <div className="cursor-pointer flex items-center">
-            <Tooltip>
-              <TooltipTrigger>
-                <TaskCategoryBadge size="sm" category={selectedCategory} />
-              </TooltipTrigger>
-              <TooltipContent>{selectedCategory}</TooltipContent>
-            </Tooltip>
+            <TaskCategoryBadge size="sm" category={selectedCategory} />
           </div>
         </PopoverTrigger>
         <PopoverContent className="p-0 w-[200px]" side="bottom" align="start">

@@ -1,7 +1,7 @@
 import { PageContainer } from "@/components/common/PageContainer";
 import { TaskTile } from "@/features/tasks/components/TaskTile";
 
-import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTasks";
+import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTaskBySequenceNumber";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
