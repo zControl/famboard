@@ -1,6 +1,5 @@
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
-import prettierPlugin from 'eslint-plugin-prettier';
 
 export default [
   {
@@ -17,16 +16,12 @@ export default [
     ignores: ['dist', 'eslint.config.js'],
     plugins: {
       '@typescript-eslint': typescriptPlugin,
-      prettier: prettierPlugin,
     },
     rules: {
       '@typescript-eslint/interface-name-prefix': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-    },
-    settings: {
-      prettier: true,
     },
   },
 ];
