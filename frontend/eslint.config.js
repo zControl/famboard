@@ -8,15 +8,15 @@ export default [
     languageOptions: {
       ecmaVersion: 2021,
       sourceType: 'module',
+      parser: typescriptParser,
       globals: {
         browser: true,
       },
-      parser: typescriptParser,
     },
     ignores: ['dist', 'eslint.config.js'],
     plugins: {
-      'react-hooks': reactHooks,
       '@typescript-eslint': typescriptPlugin,
+      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
     rules: {
