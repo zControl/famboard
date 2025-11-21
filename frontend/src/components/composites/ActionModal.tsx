@@ -41,7 +41,7 @@ export const ActionModal = ({
             <AlertDialogTitle>{title}</AlertDialogTitle>
             <AlertDialogDescription>{description}</AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="pl-2 pr-4">{children}</div>
+          <div className="pt-4">{children}</div>
         </ScrollArea>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
