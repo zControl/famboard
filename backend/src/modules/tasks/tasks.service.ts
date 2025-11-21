@@ -44,6 +44,7 @@ export class TasksService {
         assignments: {
           id: true,
           assignedAt: true,
+          status: true,
           user: {
             id: true,
           },

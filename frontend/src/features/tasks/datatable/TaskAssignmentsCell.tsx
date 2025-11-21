@@ -12,7 +12,14 @@ interface TaskAssignmentsCellProps {
 }
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
-  const assignments = row.original.assignments;
+  const allAssignments = row.original.assignments;
+  const assignments = allAssignments
+    ? allAssignments.filter(
+        (assignment) =>
+          assignment.status === "ASSIGNED" ||
+          assignment.status === "PENDING_APPROVAL",
+      )
+    : [];
   const { assignTaskMutation } = useTaskMutations();
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
