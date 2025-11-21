@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
 import { TaskAssignmentDetailDto } from 'src/modules/tasks/dto/task-assignment-detail.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
+import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User } from 'src/modules/users/entities/user.entity';
 import { In, Repository } from 'typeorm';
@@ -18,6 +19,8 @@ export class TasksService {
     private usersRepository: Repository<User>,
     @InjectRepository(TaskAssignment)
     private taskAssignmentRepository: Repository<TaskAssignment>,
+    @InjectRepository(TaskApproval)
+    private taskApprovalRepository: Repository<TaskApproval>,
   ) {}
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = this.tasksRepository.create(createTaskDto);
@@ -89,8 +92,9 @@ export class TasksService {
   }
 
   async remove(taskId: string): Promise<{ message: string }> {
-    // First, delete all task assignments related to this task
+    // First, delete all task assignments and approvals related to this task
     await this.taskAssignmentRepository.delete({ task: { id: taskId } });
+    await this.taskApprovalRepository.delete({ task: { id: taskId } });
 
     // Then delete the task and return appropriate message
     const result = await this.tasksRepository.delete(taskId);
