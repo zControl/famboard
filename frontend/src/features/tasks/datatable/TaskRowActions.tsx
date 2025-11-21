@@ -86,8 +86,8 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
       <ActionModal
         open={isDeleteModalOpen}
         onOpenChange={setDeleteModalOpen}
-        title="Delete Task"
-        description={`Are you sure you want to delete task "${row.original.title}"?`}
+        title={`Delete ${row.original.title} ?`}
+        description={`This will also delete any assignments and approvals for this task.`}
         onConfirm={() => handleConfirmDelete(true)}
         onCancel={() => setDeleteModalOpen(false)}
       />
