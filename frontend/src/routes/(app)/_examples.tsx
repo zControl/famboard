@@ -1,7 +1,7 @@
+import { ThemeToggle } from "@/common/theme/ThemeToggle";
 import { AppLogo } from "@/components/common/AppLogo";
 import { NotFound } from "@/components/common/NotFound";
 import { SidebarLayout } from "@/components/common/SidebarLayout";
-import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
 import { CustomLink } from "@/components/ui/custom-link";
 import {
   Sidebar,

@@ -1,6 +1,6 @@
+import { useTheme } from "@/common/theme/useTheme";
 import { ErrorPage } from "@/components/common/ErrorPage";
 import { NotFound } from "@/components/common/NotFound";
-import { useTheme } from "@/components/common/theme/useTheme";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { QueryClient } from "@tanstack/react-query";

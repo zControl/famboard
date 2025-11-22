@@ -1,4 +1,4 @@
-import { useTheme } from "@/components/common/theme/useTheme";
+import { useTheme } from "@/common/theme/useTheme";
 import { CopyButton } from "@/components/ui/copy-button";
 import { cn } from "@/utils/classNames";
 import { useEffect, useState } from "react";

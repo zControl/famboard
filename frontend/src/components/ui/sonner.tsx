@@ -1,4 +1,4 @@
-import { useTheme } from "@/components/common/theme/useTheme";
+import { useTheme } from "@/common/theme/useTheme";
 import { Toaster as Sonner, ToasterProps } from "sonner";
 
 const Toaster = ({ ...props }: ToasterProps) => {

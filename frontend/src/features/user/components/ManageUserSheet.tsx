@@ -1,4 +1,4 @@
-import { ThemeSwitch } from "@/components/common/theme/ThemeSwitch";
+import { ThemeSwitch } from "@/common/theme/ThemeSwitch";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {

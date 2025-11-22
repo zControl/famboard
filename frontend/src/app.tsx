@@ -3,7 +3,7 @@ import { useAuth } from "@/features/auth/hooks/useAuth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { ThemeProvider } from "./components/common/theme/ThemeProvider";
+import { ThemeProvider } from "./common/theme/ThemeProvider";
 import { routeTree } from "./routeTree.gen";
 
 const queryClient = new QueryClient();
