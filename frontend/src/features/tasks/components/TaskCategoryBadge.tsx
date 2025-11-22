@@ -1,4 +1,9 @@
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   badgeIconVariants,
   badgeShellVariants,
 } from "@/features/tasks/components/badge-variants";
@@ -58,7 +63,14 @@ function TaskCategoryBadge({
   const icon = categoryIconMap[category];
 
   return (
-    <div className={cn(badgeShellVariants({ size }), className)}>{icon}</div>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className={cn(badgeShellVariants({ size }), className)}>
+          {icon}
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>{category}</TooltipContent>
+    </Tooltip>
   );
 }
 

@@ -56,7 +56,7 @@ export class TaskApprovalService {
       );
     }
 
-    // Check if there's already a pending approval for this task/user combination
+    // Make sure there is no existing pending approval
     const existingApproval = await this.taskApprovalRepository.findOne({
       where: {
         task: { id: taskId },
@@ -65,9 +65,17 @@ export class TaskApprovalService {
       },
     });
 
-    if (existingApproval) {
+    const existingAssignment = await this.taskAssignmentRepository.findOne({
+      where: {
+        task: { id: taskId },
+        user: { id: userId },
+        status: 'PENDING_APPROVAL',
+      },
+    });
+
+    if (existingAssignment || existingApproval) {
       throw new BadRequestException(
-        'This task is already pending approval. Cannot submit again.',
+        'This task is already pending approval.',
       );
     }
 
@@ -309,9 +317,7 @@ export class TaskApprovalService {
     manager: EntityManager,
     assignment: TaskAssignment,
   ) {
-    // Mark the assignment as completed
-    assignment.status = 'COMPLETED';
-    await manager.save(assignment);
+    await manager.remove(assignment);
   }
 
   private async handleRecurringTask(
@@ -319,15 +325,9 @@ export class TaskApprovalService {
     currentAssignment: TaskAssignment,
     frequency: string,
   ) {
-    // Mark the current assignment as completed
-    currentAssignment.status = 'COMPLETED';
-    await manager.save(currentAssignment);
-
     // Create a new assignment for the next occurrence
     const newAssignment = new TaskAssignment();
-    console.log('Inside the handleRecurringTask function');
-    console.log('Current Assignment:', currentAssignment);
-    console.log('New Assignment before setting fields:', newAssignment);
+
     newAssignment.task = currentAssignment.task;
     newAssignment.user = currentAssignment.user;
     newAssignment.status = 'ASSIGNED';
@@ -336,7 +336,8 @@ export class TaskApprovalService {
     const nextDueDate = this.calculateNextDueDate(frequency);
     newAssignment.assignedAt = nextDueDate;
 
-    console.log('New Assignment after setting fields:', newAssignment);
+    // Remove the old assignment
+    await manager.remove(currentAssignment);
 
     // Save the new assignment
     await manager.save(newAssignment);
@@ -349,16 +350,22 @@ export class TaskApprovalService {
     switch (frequency) {
       case 'DAILY':
         nextDueDate.setDate(today.getDate() + 1);
+        nextDueDate.setHours(0, 0, 0, 0);
         break;
       case 'WEEKLY':
-        nextDueDate.setDate(today.getDate() + 7);
+        const daysUntilMonday = (8 - today.getDay()) % 7;
+        // If today is Monday, go to next Monday
+        nextDueDate.setDate(today.getDate() + (daysUntilMonday || 7));
+        nextDueDate.setHours(0, 0, 0, 0);
         break;
       case 'MONTHLY':
-        nextDueDate.setMonth(today.getMonth() + 1);
+        nextDueDate.setMonth(today.getMonth() + 1, 1);
+        nextDueDate.setHours(0, 0, 0, 0);
         break;
       default:
         console.log(`Unhandled frequency: ${frequency}`);
-        nextDueDate.setDate(today.getDate() + 1); // Default to daily
+        // Fallback to today
+        nextDueDate.setDate(today.getDate());
     }
 
     return nextDueDate;

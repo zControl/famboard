@@ -15,10 +15,13 @@ export const useUserProfile = (userId: string) => {
     enabled: !!userId,
   });
 
+  const avatarUrl = query.data?.avatarUrl || undefined;
+
   return {
     ...query,
     isLoading: query.isLoading,
     error: query.error,
     userProfile: query.data,
+    avatarUrl,
   };
 };

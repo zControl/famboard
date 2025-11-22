@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import {
@@ -27,7 +27,7 @@ interface TaskRowActionProps {
 export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const { deleteTaskMutation } = useTasks();
+  const { deleteTaskMutation } = useTaskMutations();
 
   const handleEditTask = () => {
     setModalOpen(true);
@@ -86,8 +86,8 @@ export const TaskRowActions = ({ row }: TaskRowActionProps) => {
       <ActionModal
         open={isDeleteModalOpen}
         onOpenChange={setDeleteModalOpen}
-        title="Delete Task"
-        description={`Are you sure you want to delete task "${row.original.title}"?`}
+        title={`Delete ${row.original.title} ?`}
+        description={`This will also delete any assignments and approvals for this task.`}
         onConfirm={() => handleConfirmDelete(true)}
         onCancel={() => setDeleteModalOpen(false)}
       />

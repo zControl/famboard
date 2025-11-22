@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export const TaskListDatatable = () => {
   const [open, setOpen] = useState(false);
-  const { tasks, refreshTasks } = useTasks();
+  const { tasks, refreshTasks } = useTasksQuery();
 
   const initialState = {
     columnVisibility: {
@@ -45,11 +45,7 @@ export const TaskListDatatable = () => {
         }
         initialState={initialState}
       />
-      <TaskModal
-        modalOpen={open}
-        onModalOpenChange={setOpen}
-        onTaskUpdated={refreshTasks}
-      />
+      <TaskModal modalOpen={open} onModalOpenChange={setOpen} />
     </Card>
   );
 };

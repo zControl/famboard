@@ -1,7 +1,7 @@
 import { ActionModal } from "@/components/composites/ActionModal";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserSelection } from "@/features/tasks/components/AssignedUserSelection";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task } from "@/types/task";
 import { Row } from "@tanstack/react-table";
 import { Edit2Icon, PlusIcon } from "lucide-react";
@@ -12,9 +12,8 @@ interface TaskAssignmentsCellProps {
 }
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
-  const taskId = row.original.id;
   const assignments = row.original.assignments;
-  const { assignTaskMutation, queryClient } = useTasks();
+  const { assignTaskMutation } = useTaskMutations();
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
@@ -35,7 +34,6 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onSuccess: () => {
           setIsModalOpen(false);
           setSelectedKids([]);
-          queryClient.invalidateQueries({ queryKey: ["tasks", taskId] });
         },
       },
     );
@@ -107,6 +105,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
       >
         <AssignedUserSelection
           row={row}
+          assignments={assignments}
           onSelectedKidsChange={handleSelectedKidsChange}
         />
       </ActionModal>

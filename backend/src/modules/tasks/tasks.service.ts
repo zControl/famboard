@@ -3,9 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
 import { TaskAssignmentDetailDto } from 'src/modules/tasks/dto/task-assignment-detail.dto';
 import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
+import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User } from 'src/modules/users/entities/user.entity';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
 
@@ -18,6 +19,8 @@ export class TasksService {
     private usersRepository: Repository<User>,
     @InjectRepository(TaskAssignment)
     private taskAssignmentRepository: Repository<TaskAssignment>,
+    @InjectRepository(TaskApproval)
+    private taskApprovalRepository: Repository<TaskApproval>,
   ) {}
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = this.tasksRepository.create(createTaskDto);
@@ -41,6 +44,7 @@ export class TasksService {
         assignments: {
           id: true,
           assignedAt: true,
+          status: true,
           user: {
             id: true,
           },
@@ -89,8 +93,9 @@ export class TasksService {
   }
 
   async remove(taskId: string): Promise<{ message: string }> {
-    // First, delete all task assignments related to this task
+    // First, delete all task assignments and approvals related to this task
     await this.taskAssignmentRepository.delete({ task: { id: taskId } });
+    await this.taskApprovalRepository.delete({ task: { id: taskId } });
 
     // Then delete the task and return appropriate message
     const result = await this.tasksRepository.delete(taskId);
@@ -122,12 +127,22 @@ export class TasksService {
     const usersToAdd = userIds.filter((id) => !existingUserIds.includes(id));
     const usersToRemove = existingUserIds.filter((id) => !userIds.includes(id));
 
-    // Remove old assignments
-    if (usersToRemove.length > 0) {
+    for (const userId of usersToRemove) {
+      // Delete the assignment
       await this.taskAssignmentRepository.delete({
         task: { id: taskId },
-        user: { id: In(usersToRemove) },
+        user: { id: userId },
       });
+
+      // Also update any approvals related to this assignment.
+      await this.taskApprovalRepository.update(
+        {
+          task: { id: taskId },
+          user: { id: userId },
+          status: 'PENDING_APPROVAL'
+        },
+        { status: 'REJECTED', note: 'User unassigned from task' }
+      );
     }
 
     // Add new assignments

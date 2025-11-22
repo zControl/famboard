@@ -1,11 +1,11 @@
 import { ErrorCard } from "@/components/common/ErrorCard";
 import { ButtonLink } from "@/components/composites/ButtonLink";
 import { InfoCard } from "@/components/composites/InfoCard";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";
 import { LogsIcon, PlusSquareIcon, SquareLibraryIcon } from "lucide-react";
 
 export const TasksSummaryCard = () => {
-  const { tasks, isLoading, error } = useTasks();
+  const { tasks, isLoading, error } = useTasksQuery();
   if (error)
     return (
       <ErrorCard message="Getting tasks summary has failed." error={error} />
