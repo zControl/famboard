@@ -8,26 +8,32 @@ import { useEffect, useState } from "react";
 
 interface AssignedUserSelectionProps {
   row: Row<Task>;
+  assignments: { id: string; user: { id: string } }[];
   onSelectedKidsChange: (selectedKids: string[]) => void;
 }
 
 export const AssignedUserSelection = ({
   row,
+  assignments,
   onSelectedKidsChange,
 }: AssignedUserSelectionProps) => {
   const taskId = row.original.id;
+  const initialSelectedKids = assignments
+    ? assignments.map((assignment) => assignment.user.id).filter(Boolean)
+    : [];
   const { taskAssignments } = useAssignments(taskId);
   const { kidIds } = useKidManager();
-  const [selectedKids, setSelectedKids] = useState<string[]>([]);
+  const [selectedKids, setSelectedKids] =
+    useState<string[]>(initialSelectedKids);
 
   useEffect(() => {
-    if (taskAssignments) {
-      const initialSelectedKids = taskAssignments
+    if (!assignments && taskAssignments) {
+      const newSelectedKids = taskAssignments
         .map((assignment) => assignment.id)
-        .filter(Boolean); // Filter out any undefined IDs
-      setSelectedKids(initialSelectedKids);
+        .filter(Boolean);
+      setSelectedKids(newSelectedKids);
     }
-  }, [taskAssignments]);
+  }, [taskAssignments, assignments]);
 
   const handleKidSelection = (kidId: string, isSelected: boolean) => {
     const newSelectedKids = isSelected

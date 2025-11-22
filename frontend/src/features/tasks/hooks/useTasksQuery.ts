@@ -16,8 +16,18 @@ export const useTasksQuery = () => {
     queryFn: taskApi.getTasks,
   });
 
+  const assignedTasks = tasks?.data ? tasks.data.filter(task =>
+    task.assignments.some(assignment => assignment.status === "ASSIGNED")
+  ) : [];
+
+  const completedTasks = tasks?.data ? tasks.data.filter(task =>
+    task.assignments.some(assignment => assignment.status === "COMPLETED")
+  ) : [];
+
   return {
     tasks,
+    assignedTasks,
+    completedTasks,
     isLoading,
     error,
     refreshTasks

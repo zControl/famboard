@@ -105,6 +105,7 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
       >
         <AssignedUserSelection
           row={row}
+          assignments={assignments}
           onSelectedKidsChange={handleSelectedKidsChange}
         />
       </ActionModal>
