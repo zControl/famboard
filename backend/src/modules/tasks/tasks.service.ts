@@ -6,7 +6,7 @@ import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
 import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { User } from 'src/modules/users/entities/user.entity';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './entities/task.entity';
 
@@ -127,12 +127,22 @@ export class TasksService {
     const usersToAdd = userIds.filter((id) => !existingUserIds.includes(id));
     const usersToRemove = existingUserIds.filter((id) => !userIds.includes(id));
 
-    // Remove old assignments
-    if (usersToRemove.length > 0) {
+    for (const userId of usersToRemove) {
+      // Delete the assignment
       await this.taskAssignmentRepository.delete({
         task: { id: taskId },
-        user: { id: In(usersToRemove) },
+        user: { id: userId },
       });
+
+      // Also update any approvals related to this assignment.
+      await this.taskApprovalRepository.update(
+        {
+          task: { id: taskId },
+          user: { id: userId },
+          status: 'PENDING_APPROVAL'
+        },
+        { status: 'REJECTED', note: 'User unassigned from task' }
+      );
     }
 
     // Add new assignments
