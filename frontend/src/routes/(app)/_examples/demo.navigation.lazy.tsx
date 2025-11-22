@@ -1,5 +1,5 @@
+import { NavigationExample } from "@/common/examples/NavigationExample";
 import { PageContainer } from "@/components/common/PageContainer";
-import { NavigationExample } from "@/examples/NavigationExample";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/(app)/_examples/demo/navigation")({

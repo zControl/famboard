@@ -1,4 +1,4 @@
-import { DetailListItemProps } from "@/types/common";
+import { DetailListItemProps } from "@/common/types";
 import { cn } from "@/utils/classNames";
 import React from "react";
 

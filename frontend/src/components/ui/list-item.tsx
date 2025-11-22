@@ -1,5 +1,5 @@
+import { DetailListItemProps } from "@/common/types";
 import { Badge } from "@/components/ui/badge";
-import { DetailListItemProps } from "@/types/common";
 import { cn } from "@/utils/classNames";
 import React from "react";
 

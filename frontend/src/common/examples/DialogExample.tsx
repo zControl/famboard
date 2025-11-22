@@ -31,6 +31,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
+import { FormSample } from "@/common/examples/FormSample";
 import { DisplayModal } from "@/components/composites/DisplayModal";
 import { Button } from "@/components/ui/button";
 import { Code } from "@/components/ui/code";
@@ -47,7 +48,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { SectionDescription, SectionTitle } from "@/components/ui/typography";
-import { FormSample } from "@/examples/FormSample";
 
 function ActionDialogModal() {
   const imp: CodeBlockData[] = [

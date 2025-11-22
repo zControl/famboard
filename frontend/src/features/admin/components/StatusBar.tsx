@@ -1,9 +1,9 @@
+import { useApiStatus } from "@/api/useApiStatus";
 import { DisplayModal } from "@/components/composites/DisplayModal";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";
 import { Header4 } from "@/components/ui/typography";
-import { useApiStatus } from "@/hooks/useApiStatus";
 import {
   AlertCircleIcon,
   DatabaseIcon,

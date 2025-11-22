@@ -1,3 +1,4 @@
+import { Option } from "@/common/types";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -10,7 +11,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Option } from "@/types/common";
 import { useState } from "react";
 
 interface SelectOptionCellProps {

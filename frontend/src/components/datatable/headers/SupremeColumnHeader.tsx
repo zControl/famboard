@@ -1,7 +1,7 @@
+import { Option } from "@/common/types";
 import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
 import { ColumnFilterDropdown } from "@/components/datatable/headers/ColumnFilterDropdown";
 import { Button } from "@/components/ui/button";
-import { Option } from "@/types/common";
 import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { useState } from "react";
