@@ -1,5 +1,5 @@
 import { taskApi } from "@/features/tasks/api/taskApi";
-import { TaskListResponse } from "@/types/task";
+import { TaskListResponse } from "@/features/tasks/types";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useTasksQuery = () => {

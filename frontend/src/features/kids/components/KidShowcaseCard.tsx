@@ -1,5 +1,3 @@
-import { Card } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
 import {
   StyledCalendar1Icon,
   StyledCalendarCheckIcon,
@@ -7,9 +5,15 @@ import {
   StyledGemIcon,
   StyledPiggyBankIcon,
   StyledTrophyIcon,
-} from "@/components/ui/styled-icons";
-import { Header2, StatLabel, StatValue } from "@/components/ui/typography";
-import { UserProfile } from "@/types/user";
+} from "@/common/ui/display/styled-icons";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Card } from "@/common/ui/surfaces/card";
+import {
+  Header2,
+  StatLabel,
+  StatValue,
+} from "@/common/ui/typography/typography";
+import { UserProfile } from "@/features/user/types";
 
 interface KidShowcaseCardProps {
   profile: UserProfile | null | undefined;

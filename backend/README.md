@@ -1,4 +1,4 @@
-## FamBoard - Backend
+# FamBoard - Backend
 
 A backend REST API that provides CRUD operations on a postgres database.
 
@@ -8,42 +8,46 @@ A backend REST API that provides CRUD operations on a postgres database.
 - [TypeORM](https://github.com/typeorm/typeorm) - Relational Mapping
 - [Postgres](https://github.com/postgres/postgres) - Database
 
-### Testing
+## Installation and Setup
+
+1. Install dependencies
 
 ```bash
-# unit tests
-npm run test
-
-# e2e tests
-npm run test:e2e
-
-# test coverage
-npm run test:cov
-
-# test database connection
-npm run test:db
+npm install
 ```
 
-### Local Development
+2. Set up environment variables
 
 ```bash
+cp .env.example .env
+```
 
-# watch mode
+3. Edit .env with your configuration
+
+## Local Development
+
+```bash
 npm run start:dev
 ```
 
-### Build
+## Testing
 
 ```bash
+npm run test
 
-# install dependencies
-npm ci
+npm run test:e2e
 
-# build application
-npm run build
-
-# run migration
-npm run typeorm migration:run
+npm run test:cov
 ```
 
-### Deploy
+## Database Setup
+
+Database setup steps here
+
+## Migrations
+
+Migration steps here
+
+## Deploy
+
+Deployment steps here

@@ -1,5 +1,5 @@
 import { taskApi } from "@/features/tasks/api/taskApi";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useTaskMutations = () => {

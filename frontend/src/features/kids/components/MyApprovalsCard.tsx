@@ -1,7 +1,7 @@
-import { InfoCard } from "@/components/composites/InfoCard";
-import { Card } from "@/components/ui/card";
-import { BlockQuote, StatLabel } from "@/components/ui/typography";
-import { AssignedTask } from "@/types/task";
+import { InfoCard } from "@/common/ui/surfaces/InfoCard";
+import { Card } from "@/common/ui/surfaces/card";
+import { BlockQuote, StatLabel } from "@/common/ui/typography/typography";
+import { AssignedTask } from "@/features/tasks/types";
 import { CheckCircleIcon } from "lucide-react";
 
 interface MyActiveTasksCardProps {

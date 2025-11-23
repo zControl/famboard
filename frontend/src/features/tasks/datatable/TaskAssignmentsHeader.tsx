@@ -1,8 +1,8 @@
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
+import { cn } from "@/common/utils/classNames";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
-import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 
 interface TaskAssignmentsHeaderProps<TData, TValue>

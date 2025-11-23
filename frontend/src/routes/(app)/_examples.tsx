@@ -1,8 +1,8 @@
-import { AppLogo } from "@/components/common/AppLogo";
-import { NotFound } from "@/components/common/NotFound";
-import { SidebarLayout } from "@/components/common/SidebarLayout";
-import { ThemeToggle } from "@/components/common/theme/ThemeToggle";
-import { CustomLink } from "@/components/ui/custom-link";
+import { AppLogo } from "@/common/layout/AppLogo";
+import { NotFound } from "@/common/layout/NotFound";
+import { SidebarLayout } from "@/common/layout/SidebarLayout";
+import { ThemeToggle } from "@/common/theme/ThemeToggle";
+import { CustomLink } from "@/common/ui/navigation/custom-link";
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-} from "@/components/ui/sidebar";
+} from "@/common/ui/surfaces/sidebar";
 import {
   createFileRoute,
   Link,

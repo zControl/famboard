@@ -1,5 +1,5 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,10 +7,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/common/ui/overlay/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import {
   CopyIcon,

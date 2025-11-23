@@ -1,4 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/common/ui/display/avatar";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 
 export const AssignedUserAvatar = ({ userId }: { userId: string }) => {

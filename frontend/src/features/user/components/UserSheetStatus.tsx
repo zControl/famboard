@@ -1,9 +1,9 @@
-import { EmojiSelector } from "@/components/common/EmojiSelector";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Paragraph } from "@/components/ui/typography";
+import { EmojiSelector } from "@/common/ui/actions/EmojiSelector";
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
+import { Paragraph } from "@/common/ui/typography/typography";
 import { useProfile } from "@/features/user/hooks/useProfile";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 

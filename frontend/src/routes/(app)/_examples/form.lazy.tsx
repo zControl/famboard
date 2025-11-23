@@ -1,9 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { createLazyFileRoute } from '@tanstack/react-router'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
 import {
   Form,
   FormControl,
@@ -12,27 +13,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from "@/common/ui/surfaces/form";
 
-export const Route = createLazyFileRoute('/(app)/_examples/form')({
+export const Route = createLazyFileRoute("/(app)/_examples/form")({
   component: FormExample,
-})
+});
 
 function FormExample() {
   const formSchema = z.object({
     username: z.string(),
-  })
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: 'Default Username',
+      username: "Default Username",
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
   }
 
   return (
@@ -59,7 +59,7 @@ function FormExample() {
         </form>
       </Form>
     </>
-  )
+  );
 }
 
-export default FormExample
+export default FormExample;

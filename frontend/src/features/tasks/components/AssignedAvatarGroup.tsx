@@ -1,5 +1,5 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
-import { Spinner } from "@/components/ui/spinner";
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";

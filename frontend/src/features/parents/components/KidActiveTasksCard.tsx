@@ -1,6 +1,6 @@
-import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { ColumnTitle } from "@/components/datatable/headers/ColumnTitle";
-import { Spinner } from "@/components/ui/spinner";
+import { DataTableCore } from "@/common/datatable/DataTableCore";
+import { ColumnTitle } from "@/common/datatable/headers/ColumnTitle";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { useAssignedTasks } from "@/features/tasks/hooks/useAssignedTasks";
 import { ColumnDef } from "@tanstack/react-table";
 

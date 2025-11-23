@@ -3,16 +3,16 @@ import {
   CommandGroup,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/common/ui/overlay/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/ui/overlay/popover";
+import { enumToArray } from "@/common/utils/enumToArray";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
-import { Task, TaskFrequency } from "@/types/task";
-import { enumToArray } from "@/utils/enumToArray";
+import { Task, TaskFrequency } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";
 

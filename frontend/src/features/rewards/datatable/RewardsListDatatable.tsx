@@ -1,7 +1,7 @@
-import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { TableOptions } from "@/components/datatable/TableOptions";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { DataTableCore } from "@/common/datatable/DataTableCore";
+import { TableOptions } from "@/common/datatable/TableOptions";
+import { Button } from "@/common/ui/actions/button";
+import { Card } from "@/common/ui/surfaces/card";
 import { RewardModal } from "@/features/rewards/components/RewardModal";
 import { rewardsListColumns } from "@/features/rewards/datatable/RewardsListColumns";
 import { useRewards } from "@/features/rewards/hooks/useRewards";

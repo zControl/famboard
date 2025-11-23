@@ -1,7 +1,7 @@
 import { apiClient } from "@/api/apiClient";
+import { sleep } from "@/common/utils/sleep";
 import { AuthContext } from "@/features/auth/AuthContext";
-import { User } from "@/types/user";
-import { sleep } from "@/utils/sleep";
+import { User } from "@/features/user/types";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 

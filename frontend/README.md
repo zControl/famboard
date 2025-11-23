@@ -1,36 +1,48 @@
 # FamBoard - Frontend
 
-A frontend React application that shows content from the backend.
+A client-side React application that shows content from the backend.
 
 ## Stack
 
-- [Vite](https://vite.dev) development server
-- [React](https://react.dev) framework
-- [TailwindCSS](https://tailwindcss.com) styling
-- [Post CSS](https://postcss.org) css processing
-- [ESLint](https://eslint.org) code quality
-- [Prettier](https://prettier.io) code formatting
-- [Tanstack Router](https://tanstack.com/router/latest/docs/framework/react/overview) typesafe navigation
-- [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) server-state
-- [Shadcn/UI](https://ui.shadcn.com/docs) UI components
-- [LucideIcons](https://lucide.dev/icons/) icons
-- [React Hook Form](https://react-hook-form.com) form components
-- [Zod](https://zod.dev) form validation
+- [Vite](https://vite.dev) - Development server
+- [React](https://react.dev) - Client framework
+- [TailwindCSS](https://tailwindcss.com) - Styling
+- [Post CSS](https://postcss.org) - CSS processing
+- [ESLint](https://eslint.org) - Code quality
+- [Prettier](https://prettier.io) - Code formatting
+- [Tanstack Router](https://tanstack.com/router/latest/docs/framework/react/overview) -Typesafe navigation
+- [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/overview) - Server-state
+- [Shadcn/UI](https://ui.shadcn.com/docs) - Base UI components
+- [LucideIcons](https://lucide.dev/icons/) - Icons
+- [React Hook Form](https://react-hook-form.com) - Form components
+- [Zod](https://zod.dev) - Form validation
 
-## Build, Test Deploy
+## Installation and Setup
+
+1. Install dependencies
 
 ```bash
-# install dependencies
 npm install
-
-# start development server
-npm run dev
-
-# run linter
-npm run lint
-
-# compile and build
-npm run build
 ```
 
-## Run tests
+2. Set up environment variables
+
+```bash
+cp .env.example .env
+```
+
+3. Edit .env with your configuration
+
+## Local Development
+
+```bash
+npm run dev
+```
+
+## Testing
+
+Testing steps here
+
+## Deploy
+
+Deployment steps here

@@ -1,19 +1,19 @@
-import { CardSection } from "@/components/composites/CardSection";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
+import { Coin } from "@/common/ui/display/coin";
+import { CardSection } from "@/common/ui/surfaces/CardSection";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Coin } from "@/components/ui/coin";
+} from "@/common/ui/surfaces/card";
 import { AssignedAvatarGroup } from "@/features/tasks/components/AssignedAvatarGroup";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTaskById } from "@/features/tasks/hooks/useTaskById";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import {

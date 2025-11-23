@@ -1,5 +1,7 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
+import { Coin } from "@/common/ui/display/coin";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   Card,
   CardContent,
@@ -7,13 +9,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Coin } from "@/components/ui/coin";
-import { Spinner } from "@/components/ui/spinner";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/common/ui/surfaces/card";
+import { Textarea } from "@/common/ui/typography/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";
-import { AssignedTask } from "@/types/task";
+import { AssignedTask } from "@/features/tasks/types";
 import { SquareCheckBigIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

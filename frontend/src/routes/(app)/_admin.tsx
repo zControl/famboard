@@ -1,4 +1,4 @@
-import { AppHeader } from "@/components/common/AppHeader";
+import { AppHeader } from "@/common/layout/AppHeader";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_admin")({

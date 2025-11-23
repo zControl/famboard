@@ -1,11 +1,16 @@
-import { Tile } from "@/components/composites/Tile";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useIsMobile } from "@/common/hooks/useIsMobile";
+import { Tile } from "@/common/ui/surfaces/Tile";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/common/ui/surfaces/tabs";
 import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard";
 import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";
 import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
 import { TaskDetailsCard } from "@/features/tasks/components/TaskDetailsCard";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { EllipsisIcon, Share2Icon, UserPlus2Icon } from "lucide-react";
 
 export const TaskTile = ({ task }: { task: Task }) => {

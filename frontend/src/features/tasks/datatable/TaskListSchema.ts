@@ -1,4 +1,4 @@
-import { TaskCategory, TaskFrequency } from "@/types/task";
+import { TaskCategory, TaskFrequency } from "@/features/tasks/types";
 import { z } from "zod";
 
 export const taskListSchema = z.object({

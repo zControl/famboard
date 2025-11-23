@@ -1,12 +1,13 @@
 import { ApiError } from "@/api/apiClient";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/common/ui/surfaces/card";
 import {
   Form,
   FormControl,
@@ -14,12 +15,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/common/ui/surfaces/form";
+import { sleep } from "@/common/utils/sleep";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { User } from "@/features/user/types";
 import { Route } from "@/routes/(auth)/login";
-import { User } from "@/types/user";
-import { sleep } from "@/utils/sleep";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";

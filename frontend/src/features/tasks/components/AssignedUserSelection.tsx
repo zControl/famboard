@@ -2,7 +2,7 @@ import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
 import { useAssignments } from "@/features/tasks/hooks/useAssignments";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 

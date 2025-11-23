@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { TaskTile } from "@/features/tasks/components/TaskTile";
 
 import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTaskBySequenceNumber";

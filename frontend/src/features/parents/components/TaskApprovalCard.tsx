@@ -1,7 +1,11 @@
-import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import {
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "@/common/ui/surfaces/card";
 import { ApprovalRowActions } from "@/features/parents/components/ApprovalRowActions";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
-import { ApprovalResponse } from "@/types/task";
+import { ApprovalResponse } from "@/features/tasks/types";
 
 export interface TaskApprovalCardProps {
   approval: ApprovalResponse;

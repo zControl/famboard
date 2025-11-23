@@ -1,10 +1,10 @@
-import { PageContainer } from '@/components/common/PageContainer'
-import { RewardsListDatatable } from '@/features/rewards/datatable/RewardsListDatatable'
-import { createFileRoute } from '@tanstack/react-router'
+import { PageContainer } from "@/common/layout/PageContainer";
+import { RewardsListDatatable } from "@/features/rewards/datatable/RewardsListDatatable";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/(app)/_parents/parents/rewards_')({
+export const Route = createFileRoute("/(app)/_parents/parents/rewards_")({
   component: ParentsRewardsPage,
-})
+});
 
 function ParentsRewardsPage() {
   return (
@@ -14,5 +14,5 @@ function ParentsRewardsPage() {
     >
       <RewardsListDatatable />
     </PageContainer>
-  )
+  );
 }

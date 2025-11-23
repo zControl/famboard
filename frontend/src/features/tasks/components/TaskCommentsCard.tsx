@@ -1,5 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Task } from "@/types/task";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/common/ui/surfaces/card";
+import { Task } from "@/features/tasks/types";
 
 export const TaskCommentsCard = ({ task }: { task: Task }) => {
   return (

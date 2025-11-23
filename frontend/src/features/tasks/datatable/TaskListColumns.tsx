@@ -1,7 +1,7 @@
-import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
-import { Coin } from "@/components/ui/coin";
-import { CustomLink } from "@/components/ui/custom-link";
+import { SearchInputHeader } from "@/common/datatable/headers/SearchInputHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
+import { Coin } from "@/common/ui/display/coin";
+import { CustomLink } from "@/common/ui/navigation/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
@@ -9,8 +9,8 @@ import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
 import { TaskFrequencyCell } from "@/features/tasks/datatable/TaskFrequencyCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
-import { Task, TaskCategory, TaskFrequency } from "@/types/task";
-import { enumToArray } from "@/utils/enumToArray";
+import { enumToArray } from "@/common/utils/enumToArray";
+import { Task, TaskCategory, TaskFrequency } from "@/features/tasks/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [

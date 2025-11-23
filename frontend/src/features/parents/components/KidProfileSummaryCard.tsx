@@ -1,13 +1,17 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/common/ui/display/avatar";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,
-} from "@/components/ui/styled-icons";
-import { StatLabel, StatValue } from "@/components/ui/typography";
+} from "@/common/ui/display/styled-icons";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Card, CardContent } from "@/common/ui/surfaces/card";
+import { StatLabel, StatValue } from "@/common/ui/typography/typography";
+import { firstInitial } from "@/common/utils/firstInitial";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
-import { firstInitial } from "@/utils/firstInitial";
 
 export const KidProfileSummaryCard = ({ id }: { id: string }) => {
   const { userProfile, isLoading } = useUserProfile(id);

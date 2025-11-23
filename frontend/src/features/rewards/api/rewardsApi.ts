@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/apiClient";
 import { API_ENDPOINTS } from "@/api/apiEndpoints";
-import { Reward, RewardListResponse } from "@/types/reward";
+import { Reward, RewardListResponse } from "@/features/rewards/types";
 
 export const rewardsApi = {
   getRewards: () => apiClient.get<RewardListResponse>(API_ENDPOINTS.REWARDS.GET_ALL),

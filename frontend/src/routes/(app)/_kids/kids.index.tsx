@@ -1,5 +1,5 @@
-import { PageContainer } from "@/components/common/PageContainer";
-import { Spinner } from "@/components/ui/spinner";
+import { PageContainer } from "@/common/layout/PageContainer";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
 import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";

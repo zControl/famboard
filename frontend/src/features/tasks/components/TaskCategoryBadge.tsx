@@ -2,13 +2,13 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/common/ui/overlay/tooltip";
+import { cn } from "@/common/utils/classNames";
 import {
   badgeIconVariants,
   badgeShellVariants,
-} from "@/features/tasks/components/badge-variants";
-import { TaskCategory } from "@/types/task";
-import { cn } from "@/utils/classNames";
+} from "@/features/tasks/components/task-badge-variants";
+import { TaskCategory } from "@/features/tasks/types";
 import { type VariantProps } from "class-variance-authority";
 import {
   ActivityIcon,

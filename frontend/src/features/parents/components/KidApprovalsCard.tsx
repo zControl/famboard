@@ -1,7 +1,7 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { Button } from "@/common/ui/actions/button";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Card, CardContent } from "@/common/ui/surfaces/card";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
 import { TaskApprovalCard } from "@/features/parents/components/TaskApprovalCard";
 import { useUserApprovals } from "@/features/tasks/hooks/useUserApprovals";

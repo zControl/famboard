@@ -1,7 +1,7 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { Textarea } from "@/components/ui/textarea";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { Textarea } from "@/common/ui/typography/textarea";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 

@@ -1,5 +1,5 @@
-import { PageContainer } from "@/components/common/PageContainer";
-import { PageSections } from "@/components/common/PageSections";
+import { PageContainer } from "@/common/layout/PageContainer";
+import { PageSections } from "@/common/layout/PageSections";
 import { UserAvatarCard } from "@/features/user/components/UserAvatarCard";
 import { createFileRoute } from "@tanstack/react-router";
 

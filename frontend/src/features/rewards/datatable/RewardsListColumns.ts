@@ -1,7 +1,7 @@
-import { Reward } from "@/types/reward";
+import { Reward } from "@/features/rewards/types";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const rewardsListColumns : ColumnDef<Reward>[] = [
+export const rewardsListColumns: ColumnDef<Reward>[] = [
   {
     accessorKey: "title",
     header: "Title",
