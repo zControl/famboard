@@ -1,5 +1,5 @@
-import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { TableOptions } from "@/components/datatable/TableOptions";
+import { DataTableCore } from "@/common/datatable/DataTableCore";
+import { TableOptions } from "@/common/datatable/TableOptions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { RewardModal } from "@/features/rewards/components/RewardModal";

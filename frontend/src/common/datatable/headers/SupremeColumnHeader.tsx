@@ -1,6 +1,6 @@
+import { AscDescSortHeader } from "@/common/datatable/headers/AscDescSortHeader";
+import { ColumnFilterDropdown } from "@/common/datatable/headers/ColumnFilterDropdown";
 import { Option } from "@/common/types";
-import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
-import { ColumnFilterDropdown } from "@/components/datatable/headers/ColumnFilterDropdown";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";

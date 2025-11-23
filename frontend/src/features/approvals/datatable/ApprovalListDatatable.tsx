@@ -1,4 +1,4 @@
-import { DataTableCore } from "@/components/datatable/DataTableCore";
+import { DataTableCore } from "@/common/datatable/DataTableCore";
 import { Card } from "@/components/ui/card";
 import { approvalListColumns } from "@/features/approvals/datatable/ApprovalListColumns";
 import { useApprovals } from "@/features/parents/hooks/useApprovals";

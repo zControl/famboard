@@ -1,9 +1,9 @@
-import { TableColumnVisibility } from "@/components/datatable/TableColumnVisibility";
-import { TablePagination } from "@/components/datatable/TablePagination";
+import { TableColumnVisibility } from "@/common/datatable/TableColumnVisibility";
+import { TablePagination } from "@/common/datatable/TablePagination";
 import {
   renderTableBody,
   renderTableHeader,
-} from "@/components/datatable/tableUtils";
+} from "@/common/datatable/tableUtils";
 import {
   Table,
   TableBody,

@@ -1,5 +1,5 @@
-import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
+import { SearchInputHeader } from "@/common/datatable/headers/SearchInputHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
 import { Coin } from "@/components/ui/coin";
 import { CustomLink } from "@/components/ui/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";

@@ -1,4 +1,4 @@
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
