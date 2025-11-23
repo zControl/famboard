@@ -1,15 +1,15 @@
-import { enumToArray } from "@/common/utils/enumToArray";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/common/ui/overlay/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/ui/overlay/popover";
+import { enumToArray } from "@/common/utils/enumToArray";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskCategory } from "@/features/tasks/types";

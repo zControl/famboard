@@ -1,12 +1,16 @@
 import { apiClient } from "@/api/apiClient";
 import { PageSections } from "@/common/layout/PageSections";
+import { Button } from "@/common/ui/actions/button";
+import { Separator } from "@/common/ui/display/separator";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { Tile } from "@/common/ui/surfaces/Tile";
-import { Button } from "@/components/ui/button";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
-import { BlockQuote, Header4, Paragraph } from "@/components/ui/typography";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
+import {
+  BlockQuote,
+  Header4,
+  Paragraph,
+} from "@/common/ui/typography/typography";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 

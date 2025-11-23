@@ -1,14 +1,15 @@
-import { cn } from "@/common/utils/classNames";
-import { useState } from "react";
-import { CopyButton } from "./copy-button";
-import { Input } from "./input";
-import { Label } from "./label";
+import { CopyButton } from "@/common/ui/actions/copy-button";
+import { Input } from "@/common/ui/fields/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./tooltip";
+} from "@/common/ui/overlay/tooltip";
+import { Label } from "@/common/ui/typography/label";
+import { cn } from "@/common/utils/classNames";
+import { useState } from "react";
+
 function CustomLabel({
   children,
   tooltip,

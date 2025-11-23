@@ -1,5 +1,5 @@
+import { Button } from "@/common/ui/actions/button";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/common/ui/overlay/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task } from "@/features/tasks/types";

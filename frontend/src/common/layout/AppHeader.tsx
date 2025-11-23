@@ -4,8 +4,8 @@ import { ButtonLink } from "@/common/ui/actions/ButtonLink";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,
-} from "@/components/ui/styled-icons";
-import { Header3 } from "@/components/ui/typography";
+} from "@/common/ui/display/styled-icons";
+import { Header3 } from "@/common/ui/typography/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { useProfile } from "@/features/user/hooks/useProfile";

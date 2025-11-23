@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/common/ui/actions/button";
+import { Card, CardContent, CardHeader } from "@/common/ui/surfaces/card";
 import {
   Header1,
   Header2,
   Header3,
   Paragraph,
-} from "@/components/ui/typography";
+} from "@/common/ui/typography/typography";
 import { Link } from "@tanstack/react-router";
 
 const LandingCard = ({

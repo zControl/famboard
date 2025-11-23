@@ -1,11 +1,11 @@
 import { PageSections } from "@/common/layout/PageSections";
+import { Separator } from "@/common/ui/display/separator";
 import { LoadingBox, LoadingRows } from "@/common/ui/feedback/Loading";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { Tile } from "@/common/ui/surfaces/Tile";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
-import { Header4 } from "@/components/ui/typography";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
+import { Header4 } from "@/common/ui/typography/typography";
 
 function SpinnerTile() {
   const imp: CodeBlockData[] = [

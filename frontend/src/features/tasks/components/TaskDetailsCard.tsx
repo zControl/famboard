@@ -1,13 +1,13 @@
+import { Button } from "@/common/ui/actions/button";
+import { Coin } from "@/common/ui/display/coin";
 import { CardSection } from "@/common/ui/surfaces/CardSection";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Coin } from "@/components/ui/coin";
+} from "@/common/ui/surfaces/card";
 import { AssignedAvatarGroup } from "@/features/tasks/components/AssignedAvatarGroup";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";

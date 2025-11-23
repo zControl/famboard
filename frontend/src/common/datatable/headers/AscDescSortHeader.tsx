@@ -1,15 +1,15 @@
 import { Column } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
 
-import { cn } from "@/common/utils/classNames";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/common/ui/overlay/dropdown-menu";
+import { cn } from "@/common/utils/classNames";
 
 export interface AscDescSortHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {

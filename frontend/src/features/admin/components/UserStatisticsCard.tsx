@@ -1,5 +1,5 @@
+import { LabeledValue } from "@/common/ui/display/labeled-value";
 import { InfoCard } from "@/components/composites/InfoCard";
-import { LabeledValue } from "@/components/ui/labeled-value";
 import { useUserStatistics } from "@/features/admin/hooks/useUserStatistics";
 import { UsersIcon } from "lucide-react";
 

@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/common/ui/overlay/dropdown-menu";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { useState } from "react";
 

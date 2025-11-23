@@ -1,3 +1,4 @@
+import { Spinner } from "@/common/ui/feedback/spinner";
 import {
   Card,
   CardContent,
@@ -5,8 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
+} from "@/common/ui/surfaces/card";
 import React from "react";
 
 interface InfoCardProps {

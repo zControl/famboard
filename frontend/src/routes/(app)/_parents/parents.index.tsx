@@ -1,5 +1,10 @@
 import { PageContainer } from "@/common/layout/PageContainer";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/common/ui/surfaces/tabs";
 import { KidSummaryTile } from "@/features/parents/components/KidSummaryTile";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { createFileRoute } from "@tanstack/react-router";

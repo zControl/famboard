@@ -1,5 +1,4 @@
-import { enumToArray } from "@/common/utils/enumToArray";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import {
   Command,
   CommandEmpty,
@@ -7,13 +6,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Label } from "@/components/ui/label";
+} from "@/common/ui/overlay/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/ui/overlay/popover";
+import { Label } from "@/common/ui/typography/label";
+import { enumToArray } from "@/common/utils/enumToArray";
 import { ChevronsUpDown } from "lucide-react";
 import React from "react";
 

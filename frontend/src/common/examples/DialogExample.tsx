@@ -1,6 +1,5 @@
 import { PageSections } from "@/common/layout/PageSections";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Tile } from "@/common/ui/surfaces/Tile";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +10,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/common/ui/overlay/alert-dialog";
+import { Tile } from "@/common/ui/surfaces/Tile";
 
 import {
   Dialog,
@@ -20,7 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/common/ui/overlay/dialog";
 
 import {
   Drawer,
@@ -29,14 +29,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/common/ui/overlay/drawer";
 
 import { FormSample } from "@/common/examples/FormSample";
+import { Button } from "@/common/ui/actions/button";
+import { Separator } from "@/common/ui/display/separator";
 import { DisplayModal } from "@/common/ui/overlay/DisplayModal";
-import { Button } from "@/components/ui/button";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetClose,
@@ -46,8 +44,13 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { SectionDescription, SectionTitle } from "@/components/ui/typography";
+} from "@/common/ui/overlay/sheet";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
+import {
+  SectionDescription,
+  SectionTitle,
+} from "@/common/ui/typography/typography";
 
 function ActionDialogModal() {
   const imp: CodeBlockData[] = [

@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/common/ui/surfaces/accordion";
 
 export const AccordianExample = () => {
   return (

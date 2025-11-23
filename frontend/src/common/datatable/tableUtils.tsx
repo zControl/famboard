@@ -1,4 +1,4 @@
-import { TableCell, TableHead, TableRow } from "@/components/ui/table";
+import { TableCell, TableHead, TableRow } from "@/common/ui/display/table";
 import {
   ColumnDef,
   flexRender,

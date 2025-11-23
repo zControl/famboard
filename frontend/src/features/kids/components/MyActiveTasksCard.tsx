@@ -1,6 +1,6 @@
-import { Card } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
-import { StatLabel } from "@/components/ui/typography";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Card } from "@/common/ui/surfaces/card";
+import { StatLabel } from "@/common/ui/typography/typography";
 import { AssignedTaskCard } from "@/features/kids/components/AssignedTaskCard";
 import { AssignedTask } from "@/features/tasks/types";
 

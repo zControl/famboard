@@ -1,4 +1,4 @@
-import { CustomLink } from "@/components/ui/custom-link";
+import { CustomLink } from "@/common/ui/navigation/custom-link";
 
 export const AppFooter = () => {
   return (

@@ -1,6 +1,6 @@
 import { DetailListItemProps } from "@/common/types";
+import { Badge } from "@/common/ui/display/badge";
 import { cn } from "@/common/utils/classNames";
-import { Badge } from "@/components/ui/badge";
 import React from "react";
 
 function DetailListItem({

@@ -1,6 +1,6 @@
 import { ThemeSwitch } from "@/common/theme/ThemeSwitch";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/common/ui/actions/button";
+import { Separator } from "@/common/ui/display/separator";
 import {
   Sheet,
   SheetClose,
@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/common/ui/overlay/sheet";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { UserAvatar } from "@/features/user/components/UserAvatar";

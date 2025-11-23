@@ -1,5 +1,5 @@
-import { Switch } from "@/components/ui/switch";
-import { Paragraph } from "@/components/ui/typography";
+import { Switch } from "@/common/ui/fields/switch";
+import { Paragraph } from "@/common/ui/typography/typography";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "./useTheme";
 

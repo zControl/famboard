@@ -4,14 +4,14 @@ import {
   renderTableBody,
   renderTableHeader,
 } from "@/common/datatable/tableUtils";
-import { cn } from "@/common/utils/classNames";
 import {
   Table,
   TableBody,
   TableCaption,
   TableHeader,
-} from "@/components/ui/table";
-import { Header4 } from "@/components/ui/typography";
+} from "@/common/ui/display/table";
+import { Header4 } from "@/common/ui/typography/typography";
+import { cn } from "@/common/utils/classNames";
 import {
   ColumnDef,
   getCoreRowModel,

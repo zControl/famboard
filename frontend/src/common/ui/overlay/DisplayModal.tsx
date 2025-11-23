@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/common/ui/overlay/dialog";
 
 interface DisplayModalProps {
   trigger: React.ReactNode;

@@ -1,7 +1,7 @@
 import { PageSections } from "@/common/layout/PageSections";
+import { ColorBox } from "@/common/ui/display/color-box";
+import { ColorSelector } from "@/common/ui/display/color-selector";
 import { Tile } from "@/common/ui/surfaces/Tile";
-import { ColorBox } from "@/components/ui/color-box";
-import { ColorSelector } from "@/components/ui/color-selector";
 function ColorSelectorTile() {
   return (
     <Tile

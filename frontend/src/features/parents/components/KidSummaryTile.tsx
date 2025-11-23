@@ -1,5 +1,5 @@
+import { Spinner } from "@/common/ui/feedback/spinner";
 import { Tile } from "@/common/ui/surfaces/Tile";
-import { Spinner } from "@/components/ui/spinner";
 import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
 import { KidApprovalsCard } from "@/features/parents/components/KidApprovalsCard";
 import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";

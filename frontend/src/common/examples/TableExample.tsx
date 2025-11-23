@@ -1,9 +1,6 @@
 import { DataTableCore } from "@/common/datatable/DataTableCore";
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/common/ui/surfaces/Tile";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/common/ui/display/separator";
 import {
   Table,
   TableBody,
@@ -12,7 +9,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/common/ui/display/table";
+import { Tile } from "@/common/ui/surfaces/Tile";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
 
 function TableTile() {
   const imp: CodeBlockData[] = [

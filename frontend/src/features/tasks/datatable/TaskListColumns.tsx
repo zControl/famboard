@@ -1,7 +1,7 @@
 import { SearchInputHeader } from "@/common/datatable/headers/SearchInputHeader";
 import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
-import { Coin } from "@/components/ui/coin";
-import { CustomLink } from "@/components/ui/custom-link";
+import { Coin } from "@/common/ui/display/coin";
+import { CustomLink } from "@/common/ui/navigation/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";

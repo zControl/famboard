@@ -1,7 +1,7 @@
 import { ErrorPage } from "@/common/error/ErrorPage";
 import { NotFound } from "@/common/layout/NotFound";
 import { useTheme } from "@/common/theme/useTheme";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/common/ui/feedback/sonner";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { QueryClient } from "@tanstack/react-query";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";

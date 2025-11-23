@@ -1,5 +1,5 @@
 import { DataTableCore } from "@/common/datatable/DataTableCore";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/common/ui/surfaces/card";
 import { approvalListColumns } from "@/features/approvals/datatable/ApprovalListColumns";
 import { useApprovals } from "@/features/parents/hooks/useApprovals";
 

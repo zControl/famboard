@@ -1,5 +1,5 @@
+import { Button } from "@/common/ui/actions/button";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";

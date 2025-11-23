@@ -1,16 +1,16 @@
 import { Option } from "@/common/types";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@/common/ui/overlay/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/ui/overlay/popover";
 import { useState } from "react";
 
 interface SelectOptionCellProps {

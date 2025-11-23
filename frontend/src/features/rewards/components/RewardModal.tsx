@@ -1,3 +1,4 @@
+import { Input } from "@/common/ui/fields/input";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   Form,
@@ -6,8 +7,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/common/ui/surfaces/form";
 import { rewardsListSchema } from "@/features/rewards/datatable/RewardsListSchema";
 import { useRewards } from "@/features/rewards/hooks/useRewards";
 import { Reward } from "@/features/rewards/types";

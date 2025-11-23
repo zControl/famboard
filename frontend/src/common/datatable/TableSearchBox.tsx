@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
 import { Table as ReactTable } from "@tanstack/react-table";
 
 interface TableSearchBoxProps<TData> {

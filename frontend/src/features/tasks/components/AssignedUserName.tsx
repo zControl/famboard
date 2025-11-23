@@ -1,4 +1,4 @@
-import { Header3 } from "@/components/ui/typography";
+import { Header3 } from "@/common/ui/typography/typography";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 
 export const AssignedUserName = ({ userId }: { userId: string }) => {

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import { RefreshCcw } from "lucide-react";
 
 interface DatatableOptionsProps {

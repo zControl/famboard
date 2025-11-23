@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/common/ui/surfaces/card";
 import { UserAvatarSelector } from "@/features/user/components/UserAvatarSelector";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserProfile } from "@/features/user/types";

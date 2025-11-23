@@ -1,12 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { XCircleIcon } from "lucide-react";
 import { Button } from "../../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/surfaces/card";
 import { PageContainer } from "./PageContainer";
 
 export const UnauthorizedPage = () => {

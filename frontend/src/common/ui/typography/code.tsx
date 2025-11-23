@@ -1,4 +1,4 @@
-import type { BundledLanguage } from "@/components/ui/code-block";
+import type { BundledLanguage } from "@/common/ui/typography/code-block";
 
 import {
   CodeBlock,
@@ -9,9 +9,9 @@ import {
   CodeBlockFiles,
   CodeBlockHeader,
   CodeBlockItem,
-} from "@/components/ui/code-block";
+} from "@/common/ui/typography/code-block";
 
-import { type CodeBlockData } from "@/components/ui/code-block";
+import { type CodeBlockData } from "@/common/ui/typography/code-block";
 
 interface CodeProps {
   codeData: CodeBlockData[];

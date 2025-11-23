@@ -1,8 +1,8 @@
+import { Coin } from "@/common/ui/display/coin";
+import { LabeledValue } from "@/common/ui/display/labeled-value";
+import { Input } from "@/common/ui/fields/input";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Coin } from "@/components/ui/coin";
-import { Input } from "@/components/ui/input";
-import { LabeledValue } from "@/components/ui/labeled-value";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/common/ui/typography/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useApprovals } from "@/features/parents/hooks/useApprovals";
 import { ApprovalResponse } from "@/features/tasks/types";

@@ -1,19 +1,19 @@
 import { Option } from "@/common/types";
-import { cn } from "@/common/utils/classNames";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/common/ui/actions/button";
+import { Checkbox } from "@/common/ui/fields/checkbox";
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Label } from "@/components/ui/label";
+} from "@/common/ui/overlay/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/common/ui/overlay/popover";
+import { Label } from "@/common/ui/typography/label";
+import { cn } from "@/common/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";

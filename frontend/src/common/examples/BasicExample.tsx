@@ -1,12 +1,7 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/common/ui/surfaces/Tile";
-import { Avatar } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { Separator } from "@/components/ui/separator";
-import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/common/ui/actions/button";
+import { Avatar } from "@/common/ui/display/avatar";
+import { Separator } from "@/common/ui/display/separator";
 import {
   StyledCalendar1Icon,
   StyledCalendarCheckIcon,
@@ -14,8 +9,13 @@ import {
   StyledGemIcon,
   StyledPiggyBankIcon,
   StyledTrophyIcon,
-} from "@/components/ui/styled-icons";
-import { Header4 } from "@/components/ui/typography";
+} from "@/common/ui/display/styled-icons";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Tile } from "@/common/ui/surfaces/Tile";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
+import { Header4 } from "@/common/ui/typography/typography";
+import { Badge } from "@/components/ui/badge";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { IceCream } from "lucide-react";
 
@@ -110,7 +110,7 @@ function ButtonTile() {
     {
       language: "tsx",
       filename: "button-import",
-      code: `import { Button } from "@/components/ui/button";`,
+      code: `import { Button } from "@/common/ui/actions/button";`,
     },
   ];
   const code: CodeBlockData[] = [

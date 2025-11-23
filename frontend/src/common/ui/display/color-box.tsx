@@ -1,6 +1,6 @@
 import { useTheme } from "@/common/theme/useTheme";
+import { CopyButton } from "@/common/ui/actions/copy-button";
 import { cn } from "@/common/utils/classNames";
-import { CopyButton } from "@/components/ui/copy-button";
 import { useEffect, useState } from "react";
 
 interface colorBoxProps {

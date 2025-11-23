@@ -5,8 +5,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Header3 } from "@/components/ui/typography";
+} from "@/common/ui/surfaces/card";
+import { Header3 } from "@/common/ui/typography/typography";
 import React from "react";
 
 interface TileProps {

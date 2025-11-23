@@ -1,9 +1,9 @@
-import { cn } from "@/common/utils/classNames";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/common/ui/overlay/tooltip";
+import { cn } from "@/common/utils/classNames";
 import {
   badgeIconVariants,
   badgeShellVariants,

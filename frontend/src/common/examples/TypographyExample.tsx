@@ -1,9 +1,9 @@
 import { PageSections } from "@/common/layout/PageSections";
+import { LabeledValue } from "@/common/ui/display/labeled-value";
+import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
-import { Code } from "@/components/ui/code";
-import { CodeBlockData } from "@/components/ui/code-block";
-import { LabeledValue } from "@/components/ui/labeled-value";
-import { Separator } from "@/components/ui/separator";
+import { Code } from "@/common/ui/typography/code";
+import { CodeBlockData } from "@/common/ui/typography/code-block";
 import {
   BlockQuote,
   Header1,
@@ -12,7 +12,7 @@ import {
   Header4,
   Paragraph,
   TextBlock,
-} from "@/components/ui/typography";
+} from "@/common/ui/typography/typography";
 
 function HeadingsTile() {
   const code: CodeBlockData[] = [
