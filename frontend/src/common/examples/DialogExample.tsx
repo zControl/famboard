@@ -1,4 +1,4 @@
-import { PageSections } from "@/components/common/PageSections";
+import { PageSections } from "@/common/layout/PageSections";
 import { ActionModal } from "@/components/composites/ActionModal";
 import { Tile } from "@/components/composites/Tile";
 import {

@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { ApprovalListDatatable } from "@/features/approvals/datatable/ApprovalListDatatable";
 import { createFileRoute } from "@tanstack/react-router";
 

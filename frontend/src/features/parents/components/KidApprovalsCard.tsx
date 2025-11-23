@@ -1,4 +1,4 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
+import { ErrorCard } from "@/common/error/ErrorCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";

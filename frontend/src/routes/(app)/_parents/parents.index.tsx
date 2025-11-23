@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { KidSummaryTile } from "@/features/parents/components/KidSummaryTile";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";

@@ -1,4 +1,4 @@
-import { PageSections } from "@/components/common/PageSections";
+import { PageSections } from "@/common/layout/PageSections";
 
 function FormBasicsTile() {
   return <div>form basics tile</div>;

@@ -1,5 +1,5 @@
-import { AppLogo } from "@/components/common/AppLogo";
-import { HeaderContainer } from "@/components/common/HeaderContainer";
+import { AppLogo } from "@/common/layout/AppLogo";
+import { HeaderContainer } from "@/common/layout/HeaderContainer";
 import { LoginButton } from "@/features/auth/components/LoginButton";
 
 function LandingHeaderActions() {

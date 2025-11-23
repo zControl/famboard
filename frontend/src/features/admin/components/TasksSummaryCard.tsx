@@ -1,4 +1,4 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
+import { ErrorCard } from "@/common/error/ErrorCard";
 import { ButtonLink } from "@/components/composites/ButtonLink";
 import { InfoCard } from "@/components/composites/InfoCard";
 import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";

@@ -1,4 +1,4 @@
-import { PageSections } from "@/components/common/PageSections";
+import { PageSections } from "@/common/layout/PageSections";
 import { LoadingBox, LoadingRows } from "@/components/composites/Loading";
 import { Tile } from "@/components/composites/Tile";
 import { Code } from "@/components/ui/code";

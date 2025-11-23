@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { ActivityLogSummaryCard } from "@/features/admin/components/ActivityLogSummaryCard";
 import { RewardsSummaryCard } from "@/features/admin/components/RewardsSummaryCard";
 import { StatusBar } from "@/features/admin/components/StatusBar";

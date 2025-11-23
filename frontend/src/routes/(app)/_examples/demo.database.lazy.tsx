@@ -1,5 +1,5 @@
 import { DatabaseExample } from "@/common/examples/DatabaseExample";
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/(app)/_examples/demo/database")({

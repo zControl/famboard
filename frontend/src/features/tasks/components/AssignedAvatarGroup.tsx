@@ -1,4 +1,4 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
+import { ErrorCard } from "@/common/error/ErrorCard";
 import { Spinner } from "@/components/ui/spinner";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";

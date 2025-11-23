@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/common/PageContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { Spinner } from "@/components/ui/spinner";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";

@@ -1,7 +1,7 @@
 import { useFormattedTimestamp } from "@/common/hooks/useFormattedTimestamp";
-import { AppLogo } from "@/components/common/AppLogo";
-import { HeaderContainer } from "@/components/common/HeaderContainer";
-import { PageContainer } from "@/components/common/PageContainer";
+import { AppLogo } from "@/common/layout/AppLogo";
+import { HeaderContainer } from "@/common/layout/HeaderContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { Spinner } from "@/components/ui/spinner";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
