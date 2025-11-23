@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/apiClient";
 import { API_ENDPOINTS } from "@/api/apiEndpoints";
-import { User, UserProfile, UsersByGroupResponse } from "@/types/user";
+import { User, UserProfile, UsersByGroupResponse } from "@/features/user/types";
 
 export const usersApi = {
   getUsers: () =>

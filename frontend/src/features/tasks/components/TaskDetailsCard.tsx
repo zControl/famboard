@@ -13,7 +13,7 @@ import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTaskById } from "@/features/tasks/hooks/useTaskById";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { useQueryClient } from "@tanstack/react-query";
 
 import {

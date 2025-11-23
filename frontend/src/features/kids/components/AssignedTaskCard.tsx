@@ -13,7 +13,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";
-import { AssignedTask } from "@/types/task";
+import { AssignedTask } from "@/features/tasks/types";
 import { SquareCheckBigIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

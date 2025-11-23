@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { rewardsListSchema } from "@/features/rewards/datatable/RewardsListSchema";
 import { useRewards } from "@/features/rewards/hooks/useRewards";
-import { Reward } from "@/types/reward";
+import { Reward } from "@/features/rewards/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";

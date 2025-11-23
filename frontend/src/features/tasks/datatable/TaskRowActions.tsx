@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import {
   CopyIcon,

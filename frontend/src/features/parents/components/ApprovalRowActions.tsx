@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
-import { ApprovalResponse } from "@/types/task";
+import { ApprovalResponse } from "@/features/tasks/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 

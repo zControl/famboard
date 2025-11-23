@@ -1,5 +1,5 @@
 import { rewardsApi } from "@/features/rewards/api/rewardsApi";
-import { Reward, RewardListResponse } from "@/types/reward";
+import { Reward, RewardListResponse } from "@/features/rewards/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useRewards = () => {

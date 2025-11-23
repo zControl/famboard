@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@/features/user/types";
 export enum TaskCategory {
   Personal = 'PERSONAL',
   Academic = 'ACADEMIC',

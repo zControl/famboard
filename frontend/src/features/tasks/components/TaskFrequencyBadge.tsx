@@ -8,7 +8,7 @@ import {
   badgeIconVariants,
   badgeShellVariants,
 } from "@/features/tasks/components/badge-variants";
-import { TaskFrequency } from "@/types/task";
+import { TaskFrequency } from "@/features/tasks/types";
 import { type VariantProps } from "class-variance-authority";
 import {
   Calendar1Icon,

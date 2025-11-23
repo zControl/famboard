@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, AssignedUserResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse, AssignedUserResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/features/tasks/types";
 
 export const taskApi = {
   getTasks: () =>

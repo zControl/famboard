@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Paragraph } from "@/components/ui/typography";
 import { useProfile } from "@/features/user/hooks/useProfile";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 

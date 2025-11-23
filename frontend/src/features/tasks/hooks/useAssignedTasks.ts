@@ -1,5 +1,5 @@
 import { taskApi } from "@/features/tasks/api/taskApi";
-import { AssignedTaskResponse } from "@/types/task";
+import { AssignedTaskResponse } from "@/features/tasks/types";
 import { useQuery } from "@tanstack/react-query";
 
 export const useAssignedTasks = (userId: string) => {

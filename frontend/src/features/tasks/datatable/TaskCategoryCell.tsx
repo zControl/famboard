@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
-import { Task, TaskCategory } from "@/types/task";
+import { Task, TaskCategory } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";
 

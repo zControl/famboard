@@ -5,7 +5,7 @@ import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard
 import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";
 import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
 import { TaskDetailsCard } from "@/features/tasks/components/TaskDetailsCard";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { EllipsisIcon, Share2Icon, UserPlus2Icon } from "lucide-react";
 
 export const TaskTile = ({ task }: { task: Task }) => {

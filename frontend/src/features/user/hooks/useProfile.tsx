@@ -1,6 +1,6 @@
 import { usersApi } from "@/features/admin/api/usersApi";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useProfile = () => {

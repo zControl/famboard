@@ -8,7 +8,7 @@ import {
   badgeIconVariants,
   badgeShellVariants,
 } from "@/features/tasks/components/badge-variants";
-import { TaskCategory } from "@/types/task";
+import { TaskCategory } from "@/features/tasks/types";
 import { type VariantProps } from "class-variance-authority";
 import {
   ActivityIcon,

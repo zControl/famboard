@@ -9,7 +9,7 @@ import {
   StyledTrophyIcon,
 } from "@/components/ui/styled-icons";
 import { Header2, StatLabel, StatValue } from "@/components/ui/typography";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 
 interface KidShowcaseCardProps {
   profile: UserProfile | null | undefined;

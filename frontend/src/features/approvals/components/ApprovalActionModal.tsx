@@ -5,7 +5,7 @@ import { LabeledValue } from "@/components/ui/labeled-value";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useApprovals } from "@/features/parents/hooks/useApprovals";
-import { ApprovalResponse } from "@/types/task";
+import { ApprovalResponse } from "@/features/tasks/types";
 import { useState } from "react";
 import { toast } from "sonner";
 

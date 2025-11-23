@@ -1,14 +1,14 @@
 import { usersApi } from "@/features/admin/api/usersApi"
-import { User } from "@/types/user"
+import { User } from "@/features/user/types"
 import { useQuery } from "@tanstack/react-query"
 
 export const useUserStatistics = () => {
-  const {data, isLoading, isError} = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["userStatistics"],
     queryFn: async (): Promise<User[]> => {
-              const res = await usersApi.getUsers();
-              return res;
-            },
+      const res = await usersApi.getUsers();
+      return res;
+    },
   })
 
   const totalUserCount = data?.length ?? 0;
