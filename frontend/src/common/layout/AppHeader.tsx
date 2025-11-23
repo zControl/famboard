@@ -26,7 +26,9 @@ const ParentNavigation = () => (
   <div className="flex gap-2 justify-center">
     <ButtonLink href="/parents">Dashboard</ButtonLink>
     <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
+    <ButtonLink href="/parents/routines">Routines</ButtonLink>
     <ButtonLink href="/parents/approvals">Approvals</ButtonLink>
+    <ButtonLink href="/parents/achievements">Achievements</ButtonLink>
     <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
   </div>
 );
