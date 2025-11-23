@@ -7,7 +7,7 @@ import { cn } from "@/common/utils/classNames";
 import {
   badgeIconVariants,
   badgeShellVariants,
-} from "@/features/tasks/components/badge-variants";
+} from "@/features/tasks/components/task-badge-variants";
 import { TaskFrequency } from "@/features/tasks/types";
 import { type VariantProps } from "class-variance-authority";
 import {
