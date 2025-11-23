@@ -1,5 +1,3 @@
-import { Spinner } from "@/components/ui/spinner";
-import React from "react";
 import {
   Card,
   CardContent,
@@ -7,7 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
+import { Spinner } from "@/components/ui/spinner";
+import React from "react";
 
 interface InfoCardProps {
   children: React.ReactNode;

@@ -1,9 +1,9 @@
+import { cn } from "@/common/utils/classNames";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { cn } from "@/utils/classNames";
 import * as React from "react";
 
 function Coin({

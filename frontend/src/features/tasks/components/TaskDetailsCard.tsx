@@ -1,4 +1,4 @@
-import { CardSection } from "@/components/composites/CardSection";
+import { CardSection } from "@/common/ui/surfaces/CardSection";
 import { Button } from "@/components/ui/button";
 import {
   Card,

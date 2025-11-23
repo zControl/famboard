@@ -1,3 +1,4 @@
+import { cn } from "@/common/utils/classNames";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -6,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/utils/classNames";
 import {
   type IconType,
   SiCss,

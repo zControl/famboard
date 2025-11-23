@@ -1,5 +1,5 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/components/composites/Tile";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

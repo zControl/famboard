@@ -1,4 +1,5 @@
 import { Option } from "@/common/types";
+import { cn } from "@/common/utils/classNames";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -13,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/utils/classNames";
 import { Column } from "@tanstack/react-table";
 import { FilterIcon } from "lucide-react";
 import { useEffect, useState } from "react";

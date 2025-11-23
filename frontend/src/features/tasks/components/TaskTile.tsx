@@ -1,5 +1,5 @@
 import { useIsMobile } from "@/common/hooks/useIsMobile";
-import { Tile } from "@/components/composites/Tile";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard";
 import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";

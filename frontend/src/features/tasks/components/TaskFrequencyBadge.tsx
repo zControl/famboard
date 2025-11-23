@@ -1,3 +1,4 @@
+import { cn } from "@/common/utils/classNames";
 import {
   Tooltip,
   TooltipContent,
@@ -8,7 +9,6 @@ import {
   badgeShellVariants,
 } from "@/features/tasks/components/badge-variants";
 import { TaskFrequency } from "@/types/task";
-import { cn } from "@/utils/classNames";
 import { type VariantProps } from "class-variance-authority";
 import {
   Calendar1Icon,

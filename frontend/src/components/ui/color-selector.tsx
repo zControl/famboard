@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import { useState } from "react";
 import { CopyButton } from "./copy-button";
 import { Input } from "./input";

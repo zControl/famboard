@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import { createLink } from "@tanstack/react-router";
 import * as React from "react";
 

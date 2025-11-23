@@ -1,4 +1,4 @@
-import { Tile } from "@/components/composites/Tile";
+import { Tile } from "@/common/ui/surfaces/Tile";
 
 export const TileExample = () => {
   return (

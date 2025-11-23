@@ -9,8 +9,8 @@ import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
 import { TaskFrequencyCell } from "@/features/tasks/datatable/TaskFrequencyCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
+import { enumToArray } from "@/common/utils/enumToArray";
 import { Task, TaskCategory, TaskFrequency } from "@/types/task";
-import { enumToArray } from "@/utils/enumToArray";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [

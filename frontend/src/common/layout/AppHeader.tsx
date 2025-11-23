@@ -1,6 +1,6 @@
 import { AppLogo } from "@/common/layout/AppLogo";
 import { HeaderContainer } from "@/common/layout/HeaderContainer";
-import { ButtonLink } from "@/components/composites/ButtonLink";
+import { ButtonLink } from "@/common/ui/actions/ButtonLink";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,

@@ -1,4 +1,4 @@
-import { ActionModal } from "@/components/composites/ActionModal";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useNavigate, useRouter } from "@tanstack/react-router";

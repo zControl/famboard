@@ -1,5 +1,5 @@
 import { ErrorCard } from "@/common/error/ErrorCard";
-import { ButtonLink } from "@/components/composites/ButtonLink";
+import { ButtonLink } from "@/common/ui/actions/ButtonLink";
 import { InfoCard } from "@/components/composites/InfoCard";
 import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";
 import { LogsIcon, PlusSquareIcon, SquareLibraryIcon } from "lucide-react";

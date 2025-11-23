@@ -1,3 +1,4 @@
+import { enumToArray } from "@/common/utils/enumToArray";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -13,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { enumToArray } from "@/utils/enumToArray";
 import { ChevronsUpDown } from "lucide-react";
 import React from "react";
 

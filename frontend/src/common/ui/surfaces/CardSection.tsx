@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import React from "react";
 
 interface CardSectionProps {

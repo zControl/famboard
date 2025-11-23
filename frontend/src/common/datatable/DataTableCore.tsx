@@ -4,6 +4,7 @@ import {
   renderTableBody,
   renderTableHeader,
 } from "@/common/datatable/tableUtils";
+import { cn } from "@/common/utils/classNames";
 import {
   Table,
   TableBody,
@@ -11,7 +12,6 @@ import {
   TableHeader,
 } from "@/components/ui/table";
 import { Header4 } from "@/components/ui/typography";
-import { cn } from "@/utils/classNames";
 import {
   ColumnDef,
   getCoreRowModel,

@@ -1,5 +1,5 @@
 import { useApiStatus } from "@/api/useApiStatus";
-import { DisplayModal } from "@/components/composites/DisplayModal";
+import { DisplayModal } from "@/common/ui/overlay/DisplayModal";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Spinner } from "@/components/ui/spinner";

@@ -1,3 +1,4 @@
+import { enumToArray } from "@/common/utils/enumToArray";
 import {
   Command,
   CommandGroup,
@@ -12,7 +13,6 @@ import {
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskFrequency } from "@/types/task";
-import { enumToArray } from "@/utils/enumToArray";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";
 

@@ -1,5 +1,5 @@
 import { DetailListItemProps } from "@/common/types";
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import React from "react";
 
 function LabeledValue({

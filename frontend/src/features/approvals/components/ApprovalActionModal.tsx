@@ -1,4 +1,4 @@
-import { ActionModal } from "@/components/composites/ActionModal";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { Coin } from "@/components/ui/coin";
 import { Input } from "@/components/ui/input";
 import { LabeledValue } from "@/components/ui/labeled-value";

@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 
 interface ColumnTitleProps {
   title: string;

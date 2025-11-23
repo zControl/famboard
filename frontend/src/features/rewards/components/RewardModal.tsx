@@ -1,4 +1,4 @@
-import { ActionModal } from "@/components/composites/ActionModal";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   Form,
   FormControl,

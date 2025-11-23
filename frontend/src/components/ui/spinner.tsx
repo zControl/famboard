@@ -1,4 +1,4 @@
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import { Loader2Icon } from "lucide-react";
 
 const sizes = {

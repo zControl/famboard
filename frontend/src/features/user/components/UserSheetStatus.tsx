@@ -1,4 +1,4 @@
-import { EmojiSelector } from "@/common/blocks/EmojiSelector";
+import { EmojiSelector } from "@/common/ui/actions/EmojiSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Paragraph } from "@/components/ui/typography";

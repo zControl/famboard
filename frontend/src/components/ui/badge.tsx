@@ -1,7 +1,7 @@
 import { type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
-import { cn } from "@/utils/classNames";
+import { cn } from "@/common/utils/classNames";
 import { Slot } from "@radix-ui/react-slot";
 import { badgeVariants } from "./badge-variants";
 

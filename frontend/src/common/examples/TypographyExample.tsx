@@ -1,5 +1,5 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/components/composites/Tile";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/components/ui/code";
 import { CodeBlockData } from "@/components/ui/code-block";
 import { LabeledValue } from "@/components/ui/labeled-value";

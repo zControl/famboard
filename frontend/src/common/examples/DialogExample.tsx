@@ -1,6 +1,6 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { ActionModal } from "@/components/composites/ActionModal";
-import { Tile } from "@/components/composites/Tile";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/drawer";
 
 import { FormSample } from "@/common/examples/FormSample";
-import { DisplayModal } from "@/components/composites/DisplayModal";
+import { DisplayModal } from "@/common/ui/overlay/DisplayModal";
 import { Button } from "@/components/ui/button";
 import { Code } from "@/components/ui/code";
 import { CodeBlockData } from "@/components/ui/code-block";

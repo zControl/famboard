@@ -1,6 +1,6 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { LoadingBox, LoadingRows } from "@/components/composites/Loading";
-import { Tile } from "@/components/composites/Tile";
+import { LoadingBox, LoadingRows } from "@/common/ui/feedback/Loading";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/components/ui/code";
 import { CodeBlockData } from "@/components/ui/code-block";
 import { Separator } from "@/components/ui/separator";

@@ -1,6 +1,6 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { EnhancedSelector } from "@/components/composites/EnhancedSelector";
-import { ValueSlider } from "@/components/composites/ValueSlider";
+import { EnhancedSelector } from "@/common/ui/actions/EnhancedSelector";
+import { ValueSlider } from "@/common/ui/actions/ValueSlider";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   Form,
   FormControl,

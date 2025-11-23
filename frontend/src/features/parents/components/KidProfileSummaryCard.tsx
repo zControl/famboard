@@ -1,3 +1,4 @@
+import { firstInitial } from "@/common/utils/firstInitial";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/styled-icons";
 import { StatLabel, StatValue } from "@/components/ui/typography";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
-import { firstInitial } from "@/utils/firstInitial";
 
 export const KidProfileSummaryCard = ({ id }: { id: string }) => {
   const { userProfile, isLoading } = useUserProfile(id);

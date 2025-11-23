@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/apiClient";
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/components/composites/Tile";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Button } from "@/components/ui/button";
 import { Code } from "@/components/ui/code";
 import { CodeBlockData } from "@/components/ui/code-block";
