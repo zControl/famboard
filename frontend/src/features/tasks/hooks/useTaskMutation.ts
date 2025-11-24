@@ -6,7 +6,7 @@ export const useTaskMutations = () => {
   const queryClient = useQueryClient();
 
   const refreshTasks = () => {
-    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    queryClient.resetQueries({ queryKey: ["tasks"] });
     queryClient.invalidateQueries({ queryKey: ["taskById"] });
     queryClient.invalidateQueries({ queryKey: ["taskBySequenceNumber"] });
   };

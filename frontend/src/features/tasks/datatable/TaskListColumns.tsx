@@ -58,7 +58,6 @@ export const taskListColumns: ColumnDef<Task>[] = [
     id: "assigned",
     accessorFn: (row) => row.assignments.map((a) => a.user.id),
     filterFn: "arrIncludesSome",
-    enableSorting: false,
     header: ({ column }) => (
       <TaskAssignmentsHeader column={column} title="Assigned" />
     ),
