@@ -12,17 +12,13 @@ import {
 } from "@/common/ui/surfaces/card";
 import { Textarea } from "@/common/ui/typography/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { TaskCardProps } from "@/features/kids/types";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";
-import { AssignedTask } from "@/features/tasks/types";
 import { SquareCheckBigIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-interface AssignedTaskCardProps {
-  task: AssignedTask;
-}
-
-export const AssignedTaskCard = ({ task }: AssignedTaskCardProps) => {
+export const AssignedTaskCard = ({ task }: TaskCardProps) => {
   const { user } = useAuth();
   const { completeTaskMutation, isCompleting } = useTaskCompletion();
   const [note, setNote] = useState("");

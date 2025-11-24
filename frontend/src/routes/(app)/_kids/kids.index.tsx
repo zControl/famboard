@@ -50,7 +50,10 @@ function KidsIndexPage() {
             assignedTasks={assignedTasks}
             loading={isLoading}
           />
-          <MyApprovalsCard assignedTasks={pendingApprovalTasks} />
+          <MyApprovalsCard
+            assignedTasks={pendingApprovalTasks}
+            loading={isLoading}
+          />
         </div>
       </div>
     </PageContainer>
