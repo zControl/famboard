@@ -6,9 +6,8 @@ export const useTasksQuery = () => {
   const queryClient = useQueryClient();
 
   const refreshTasks = () => {
-    queryClient.invalidateQueries({ queryKey: ["tasks"] });
-    queryClient.invalidateQueries({ queryKey: ["taskById"] });
-    queryClient.invalidateQueries({ queryKey: ["taskBySequenceNumber"] });
+    queryClient.resetQueries({ queryKey: ["tasks"] });
+
   }
 
   const { data: tasks, isLoading, error } = useQuery<TaskListResponse>({
