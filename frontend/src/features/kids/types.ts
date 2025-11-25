@@ -5,6 +5,6 @@ export interface AssignedTaskCardProps {
   loading: boolean;
 }
 
-export interface TaskCardProps {
+export interface AssignedTaskItemProps {
   task: AssignedTask;
 }

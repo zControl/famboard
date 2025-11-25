@@ -1,24 +1,29 @@
 import { Button } from "@/common/ui/actions/button";
 import { Coin } from "@/common/ui/display/coin";
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/common/ui/display/item";
 import { Spinner } from "@/common/ui/feedback/spinner";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/common/ui/surfaces/card";
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/common/ui/overlay/tooltip";
 import { Textarea } from "@/common/ui/typography/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { TaskCardProps } from "@/features/kids/types";
+import { AssignedTaskItemProps } from "@/features/kids/types";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";
 import { SquareCheckBigIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export const AssignedTaskCard = ({ task }: TaskCardProps) => {
+export const AssignedTaskItem = ({ task }: AssignedTaskItemProps) => {
   const { user } = useAuth();
   const { completeTaskMutation, isCompleting } = useTaskCompletion();
   const [note, setNote] = useState("");
@@ -46,28 +51,30 @@ export const AssignedTaskCard = ({ task }: TaskCardProps) => {
   };
 
   return (
-    <Card className="p-2 gap-0 h-full">
-      <CardHeader className="px-1">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-2">
-          <Coin className="size-8" value={task.pointValue} />
-          <div className="flex flex-col space-y-1 grow">
-            <CardTitle className="p-0">{task.title}</CardTitle>
-            <CardDescription className="p-0">{task.frequency}</CardDescription>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col p-0 flex-1">
-        <CardDescription className="overflow-x-auto max-h-20 overflow-y-auto">
-          {task.description}
-        </CardDescription>
-      </CardContent>
-      <CardFooter className="mt-auto pt-2 px-0">
-        <div className="flex gap-2 w-full justify-end">
+    <div className="flex w-full max-w-lg flex-col gap-6">
+      <Item variant="outline">
+        <ItemMedia variant="icon">
+          <Coin className="size-12" value={task.pointValue} />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>{task.title}</ItemTitle>
+          <ItemDescription>{task.description}</ItemDescription>
+        </ItemContent>
+        <ItemActions>
           <ActionModal
             trigger={
-              <Button variant="primary">
-                {isCompleting ? <Spinner size="sm" /> : <SquareCheckBigIcon />}
-              </Button>
+              <Tooltip>
+                <TooltipContent>Mark Complete!</TooltipContent>
+                <TooltipTrigger>
+                  <Button variant="primary">
+                    {isCompleting ? (
+                      <Spinner size="sm" />
+                    ) : (
+                      <SquareCheckBigIcon />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+              </Tooltip>
             }
             title={`Did you complete "${task.title}"?`}
             description={`This will earn you ${task.pointValue} points!`}
@@ -82,8 +89,8 @@ export const AssignedTaskCard = ({ task }: TaskCardProps) => {
               maxLength={300}
             />
           </ActionModal>
-        </div>
-      </CardFooter>
-    </Card>
+        </ItemActions>
+      </Item>
+    </div>
   );
 };
