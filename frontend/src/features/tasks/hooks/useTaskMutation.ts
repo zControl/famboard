@@ -27,6 +27,11 @@ export const useTaskMutations = () => {
     onSuccess: refreshTasks,
   });
 
+  const duplicateTaskMutation = useMutation({
+    mutationFn: taskApi.createTask,
+    onSuccess: refreshTasks,
+  })
+
   const assignTaskMutation = useMutation({
     mutationFn: ({ taskId, userIds }: { taskId: string; userIds: string[] }) =>
       taskApi.assignUsersToTask(taskId, userIds),
@@ -37,6 +42,7 @@ export const useTaskMutations = () => {
     addTaskMutation,
     updateTaskMutation,
     deleteTaskMutation,
+    duplicateTaskMutation,
     assignTaskMutation,
   };
 };
