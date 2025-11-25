@@ -61,11 +61,11 @@ export const AssignedTaskItem = ({ task }: AssignedTaskItemProps) => {
           <ItemDescription>{task.description}</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <ActionModal
-            trigger={
-              <Tooltip>
-                <TooltipContent>Mark Complete!</TooltipContent>
-                <TooltipTrigger>
+          <Tooltip>
+            <TooltipContent>Mark Complete</TooltipContent>
+            <TooltipTrigger>
+              <ActionModal
+                trigger={
                   <Button variant="primary">
                     {isCompleting ? (
                       <Spinner size="sm" />
@@ -73,22 +73,23 @@ export const AssignedTaskItem = ({ task }: AssignedTaskItemProps) => {
                       <SquareCheckBigIcon />
                     )}
                   </Button>
-                </TooltipTrigger>
-              </Tooltip>
-            }
-            title={`Did you complete "${task.title}"?`}
-            description={`This will earn you ${task.pointValue} points!`}
-            onConfirm={() => handleTaskCompletion()}
-            onCancel={() => console.log("Cancel")}
-          >
-            <Textarea
-              placeholder="Leave a note if you want...."
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="w-full min-h-20 mt-4"
-              maxLength={300}
-            />
-          </ActionModal>
+                }
+                title={`Did you complete "${task.title}"?`}
+                description={`This will earn you ${task.pointValue} points!`}
+                onConfirm={() => handleTaskCompletion()}
+                onCancel={() => console.log("Cancel")}
+              >
+                <Textarea
+                  autoFocus
+                  placeholder="Leave a note if you want...."
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  className="w-full min-h-20 mt-4"
+                  maxLength={300}
+                />
+              </ActionModal>
+            </TooltipTrigger>
+          </Tooltip>
         </ItemActions>
       </Item>
     </div>
