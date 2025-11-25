@@ -1,8 +1,8 @@
 import { PageContainer } from "@/common/layout/PageContainer";
 import { Spinner } from "@/common/ui/feedback/spinner";
+import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
+import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
-import { MyActiveTasksCard } from "@/features/kids/components/MyActiveTasksCard";
-import { MyApprovalsCard } from "@/features/kids/components/MyApprovalsCard";
 import { useAssignedTasks } from "@/features/tasks/hooks/useAssignedTasks";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
@@ -46,11 +46,14 @@ function KidsIndexPage() {
           <KidShowcaseCard profile={profile} loading={profileLoading} />
         </div>
         <div id="right" className="flex flex-col gap-6">
-          <MyActiveTasksCard
+          <KidActiveTasksCard
             assignedTasks={assignedTasks}
             loading={isLoading}
           />
-          <MyApprovalsCard assignedTasks={pendingApprovalTasks} />
+          <KidApprovalsCard
+            assignedTasks={pendingApprovalTasks}
+            loading={isLoading}
+          />
         </div>
       </div>
     </PageContainer>

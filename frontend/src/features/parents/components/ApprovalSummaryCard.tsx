@@ -11,7 +11,7 @@ export interface TaskApprovalCardProps {
   approval: ApprovalResponse;
 }
 
-export const TaskApprovalCard = ({ approval }: TaskApprovalCardProps) => {
+export const ApprovalSummaryCard = ({ approval }: TaskApprovalCardProps) => {
   return (
     <div className="border rounded-lg shadow-sm hover:shadow-md transition-all overflow-hidden">
       <div className="bg-muted/20 p-4">
