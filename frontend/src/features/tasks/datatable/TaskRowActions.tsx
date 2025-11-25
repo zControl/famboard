@@ -19,6 +19,7 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface TaskRowActionProps {
   row: Row<Task>;
@@ -27,15 +28,30 @@ interface TaskRowActionProps {
 export const TaskRowActions = ({ row }: TaskRowActionProps) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const { deleteTaskMutation } = useTaskMutations();
+  const { deleteTaskMutation, duplicateTaskMutation } = useTaskMutations();
 
   const handleEditTask = () => {
     setModalOpen(true);
   };
 
   const handleDuplicateTask = () => {
-    // Implement duplication logic here
-    console.log("Duplicate task:", row.original);
+    // Create a copy of the original task, omitting the id
+    const { id, ...originalTask } = row.original;
+
+    // Modify title to indicate it's a duplicate
+    const newTask = {
+      ...originalTask,
+      title: `${originalTask.title} (Copy)`,
+    };
+
+    duplicateTaskMutation.mutate(newTask, {
+      onSuccess: () => {
+        toast.success("Task duplicated!");
+      },
+      onError: (error) => {
+        console.error("Error duplicating task:", error);
+      },
+    });
   };
 
   const handleDeleteTask = () => {
