@@ -3,12 +3,12 @@ import { Button } from "@/common/ui/actions/button";
 import { Spinner } from "@/common/ui/feedback/spinner";
 import { Card, CardContent } from "@/common/ui/surfaces/card";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
-import { TaskApprovalCard } from "@/features/parents/components/TaskApprovalCard";
+import { ApprovalSummaryCard } from "@/features/parents/components/ApprovalSummaryCard";
 import { useUserApprovals } from "@/features/tasks/hooks/useUserApprovals";
 import { PartyPopperIcon } from "lucide-react";
 import { useState } from "react";
 
-export const KidApprovalsCard = ({ userId }: { userId: string }) => {
+export const ApprovalListTile = ({ userId }: { userId: string }) => {
   const { approvalsList, isLoading, error } = useUserApprovals(userId);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
@@ -42,7 +42,10 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
       ) : (
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
           {approvalsList?.data.map((approval) => (
-            <TaskApprovalCard key={approval.approvalId} approval={approval} />
+            <ApprovalSummaryCard
+              key={approval.approvalId}
+              approval={approval}
+            />
           ))}
         </div>
       )}

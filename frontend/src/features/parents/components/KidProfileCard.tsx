@@ -13,7 +13,7 @@ import { StatLabel, StatValue } from "@/common/ui/typography/typography";
 import { firstInitial } from "@/common/utils/firstInitial";
 import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 
-export const KidProfileSummaryCard = ({ id }: { id: string }) => {
+export const KidProfileCard = ({ id }: { id: string }) => {
   const { userProfile, isLoading } = useUserProfile(id);
 
   if (!userProfile) {

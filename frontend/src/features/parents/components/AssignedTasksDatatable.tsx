@@ -14,7 +14,7 @@ const activeTasksColumns: ColumnDef<{
   },
 ];
 
-export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
+export const AssignedTasksDatatable = ({ userId }: { userId: string }) => {
   const { assignedTasks, isLoading } = useAssignedTasks(userId);
   return (
     <div className="w-full border rounded-lg">
