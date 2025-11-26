@@ -136,11 +136,11 @@ export const ApprovalActionModal = ({
       {actionType === "approve" && (
         <div className="space-y-4">
           <LabeledValue
-            label="Base Points"
+            title="Base Points"
             value={<Coin value={totalBasePoints} />}
           />
           <LabeledValue
-            label="Add Bonus Points"
+            title="Add Bonus Points"
             value={
               <Input
                 type="number"
@@ -158,7 +158,7 @@ export const ApprovalActionModal = ({
             }
           />
           <LabeledValue
-            label="Points Awarded"
+            title="Points Awarded"
             value={<Coin value={totalBasePoints + (bonusPoints || 0)} />}
           />
         </div>

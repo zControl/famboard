@@ -5,9 +5,6 @@ import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
 
 function SomeTile() {
-  const imp: CodeBlockData[] = [
-    { language: "tsx", filename: "imp", code: `import here` },
-  ];
   const code: CodeBlockData[] = [
     { language: "tsx", filename: "code", code: `code here` },
   ];
@@ -18,7 +15,6 @@ function SomeTile() {
     >
       <p>Some Component Here</p>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );

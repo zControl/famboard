@@ -19,8 +19,7 @@ function HeadingsTile() {
     {
       language: "tsx",
       filename: "headings-import",
-      code: `import { Header1 } from "@/components/ui/typography";
-<Header1>HeaderText</Header1>`,
+      code: `<Header1>HeaderText</Header1>`,
     },
   ];
   return (
@@ -45,9 +44,7 @@ function LabeledValueTile() {
     {
       language: "tsx",
       filename: "labeled-value-import",
-      code: `import { LabeledValue } from "@/components/ui/labeled-value";
-
-<LabeledValue label="Label" value={"value"} units="units" />`,
+      code: `<LabeledValue label="Label" value={"value"} units="units" />`,
     },
   ];
   return (
@@ -56,7 +53,7 @@ function LabeledValueTile() {
       description="A labeled value with optional units."
     >
       <div className="flex flex-col gap-2">
-        <LabeledValue label="Label" value={"value"} units="units" />
+        <LabeledValue title="Label" value={"value"} units="units" />
       </div>
       <Separator className="my-4" />
       <Code codeData={code} />

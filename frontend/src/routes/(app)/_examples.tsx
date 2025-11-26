@@ -32,6 +32,7 @@ import {
   PaletteIcon,
   ShipWheelIcon,
   Table2Icon,
+  Tv2Icon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
@@ -44,6 +45,11 @@ const basics = [
     title: "Overview",
     url: "/demo",
     icon: HomeIcon,
+  },
+  {
+    title: "Display",
+    url: "/demo/display",
+    icon: Tv2Icon,
   },
   {
     title: "Basic",
