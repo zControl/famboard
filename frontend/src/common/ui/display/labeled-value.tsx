@@ -4,7 +4,7 @@ import React from "react";
 
 function LabeledValue({
   className,
-  label,
+  title,
   value,
   units,
   ...props
@@ -17,7 +17,7 @@ function LabeledValue({
         className,
       )}
     >
-      <div className="text-lg font-medium text-foreground">{label}</div>
+      <div className="text-lg font-medium text-foreground">{title}</div>
       <div className="text-lg flex flex-row items-center justify-end">
         {value}
         {units && <div className="ml-2 text-muted-foreground">{units}</div>}

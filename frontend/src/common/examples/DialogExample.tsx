@@ -53,31 +53,6 @@ import {
 } from "@/common/ui/typography/typography";
 
 function ActionDialogModal() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "alertdialog-import",
-      code: `import {
-AlertDialog,
-AlertDialogAction,
-AlertDialogCancel,
-AlertDialogContent,
-AlertDialogDescription,
-AlertDialogFooter,
-AlertDialogHeader,
-AlertDialogTitle,
-AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";`,
-    },
-  ];
-
-  const imp2: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "actionmodal-import",
-      code: `import { ActionModal } from "@/components/composites/ActionModal";`,
-    },
-  ];
   const code2: CodeBlockData[] = [
     {
       language: "tsx",
@@ -124,7 +99,6 @@ AlertDialogTrigger,
         </AlertDialogContent>
       </AlertDialog>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Separator className="my-4" />
       <SectionTitle>Action Modal Component</SectionTitle>
       <SectionDescription>
@@ -141,27 +115,12 @@ AlertDialogTrigger,
         Content of modal here.
       </ActionModal>
       <Separator className="my-4" />
-      <Code codeData={imp2} />
       <Code codeData={code2} />
     </Tile>
   );
 }
 
 function DisplayDialogModal() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "dialog-import",
-      code: `import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";`,
-    },
-  ];
-  const imp2: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "displaymodal-import",
-      code: `import { DisplayModal } from "@/components/composites/DisplayModal";`,
-    },
-  ];
   return (
     <Tile
       title="Display Modal"
@@ -182,7 +141,6 @@ function DisplayDialogModal() {
         </DialogContent>
       </Dialog>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Separator className="my-4" />
       <SectionTitle>Display Modal Component</SectionTitle>
       <SectionDescription>
@@ -197,19 +155,11 @@ function DisplayDialogModal() {
         Dialog Content Here
       </DisplayModal>
       <Separator className="my-4" />
-      <Code codeData={imp2} />
     </Tile>
   );
 }
 
 function DrawerModal() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "drawer-import",
-      code: `import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription } from "@/components/composites/Drawer";`,
-    },
-  ];
   return (
     <Tile
       title="Drawer"
@@ -234,21 +184,12 @@ function DrawerModal() {
         </DrawerContent>
       </Drawer>
       <Separator className="my-4" />
-      <Code codeData={imp} />
     </Tile>
   );
 }
 
 function SheetModal() {
   const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
-
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "sheet-import",
-      code: `import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/Sheet";`,
-    },
-  ];
   return (
     <Tile
       title="Sheet"
@@ -278,7 +219,6 @@ function SheetModal() {
         ))}
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
     </Tile>
   );
 }

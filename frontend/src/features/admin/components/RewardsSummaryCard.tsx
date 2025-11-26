@@ -1,4 +1,4 @@
-import { InfoCard } from "@/components/composites/InfoCard";
+import { InfoCard } from "@/common/ui/surfaces/InfoCard";
 import { HandCoinsIcon } from "lucide-react";
 
 export const RewardsSummaryCard = () => {

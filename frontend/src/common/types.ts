@@ -4,8 +4,9 @@ export interface Option {
 }
 
 export interface DetailListItemProps {
-  label: React.ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
   value?: React.ReactNode;
   units?: React.ReactNode;
-  icon?: React.ReactNode;
+  media?: React.ReactNode;
 }

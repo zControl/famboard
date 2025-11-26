@@ -15,14 +15,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { CloudDownloadIcon } from "lucide-react";
 
 function CheckApiStatus() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "api-import",
-      code: `import { apiClient } from "@/api/apiClient";
-import { useQuery, useQueryClient } from "@tanstack/react-query";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -103,7 +95,6 @@ const handleRefresh = () => {
         </>
       )}
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
       <Code codeData={usage} />
     </Tile>

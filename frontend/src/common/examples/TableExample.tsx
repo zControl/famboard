@@ -15,13 +15,6 @@ import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
 
 function TableTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "table-import",
-      code: `import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -73,7 +66,6 @@ function TableTile() {
       </Table>
 
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );

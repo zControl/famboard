@@ -26,13 +26,6 @@ import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
 
 function AccordianTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "accordion-import",
-      code: `import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -84,7 +77,6 @@ function AccordianTile() {
           </AccordionItem>
         </Accordion>
         <Separator className="my-4" />
-        <Code codeData={imp} />
         <Code codeData={code} />
       </div>
     </Tile>
@@ -92,13 +84,6 @@ function AccordianTile() {
 }
 
 function CardTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "card-import",
-      code: `import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -137,20 +122,12 @@ function CardTile() {
         </Card>
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
 }
 
 function TileTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "tile-import",
-      code: `import { Tile } from "@/components/composites/Tile";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -169,20 +146,12 @@ function TileTile() {
     >
       <p>Everything on this page is wrapped in a tile.</p>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
 }
 
 function ScrollAreaTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "scrollarea-import",
-      code: `import { ScrollArea } from "@/components/ui/scroll-area";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -208,20 +177,12 @@ function ScrollAreaTile() {
           stop.
         </ScrollArea>
         <Separator className="my-4" />
-        <Code codeData={imp} />
         <Code codeData={code} />
       </div>
     </Tile>
   );
 }
 function ResizeableTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "resizable-import",
-      code: `import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable"`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -265,7 +226,6 @@ function ResizeableTile() {
         </ResizablePanel>
       </ResizablePanelGroup>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );

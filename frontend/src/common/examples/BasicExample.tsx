@@ -1,6 +1,7 @@
 import { PageSections } from "@/common/layout/PageSections";
 import { Button } from "@/common/ui/actions/button";
 import { Avatar } from "@/common/ui/display/avatar";
+import { Badge } from "@/common/ui/display/badge";
 import { Separator } from "@/common/ui/display/separator";
 import {
   StyledCalendar1Icon,
@@ -15,18 +16,10 @@ import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
 import { Header4 } from "@/common/ui/typography/typography";
-import { Badge } from "@/components/ui/badge";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { IceCream } from "lucide-react";
 
 function AvatarTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "avatar-import",
-      code: `import { Avatar } from "@/components/ui/avatar";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -47,20 +40,12 @@ function AvatarTile() {
         <AvatarFallback>AZ</AvatarFallback>
       </Avatar>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
 }
 
 function BadgeTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "badge-import",
-      code: `import { Badge } from "@/components/ui/badge";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -99,20 +84,12 @@ function BadgeTile() {
         </div>
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
 }
 
 function ButtonTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "button-import",
-      code: `import { Button } from "@/common/ui/actions/button";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -162,7 +139,6 @@ function ButtonTile() {
         </Button>
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
       <Header4>Sizes</Header4>
       <div className="flex flex-row gap-2 mt-4">
@@ -180,13 +156,6 @@ function ButtonTile() {
 }
 
 function StyledIconsTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "badge-import",
-      code: `import { StyledPiggyBankIcon } from "@/components/ui/styled-icons";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -210,20 +179,12 @@ function StyledIconsTile() {
         </div>
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
 }
 
 function SeparatorTile() {
-  const imp: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "separator-import",
-      code: `import { Separator } from "@/components/ui/separator";`,
-    },
-  ];
   const code: CodeBlockData[] = [
     {
       language: "tsx",
@@ -256,7 +217,6 @@ function SeparatorTile() {
         </div>
       </div>
       <Separator className="my-4" />
-      <Code codeData={imp} />
       <Code codeData={code} />
     </Tile>
   );
