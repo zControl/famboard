@@ -1,8 +1,13 @@
+import { PageContainer } from "@/common/layout/PageContainer";
 import { Button } from "@/common/ui/actions/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/common/ui/surfaces/card";
 import { useNavigate } from "@tanstack/react-router";
 import { FrownIcon } from "lucide-react";
-import { PageContainer } from "../layout/PageContainer";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/surfaces/card";
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();

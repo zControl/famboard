@@ -1,7 +1,7 @@
+import { useTheme } from "@/common/theme/useTheme";
 import { Switch } from "@/common/ui/fields/switch";
 import { Paragraph } from "@/common/ui/typography/typography";
 import { MoonIcon, SunIcon } from "lucide-react";
-import { useTheme } from "./useTheme";
 
 export const ThemeSwitch = () => {
   const { setTheme, theme } = useTheme();
