@@ -1,4 +1,4 @@
-import { NotFound } from "@/common/layout/NotFound";
+import { NotFoundPage } from "@/common/error/NotFoundPage";
 import { PageContainer } from "@/common/layout/PageContainer";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
@@ -13,5 +13,5 @@ export const Route = createLazyFileRoute("/(app)/_examples/demo_")({
       <div>Put links to docs here.</div>
     </PageContainer>
   ),
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFoundPage,
 });

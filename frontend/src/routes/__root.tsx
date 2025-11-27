@@ -1,5 +1,5 @@
 import { ErrorPage } from "@/common/error/ErrorPage";
-import { NotFound } from "@/common/layout/NotFound";
+import { NotFoundPage } from "@/common/error/NotFoundPage";
 import { useTheme } from "@/common/theme/useTheme";
 import { Toaster } from "@/common/ui/feedback/sonner";
 import { AuthContext } from "@/features/auth/AuthContext";
@@ -15,7 +15,7 @@ interface AppRouterContext {
 
 export const Route = createRootRouteWithContext<AppRouterContext>()({
   component: RootLayout,
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFoundPage,
   errorComponent: ErrorPage,
 });
 

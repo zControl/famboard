@@ -1,5 +1,5 @@
+import { NotFoundPage } from "@/common/error/NotFoundPage";
 import { AppLogo } from "@/common/layout/AppLogo";
-import { NotFound } from "@/common/layout/NotFound";
 import { SidebarLayout } from "@/common/layout/SidebarLayout";
 import { ThemeToggle } from "@/common/theme/ThemeToggle";
 import {
@@ -23,7 +23,7 @@ import { DatabaseBackupIcon, HomeIcon, MagnetIcon } from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFoundPage,
 });
 
 const basics = [

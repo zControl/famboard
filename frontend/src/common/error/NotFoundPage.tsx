@@ -1,10 +1,10 @@
 import { Button } from "@/common/ui/actions/button";
 import { useNavigate } from "@tanstack/react-router";
 import { FrownIcon } from "lucide-react";
+import { PageContainer } from "../layout/PageContainer";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/surfaces/card";
-import { PageContainer } from "./PageContainer";
 
-export const NotFound = () => {
+export const NotFoundPage = () => {
   const navigate = useNavigate();
   return (
     <PageContainer title="Not Found" description="Not Found">
