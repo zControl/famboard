@@ -1,18 +1,19 @@
-import { DisplayExamples } from "@/common/examples/DisplayExamples";
+import { UIDisplay } from "@/common/examples/UIDisplay";
 import { PageContainer } from "@/common/layout/PageContainer";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/(app)/_examples/demo/display")({
-  component: DemoDisplayPage,
+export const Route = createLazyFileRoute("/(app)/_examples/ui/display")({
+  component: UIDisplayPage,
 });
 
-function DemoDisplayPage() {
+function UIDisplayPage() {
   return (
     <PageContainer
-      title="Demo - Display"
+      title="UI | Display"
       description="A piece of content that presents information to the user."
+      keywords="ui, display, content"
     >
-      <DisplayExamples />
+      <UIDisplay />
     </PageContainer>
   );
 }

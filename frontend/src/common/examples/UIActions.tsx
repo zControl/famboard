@@ -42,7 +42,7 @@ function ButtonTile() {
   return (
     <Tile title="Button" description="A button is a clickable element.">
       <Header4>Colors</Header4>
-      <div className="flex flex-row gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
         <Button>Default</Button>
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
@@ -129,6 +129,6 @@ const sections = [
   { id: "copy-button", title: "Copy Button", children: <CopyButtonTile /> },
 ];
 
-export const ActionsExamples = () => {
+export const UIActions = () => {
   return <PageSections sections={sections} />;
 };

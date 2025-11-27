@@ -1,19 +1,19 @@
-import { DataExamples } from "@/common/examples/DataExamples";
+import { UIData } from "@/common/examples/UIData";
 import { PageContainer } from "@/common/layout/PageContainer";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/(app)/_examples/examples/data")({
-  component: DataExamplesPage,
+export const Route = createFileRoute("/(app)/_examples/ui/data")({
+  component: UIDataPage,
 });
 
-function DataExamplesPage() {
+function UIDataPage() {
   return (
     <PageContainer
-      title="Demo - Data"
+      title="UI | Data"
       description="Componets to display various data."
       keywords="data, table, list, item, labeled-value"
     >
-      <DataExamples />
+      <UIData />
     </PageContainer>
   );
 }

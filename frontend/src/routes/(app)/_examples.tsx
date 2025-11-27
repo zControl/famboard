@@ -7,6 +7,7 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -19,7 +20,20 @@ import {
   Outlet,
   useLocation,
 } from "@tanstack/react-router";
-import { DatabaseBackupIcon, HomeIcon, MagnetIcon } from "lucide-react";
+import {
+  CompassIcon,
+  ComponentIcon,
+  DatabaseZapIcon,
+  IceCream2Icon,
+  ImageIcon,
+  LandPlotIcon,
+  MonitorCheckIcon,
+  PictureInPicture2Icon,
+  SquarePilcrowIcon,
+  TextCursorInputIcon,
+  ViewIcon,
+  WandSparklesIcon,
+} from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
@@ -29,18 +43,58 @@ export const Route = createFileRoute("/(app)/_examples")({
 const basics = [
   {
     title: "Overview",
-    url: "/demo",
-    icon: HomeIcon,
+    url: "/ui",
+    icon: ComponentIcon,
   },
   {
     title: "Actions",
-    url: "/examples/actions",
-    icon: MagnetIcon,
+    url: "/ui/actions",
+    icon: WandSparklesIcon,
   },
   {
     title: "Data",
-    url: "/examples/data",
-    icon: DatabaseBackupIcon,
+    url: "/ui/data",
+    icon: DatabaseZapIcon,
+  },
+  {
+    title: "Display",
+    url: "/ui/display",
+    icon: ViewIcon,
+  },
+  {
+    title: "Feedback",
+    url: "/ui/feedback",
+    icon: MonitorCheckIcon,
+  },
+  {
+    title: "Fields",
+    url: "/ui/fields",
+    icon: TextCursorInputIcon,
+  },
+  {
+    title: "Media",
+    url: "/ui/media",
+    icon: ImageIcon,
+  },
+  {
+    title: "Navigation",
+    url: "/ui/navigation",
+    icon: CompassIcon,
+  },
+  {
+    title: "Overlay",
+    url: "/ui/overlay",
+    icon: PictureInPicture2Icon,
+  },
+  {
+    title: "Surfaces",
+    url: "/ui/surfaces",
+    icon: LandPlotIcon,
+  },
+  {
+    title: "Typography",
+    url: "/ui/typography",
+    icon: SquarePilcrowIcon,
   },
 ];
 
@@ -51,6 +105,7 @@ function ExamplesSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>UI PRIMITAVES</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {basics.map((item) => (
@@ -67,6 +122,21 @@ function ExamplesSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>COMING SOON</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="More examples coming soon!" asChild>
+                  <div className="flex items-center gap-2 p-2 opacity-50 cursor-not-allowed">
+                    <IceCream2Icon />
+                    <span>And more...</span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

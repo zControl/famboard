@@ -21,6 +21,7 @@ import { Route as appExamplesRouteImport } from './routes/(app)/_examples'
 import { Route as appAdminRouteImport } from './routes/(app)/_admin'
 import { Route as testTestARouteImport } from './routes/(test)/test.a_'
 import { Route as authAuthProfileRouteImport } from './routes/(auth)/_auth.profile'
+import { Route as appExamplesUiRouteImport } from './routes/(app)/_examples/ui_'
 import { Route as appParentsParentsIndexRouteImport } from './routes/(app)/_parents/parents.index'
 import { Route as appKidsKidsIndexRouteImport } from './routes/(app)/_kids/kids.index'
 import { Route as appAdminAdminIndexRouteImport } from './routes/(app)/_admin/admin.index'
@@ -35,8 +36,15 @@ import { Route as appKidsKidsPlayRouteImport } from './routes/(app)/_kids/kids.p
 import { Route as appKidsKidsHelpRouteImport } from './routes/(app)/_kids/kids.help'
 import { Route as appKidsKidsFitnessRouteImport } from './routes/(app)/_kids/kids.fitness'
 import { Route as appKidsKidsEarnRouteImport } from './routes/(app)/_kids/kids.earn'
-import { Route as appExamplesExamplesDataRouteImport } from './routes/(app)/_examples/examples.data'
-import { Route as appExamplesExamplesActionsRouteImport } from './routes/(app)/_examples/examples.actions'
+import { Route as appExamplesUiTypographyRouteImport } from './routes/(app)/_examples/ui.typography'
+import { Route as appExamplesUiSurfacesRouteImport } from './routes/(app)/_examples/ui.surfaces'
+import { Route as appExamplesUiOverlayRouteImport } from './routes/(app)/_examples/ui.overlay'
+import { Route as appExamplesUiNavigationRouteImport } from './routes/(app)/_examples/ui.navigation'
+import { Route as appExamplesUiMediaRouteImport } from './routes/(app)/_examples/ui.media'
+import { Route as appExamplesUiFieldsRouteImport } from './routes/(app)/_examples/ui.fields'
+import { Route as appExamplesUiFeedbackRouteImport } from './routes/(app)/_examples/ui.feedback'
+import { Route as appExamplesUiDataRouteImport } from './routes/(app)/_examples/ui.data'
+import { Route as appExamplesUiActionsRouteImport } from './routes/(app)/_examples/ui.actions'
 import { Route as appExamplesDemoTestingRouteImport } from './routes/(app)/_examples/demo.testing'
 import { Route as appExamplesDemoDialogsRouteImport } from './routes/(app)/_examples/demo.dialogs'
 import { Route as appAdminAdminUsersRouteImport } from './routes/(app)/_admin/admin.users'
@@ -59,6 +67,9 @@ const appExamplesFormLazyRouteImport = createFileRoute(
 const appExamplesDemoLazyRouteImport = createFileRoute(
   '/(app)/_examples/demo_',
 )()
+const appExamplesUiDisplayLazyRouteImport = createFileRoute(
+  '/(app)/_examples/ui/display',
+)()
 const appExamplesDemoTypographyLazyRouteImport = createFileRoute(
   '/(app)/_examples/demo/typography',
 )()
@@ -73,9 +84,6 @@ const appExamplesDemoLoadersLazyRouteImport = createFileRoute(
 )()
 const appExamplesDemoFormsLazyRouteImport = createFileRoute(
   '/(app)/_examples/demo/forms',
-)()
-const appExamplesDemoDisplayLazyRouteImport = createFileRoute(
-  '/(app)/_examples/demo/display',
 )()
 const appExamplesDemoDatabaseLazyRouteImport = createFileRoute(
   '/(app)/_examples/demo/database',
@@ -196,6 +204,11 @@ const authAuthProfileRoute = authAuthProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => authAuthRoute,
 } as any)
+const appExamplesUiRoute = appExamplesUiRouteImport.update({
+  id: '/ui_',
+  path: '/ui',
+  getParentRoute: () => appExamplesRoute,
+} as any)
 const appParentsParentsIndexRoute = appParentsParentsIndexRouteImport.update({
   id: '/parents/',
   path: '/parents/',
@@ -211,6 +224,15 @@ const appAdminAdminIndexRoute = appAdminAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => appAdminRoute,
 } as any)
+const appExamplesUiDisplayLazyRoute = appExamplesUiDisplayLazyRouteImport
+  .update({
+    id: '/ui/display',
+    path: '/ui/display',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
+  .lazy(() =>
+    import('./routes/(app)/_examples/ui.display.lazy').then((d) => d.Route),
+  )
 const appExamplesDemoTypographyLazyRoute =
   appExamplesDemoTypographyLazyRouteImport
     .update({
@@ -261,15 +283,6 @@ const appExamplesDemoFormsLazyRoute = appExamplesDemoFormsLazyRouteImport
   } as any)
   .lazy(() =>
     import('./routes/(app)/_examples/demo.forms.lazy').then((d) => d.Route),
-  )
-const appExamplesDemoDisplayLazyRoute = appExamplesDemoDisplayLazyRouteImport
-  .update({
-    id: '/demo/display',
-    path: '/demo/display',
-    getParentRoute: () => appExamplesRoute,
-  } as any)
-  .lazy(() =>
-    import('./routes/(app)/_examples/demo.display.lazy').then((d) => d.Route),
   )
 const appExamplesDemoDatabaseLazyRoute = appExamplesDemoDatabaseLazyRouteImport
   .update({
@@ -369,17 +382,51 @@ const appKidsKidsEarnRoute = appKidsKidsEarnRouteImport.update({
   path: '/kids/earn',
   getParentRoute: () => appKidsRoute,
 } as any)
-const appExamplesExamplesDataRoute = appExamplesExamplesDataRouteImport.update({
-  id: '/examples/data',
-  path: '/examples/data',
+const appExamplesUiTypographyRoute = appExamplesUiTypographyRouteImport.update({
+  id: '/ui/typography',
+  path: '/ui/typography',
   getParentRoute: () => appExamplesRoute,
 } as any)
-const appExamplesExamplesActionsRoute =
-  appExamplesExamplesActionsRouteImport.update({
-    id: '/examples/actions',
-    path: '/examples/actions',
-    getParentRoute: () => appExamplesRoute,
-  } as any)
+const appExamplesUiSurfacesRoute = appExamplesUiSurfacesRouteImport.update({
+  id: '/ui/surfaces',
+  path: '/ui/surfaces',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiOverlayRoute = appExamplesUiOverlayRouteImport.update({
+  id: '/ui/overlay',
+  path: '/ui/overlay',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiNavigationRoute = appExamplesUiNavigationRouteImport.update({
+  id: '/ui/navigation',
+  path: '/ui/navigation',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiMediaRoute = appExamplesUiMediaRouteImport.update({
+  id: '/ui/media',
+  path: '/ui/media',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiFieldsRoute = appExamplesUiFieldsRouteImport.update({
+  id: '/ui/fields',
+  path: '/ui/fields',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiFeedbackRoute = appExamplesUiFeedbackRouteImport.update({
+  id: '/ui/feedback',
+  path: '/ui/feedback',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiDataRoute = appExamplesUiDataRouteImport.update({
+  id: '/ui/data',
+  path: '/ui/data',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesUiActionsRoute = appExamplesUiActionsRouteImport.update({
+  id: '/ui/actions',
+  path: '/ui/actions',
+  getParentRoute: () => appExamplesRoute,
+} as any)
 const appExamplesDemoTestingRoute = appExamplesDemoTestingRouteImport.update({
   id: '/demo/testing',
   path: '/demo/testing',
@@ -420,6 +467,7 @@ export interface FileRoutesByFullPath {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/unauthorized': typeof appUnauthorizedLazyRoute
+  '/ui': typeof appExamplesUiRoute
   '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
@@ -429,8 +477,15 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
-  '/examples/actions': typeof appExamplesExamplesActionsRoute
-  '/examples/data': typeof appExamplesExamplesDataRoute
+  '/ui/actions': typeof appExamplesUiActionsRoute
+  '/ui/data': typeof appExamplesUiDataRoute
+  '/ui/feedback': typeof appExamplesUiFeedbackRoute
+  '/ui/fields': typeof appExamplesUiFieldsRoute
+  '/ui/media': typeof appExamplesUiMediaRoute
+  '/ui/navigation': typeof appExamplesUiNavigationRoute
+  '/ui/overlay': typeof appExamplesUiOverlayRoute
+  '/ui/surfaces': typeof appExamplesUiSurfacesRoute
+  '/ui/typography': typeof appExamplesUiTypographyRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
@@ -446,12 +501,12 @@ export interface FileRoutesByFullPath {
   '/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/demo/containers': typeof appExamplesDemoContainersLazyRoute
   '/demo/database': typeof appExamplesDemoDatabaseLazyRoute
-  '/demo/display': typeof appExamplesDemoDisplayLazyRoute
   '/demo/forms': typeof appExamplesDemoFormsLazyRoute
   '/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/ui/display': typeof appExamplesUiDisplayLazyRoute
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
@@ -466,6 +521,7 @@ export interface FileRoutesByTo {
   '/status': typeof appStatusLazyRoute
   '/terms': typeof appTermsLazyRoute
   '/unauthorized': typeof appUnauthorizedLazyRoute
+  '/ui': typeof appExamplesUiRoute
   '/profile': typeof authAuthProfileRoute
   '/test/a': typeof testTestARoute
   '/demo': typeof appExamplesDemoLazyRoute
@@ -475,8 +531,15 @@ export interface FileRoutesByTo {
   '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
-  '/examples/actions': typeof appExamplesExamplesActionsRoute
-  '/examples/data': typeof appExamplesExamplesDataRoute
+  '/ui/actions': typeof appExamplesUiActionsRoute
+  '/ui/data': typeof appExamplesUiDataRoute
+  '/ui/feedback': typeof appExamplesUiFeedbackRoute
+  '/ui/fields': typeof appExamplesUiFieldsRoute
+  '/ui/media': typeof appExamplesUiMediaRoute
+  '/ui/navigation': typeof appExamplesUiNavigationRoute
+  '/ui/overlay': typeof appExamplesUiOverlayRoute
+  '/ui/surfaces': typeof appExamplesUiSurfacesRoute
+  '/ui/typography': typeof appExamplesUiTypographyRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
@@ -492,12 +555,12 @@ export interface FileRoutesByTo {
   '/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/demo/containers': typeof appExamplesDemoContainersLazyRoute
   '/demo/database': typeof appExamplesDemoDatabaseLazyRoute
-  '/demo/display': typeof appExamplesDemoDisplayLazyRoute
   '/demo/forms': typeof appExamplesDemoFormsLazyRoute
   '/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
   '/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/ui/display': typeof appExamplesUiDisplayLazyRoute
   '/admin': typeof appAdminAdminIndexRoute
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
@@ -520,6 +583,7 @@ export interface FileRoutesById {
   '/(app)/status': typeof appStatusLazyRoute
   '/(app)/terms': typeof appTermsLazyRoute
   '/(app)/unauthorized': typeof appUnauthorizedLazyRoute
+  '/(app)/_examples/ui_': typeof appExamplesUiRoute
   '/(auth)/_auth/profile': typeof authAuthProfileRoute
   '/(test)/test/a_': typeof testTestARoute
   '/(app)/_examples/demo_': typeof appExamplesDemoLazyRoute
@@ -529,8 +593,15 @@ export interface FileRoutesById {
   '/(app)/_admin/admin/users': typeof appAdminAdminUsersRoute
   '/(app)/_examples/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/(app)/_examples/demo/testing': typeof appExamplesDemoTestingRoute
-  '/(app)/_examples/examples/actions': typeof appExamplesExamplesActionsRoute
-  '/(app)/_examples/examples/data': typeof appExamplesExamplesDataRoute
+  '/(app)/_examples/ui/actions': typeof appExamplesUiActionsRoute
+  '/(app)/_examples/ui/data': typeof appExamplesUiDataRoute
+  '/(app)/_examples/ui/feedback': typeof appExamplesUiFeedbackRoute
+  '/(app)/_examples/ui/fields': typeof appExamplesUiFieldsRoute
+  '/(app)/_examples/ui/media': typeof appExamplesUiMediaRoute
+  '/(app)/_examples/ui/navigation': typeof appExamplesUiNavigationRoute
+  '/(app)/_examples/ui/overlay': typeof appExamplesUiOverlayRoute
+  '/(app)/_examples/ui/surfaces': typeof appExamplesUiSurfacesRoute
+  '/(app)/_examples/ui/typography': typeof appExamplesUiTypographyRoute
   '/(app)/_kids/kids/earn': typeof appKidsKidsEarnRoute
   '/(app)/_kids/kids/fitness': typeof appKidsKidsFitnessRoute
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
@@ -546,12 +617,12 @@ export interface FileRoutesById {
   '/(app)/_examples/demo/colors': typeof appExamplesDemoColorsLazyRoute
   '/(app)/_examples/demo/containers': typeof appExamplesDemoContainersLazyRoute
   '/(app)/_examples/demo/database': typeof appExamplesDemoDatabaseLazyRoute
-  '/(app)/_examples/demo/display': typeof appExamplesDemoDisplayLazyRoute
   '/(app)/_examples/demo/forms': typeof appExamplesDemoFormsLazyRoute
   '/(app)/_examples/demo/loaders': typeof appExamplesDemoLoadersLazyRoute
   '/(app)/_examples/demo/navigation': typeof appExamplesDemoNavigationLazyRoute
   '/(app)/_examples/demo/tables': typeof appExamplesDemoTablesLazyRoute
   '/(app)/_examples/demo/typography': typeof appExamplesDemoTypographyLazyRoute
+  '/(app)/_examples/ui/display': typeof appExamplesUiDisplayLazyRoute
   '/(app)/_admin/admin/': typeof appAdminAdminIndexRoute
   '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
   '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
@@ -568,6 +639,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/unauthorized'
+    | '/ui'
     | '/profile'
     | '/test/a'
     | '/demo'
@@ -577,8 +649,15 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
-    | '/examples/actions'
-    | '/examples/data'
+    | '/ui/actions'
+    | '/ui/data'
+    | '/ui/feedback'
+    | '/ui/fields'
+    | '/ui/media'
+    | '/ui/navigation'
+    | '/ui/overlay'
+    | '/ui/surfaces'
+    | '/ui/typography'
     | '/kids/earn'
     | '/kids/fitness'
     | '/kids/help'
@@ -594,12 +673,12 @@ export interface FileRouteTypes {
     | '/demo/colors'
     | '/demo/containers'
     | '/demo/database'
-    | '/demo/display'
     | '/demo/forms'
     | '/demo/loaders'
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/ui/display'
     | '/admin'
     | '/kids'
     | '/parents'
@@ -614,6 +693,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/terms'
     | '/unauthorized'
+    | '/ui'
     | '/profile'
     | '/test/a'
     | '/demo'
@@ -623,8 +703,15 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
-    | '/examples/actions'
-    | '/examples/data'
+    | '/ui/actions'
+    | '/ui/data'
+    | '/ui/feedback'
+    | '/ui/fields'
+    | '/ui/media'
+    | '/ui/navigation'
+    | '/ui/overlay'
+    | '/ui/surfaces'
+    | '/ui/typography'
     | '/kids/earn'
     | '/kids/fitness'
     | '/kids/help'
@@ -640,12 +727,12 @@ export interface FileRouteTypes {
     | '/demo/colors'
     | '/demo/containers'
     | '/demo/database'
-    | '/demo/display'
     | '/demo/forms'
     | '/demo/loaders'
     | '/demo/navigation'
     | '/demo/tables'
     | '/demo/typography'
+    | '/ui/display'
     | '/admin'
     | '/kids'
     | '/parents'
@@ -667,6 +754,7 @@ export interface FileRouteTypes {
     | '/(app)/status'
     | '/(app)/terms'
     | '/(app)/unauthorized'
+    | '/(app)/_examples/ui_'
     | '/(auth)/_auth/profile'
     | '/(test)/test/a_'
     | '/(app)/_examples/demo_'
@@ -676,8 +764,15 @@ export interface FileRouteTypes {
     | '/(app)/_admin/admin/users'
     | '/(app)/_examples/demo/dialogs'
     | '/(app)/_examples/demo/testing'
-    | '/(app)/_examples/examples/actions'
-    | '/(app)/_examples/examples/data'
+    | '/(app)/_examples/ui/actions'
+    | '/(app)/_examples/ui/data'
+    | '/(app)/_examples/ui/feedback'
+    | '/(app)/_examples/ui/fields'
+    | '/(app)/_examples/ui/media'
+    | '/(app)/_examples/ui/navigation'
+    | '/(app)/_examples/ui/overlay'
+    | '/(app)/_examples/ui/surfaces'
+    | '/(app)/_examples/ui/typography'
     | '/(app)/_kids/kids/earn'
     | '/(app)/_kids/kids/fitness'
     | '/(app)/_kids/kids/help'
@@ -693,12 +788,12 @@ export interface FileRouteTypes {
     | '/(app)/_examples/demo/colors'
     | '/(app)/_examples/demo/containers'
     | '/(app)/_examples/demo/database'
-    | '/(app)/_examples/demo/display'
     | '/(app)/_examples/demo/forms'
     | '/(app)/_examples/demo/loaders'
     | '/(app)/_examples/demo/navigation'
     | '/(app)/_examples/demo/tables'
     | '/(app)/_examples/demo/typography'
+    | '/(app)/_examples/ui/display'
     | '/(app)/_admin/admin/'
     | '/(app)/_kids/kids/'
     | '/(app)/_parents/parents/'
@@ -852,6 +947,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authAuthProfileRouteImport
       parentRoute: typeof authAuthRoute
     }
+    '/(app)/_examples/ui_': {
+      id: '/(app)/_examples/ui_'
+      path: '/ui'
+      fullPath: '/ui'
+      preLoaderRoute: typeof appExamplesUiRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
     '/(app)/_parents/parents/': {
       id: '/(app)/_parents/parents/'
       path: '/parents'
@@ -872,6 +974,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof appAdminAdminIndexRouteImport
       parentRoute: typeof appAdminRoute
+    }
+    '/(app)/_examples/ui/display': {
+      id: '/(app)/_examples/ui/display'
+      path: '/ui/display'
+      fullPath: '/ui/display'
+      preLoaderRoute: typeof appExamplesUiDisplayLazyRouteImport
+      parentRoute: typeof appExamplesRoute
     }
     '/(app)/_examples/demo/typography': {
       id: '/(app)/_examples/demo/typography'
@@ -906,13 +1015,6 @@ declare module '@tanstack/react-router' {
       path: '/demo/forms'
       fullPath: '/demo/forms'
       preLoaderRoute: typeof appExamplesDemoFormsLazyRouteImport
-      parentRoute: typeof appExamplesRoute
-    }
-    '/(app)/_examples/demo/display': {
-      id: '/(app)/_examples/demo/display'
-      path: '/demo/display'
-      fullPath: '/demo/display'
-      preLoaderRoute: typeof appExamplesDemoDisplayLazyRouteImport
       parentRoute: typeof appExamplesRoute
     }
     '/(app)/_examples/demo/database': {
@@ -1020,18 +1122,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appKidsKidsEarnRouteImport
       parentRoute: typeof appKidsRoute
     }
-    '/(app)/_examples/examples/data': {
-      id: '/(app)/_examples/examples/data'
-      path: '/examples/data'
-      fullPath: '/examples/data'
-      preLoaderRoute: typeof appExamplesExamplesDataRouteImport
+    '/(app)/_examples/ui/typography': {
+      id: '/(app)/_examples/ui/typography'
+      path: '/ui/typography'
+      fullPath: '/ui/typography'
+      preLoaderRoute: typeof appExamplesUiTypographyRouteImport
       parentRoute: typeof appExamplesRoute
     }
-    '/(app)/_examples/examples/actions': {
-      id: '/(app)/_examples/examples/actions'
-      path: '/examples/actions'
-      fullPath: '/examples/actions'
-      preLoaderRoute: typeof appExamplesExamplesActionsRouteImport
+    '/(app)/_examples/ui/surfaces': {
+      id: '/(app)/_examples/ui/surfaces'
+      path: '/ui/surfaces'
+      fullPath: '/ui/surfaces'
+      preLoaderRoute: typeof appExamplesUiSurfacesRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/overlay': {
+      id: '/(app)/_examples/ui/overlay'
+      path: '/ui/overlay'
+      fullPath: '/ui/overlay'
+      preLoaderRoute: typeof appExamplesUiOverlayRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/navigation': {
+      id: '/(app)/_examples/ui/navigation'
+      path: '/ui/navigation'
+      fullPath: '/ui/navigation'
+      preLoaderRoute: typeof appExamplesUiNavigationRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/media': {
+      id: '/(app)/_examples/ui/media'
+      path: '/ui/media'
+      fullPath: '/ui/media'
+      preLoaderRoute: typeof appExamplesUiMediaRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/fields': {
+      id: '/(app)/_examples/ui/fields'
+      path: '/ui/fields'
+      fullPath: '/ui/fields'
+      preLoaderRoute: typeof appExamplesUiFieldsRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/feedback': {
+      id: '/(app)/_examples/ui/feedback'
+      path: '/ui/feedback'
+      fullPath: '/ui/feedback'
+      preLoaderRoute: typeof appExamplesUiFeedbackRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/data': {
+      id: '/(app)/_examples/ui/data'
+      path: '/ui/data'
+      fullPath: '/ui/data'
+      preLoaderRoute: typeof appExamplesUiDataRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/ui/actions': {
+      id: '/(app)/_examples/ui/actions'
+      path: '/ui/actions'
+      fullPath: '/ui/actions'
+      preLoaderRoute: typeof appExamplesUiActionsRouteImport
       parentRoute: typeof appExamplesRoute
     }
     '/(app)/_examples/demo/testing': {
@@ -1096,43 +1247,59 @@ const appAdminRouteWithChildren = appAdminRoute._addFileChildren(
 )
 
 interface appExamplesRouteChildren {
+  appExamplesUiRoute: typeof appExamplesUiRoute
   appExamplesDemoLazyRoute: typeof appExamplesDemoLazyRoute
   appExamplesFormLazyRoute: typeof appExamplesFormLazyRoute
   appExamplesQueryLazyRoute: typeof appExamplesQueryLazyRoute
   appExamplesDemoDialogsRoute: typeof appExamplesDemoDialogsRoute
   appExamplesDemoTestingRoute: typeof appExamplesDemoTestingRoute
-  appExamplesExamplesActionsRoute: typeof appExamplesExamplesActionsRoute
-  appExamplesExamplesDataRoute: typeof appExamplesExamplesDataRoute
+  appExamplesUiActionsRoute: typeof appExamplesUiActionsRoute
+  appExamplesUiDataRoute: typeof appExamplesUiDataRoute
+  appExamplesUiFeedbackRoute: typeof appExamplesUiFeedbackRoute
+  appExamplesUiFieldsRoute: typeof appExamplesUiFieldsRoute
+  appExamplesUiMediaRoute: typeof appExamplesUiMediaRoute
+  appExamplesUiNavigationRoute: typeof appExamplesUiNavigationRoute
+  appExamplesUiOverlayRoute: typeof appExamplesUiOverlayRoute
+  appExamplesUiSurfacesRoute: typeof appExamplesUiSurfacesRoute
+  appExamplesUiTypographyRoute: typeof appExamplesUiTypographyRoute
   appExamplesDemoBasicLazyRoute: typeof appExamplesDemoBasicLazyRoute
   appExamplesDemoColorsLazyRoute: typeof appExamplesDemoColorsLazyRoute
   appExamplesDemoContainersLazyRoute: typeof appExamplesDemoContainersLazyRoute
   appExamplesDemoDatabaseLazyRoute: typeof appExamplesDemoDatabaseLazyRoute
-  appExamplesDemoDisplayLazyRoute: typeof appExamplesDemoDisplayLazyRoute
   appExamplesDemoFormsLazyRoute: typeof appExamplesDemoFormsLazyRoute
   appExamplesDemoLoadersLazyRoute: typeof appExamplesDemoLoadersLazyRoute
   appExamplesDemoNavigationLazyRoute: typeof appExamplesDemoNavigationLazyRoute
   appExamplesDemoTablesLazyRoute: typeof appExamplesDemoTablesLazyRoute
   appExamplesDemoTypographyLazyRoute: typeof appExamplesDemoTypographyLazyRoute
+  appExamplesUiDisplayLazyRoute: typeof appExamplesUiDisplayLazyRoute
 }
 
 const appExamplesRouteChildren: appExamplesRouteChildren = {
+  appExamplesUiRoute: appExamplesUiRoute,
   appExamplesDemoLazyRoute: appExamplesDemoLazyRoute,
   appExamplesFormLazyRoute: appExamplesFormLazyRoute,
   appExamplesQueryLazyRoute: appExamplesQueryLazyRoute,
   appExamplesDemoDialogsRoute: appExamplesDemoDialogsRoute,
   appExamplesDemoTestingRoute: appExamplesDemoTestingRoute,
-  appExamplesExamplesActionsRoute: appExamplesExamplesActionsRoute,
-  appExamplesExamplesDataRoute: appExamplesExamplesDataRoute,
+  appExamplesUiActionsRoute: appExamplesUiActionsRoute,
+  appExamplesUiDataRoute: appExamplesUiDataRoute,
+  appExamplesUiFeedbackRoute: appExamplesUiFeedbackRoute,
+  appExamplesUiFieldsRoute: appExamplesUiFieldsRoute,
+  appExamplesUiMediaRoute: appExamplesUiMediaRoute,
+  appExamplesUiNavigationRoute: appExamplesUiNavigationRoute,
+  appExamplesUiOverlayRoute: appExamplesUiOverlayRoute,
+  appExamplesUiSurfacesRoute: appExamplesUiSurfacesRoute,
+  appExamplesUiTypographyRoute: appExamplesUiTypographyRoute,
   appExamplesDemoBasicLazyRoute: appExamplesDemoBasicLazyRoute,
   appExamplesDemoColorsLazyRoute: appExamplesDemoColorsLazyRoute,
   appExamplesDemoContainersLazyRoute: appExamplesDemoContainersLazyRoute,
   appExamplesDemoDatabaseLazyRoute: appExamplesDemoDatabaseLazyRoute,
-  appExamplesDemoDisplayLazyRoute: appExamplesDemoDisplayLazyRoute,
   appExamplesDemoFormsLazyRoute: appExamplesDemoFormsLazyRoute,
   appExamplesDemoLoadersLazyRoute: appExamplesDemoLoadersLazyRoute,
   appExamplesDemoNavigationLazyRoute: appExamplesDemoNavigationLazyRoute,
   appExamplesDemoTablesLazyRoute: appExamplesDemoTablesLazyRoute,
   appExamplesDemoTypographyLazyRoute: appExamplesDemoTypographyLazyRoute,
+  appExamplesUiDisplayLazyRoute: appExamplesUiDisplayLazyRoute,
 }
 
 const appExamplesRouteWithChildren = appExamplesRoute._addFileChildren(
