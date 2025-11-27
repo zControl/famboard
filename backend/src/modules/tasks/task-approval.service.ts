@@ -276,7 +276,7 @@ export class TaskApprovalService {
             currentAssignment,
           );
         } else if (
-          ['DAILY', 'WEEKLY', 'MONTHLY'].includes(approval.task.frequency)
+          ['DAILY', 'WEEKLY', 'MONTHLY', 'REPEAT'].includes(approval.task.frequency)
         ) {
           await this.handleRecurringTask(
             transactionalEntityManager,
@@ -363,7 +363,6 @@ export class TaskApprovalService {
         nextDueDate.setHours(0, 0, 0, 0);
         break;
       default:
-        console.log(`Unhandled frequency: ${frequency}`);
         // Fallback to today
         nextDueDate.setDate(today.getDate());
     }

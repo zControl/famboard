@@ -15,7 +15,7 @@ export enum TaskFrequency {
   Daily = 'DAILY',
   Weekly = 'WEEKLY',
   Monthly = 'MONTHLY',
-  Special = 'SPECIAL'
+  Repeat = 'REPEAT'
 }
 
 export interface Comment {
