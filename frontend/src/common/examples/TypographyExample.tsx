@@ -1,5 +1,5 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { LabeledValue } from "@/common/ui/display/labeled-value";
+import { LabeledValue } from "@/common/ui/data/labeled-value";
 import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";

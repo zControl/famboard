@@ -2,7 +2,6 @@ import { AppLogo } from "@/common/layout/AppLogo";
 import { NotFound } from "@/common/layout/NotFound";
 import { SidebarLayout } from "@/common/layout/SidebarLayout";
 import { ThemeToggle } from "@/common/theme/ThemeToggle";
-import { CustomLink } from "@/common/ui/navigation/custom-link";
 import {
   Sidebar,
   SidebarContent,
@@ -20,20 +19,7 @@ import {
   Outlet,
   useLocation,
 } from "@tanstack/react-router";
-import {
-  AppWindowIcon,
-  BookTextIcon,
-  BoxIcon,
-  ComponentIcon,
-  DatabaseIcon,
-  HomeIcon,
-  LetterTextIcon,
-  LoaderPinwheelIcon,
-  PaletteIcon,
-  ShipWheelIcon,
-  Table2Icon,
-  Tv2Icon,
-} from "lucide-react";
+import { DatabaseBackupIcon, HomeIcon, MagnetIcon } from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
@@ -47,59 +33,14 @@ const basics = [
     icon: HomeIcon,
   },
   {
-    title: "Display",
-    url: "/demo/display",
-    icon: Tv2Icon,
+    title: "Actions",
+    url: "/examples/actions",
+    icon: MagnetIcon,
   },
   {
-    title: "Basic",
-    url: "/demo/basic",
-    icon: ComponentIcon,
-  },
-  {
-    title: "Colors",
-    url: "/demo/colors",
-    icon: PaletteIcon,
-  },
-  {
-    title: "Typography",
-    url: "/demo/typography",
-    icon: LetterTextIcon,
-  },
-  {
-    title: "Containers",
-    url: "/demo/containers",
-    icon: BoxIcon,
-  },
-  {
-    title: "Loaders",
-    url: "/demo/loaders",
-    icon: LoaderPinwheelIcon,
-  },
-  {
-    title: "Navigation",
-    url: "/demo/navigation",
-    icon: ShipWheelIcon,
-  },
-  {
-    title: "Dialogs",
-    url: "/demo/dialogs",
-    icon: AppWindowIcon,
-  },
-  {
-    title: "Forms",
-    url: "/demo/forms",
-    icon: BookTextIcon,
-  },
-  {
-    title: "Tables",
-    url: "/demo/tables",
-    icon: Table2Icon,
-  },
-  {
-    title: "Database",
-    url: "/demo/database",
-    icon: DatabaseIcon,
+    title: "Data",
+    url: "/examples/data",
+    icon: DatabaseBackupIcon,
   },
 ];
 
@@ -117,6 +58,7 @@ function ExamplesSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={location.pathname === item.url}
+                    tooltip={item.title}
                   >
                     <Link to={item.url}>
                       {<item.icon />}
@@ -145,20 +87,6 @@ function ExamplesLayout() {
           </div>
         }
         mobileMenu={<div className="text-primary-foreground">Menu</div>}
-        navigation={
-          <div className="flex space-x-4">
-            <CustomLink to="/demo" size="lg">
-              Examples
-            </CustomLink>
-            <CustomLink to="/query" size="lg">
-              Query
-            </CustomLink>
-            <CustomLink to="/form" size="lg">
-              Form
-            </CustomLink>
-          </div>
-        }
-        actions={<div>Actions</div>}
       >
         <Outlet />
       </SidebarLayout>

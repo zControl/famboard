@@ -1,5 +1,4 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Button } from "@/common/ui/actions/button";
 import { Avatar } from "@/common/ui/display/avatar";
 import { Badge } from "@/common/ui/display/badge";
 import { Separator } from "@/common/ui/display/separator";
@@ -11,13 +10,10 @@ import {
   StyledPiggyBankIcon,
   StyledTrophyIcon,
 } from "@/common/ui/display/styled-icons";
-import { Spinner } from "@/common/ui/feedback/spinner";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
-import { Header4 } from "@/common/ui/typography/typography";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { IceCream } from "lucide-react";
 
 function AvatarTile() {
   const code: CodeBlockData[] = [
@@ -85,72 +81,6 @@ function BadgeTile() {
       </div>
       <Separator className="my-4" />
       <Code codeData={code} />
-    </Tile>
-  );
-}
-
-function ButtonTile() {
-  const code: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "button-usage",
-      code: `<Button>Default</Button>
-<Button variant="variant">ButtonText</Button>
-<Button>
-  <IceCream />
-  With Icon
-</Button>
-<Button disabled>
-  <Spinner />
-  Disabled
-</Button>`,
-    },
-  ];
-  const sizes: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "button-sizes",
-      code: `<Button size="default">Default</Button>
-<Button size="icon">
-  <IceCream />
-</Button>`,
-    },
-  ];
-  return (
-    <Tile title="Button" description="A button is a clickable element.">
-      <Header4>Colors</Header4>
-      <div className="flex flex-row gap-2">
-        <Button>Default</Button>
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="warning">Warning</Button>
-        <Button variant="highlight">Highlight</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="link">Link</Button>
-        <Button>
-          <IceCream />
-          With Icon
-        </Button>
-        <Button disabled>
-          <Spinner />
-          Disabled
-        </Button>
-      </div>
-      <Separator className="my-4" />
-      <Code codeData={code} />
-      <Header4>Sizes</Header4>
-      <div className="flex flex-row gap-2 mt-4">
-        <Button size="default">Default</Button>
-        <Button size="lg">Large</Button>
-        <Button size="sm">Small</Button>
-        <Button size="icon">
-          <IceCream />
-        </Button>
-      </div>
-      <Separator className="my-4" />
-      <Code codeData={sizes} />
     </Tile>
   );
 }
@@ -225,7 +155,6 @@ function SeparatorTile() {
 const sections = [
   { id: "avatar", title: "Avatar", children: <AvatarTile /> },
   { id: "badge", title: "Badge", children: <BadgeTile /> },
-  { id: "button", title: "Button", children: <ButtonTile /> },
   { id: "separator", title: "Separator", children: <SeparatorTile /> },
   { id: "styled-icons", title: "Styled Icons", children: <StyledIconsTile /> },
 ];

@@ -1,4 +1,4 @@
-import { useFormattedTimestamp } from "@/common/hooks/useFormattedTimestamp";
+import { rootApi } from "@/api/rootApi";
 import { AppLogo } from "@/common/layout/AppLogo";
 import { HeaderContainer } from "@/common/layout/HeaderContainer";
 import { PageContainer } from "@/common/layout/PageContainer";
@@ -13,16 +13,8 @@ export const Route = createLazyFileRoute("/(app)/status")({
 function StatusPage() {
   const { isPending, error, data, isFetching } = useQuery({
     queryKey: ["status"],
-    queryFn: async () => {
-      const res = await fetch("http://10.0.0.240:3000/v1/status");
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} ${res.statusText}`);
-      }
-      return await res.json();
-    },
+    queryFn: rootApi.getHealth,
   });
-
-  const formattedTimestamp = useFormattedTimestamp(data?.timestamp ?? "");
 
   if (isPending || isFetching) return <Spinner size="xl" />;
 
@@ -35,10 +27,11 @@ function StatusPage() {
         title="Status Page"
         description="Show the status of the web services and API endpoints"
       >
-        {data.status === "ok" && <div className="h-10 w-full bg-primary" />}
-
-        <div>STATUS TABLE HERE</div>
-        <div className="text-center">Last updated: {formattedTimestamp}</div>
+        {data.status === "error" && <div className="h-10 w-full bg-danger" />}
+        {data.status === "ok" && (
+          <div className="h-10 w-full bg-secondary">OK</div>
+        )}
+        <div>SHOW STATUS MARTIX HERE</div>
       </PageContainer>
     </>
   );

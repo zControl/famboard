@@ -1,5 +1,4 @@
 import { Button } from "@/common/ui/actions/button";
-import { Coin } from "@/common/ui/display/coin";
 import {
   Item,
   ItemActions,
@@ -7,15 +6,16 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/common/ui/display/item";
+} from "@/common/ui/data/item";
+import { Coin } from "@/common/ui/display/coin";
 import { Spinner } from "@/common/ui/feedback/spinner";
-import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/common/ui/overlay/tooltip";
-import { Textarea } from "@/common/ui/typography/textarea";
+} from "@/common/ui/feedback/tooltip";
+import { Textarea } from "@/common/ui/fields/textarea";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { AssignedTaskItemProps } from "@/features/kids/types";
 import { useTaskCompletion } from "@/features/tasks/hooks/useTaskCompletion";

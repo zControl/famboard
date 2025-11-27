@@ -1,4 +1,3 @@
-import { Coin } from "@/common/ui/display/coin";
 import {
   Item,
   ItemActions,
@@ -6,7 +5,8 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/common/ui/display/item";
+} from "@/common/ui/data/item";
+import { Coin } from "@/common/ui/display/coin";
 
 import { AssignedTaskItemProps } from "@/features/kids/types";
 import { CheckCircle2Icon } from "lucide-react";

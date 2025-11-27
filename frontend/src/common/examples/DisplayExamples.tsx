@@ -1,6 +1,6 @@
 import { PageSections } from "@/common/layout/PageSections";
 import { Button } from "@/common/ui/actions/button";
-import { DetailedItem } from "@/common/ui/display/detailed-item";
+import { DetailedItem } from "@/common/ui/data/detailed-item";
 import {
   Item,
   ItemActions,
@@ -8,8 +8,8 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/common/ui/display/item";
-import { LabeledValue } from "@/common/ui/display/labeled-value";
+} from "@/common/ui/data/item";
+import { LabeledValue } from "@/common/ui/data/labeled-value";
 import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";

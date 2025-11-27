@@ -35,6 +35,8 @@ import { Route as appKidsKidsPlayRouteImport } from './routes/(app)/_kids/kids.p
 import { Route as appKidsKidsHelpRouteImport } from './routes/(app)/_kids/kids.help'
 import { Route as appKidsKidsFitnessRouteImport } from './routes/(app)/_kids/kids.fitness'
 import { Route as appKidsKidsEarnRouteImport } from './routes/(app)/_kids/kids.earn'
+import { Route as appExamplesExamplesDataRouteImport } from './routes/(app)/_examples/examples.data'
+import { Route as appExamplesExamplesActionsRouteImport } from './routes/(app)/_examples/examples.actions'
 import { Route as appExamplesDemoTestingRouteImport } from './routes/(app)/_examples/demo.testing'
 import { Route as appExamplesDemoDialogsRouteImport } from './routes/(app)/_examples/demo.dialogs'
 import { Route as appAdminAdminUsersRouteImport } from './routes/(app)/_admin/admin.users'
@@ -367,6 +369,17 @@ const appKidsKidsEarnRoute = appKidsKidsEarnRouteImport.update({
   path: '/kids/earn',
   getParentRoute: () => appKidsRoute,
 } as any)
+const appExamplesExamplesDataRoute = appExamplesExamplesDataRouteImport.update({
+  id: '/examples/data',
+  path: '/examples/data',
+  getParentRoute: () => appExamplesRoute,
+} as any)
+const appExamplesExamplesActionsRoute =
+  appExamplesExamplesActionsRouteImport.update({
+    id: '/examples/actions',
+    path: '/examples/actions',
+    getParentRoute: () => appExamplesRoute,
+  } as any)
 const appExamplesDemoTestingRoute = appExamplesDemoTestingRouteImport.update({
   id: '/demo/testing',
   path: '/demo/testing',
@@ -416,6 +429,8 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
+  '/examples/actions': typeof appExamplesExamplesActionsRoute
+  '/examples/data': typeof appExamplesExamplesDataRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
@@ -460,6 +475,8 @@ export interface FileRoutesByTo {
   '/admin/users': typeof appAdminAdminUsersRoute
   '/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/demo/testing': typeof appExamplesDemoTestingRoute
+  '/examples/actions': typeof appExamplesExamplesActionsRoute
+  '/examples/data': typeof appExamplesExamplesDataRoute
   '/kids/earn': typeof appKidsKidsEarnRoute
   '/kids/fitness': typeof appKidsKidsFitnessRoute
   '/kids/help': typeof appKidsKidsHelpRoute
@@ -512,6 +529,8 @@ export interface FileRoutesById {
   '/(app)/_admin/admin/users': typeof appAdminAdminUsersRoute
   '/(app)/_examples/demo/dialogs': typeof appExamplesDemoDialogsRoute
   '/(app)/_examples/demo/testing': typeof appExamplesDemoTestingRoute
+  '/(app)/_examples/examples/actions': typeof appExamplesExamplesActionsRoute
+  '/(app)/_examples/examples/data': typeof appExamplesExamplesDataRoute
   '/(app)/_kids/kids/earn': typeof appKidsKidsEarnRoute
   '/(app)/_kids/kids/fitness': typeof appKidsKidsFitnessRoute
   '/(app)/_kids/kids/help': typeof appKidsKidsHelpRoute
@@ -558,6 +577,8 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
+    | '/examples/actions'
+    | '/examples/data'
     | '/kids/earn'
     | '/kids/fitness'
     | '/kids/help'
@@ -602,6 +623,8 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/demo/dialogs'
     | '/demo/testing'
+    | '/examples/actions'
+    | '/examples/data'
     | '/kids/earn'
     | '/kids/fitness'
     | '/kids/help'
@@ -653,6 +676,8 @@ export interface FileRouteTypes {
     | '/(app)/_admin/admin/users'
     | '/(app)/_examples/demo/dialogs'
     | '/(app)/_examples/demo/testing'
+    | '/(app)/_examples/examples/actions'
+    | '/(app)/_examples/examples/data'
     | '/(app)/_kids/kids/earn'
     | '/(app)/_kids/kids/fitness'
     | '/(app)/_kids/kids/help'
@@ -995,6 +1020,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appKidsKidsEarnRouteImport
       parentRoute: typeof appKidsRoute
     }
+    '/(app)/_examples/examples/data': {
+      id: '/(app)/_examples/examples/data'
+      path: '/examples/data'
+      fullPath: '/examples/data'
+      preLoaderRoute: typeof appExamplesExamplesDataRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
+    '/(app)/_examples/examples/actions': {
+      id: '/(app)/_examples/examples/actions'
+      path: '/examples/actions'
+      fullPath: '/examples/actions'
+      preLoaderRoute: typeof appExamplesExamplesActionsRouteImport
+      parentRoute: typeof appExamplesRoute
+    }
     '/(app)/_examples/demo/testing': {
       id: '/(app)/_examples/demo/testing'
       path: '/demo/testing'
@@ -1062,6 +1101,8 @@ interface appExamplesRouteChildren {
   appExamplesQueryLazyRoute: typeof appExamplesQueryLazyRoute
   appExamplesDemoDialogsRoute: typeof appExamplesDemoDialogsRoute
   appExamplesDemoTestingRoute: typeof appExamplesDemoTestingRoute
+  appExamplesExamplesActionsRoute: typeof appExamplesExamplesActionsRoute
+  appExamplesExamplesDataRoute: typeof appExamplesExamplesDataRoute
   appExamplesDemoBasicLazyRoute: typeof appExamplesDemoBasicLazyRoute
   appExamplesDemoColorsLazyRoute: typeof appExamplesDemoColorsLazyRoute
   appExamplesDemoContainersLazyRoute: typeof appExamplesDemoContainersLazyRoute
@@ -1080,6 +1121,8 @@ const appExamplesRouteChildren: appExamplesRouteChildren = {
   appExamplesQueryLazyRoute: appExamplesQueryLazyRoute,
   appExamplesDemoDialogsRoute: appExamplesDemoDialogsRoute,
   appExamplesDemoTestingRoute: appExamplesDemoTestingRoute,
+  appExamplesExamplesActionsRoute: appExamplesExamplesActionsRoute,
+  appExamplesExamplesDataRoute: appExamplesExamplesDataRoute,
   appExamplesDemoBasicLazyRoute: appExamplesDemoBasicLazyRoute,
   appExamplesDemoColorsLazyRoute: appExamplesDemoColorsLazyRoute,
   appExamplesDemoContainersLazyRoute: appExamplesDemoContainersLazyRoute,
