@@ -43,6 +43,10 @@ export const useAssignedTasks = (userId: string) => {
         // For one-time tasks, always show if they're assigned
         return true;
 
+      case "REPEAT":
+        // For repeat tasks, always show if they're assigned
+        return true;
+
       default:
         return false;
     }

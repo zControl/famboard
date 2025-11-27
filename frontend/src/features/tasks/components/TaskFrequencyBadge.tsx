@@ -13,9 +13,9 @@ import { type VariantProps } from "class-variance-authority";
 import {
   Calendar1Icon,
   CalendarDaysIcon,
-  CalendarHeartIcon,
   CalendarRangeIcon,
   CalendarSyncIcon,
+  Repeat2Icon,
 } from "lucide-react";
 
 interface TaskFrequencyBadgeProps
@@ -43,8 +43,8 @@ function TaskFrequencyBadge({
     [TaskFrequency.Monthly]: (
       <CalendarSyncIcon className={badgeIconVariants({ size })} />
     ),
-    [TaskFrequency.Special]: (
-      <CalendarHeartIcon className={badgeIconVariants({ size })} />
+    [TaskFrequency.Repeat]: (
+      <Repeat2Icon className={badgeIconVariants({ size })} />
     ),
   };
 
