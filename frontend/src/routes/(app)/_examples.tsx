@@ -28,6 +28,7 @@ import {
   ImageIcon,
   LandPlotIcon,
   MonitorCheckIcon,
+  PaletteIcon,
   PictureInPicture2Icon,
   SquarePilcrowIcon,
   TextCursorInputIcon,
@@ -45,6 +46,11 @@ const basics = [
     title: "Overview",
     url: "/ui",
     icon: ComponentIcon,
+  },
+  {
+    title: "Colors",
+    url: "/ui/colors",
+    icon: PaletteIcon,
   },
   {
     title: "Actions",

@@ -13,18 +13,23 @@ function SomeTile() {
       title="Tile"
       description="Tile is a reusable wrapper that has props for title and description."
     >
-      <p>Some Component Here</p>
+      <ul>
+        <li>Checkbox</li>
+        <li>Input</li>
+        <li>Radio</li>
+        <li>Slider</li>
+        <li>Switch</li>
+        <li>TextArea</li>
+        <li>Toggle Group</li>
+        <li>ValueSlider</li>
+      </ul>
       <Separator className="my-4" />
       <Code codeData={code} />
     </Tile>
   );
 }
 
-const sections = [
-  { id: "tile", title: "Tile", children: <SomeTile /> },
-  { id: "tile", title: "Tile", children: <SomeTile /> },
-  { id: "tile", title: "Tile", children: <SomeTile /> },
-];
+const sections = [{ id: "tile", title: "Tile", children: <SomeTile /> }];
 
 export const UIFields = () => {
   return <PageSections sections={sections} />;

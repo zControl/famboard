@@ -113,7 +113,7 @@ function SidebarColorsTile() {
       title="Sidebar Colors"
       description="These colors are used for the sidebar."
     >
-      <div className="px-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="px-8 grid sm:grid-cols-1 md:grid-cols-2 gap-6">
         <ColorBox
           label="Sidebar Background"
           bgColor="bg-sidebar-background"
@@ -163,6 +163,6 @@ const sections = [
     children: <SidebarColorsTile />,
   },
 ];
-export const ColorsExample = () => {
+export const UIColors = () => {
   return <PageSections sections={sections} />;
 };

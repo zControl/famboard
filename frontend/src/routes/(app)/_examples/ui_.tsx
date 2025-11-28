@@ -1,4 +1,3 @@
-import { ColorsExample } from "@/common/examples/ColorsExample";
 import { PageContainer } from "@/common/layout/PageContainer";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -13,7 +12,10 @@ function UIRootPage() {
       description="Root page for all UI components"
       keywords="ui, page, components, cookbook"
     >
-      <ColorsExample />
+      <p>
+        This should have an overview to docs, example section, and cookbook
+        links.
+      </p>
     </PageContainer>
   );
 }
