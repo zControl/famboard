@@ -1,7 +1,7 @@
+import { Theme, ThemeProviderContext } from "@/common/theme/ThemeContext";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { useEffect, useMemo } from "react";
-import { Theme, ThemeProviderContext } from "./ThemeContext";
 
 type ThemeProviderProps = {
   children: React.ReactNode;

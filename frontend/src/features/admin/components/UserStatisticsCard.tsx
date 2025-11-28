@@ -1,4 +1,4 @@
-import { LabeledValue } from "@/common/ui/display/labeled-value";
+import { LabeledValue } from "@/common/ui/data/labeled-value";
 import { InfoCard } from "@/common/ui/surfaces/InfoCard";
 import { useUserStatistics } from "@/features/admin/hooks/useUserStatistics";
 import { UsersIcon } from "lucide-react";

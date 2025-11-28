@@ -9,7 +9,7 @@ import {
   TableBody,
   TableCaption,
   TableHeader,
-} from "@/common/ui/display/table";
+} from "@/common/ui/data/table";
 import { Header4 } from "@/common/ui/typography/typography";
 import { cn } from "@/common/utils/classNames";
 import {

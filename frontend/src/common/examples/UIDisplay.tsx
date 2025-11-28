@@ -1,7 +1,9 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Button } from "@/common/ui/actions/button";
 import { Avatar } from "@/common/ui/display/avatar";
 import { Badge } from "@/common/ui/display/badge";
+import { Coin } from "@/common/ui/display/coin";
+import { Progress } from "@/common/ui/display/progress";
+import { ProgressStep } from "@/common/ui/display/progress-step";
 import { Separator } from "@/common/ui/display/separator";
 import {
   StyledCalendar1Icon,
@@ -11,13 +13,10 @@ import {
   StyledPiggyBankIcon,
   StyledTrophyIcon,
 } from "@/common/ui/display/styled-icons";
-import { Spinner } from "@/common/ui/feedback/spinner";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
-import { Header4 } from "@/common/ui/typography/typography";
 import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { IceCream } from "lucide-react";
 
 function AvatarTile() {
   const code: CodeBlockData[] = [
@@ -89,68 +88,58 @@ function BadgeTile() {
   );
 }
 
-function ButtonTile() {
+function CoinTile() {
   const code: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "button-usage",
-      code: `<Button>Default</Button>
-<Button variant="variant">ButtonText</Button>
-<Button>
-  <IceCream />
-  With Icon
-</Button>
-<Button disabled>
-  <Spinner />
-  Disabled
-</Button>`,
-    },
-  ];
-  const sizes: CodeBlockData[] = [
-    {
-      language: "tsx",
-      filename: "button-sizes",
-      code: `<Button size="default">Default</Button>
-<Button size="icon">
-  <IceCream />
-</Button>`,
-    },
+    { language: "tsx", filename: "coin-usage", code: `code here` },
   ];
   return (
-    <Tile title="Button" description="A button is a clickable element.">
-      <Header4>Colors</Header4>
-      <div className="flex flex-row gap-2">
-        <Button>Default</Button>
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="warning">Warning</Button>
-        <Button variant="highlight">Highlight</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="link">Link</Button>
-        <Button>
-          <IceCream />
-          With Icon
-        </Button>
-        <Button disabled>
-          <Spinner />
-          Disabled
-        </Button>
+    <Tile title="Coin" description="Displays a coin amount with an icon.">
+      <div className="grid grid-cols-1 gap-y-6 mb-4">
+        <div className="flex gap-6">
+          <Coin value={10} />
+          <Coin value={42} />
+        </div>
       </div>
       <Separator className="my-4" />
       <Code codeData={code} />
-      <Header4>Sizes</Header4>
-      <div className="flex flex-row gap-2 mt-4">
-        <Button size="default">Default</Button>
-        <Button size="lg">Large</Button>
-        <Button size="sm">Small</Button>
-        <Button size="icon">
-          <IceCream />
-        </Button>
+    </Tile>
+  );
+}
+
+function ProgressStepTile() {
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "progress-step-usage", code: `code here` },
+  ];
+  return (
+    <Tile
+      title="Progress Step"
+      description="Displays the current step in a multi-step process."
+    >
+      <div className="grid grid-cols-1 gap-y-6 mb-4">
+        <div className="flex gap-6">
+          <ProgressStep stepSize={2} />
+          <ProgressStep stepSize={3} />
+        </div>
       </div>
       <Separator className="my-4" />
-      <Code codeData={sizes} />
+      <Code codeData={code} />
+    </Tile>
+  );
+}
+
+function ProgressTile() {
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "progress-usage", code: `code here` },
+  ];
+  return (
+    <Tile title="Progress" description="Displays progress towards a goal.">
+      <div className="grid grid-cols-1 gap-y-6 mb-4">
+        <div className="flex gap-6">
+          <Progress value={50} />
+        </div>
+      </div>
+      <Separator className="my-4" />
+      <Code codeData={code} />
     </Tile>
   );
 }
@@ -225,11 +214,17 @@ function SeparatorTile() {
 const sections = [
   { id: "avatar", title: "Avatar", children: <AvatarTile /> },
   { id: "badge", title: "Badge", children: <BadgeTile /> },
-  { id: "button", title: "Button", children: <ButtonTile /> },
+  { id: "coin", title: "Coin", children: <CoinTile /> },
+  {
+    id: "progress-step",
+    title: "Progress Step",
+    children: <ProgressStepTile />,
+  },
+  { id: "progress", title: "Progress", children: <ProgressTile /> },
   { id: "separator", title: "Separator", children: <SeparatorTile /> },
   { id: "styled-icons", title: "Styled Icons", children: <StyledIconsTile /> },
 ];
 
-export const BasicExample = () => {
+export const UIDisplay = () => {
   return <PageSections sections={sections} />;
 };

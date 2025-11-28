@@ -1,4 +1,7 @@
+import { FormSample } from "@/common/examples/FormSample";
 import { PageSections } from "@/common/layout/PageSections";
+import { Button } from "@/common/ui/actions/button";
+import { Separator } from "@/common/ui/display/separator";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import {
   AlertDialog,
@@ -11,8 +14,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/common/ui/overlay/alert-dialog";
-import { Tile } from "@/common/ui/surfaces/Tile";
-
 import {
   Dialog,
   DialogContent,
@@ -21,7 +22,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/common/ui/overlay/dialog";
-
+import { DisplayModal } from "@/common/ui/overlay/DisplayModal";
 import {
   Drawer,
   DrawerContent,
@@ -30,30 +31,20 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/common/ui/overlay/drawer";
-
-import { FormSample } from "@/common/examples/FormSample";
-import { Button } from "@/common/ui/actions/button";
-import { Separator } from "@/common/ui/display/separator";
-import { DisplayModal } from "@/common/ui/overlay/DisplayModal";
 import {
-  Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/common/ui/overlay/sheet";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
-import {
-  SectionDescription,
-  SectionTitle,
-} from "@/common/ui/typography/typography";
+import { Sheet } from "lucide-react";
 
-function ActionDialogModal() {
-  const code2: CodeBlockData[] = [
+function ActionModalTile() {
+  const code: CodeBlockData[] = [
     {
       language: "tsx",
       filename: "actionmodal-usage",
@@ -70,12 +61,12 @@ function ActionDialogModal() {
   ];
   return (
     <Tile
-      title="Alert Dialog"
+      title="Action Modal"
       description="An alert dialog is a modal that prompts the user to submit or confirm a required action. (Confirm or Cancel)"
     >
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline">Open Alert Dialog</Button>
+          <Button variant="outline">Open Dialog</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -98,13 +89,6 @@ function ActionDialogModal() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Separator className="my-4" />
-      <Separator className="my-4" />
-      <SectionTitle>Action Modal Component</SectionTitle>
-      <SectionDescription>
-        A reusable component built on top of Alert Dialog. It can be used
-        instead of creating the full AlertDialog each time.
-      </SectionDescription>
       <ActionModal
         trigger="Open Alert Dialog"
         title="Confirm Action"
@@ -115,12 +99,25 @@ function ActionDialogModal() {
         Content of modal here.
       </ActionModal>
       <Separator className="my-4" />
-      <Code codeData={code2} />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
-function DisplayDialogModal() {
+function DisplayModalTile() {
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "actionmodal-usage",
+      code: `<DisplayModal
+  trigger="Open Display Modal"
+  title="Confirm Action"
+  description="You should be sure about this action, because it is important."
+>
+  Dialog Content Here
+</DisplayModal>>`,
+    },
+  ];
   return (
     <Tile
       title="Display Modal"
@@ -128,7 +125,7 @@ function DisplayDialogModal() {
     >
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Open Display Dialog</Button>
+          <Button variant="outline">Open Dialog</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -140,13 +137,6 @@ function DisplayDialogModal() {
           <div>This is where the content goes.</div>
         </DialogContent>
       </Dialog>
-      <Separator className="my-4" />
-      <Separator className="my-4" />
-      <SectionTitle>Display Modal Component</SectionTitle>
-      <SectionDescription>
-        A reusable component built on top of Dialog. It can be used instead of
-        creating the full Dialog each time.
-      </SectionDescription>
       <DisplayModal
         trigger="Open Display Modal"
         title="Confirm Action"
@@ -155,11 +145,34 @@ function DisplayDialogModal() {
         Dialog Content Here
       </DisplayModal>
       <Separator className="my-4" />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
-function DrawerModal() {
+function DrawerTile() {
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "drawer-usage",
+      code: `<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Open Drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <div className="mx-auto w-full max-w-sm">
+      <DrawerHeader>
+        <DrawerTitle>This is the Drawer Title</DrawerTitle>
+        <DrawerDescription>
+          The drawer description goes here.
+        </DrawerDescription>
+      </DrawerHeader>
+      <FormSample />
+    </div>
+  </DrawerContent>
+</Drawer>`,
+    },
+  ];
   return (
     <Tile
       title="Drawer"
@@ -167,9 +180,7 @@ function DrawerModal() {
     >
       <Drawer>
         <DrawerTrigger asChild>
-          <Button asChild variant="outline">
-            Open Drawer
-          </Button>
+          <Button variant="outline">Open Drawer</Button>
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
@@ -184,64 +195,76 @@ function DrawerModal() {
         </DrawerContent>
       </Drawer>
       <Separator className="my-4" />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
-function SheetModal() {
-  const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
+function SheetTile() {
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "sheet-usage",
+      code: `code here`,
+    },
+  ];
   return (
     <Tile
       title="Sheet"
       description="Sheet is a window that comes in from the side or bottom of the screen."
     >
-      <div className="w-40 lg:w-96 mx-auto grid grid-cols-2 gap-4">
-        {SHEET_SIDES.map((side) => (
-          <Sheet key={side}>
-            <SheetTrigger asChild>
-              <Button variant="outline">{side}</Button>
-            </SheetTrigger>
-            <SheetContent side={side}>
-              <SheetHeader>
-                <SheetTitle>Sheet Title</SheetTitle>
-                <SheetDescription>
-                  The sheet description goes here
-                </SheetDescription>
-              </SheetHeader>
-              <FormSample />
-              <SheetFooter>
-                <SheetClose asChild>
-                  <Button variant={"outline"}>Close</Button>
-                </SheetClose>
-              </SheetFooter>
-            </SheetContent>
-          </Sheet>
-        ))}
-      </div>
+      <Sheet>
+        <SheetTrigger>Open</SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Are you absolutely sure?</SheetTitle>
+            <SheetDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
       <Separator className="my-4" />
+      <Code codeData={code} />
     </Tile>
   );
 }
 
-function ToastModal() {
-  return <div>Toast Modal</div>;
+function MissingComponentsTile() {
+  return (
+    <Tile
+      title="More Components Coming Soon"
+      description="More overlay components will be added here soon."
+    >
+      <ul>
+        <li>Command</li>
+        <li>Context-Menu</li>
+        <li>Dropdown-Menu</li>
+        <li>EmojiSelector</li>
+        <li>EnhancedSelector</li>
+        <li>HoverCard</li>
+        <li>Popover</li>
+        <li>Select</li>
+      </ul>
+    </Tile>
+  );
 }
-
 const sections = [
   {
     id: "action-modal",
     title: "Action Modal",
-    children: <ActionDialogModal />,
+    children: <ActionModalTile />,
   },
   {
     id: "display-modal",
     title: "Display Modal",
-    children: <DisplayDialogModal />,
+    children: <DisplayModalTile />,
   },
-  { id: "drawer", title: "Drawer", children: <DrawerModal /> },
-  { id: "sheet", title: "Sheet", children: <SheetModal /> },
-  { id: "toast", title: "Toast", children: <ToastModal /> },
+  { id: "drawer", title: "Drawer", children: <DrawerTile /> },
+  { id: "missing", title: "Missing", children: <MissingComponentsTile /> },
 ];
-export const DialogExample = () => {
+
+export const UIOverlay = () => {
   return <PageSections sections={sections} />;
 };

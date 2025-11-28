@@ -2,7 +2,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/common/ui/overlay/tooltip";
+} from "@/common/ui/feedback/tooltip";
 import { cn } from "@/common/utils/classNames";
 import {
   badgeIconVariants,

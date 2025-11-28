@@ -1,8 +1,8 @@
+import { LabeledValue } from "@/common/ui/data/labeled-value";
 import { Coin } from "@/common/ui/display/coin";
-import { LabeledValue } from "@/common/ui/display/labeled-value";
 import { Input } from "@/common/ui/fields/input";
+import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Textarea } from "@/common/ui/typography/textarea";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useApprovals } from "@/features/parents/hooks/useApprovals";
 import { ApprovalResponse } from "@/features/tasks/types";

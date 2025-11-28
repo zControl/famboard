@@ -9,6 +9,12 @@ import { useIsMobile } from "@/common/hooks/useIsMobile";
 import { Button } from "@/common/ui/actions/button";
 import { Separator } from "@/common/ui/display/separator";
 import { Skeleton } from "@/common/ui/feedback/skeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/common/ui/feedback/tooltip";
 import { Input } from "@/common/ui/fields/input";
 import {
   Sheet,
@@ -17,12 +23,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/common/ui/overlay/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/common/ui/overlay/tooltip";
 import { cn } from "@/common/utils/classNames";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";

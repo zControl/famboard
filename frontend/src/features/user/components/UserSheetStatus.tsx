@@ -1,6 +1,6 @@
-import { EmojiSelector } from "@/common/ui/actions/EmojiSelector";
 import { Button } from "@/common/ui/actions/button";
 import { Input } from "@/common/ui/fields/input";
+import { EmojiSelector } from "@/common/ui/overlay/EmojiSelector";
 import { Paragraph } from "@/common/ui/typography/typography";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserProfile } from "@/features/user/types";

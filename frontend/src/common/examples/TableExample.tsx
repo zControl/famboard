@@ -1,6 +1,5 @@
 import { DataTableCore } from "@/common/datatable/DataTableCore";
 import { PageSections } from "@/common/layout/PageSections";
-import { Separator } from "@/common/ui/display/separator";
 import {
   Table,
   TableBody,
@@ -9,7 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/common/ui/display/table";
+} from "@/common/ui/data/table";
+import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";

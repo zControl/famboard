@@ -1,5 +1,5 @@
-import { Slider } from "@/common/ui/actions/slider";
 import { Coin } from "@/common/ui/display/coin";
+import { Slider } from "@/common/ui/fields/slider";
 
 interface ValueSliderProps {
   defaultValue?: number[];

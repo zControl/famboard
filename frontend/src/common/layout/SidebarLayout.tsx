@@ -1,5 +1,8 @@
-import { AppFooter } from "./AppFooter";
-import { HeaderContainer, HeaderContainerProps } from "./HeaderContainer";
+import { AppFooter } from "@/common/layout/AppFooter";
+import {
+  HeaderContainer,
+  HeaderContainerProps,
+} from "@/common/layout/HeaderContainer";
 
 interface SidebarLayoutProps extends HeaderContainerProps {
   children: React.ReactNode;

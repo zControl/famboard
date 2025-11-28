@@ -1,4 +1,7 @@
-import { PageSectionNav, type PageSection } from "./PageSectionNav";
+import {
+  PageSectionNav,
+  type PageSection,
+} from "@/common/layout/PageSectionNav";
 
 interface PageSectionsProps {
   sections: PageSection[];

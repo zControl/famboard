@@ -1,5 +1,5 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { Tile } from "@/common/ui/surfaces/Tile";
+import { Separator } from "@/common/ui/display/separator";
 import {
   Accordion,
   AccordionContent,
@@ -14,16 +14,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/common/ui/surfaces/card";
+import { CardSection } from "@/common/ui/surfaces/CardSection";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/common/ui/surfaces/resizable";
-
-import { Separator } from "@/common/ui/display/separator";
 import { ScrollArea } from "@/common/ui/surfaces/scroll-area";
+import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
+import { IceCream2Icon } from "lucide-react";
 
 function AccordianTile() {
   const code: CodeBlockData[] = [
@@ -121,6 +122,13 @@ function CardTile() {
           </CardFooter>
         </Card>
       </div>
+      <div>
+        A card section is like this:
+        <CardSection label="Card Section" icon={<IceCream2Icon />}>
+          This is card section content.
+        </CardSection>
+      </div>
+
       <Separator className="my-4" />
       <Code codeData={code} />
     </Tile>
@@ -235,9 +243,10 @@ const sections = [
   { id: "accordian", title: "Accordian", children: <AccordianTile /> },
   { id: "card", title: "Card", children: <CardTile /> },
   { id: "tile", title: "Tile", children: <TileTile /> },
-  { id: "scroll-area", title: "Scroll Area", children: <ScrollAreaTile /> },
-  { id: "resizeable", title: "Resizeable", children: <ResizeableTile /> },
+  { id: "scrollarea", title: "Scroll Area", children: <ScrollAreaTile /> },
+  { id: "resizable", title: "Resizable Panels", children: <ResizeableTile /> },
 ];
-export const ContainerExample = () => {
+
+export const UISurfaces = () => {
   return <PageSections sections={sections} />;
 };

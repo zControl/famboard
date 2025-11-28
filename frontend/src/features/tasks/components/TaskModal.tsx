@@ -1,7 +1,8 @@
-import { EnhancedSelector } from "@/common/ui/actions/EnhancedSelector";
-import { ValueSlider } from "@/common/ui/actions/ValueSlider";
+import { ValueSlider } from "@/common/ui/fields/ValueSlider";
 import { Input } from "@/common/ui/fields/input";
+import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { EnhancedSelector } from "@/common/ui/overlay/EnhancedSelector";
 import {
   Form,
   FormControl,
@@ -10,7 +11,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/common/ui/surfaces/form";
-import { Textarea } from "@/common/ui/typography/textarea";
 import { taskListSchema } from "@/features/tasks/datatable/TaskListSchema";
 import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
 import { Task, TaskCategory, TaskFrequency } from "@/features/tasks/types";

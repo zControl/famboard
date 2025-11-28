@@ -1,5 +1,4 @@
 import { DetailListItemProps } from "@/common/types";
-import { Badge } from "@/common/ui/display/badge";
 import {
   Item,
   ItemActions,
@@ -7,7 +6,8 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/common/ui/display/item";
+} from "@/common/ui/data/item";
+import { Badge } from "@/common/ui/display/badge";
 import React from "react";
 
 function DetailedItem({

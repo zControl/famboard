@@ -1,5 +1,4 @@
 import { PageSections } from "@/common/layout/PageSections";
-import { LabeledValue } from "@/common/ui/display/labeled-value";
 import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
@@ -11,6 +10,10 @@ import {
   Header3,
   Header4,
   Paragraph,
+  SectionDescription,
+  SectionTitle,
+  StatLabel,
+  StatValue,
   TextBlock,
 } from "@/common/ui/typography/typography";
 
@@ -19,7 +22,10 @@ function HeadingsTile() {
     {
       language: "tsx",
       filename: "headings-import",
-      code: `<Header1>HeaderText</Header1>`,
+      code: `<Header1>Header1</Header1>
+<Header2>Header 2</Header2>
+<Header3>Header 3</Header3>
+<Header4>Header 4</Header4>`,
     },
   ];
   return (
@@ -39,21 +45,45 @@ function HeadingsTile() {
   );
 }
 
-function LabeledValueTile() {
+function SectionTextTile() {
   const code: CodeBlockData[] = [
     {
       language: "tsx",
-      filename: "labeled-value-import",
-      code: `<LabeledValue label="Label" value={"value"} units="units" />`,
+      filename: "section-text-import",
+      code: `<SectionTitle>Section Title</SectionTitle>
+<SectionDescription>Section Description</SectionDescription>`,
     },
   ];
   return (
     <Tile
-      title="Labeled Value"
-      description="A labeled value with optional units."
+      title="Section Text"
+      description="Text components used within sections to provide context."
+    >
+      <SectionTitle>Section Title</SectionTitle>
+      <SectionDescription>Section Description</SectionDescription>
+      <Separator className="my-4" />
+      <Code codeData={code} />
+    </Tile>
+  );
+}
+
+function StatLabelAndValueTile() {
+  const code: CodeBlockData[] = [
+    {
+      language: "tsx",
+      filename: "stat-label-and-value-import",
+      code: `<StatLabel>Stat Label</StatLabel>
+<StatValue>Stat Value</StatValue>`,
+    },
+  ];
+  return (
+    <Tile
+      title="Stat Label & Value"
+      description="Used to display a label and value."
     >
       <div className="flex flex-col gap-2">
-        <LabeledValue title="Label" value={"value"} units="units" />
+        <StatLabel>Stat Label</StatLabel>
+        <StatValue>Stat Value</StatValue>
       </div>
       <Separator className="my-4" />
       <Code codeData={code} />
@@ -66,8 +96,7 @@ function ParagraphTile() {
     {
       language: "tsx",
       filename: "paragraph-import",
-      code: `import { Paragraph, BlockQuote, TextBlock } from "@/components/ui/typography";
-<Paragraph>Paragraph text goes here.</Paragraph>
+      code: `<Paragraph>Paragraph text goes here.</Paragraph>
 <BlockQuote>Blockquote text goes here.</BlockQuote>
 <TextBlock>Textblock text goes here.</TextBlock>`,
     },
@@ -103,15 +132,16 @@ function ParagraphTile() {
 }
 
 const sections = [
-  {
-    id: "labeled-value",
-    title: "Labeled Value",
-    children: <LabeledValueTile />,
-  },
   { id: "headings", title: "Headings", children: <HeadingsTile /> },
   { id: "paragraph", title: "Paragraph", children: <ParagraphTile /> },
+  { id: "section-text", title: "Section Text", children: <SectionTextTile /> },
+  {
+    id: "stat-label-and-value",
+    title: "Label / Value",
+    children: <StatLabelAndValueTile />,
+  },
 ];
 
-export const TypographyExample = () => {
+export const UITypography = () => {
   return <PageSections sections={sections} />;
 };

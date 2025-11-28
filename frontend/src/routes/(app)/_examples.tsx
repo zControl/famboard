@@ -1,13 +1,13 @@
+import { NotFoundPage } from "@/common/error/NotFoundPage";
 import { AppLogo } from "@/common/layout/AppLogo";
-import { NotFound } from "@/common/layout/NotFound";
 import { SidebarLayout } from "@/common/layout/SidebarLayout";
 import { ThemeToggle } from "@/common/theme/ThemeToggle";
-import { CustomLink } from "@/common/ui/navigation/custom-link";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -21,85 +21,86 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import {
-  AppWindowIcon,
-  BookTextIcon,
-  BoxIcon,
+  CompassIcon,
   ComponentIcon,
-  DatabaseIcon,
-  HomeIcon,
-  LetterTextIcon,
-  LoaderPinwheelIcon,
+  DatabaseZapIcon,
+  IceCream2Icon,
+  ImageIcon,
+  LandPlotIcon,
+  MonitorCheckIcon,
   PaletteIcon,
-  ShipWheelIcon,
-  Table2Icon,
-  Tv2Icon,
+  PictureInPicture2Icon,
+  SquarePilcrowIcon,
+  TextCursorInputIcon,
+  ViewIcon,
+  WandSparklesIcon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/(app)/_examples")({
   component: ExamplesLayout,
-  notFoundComponent: NotFound,
+  notFoundComponent: NotFoundPage,
 });
 
 const basics = [
   {
     title: "Overview",
-    url: "/demo",
-    icon: HomeIcon,
-  },
-  {
-    title: "Display",
-    url: "/demo/display",
-    icon: Tv2Icon,
-  },
-  {
-    title: "Basic",
-    url: "/demo/basic",
+    url: "/ui",
     icon: ComponentIcon,
   },
   {
     title: "Colors",
-    url: "/demo/colors",
+    url: "/ui/colors",
     icon: PaletteIcon,
   },
   {
-    title: "Typography",
-    url: "/demo/typography",
-    icon: LetterTextIcon,
+    title: "Actions",
+    url: "/ui/actions",
+    icon: WandSparklesIcon,
   },
   {
-    title: "Containers",
-    url: "/demo/containers",
-    icon: BoxIcon,
+    title: "Data",
+    url: "/ui/data",
+    icon: DatabaseZapIcon,
   },
   {
-    title: "Loaders",
-    url: "/demo/loaders",
-    icon: LoaderPinwheelIcon,
+    title: "Display",
+    url: "/ui/display",
+    icon: ViewIcon,
+  },
+  {
+    title: "Feedback",
+    url: "/ui/feedback",
+    icon: MonitorCheckIcon,
+  },
+  {
+    title: "Fields",
+    url: "/ui/fields",
+    icon: TextCursorInputIcon,
+  },
+  {
+    title: "Media",
+    url: "/ui/media",
+    icon: ImageIcon,
   },
   {
     title: "Navigation",
-    url: "/demo/navigation",
-    icon: ShipWheelIcon,
+    url: "/ui/navigation",
+    icon: CompassIcon,
   },
   {
-    title: "Dialogs",
-    url: "/demo/dialogs",
-    icon: AppWindowIcon,
+    title: "Overlay",
+    url: "/ui/overlay",
+    icon: PictureInPicture2Icon,
   },
   {
-    title: "Forms",
-    url: "/demo/forms",
-    icon: BookTextIcon,
+    title: "Surfaces",
+    url: "/ui/surfaces",
+    icon: LandPlotIcon,
   },
   {
-    title: "Tables",
-    url: "/demo/tables",
-    icon: Table2Icon,
-  },
-  {
-    title: "Database",
-    url: "/demo/database",
-    icon: DatabaseIcon,
+    title: "Typography",
+    url: "/ui/typography",
+    icon: SquarePilcrowIcon,
   },
 ];
 
@@ -110,6 +111,7 @@ function ExamplesSidebar() {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>UI PRIMITAVES</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {basics.map((item) => (
@@ -117,6 +119,7 @@ function ExamplesSidebar() {
                   <SidebarMenuButton
                     asChild
                     isActive={location.pathname === item.url}
+                    tooltip={item.title}
                   >
                     <Link to={item.url}>
                       {<item.icon />}
@@ -125,6 +128,21 @@ function ExamplesSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>COMING SOON</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton tooltip="More examples coming soon!" asChild>
+                  <div className="flex items-center gap-2 p-2 opacity-50 cursor-not-allowed">
+                    <IceCream2Icon />
+                    <span>And more...</span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -145,20 +163,6 @@ function ExamplesLayout() {
           </div>
         }
         mobileMenu={<div className="text-primary-foreground">Menu</div>}
-        navigation={
-          <div className="flex space-x-4">
-            <CustomLink to="/demo" size="lg">
-              Examples
-            </CustomLink>
-            <CustomLink to="/query" size="lg">
-              Query
-            </CustomLink>
-            <CustomLink to="/form" size="lg">
-              Form
-            </CustomLink>
-          </div>
-        }
-        actions={<div>Actions</div>}
       >
         <Outlet />
       </SidebarLayout>

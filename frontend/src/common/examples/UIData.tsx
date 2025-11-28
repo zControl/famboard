@@ -1,6 +1,6 @@
 import { PageSections } from "@/common/layout/PageSections";
 import { Button } from "@/common/ui/actions/button";
-import { DetailedItem } from "@/common/ui/display/detailed-item";
+import { DetailedItem } from "@/common/ui/data/detailed-item";
 import {
   Item,
   ItemActions,
@@ -8,13 +8,50 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@/common/ui/display/item";
-import { LabeledValue } from "@/common/ui/display/labeled-value";
+} from "@/common/ui/data/item";
+import { LabeledValue } from "@/common/ui/data/labeled-value";
 import { Separator } from "@/common/ui/display/separator";
 import { Tile } from "@/common/ui/surfaces/Tile";
 import { Code } from "@/common/ui/typography/code";
 import { CodeBlockData } from "@/common/ui/typography/code-block";
 import { ShieldAlertIcon } from "lucide-react";
+
+function ChartExampleTile() {
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "code", code: `code here` },
+  ];
+  return (
+    <Tile title="Chart" description="Display data in a chart format.">
+      <p>Chart Example Here</p>
+      <Separator className="my-4" />
+      <Code codeData={code} />
+    </Tile>
+  );
+}
+
+function DetailedItemTile() {
+  const code: CodeBlockData[] = [
+    { language: "tsx", filename: "code", code: `code here` },
+  ];
+  return (
+    <Tile
+      title="Detailed Item"
+      description="A styled version of the item component used to display detailed information."
+    >
+      <div className="max-w-sm mx-auto">
+        <DetailedItem
+          title="Title"
+          media={<ShieldAlertIcon />}
+          description="Description"
+          value="Value"
+          units="Units"
+        />
+      </div>
+      <Separator className="my-4" />
+      <Code codeData={code} />
+    </Tile>
+  );
+}
 
 function ItemTile() {
   const code: CodeBlockData[] = [
@@ -22,7 +59,7 @@ function ItemTile() {
   ];
   return (
     <Tile
-      title="Item with variants"
+      title="Basic Item"
       description="A reusable component for displaying an item with media, title, and description."
     >
       <div className="flex w-full max-w-lg flex-col gap-6">
@@ -42,30 +79,6 @@ function ItemTile() {
         </Item>
       </div>
       <p>There are variants for styling and size.</p>
-
-      <Separator className="my-4" />
-      <Code codeData={code} />
-    </Tile>
-  );
-}
-
-function DetailedItemTile() {
-  const code: CodeBlockData[] = [
-    { language: "tsx", filename: "code", code: `code here` },
-  ];
-  return (
-    <Tile
-      title="Detailed Item"
-      description="A styled item used to display detailed information."
-    >
-      <DetailedItem
-        media={<ShieldAlertIcon />}
-        title="Detailed Title"
-        description="Detailed Description"
-        value="Value"
-        units="Units"
-      />
-      <p>Custom DetailedItem(s) could be created for specific needs.</p>
 
       <Separator className="my-4" />
       <Code codeData={code} />
@@ -97,11 +110,28 @@ function LabeledValueTile() {
 }
 
 const sections = [
-  { id: "tile", title: "Item", children: <ItemTile /> },
-  { id: "tile", title: "DetailedItem", children: <DetailedItemTile /> },
-  { id: "tile", title: "LabeledValue", children: <LabeledValueTile /> },
+  {
+    id: "chart",
+    title: "Chart",
+    children: <ChartExampleTile />,
+  },
+  {
+    id: "detailed-item",
+    title: "Detailed Item",
+    children: <DetailedItemTile />,
+  },
+  {
+    id: "item",
+    title: "Item",
+    children: <ItemTile />,
+  },
+  {
+    id: "labeled-value",
+    title: "Labeled Value",
+    children: <LabeledValueTile />,
+  },
 ];
 
-export const DisplayExamples = () => {
+export const UIData = () => {
   return <PageSections sections={sections} />;
 };

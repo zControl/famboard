@@ -1,5 +1,5 @@
+import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
-import { Textarea } from "@/common/ui/typography/textarea";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 

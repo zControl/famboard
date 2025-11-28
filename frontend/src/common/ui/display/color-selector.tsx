@@ -1,11 +1,11 @@
 import { CopyButton } from "@/common/ui/actions/copy-button";
-import { Input } from "@/common/ui/fields/input";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/common/ui/overlay/tooltip";
+} from "@/common/ui/feedback/tooltip";
+import { Input } from "@/common/ui/fields/input";
 import { Label } from "@/common/ui/typography/label";
 import { cn } from "@/common/utils/classNames";
 import { useState } from "react";
