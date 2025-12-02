@@ -7,7 +7,7 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
-import { EntityManager, Repository } from 'typeorm';
+import { EntityManager, MoreThanOrEqual, Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { TaskApproval } from './entities/task-approval.entity';
 import { Task } from './entities/task.entity';
@@ -134,6 +134,38 @@ export class TaskApprovalService {
 
   async getPendingApprovals(): Promise<PendingApprovalDto[]> {
     return this.getApprovals({ status: 'PENDING_APPROVAL' });
+  }
+
+  async getApprovalCountsByPeriod(period: 'daily' | 'weekly' | 'monthly', userId?: string): Promise<number> {
+    const now = new Date();
+    let startDate: Date;
+
+    switch (period) {
+      case 'daily':
+        startDate = new Date(now.setHours(0, 0, 0, 0));
+        break;
+      case 'weekly':
+        startDate = new Date(now.setDate(now.getDate() - 7));
+        break;
+      case 'monthly':
+        startDate = new Date(now.setMonth(now.getMonth() - 1));
+        break;
+    }
+
+    // Build where clause
+    const whereClause: any = {
+      status: 'APPROVED',
+      approvedAt: MoreThanOrEqual(startDate)
+    };
+
+    // Add user filter if provided
+    if (userId) {
+      whereClause.user = { id: userId };
+    }
+
+    return this.taskApprovalRepository.count({
+      where: whereClause
+    });
   }
 
   async getPendingApprovalsByUser(
