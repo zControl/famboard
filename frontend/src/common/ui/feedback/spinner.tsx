@@ -27,11 +27,10 @@ export const Spinner = ({
   className = "",
 }: SpinnerProps) => {
   return (
-    <>
-      <Loader2Icon
-        className={cn("animate-spin", sizes[size], colors[color], className)}
-      />
-      <span className="sr-only">Loading</span>
-    </>
+    <Loader2Icon
+      role="status"
+      aria-label="Loading"
+      className={cn("animate-spin", sizes[size], colors[color], className)}
+    />
   );
 };
