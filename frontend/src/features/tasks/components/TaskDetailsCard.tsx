@@ -12,7 +12,7 @@ import { AssignedAvatarGroup } from "@/features/tasks/components/AssignedAvatarG
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { useTaskById } from "@/features/tasks/hooks/useTaskById";
+import { useTaskQuery } from "@/features/tasks/hooks/useTaskQuery";
 import { Task } from "@/features/tasks/types";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -26,7 +26,7 @@ import { useState } from "react";
 
 export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
   const { id } = initialTask;
-  const { data: task } = useTaskById(id);
+  const { data: task } = useTaskQuery(id);
   const [editOpen, setEditOpen] = useState(false);
   const queryClient = useQueryClient();
 

@@ -27,11 +27,12 @@ export const Spinner = ({
   className = "",
 }: SpinnerProps) => {
   return (
-    <>
+    <div className="flex items-center justify-center">
       <Loader2Icon
+        role="status"
+        aria-label="Loading"
         className={cn("animate-spin", sizes[size], colors[color], className)}
       />
-      <span className="sr-only">Loading</span>
-    </>
+    </div>
   );
 };

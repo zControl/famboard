@@ -60,7 +60,27 @@ export const handleApiError = (
   throw apiError;
 };
 
+// Consider request interceptors for auth token
+/* axiosInstance.interceptors.request.use((config) => {
+  // Add auth token if available
+  const token = localStorage.getItem('auth_token');
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}); */
 
+// Consider response interceptors for error handling
+/* axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Handle 401 unauthorized globally
+    if (error.response?.status === 401) {
+      // Redirect to login or refresh token
+    }
+    return Promise.reject(error);
+  }
+); */
 
 export const apiClient = {
   get: async <T>(url: string, config?: AxiosRequestConfig, options?: ApiErrorHandlerOptions): Promise<T> => {

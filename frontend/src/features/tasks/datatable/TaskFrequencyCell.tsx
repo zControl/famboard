@@ -11,7 +11,7 @@ import {
 } from "@/common/ui/overlay/popover";
 import { enumToArray } from "@/common/utils/enumToArray";
 import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
-import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
 import { Task, TaskFrequency } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";

@@ -4,11 +4,11 @@ import { ApprovalResponse } from "@/features/tasks/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
-interface ApprovalRowActionsProps {
+export const ApprovalSummaryCardActions = ({
+  approval,
+}: {
   approval: ApprovalResponse;
-}
-
-export const ApprovalRowActions = ({ approval }: ApprovalRowActionsProps) => {
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [actionType, setActionType] = useState<"approve" | "reject">("approve");
 

@@ -13,6 +13,7 @@ import {
   StatLabel,
   StatValue,
 } from "@/common/ui/typography/typography";
+import { useApprovalCounts } from "@/features/approvals/hooks/useApprovalCounts";
 import { UserProfile } from "@/features/user/types";
 
 interface KidShowcaseCardProps {
@@ -21,6 +22,7 @@ interface KidShowcaseCardProps {
 }
 
 export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
+  const { daily, weekly, monthly } = useApprovalCounts(profile?.userId || "");
   return (
     <Card className="p-0">
       {loading ? (
@@ -41,14 +43,19 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
             <StatValue>100</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
+            <StyledCalendarCheckIcon />
+            <StatLabel>Daily Completed:</StatLabel>
+            <StatValue>{daily}</StatValue>
+          </div>
+          <div className="flex flex-row items-center px-4">
             <StyledCalendar1Icon />
             <StatLabel>Weekly Completed:</StatLabel>
-            <StatValue>|completed number|</StatValue>
+            <StatValue>{weekly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
             <StyledCalendarCheckIcon />
-            <StatLabel>Daily Completed:</StatLabel>
-            <StatValue>|completed number|</StatValue>
+            <StatLabel>Monthly Completed:</StatLabel>
+            <StatValue>{monthly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
             <StyledTrophyIcon />

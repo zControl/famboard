@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Patch,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
@@ -18,7 +18,7 @@ export class TaskApprovalController {
   constructor(private readonly taskApprovalService: TaskApprovalService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get()
+  @Get('pending')
   @ApiOperation({ summary: 'Get tasks that are pending approval' })
   @ApiResponse({
     status: 200,
@@ -32,6 +32,19 @@ export class TaskApprovalController {
       count: approvals.length,
       data: approvals.map((approval) => new PendingApprovalDto(approval)),
     };
+  }
+
+  @Get('counts/:period/:userId')
+  @ApiOperation({ summary: 'Get count of approved within specified period for a specific user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns approval counts for the specified period',
+  })
+  async getApprovalCounts(
+    @Param('period') period: 'daily' | 'weekly' | 'monthly',
+    @Param('userId') userId: string
+  ) {
+    return this.taskApprovalService.getApprovalCountsByPeriod(period, userId);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

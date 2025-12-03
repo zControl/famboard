@@ -1,7 +1,7 @@
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
+import { useTaskAssignments } from "@/features/tasks/hooks/useTaskAssignments";
 import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ export const AssignedUserSelection = ({
   const initialSelectedKids = assignments
     ? assignments.map((assignment) => assignment.user.id).filter(Boolean)
     : [];
-  const { taskAssignments } = useAssignments(taskId);
+  const { taskAssignments } = useTaskAssignments(taskId);
   const { kidIds } = useKidManager();
   const [selectedKids, setSelectedKids] =
     useState<string[]>(initialSelectedKids);

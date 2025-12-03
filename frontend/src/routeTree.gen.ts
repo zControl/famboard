@@ -40,6 +40,7 @@ import { Route as appExamplesUiCategoryRouteImport } from './routes/(app)/_examp
 import { Route as appAdminAdminUsersRouteImport } from './routes/(app)/_admin/admin.users'
 import { Route as appAdminAdminAnalyticsRouteImport } from './routes/(app)/_admin/admin.analytics'
 import { Route as testTestABCRouteImport } from './routes/(test)/test.a.b.c'
+import { Route as appParentsParentsTasksNewRouteImport } from './routes/(app)/_parents/parents.tasks.new'
 import { Route as appParentsParentsTasksSequenceNumberRouteImport } from './routes/(app)/_parents/parents.tasks.$sequenceNumber'
 
 const authRouteImport = createFileRoute('/(auth)')()
@@ -275,6 +276,12 @@ const testTestABCRoute = testTestABCRouteImport.update({
   path: '/test/a/b/c',
   getParentRoute: () => rootRouteImport,
 } as any)
+const appParentsParentsTasksNewRoute =
+  appParentsParentsTasksNewRouteImport.update({
+    id: '/parents/tasks/new',
+    path: '/parents/tasks/new',
+    getParentRoute: () => appParentsRoute,
+  } as any)
 const appParentsParentsTasksSequenceNumberRoute =
   appParentsParentsTasksSequenceNumberRouteImport.update({
     id: '/parents/tasks/$sequenceNumber',
@@ -315,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
   '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
+  '/parents/tasks/new': typeof appParentsParentsTasksNewRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 export interface FileRoutesByTo {
@@ -350,6 +358,7 @@ export interface FileRoutesByTo {
   '/kids': typeof appKidsKidsIndexRoute
   '/parents': typeof appParentsParentsIndexRoute
   '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
+  '/parents/tasks/new': typeof appParentsParentsTasksNewRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 export interface FileRoutesById {
@@ -393,6 +402,7 @@ export interface FileRoutesById {
   '/(app)/_kids/kids/': typeof appKidsKidsIndexRoute
   '/(app)/_parents/parents/': typeof appParentsParentsIndexRoute
   '/(app)/_parents/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
+  '/(app)/_parents/parents/tasks/new': typeof appParentsParentsTasksNewRoute
   '/(test)/test/a/b/c': typeof testTestABCRoute
 }
 export interface FileRouteTypes {
@@ -430,6 +440,7 @@ export interface FileRouteTypes {
     | '/kids'
     | '/parents'
     | '/parents/tasks/$sequenceNumber'
+    | '/parents/tasks/new'
     | '/test/a/b/c'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -465,6 +476,7 @@ export interface FileRouteTypes {
     | '/kids'
     | '/parents'
     | '/parents/tasks/$sequenceNumber'
+    | '/parents/tasks/new'
     | '/test/a/b/c'
   id:
     | '__root__'
@@ -507,6 +519,7 @@ export interface FileRouteTypes {
     | '/(app)/_kids/kids/'
     | '/(app)/_parents/parents/'
     | '/(app)/_parents/parents/tasks/$sequenceNumber'
+    | '/(app)/_parents/parents/tasks/new'
     | '/(test)/test/a/b/c'
   fileRoutesById: FileRoutesById
 }
@@ -796,6 +809,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof testTestABCRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(app)/_parents/parents/tasks/new': {
+      id: '/(app)/_parents/parents/tasks/new'
+      path: '/parents/tasks/new'
+      fullPath: '/parents/tasks/new'
+      preLoaderRoute: typeof appParentsParentsTasksNewRouteImport
+      parentRoute: typeof appParentsRoute
+    }
     '/(app)/_parents/parents/tasks/$sequenceNumber': {
       id: '/(app)/_parents/parents/tasks/$sequenceNumber'
       path: '/parents/tasks/$sequenceNumber'
@@ -871,6 +891,7 @@ interface appParentsRouteChildren {
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
   appParentsParentsTasksSequenceNumberRoute: typeof appParentsParentsTasksSequenceNumberRoute
+  appParentsParentsTasksNewRoute: typeof appParentsParentsTasksNewRoute
 }
 
 const appParentsRouteChildren: appParentsRouteChildren = {
@@ -882,6 +903,7 @@ const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
   appParentsParentsTasksSequenceNumberRoute:
     appParentsParentsTasksSequenceNumberRoute,
+  appParentsParentsTasksNewRoute: appParentsParentsTasksNewRoute,
 }
 
 const appParentsRouteWithChildren = appParentsRoute._addFileChildren(

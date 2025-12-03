@@ -8,7 +8,7 @@ export const KidApprovalsCard = ({
   assignedTasks,
   loading,
 }: AssignedTaskCardProps) => {
-  const totalPossibePoints = assignedTasks?.reduce(
+  const totalPossibePoints = assignedTasks.reduce(
     (total, task) => total + task.pointValue,
     0,
   );
@@ -16,7 +16,7 @@ export const KidApprovalsCard = ({
     <Card className="p-0 gap-0">
       <div className="flex items-center justify-between">
         <StatLabel>
-          {assignedTasks?.length} pending approvals for {totalPossibePoints}{" "}
+          {assignedTasks.length} pending approvals for {totalPossibePoints}{" "}
           points
         </StatLabel>
       </div>
@@ -24,7 +24,7 @@ export const KidApprovalsCard = ({
         <Spinner size="xl" />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
-          {assignedTasks?.map((task) => (
+          {assignedTasks.map((task) => (
             <ApprovalTaskItem key={task.id} task={task} />
           ))}
         </div>

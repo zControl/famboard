@@ -29,7 +29,7 @@ export const useApprovals = () => {
       taskApi.approveTask(approvalId, parentId, bonusPoints, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
-      queryClient.invalidateQueries({ queryKey: ["user-approvals"] });
+      queryClient.invalidateQueries({ queryKey: ["approvals-by-user"] });
       queryClient.invalidateQueries({ queryKey: ["user-profile"] });
     },
   });
@@ -39,7 +39,7 @@ export const useApprovals = () => {
       taskApi.rejectTask(approvalId, parentId, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
-      queryClient.invalidateQueries({ queryKey: ["user-approvals"] });
+      queryClient.invalidateQueries({ queryKey: ["approvals-by-user"] });
     },
   });
 

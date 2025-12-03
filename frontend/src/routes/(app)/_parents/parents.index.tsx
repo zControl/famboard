@@ -1,4 +1,6 @@
+import { ErrorCard } from "@/common/error/ErrorCard";
 import { PageContainer } from "@/common/layout/PageContainer";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import {
   Tabs,
   TabsContent,
@@ -16,9 +18,17 @@ export const Route = createFileRoute("/(app)/_parents/parents/")({
 function ParentsIndexPage() {
   const { kidIds, kidProfiles, isLoadingIds, idsError } = useKidManager();
 
-  if (isLoadingIds) return <div>Loading...</div>;
-  if (idsError) return <div>Error fetching kid ids</div>;
-
+  if (isLoadingIds) return <Spinner size="xl" />;
+  if (idsError)
+    return (
+      <PageContainer title="Error">
+        <ErrorCard
+          error={
+            idsError.message ? idsError : new Error("Error fetching kid Ids")
+          }
+        />
+      </PageContainer>
+    );
   return (
     <PageContainer title="Parents" description="Parents page">
       {kidIds && kidIds.length > 0 ? (

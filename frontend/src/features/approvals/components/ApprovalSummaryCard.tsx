@@ -3,7 +3,7 @@ import {
   CardDescription,
   CardTitle,
 } from "@/common/ui/surfaces/card";
-import { ApprovalRowActions } from "@/features/parents/components/ApprovalRowActions";
+import { ApprovalSummaryCardActions } from "@/features/approvals/components/ApprovalSummaryCardActions";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
 import { ApprovalResponse } from "@/features/tasks/types";
 
@@ -35,7 +35,7 @@ export const ApprovalSummaryCard = ({ approval }: TaskApprovalCardProps) => {
               </CardDescription>
             </div>
           </div>
-          <ApprovalRowActions approval={approval} />
+          <ApprovalSummaryCardActions approval={approval} />
         </div>
       </div>
 

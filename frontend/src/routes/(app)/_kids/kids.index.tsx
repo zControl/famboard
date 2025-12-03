@@ -3,7 +3,7 @@ import { Spinner } from "@/common/ui/feedback/spinner";
 import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
 import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
-import { useAssignedTasks } from "@/features/tasks/hooks/useAssignedTasks";
+import { useAssignedTasksByUser } from "@/features/tasks/hooks/useAssignedTasksByUser";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -14,9 +14,8 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 function KidsIndexPage() {
   const { profile, isLoading: profileLoading } = useProfile();
 
-  const { assignedTasks, isLoading, pendingApprovalTasks } = useAssignedTasks(
-    profile?.userId ? profile.userId : "",
-  );
+  const { assignedTasks, isLoading, pendingApprovalTasks } =
+    useAssignedTasksByUser(profile?.userId ? profile.userId : "");
 
   // Wait for profile to load before rendering content that depends on it
   if (profileLoading) {

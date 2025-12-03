@@ -7,68 +7,59 @@ import {
   StyledGemIcon,
   StyledPiggyBankIcon,
 } from "@/common/ui/display/styled-icons";
-import { Spinner } from "@/common/ui/feedback/spinner";
-import { Card, CardContent } from "@/common/ui/surfaces/card";
-import { StatLabel, StatValue } from "@/common/ui/typography/typography";
+import { StatValue } from "@/common/ui/typography/typography";
 import { firstInitial } from "@/common/utils/firstInitial";
-import { useUserProfile } from "@/features/user/hooks/useUserProfile";
+import { useApprovalCounts } from "@/features/approvals/hooks/useApprovalCounts";
+import { UserProfile } from "@/features/user/types";
+import {
+  CalendarCheckIcon,
+  CalendarRangeIcon,
+  CalendarSyncIcon,
+} from "lucide-react";
 
-export const KidProfileCard = ({ id }: { id: string }) => {
-  const { userProfile, isLoading } = useUserProfile(id);
-
-  if (!userProfile) {
-    return (
-      <Card className="w-full">
-        <CardContent className="p-6 flex flex-col items-center gap-4">
-          <Avatar className="h-24 w-24">
-            <AvatarFallback>{"??"}</AvatarFallback>
-          </Avatar>
-          <div className="text-lg">No Profile</div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
+export const KidProfileCard = ({
+  userProfile,
+}: {
+  userProfile: UserProfile;
+}) => {
+  const { daily, weekly, monthly } = useApprovalCounts(userProfile.userId);
   return (
     <div className="p-0 flex flex-col gap-4">
       <div className="flex flex-col items-center gap-2">
-        <Avatar className="h-24 w-24 border-4 border-background shadow-lg">
+        <Avatar className="h-32 w-32 shadow-lg">
           <AvatarImage src={userProfile.avatarUrl} alt="Avatar" />
-          <AvatarFallback>
-            {firstInitial(userProfile.username ?? "")}
-          </AvatarFallback>
+          <AvatarFallback>{firstInitial(userProfile.username)}</AvatarFallback>
         </Avatar>
         <div className="flex items-center justify-around gap-2">
           <div>{userProfile.statusEmoji}</div>
           <div className="text-muted-foreground">{userProfile.status}</div>
         </div>
       </div>
-
       <div className="flex flex-row justify-around">
         <div className="flex flex-col items-center">
           <StyledPiggyBankIcon />
-          <StatValue>{userProfile.pointTotal || 1}</StatValue>
+          <StatValue>{userProfile.pointTotal}</StatValue>
         </div>
 
         <div className="flex flex-col items-center">
           <StyledGemIcon />
-          <StatValue>{userProfile.pointTotal || 0}</StatValue>
+          <StatValue>{userProfile.pointTotal}</StatValue>
         </div>
       </div>
       <div>
-        <div className="flex flex-col">
-          <StatLabel>Achievements</StatLabel>
-          {/* <StatValue>{userProfile.achievements?.length || 0}</StatValue> */}
-          <StatValue>TBD</StatValue>
-        </div>
-
-        <div className="flex flex-col">
-          <StatLabel>About</StatLabel>
-          <StatValue>{userProfile.bio}</StatValue>
+        <div className="flex flex-row justify-around">
+          <div className="flex flex-row items-center">
+            <CalendarCheckIcon />
+            <StatValue>{daily}</StatValue>
+          </div>
+          <div className="flex flex-row items-center">
+            <CalendarRangeIcon />
+            <StatValue>{weekly}</StatValue>
+          </div>
+          <div className="flex flex-row items-center">
+            <CalendarSyncIcon />
+            <StatValue>{monthly}</StatValue>
+          </div>
         </div>
       </div>
     </div>
