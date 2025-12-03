@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/common/ui/overlay/dropdown-menu";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
 import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import {

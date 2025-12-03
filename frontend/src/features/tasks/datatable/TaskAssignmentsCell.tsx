@@ -1,7 +1,7 @@
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserSelection } from "@/features/tasks/components/AssignedUserSelection";
-import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutation";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
 import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { Edit2Icon, PlusIcon } from "lucide-react";

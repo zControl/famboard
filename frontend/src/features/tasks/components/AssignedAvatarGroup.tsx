@@ -2,7 +2,7 @@ import { ErrorCard } from "@/common/error/ErrorCard";
 import { Spinner } from "@/common/ui/feedback/spinner";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
+import { useTaskAssignments } from "@/features/tasks/hooks/useTaskAssignments";
 
 interface AssignedAvatarGroupProps {
   taskId: string;
@@ -13,7 +13,7 @@ export const AssignedAvatarGroup = ({
   taskId,
   limit = 5,
 }: AssignedAvatarGroupProps) => {
-  const { taskAssignments, isLoading, isError } = useAssignments(taskId);
+  const { taskAssignments, isLoading, isError } = useTaskAssignments(taskId);
 
   if (isLoading) return <Spinner size="sm" />;
   if (isError) return <ErrorCard message="Failed to load assignments." />;

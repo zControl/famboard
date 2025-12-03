@@ -4,12 +4,12 @@ import { Spinner } from "@/common/ui/feedback/spinner";
 import { Card, CardContent } from "@/common/ui/surfaces/card";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
 import { ApprovalSummaryCard } from "@/features/parents/components/ApprovalSummaryCard";
-import { useUserApprovals } from "@/features/tasks/hooks/useUserApprovals";
+import { useApprovalsByUser } from "@/features/tasks/hooks/useApprovalsByUser";
 import { PartyPopperIcon } from "lucide-react";
 import { useState } from "react";
 
 export const ApprovalListTile = ({ userId }: { userId: string }) => {
-  const { approvalsList, isLoading, error } = useUserApprovals(userId);
+  const { approvalsList, isLoading, error } = useApprovalsByUser(userId);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   if (error) return <ErrorCard message="Error getting user approval list." />;
