@@ -1,10 +1,13 @@
-import { ErrorPage } from "@/common/error/ErrorPage";
 import { NotFoundPage } from "@/common/error/NotFoundPage";
 import { useTheme } from "@/common/theme/useTheme";
 import { Toaster } from "@/common/ui/feedback/sonner";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { QueryClient } from "@tanstack/react-query";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  ErrorComponent,
+  Outlet,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import "../globals.css";
 
@@ -16,7 +19,7 @@ interface AppRouterContext {
 export const Route = createRootRouteWithContext<AppRouterContext>()({
   component: RootLayout,
   notFoundComponent: NotFoundPage,
-  errorComponent: ErrorPage,
+  errorComponent: ErrorComponent,
 });
 
 function RootLayout() {
