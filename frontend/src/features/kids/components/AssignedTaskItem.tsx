@@ -9,11 +9,6 @@ import {
 } from "@/common/ui/data/item";
 import { Coin } from "@/common/ui/display/coin";
 import { Spinner } from "@/common/ui/feedback/spinner";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/common/ui/feedback/tooltip";
 import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { useAuth } from "@/features/auth/hooks/useAuth";
@@ -61,35 +56,26 @@ export const AssignedTaskItem = ({ task }: AssignedTaskItemProps) => {
           <ItemDescription>{task.description}</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Tooltip>
-            <TooltipContent>Mark Complete</TooltipContent>
-            <TooltipTrigger>
-              <ActionModal
-                trigger={
-                  <Button variant="primary">
-                    {isCompleting ? (
-                      <Spinner size="sm" />
-                    ) : (
-                      <SquareCheckBigIcon />
-                    )}
-                  </Button>
-                }
-                title={`Did you complete "${task.title}"?`}
-                description={`This will earn you ${task.pointValue} points!`}
-                onConfirm={() => handleTaskCompletion()}
-                onCancel={() => console.log("Cancel")}
-              >
-                <Textarea
-                  autoFocus
-                  placeholder="Leave a note if you want...."
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                  className="w-full min-h-20 mt-4"
-                  maxLength={300}
-                />
-              </ActionModal>
-            </TooltipTrigger>
-          </Tooltip>
+          <ActionModal
+            trigger={
+              <Button variant="primary">
+                {isCompleting ? <Spinner size="sm" /> : <SquareCheckBigIcon />}
+              </Button>
+            }
+            title={`Did you complete "${task.title}"?`}
+            description={`This will earn you ${task.pointValue} points!`}
+            onConfirm={() => handleTaskCompletion()}
+            onCancel={() => console.log("Cancel")}
+          >
+            <Textarea
+              autoFocus
+              placeholder="Leave a note if you want...."
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              className="w-full min-h-20 mt-4"
+              maxLength={300}
+            />
+          </ActionModal>
         </ItemActions>
       </Item>
     </div>

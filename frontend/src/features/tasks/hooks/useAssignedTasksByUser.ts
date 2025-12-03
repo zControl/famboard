@@ -50,11 +50,11 @@ export const useAssignedTasksByUser = (userId: string) => {
       default:
         return false;
     }
-  });
+  }) || [];
 
-  const dailyTasks = tasks?.data.filter((task) => task.frequency === "DAILY");
-  const weeklyTasks = tasks?.data.filter((task) => task.frequency === "WEEKLY");
-  const pendingApprovalTasks = tasks?.data.filter((task) => task.status === "PENDING_APPROVAL");
+  const dailyTasks = tasks?.data.filter((task) => task.frequency === "DAILY") || [];
+  const weeklyTasks = tasks?.data.filter((task) => task.frequency === "WEEKLY") || [];
+  const pendingApprovalTasks = tasks?.data.filter((task) => task.status === "PENDING_APPROVAL") || [];
   const assignedTasks = currentlyAssignedTasks;
 
   return {

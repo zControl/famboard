@@ -10,15 +10,17 @@ export const KidActiveTasksCard = ({
 }: AssignedTaskCardProps) => {
   return (
     <Card className="p-0 gap-0">
-      <StatLabel>My Active Tasks ({assignedTasks?.length})</StatLabel>
       {loading ? (
         <Spinner size="xl" />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
-          {assignedTasks?.map((task) => (
-            <AssignedTaskItem key={task.id} task={task} />
-          ))}
-        </div>
+        <>
+          <StatLabel>You have {assignedTasks.length} active tasks</StatLabel>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+            {assignedTasks.map((task) => (
+              <AssignedTaskItem key={task.id} task={task} />
+            ))}
+          </div>
+        </>
       )}
     </Card>
   );

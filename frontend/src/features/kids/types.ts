@@ -1,7 +1,7 @@
 import { AssignedTask } from "@/features/tasks/types";
 
 export interface AssignedTaskCardProps {
-  assignedTasks: AssignedTask[] | undefined;
+  assignedTasks: AssignedTask[];
   loading: boolean;
 }
 
