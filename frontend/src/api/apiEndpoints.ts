@@ -22,7 +22,6 @@ export const API_ENDPOINTS = {
     DELETE: (id: string) => `/tasks/${id}`,
     GET_ASSIGNED_USERS: (taskId: string) => `/tasks/assigned-users/${taskId}`,
     GET_ASSIGNED_TASKS: (userId: string) => `/tasks/assigned-tasks/${userId}`,
-    GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
     ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
   },

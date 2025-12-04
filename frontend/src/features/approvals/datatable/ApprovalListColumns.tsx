@@ -1,4 +1,4 @@
-import { ApprovalResponse } from "@/features/tasks/types";
+import { ApprovalResponse } from "@/features/approvals/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const approvalListColumns: ColumnDef<ApprovalResponse>[] = [

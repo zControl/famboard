@@ -12,12 +12,12 @@ import { Spinner } from "@/common/ui/feedback/spinner";
 import { Card, CardContent } from "@/common/ui/surfaces/card";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
 import { ApprovalSummaryCard } from "@/features/approvals/components/ApprovalSummaryCard";
-import { useApprovalsByUser } from "@/features/tasks/hooks/useApprovalsByUser";
+import { useApprovalsByUser } from "@/features/approvals/hooks/useApprovalsByUser";
 import { PartyPopperIcon } from "lucide-react";
 import { useState } from "react";
 
 export const KidApprovalsCard = ({ userId }: { userId: string }) => {
-  const { approvalsList, isLoading, error } = useApprovalsByUser(userId);
+  const { approvalsByUser, isLoading, error } = useApprovalsByUser(userId);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   if (error) return <ErrorCard message="Error getting user approval list." />;
@@ -30,7 +30,7 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
     <Card className="p-2">
       {isLoading ? (
         <Spinner />
-      ) : approvalsList?.count === 0 ? (
+      ) : approvalsByUser?.count === 0 ? (
         <CardContent className="flex flex-col items-center justify-center">
           <Empty>
             <EmptyHeader>
@@ -55,14 +55,14 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
             <Button
               variant={"secondary"}
               size={"lg"}
-              disabled={approvalsList?.count === 0}
+              disabled={approvalsByUser?.count === 0}
               onClick={handleApprovalAll}
             >
-              {`Approve All (${approvalsList?.count})`}
+              {`Approve All (${approvalsByUser?.count})`}
             </Button>
           </div>
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mx-auto">
-            {approvalsList?.data.map((approval) => (
+            {approvalsByUser?.data.map((approval) => (
               <ApprovalSummaryCard
                 key={approval.approvalId}
                 approval={approval}
@@ -72,12 +72,12 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
         </>
       )}
 
-      {approvalsList?.data && (
+      {approvalsByUser?.data && (
         <ApprovalActionModal
           isOpen={isConfirmModalOpen}
           onOpenChange={setConfirmModalOpen}
           actionType="approve"
-          approvals={approvalsList.data}
+          approvals={approvalsByUser.data}
         />
       )}
     </Card>

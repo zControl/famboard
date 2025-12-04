@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/apiClient';
 import { API_ENDPOINTS } from '@/api/apiEndpoints';
-import { AssignedTaskResponse, AssignedUserResponse, PendingApprovalsResponse, Task, TaskListResponse, UserAssignedTaskResponse } from "@/features/tasks/types";
+import { AssignedTaskResponse, AssignedUserResponse, Task, TaskListResponse } from "@/features/tasks/types";
 
 export const taskApi = {
   getTasks: () =>
@@ -27,9 +27,6 @@ export const taskApi = {
   getAssignedTasks: (userId: string) =>
     apiClient.get<AssignedTaskResponse>(API_ENDPOINTS.TASKS.GET_ASSIGNED_TASKS(userId)),
 
-  getUserAssignedTasks: (userId: string) =>
-    apiClient.get<UserAssignedTaskResponse[]>(API_ENDPOINTS.TASKS.GET_USER_ASSIGNED(userId)),
-
   assignUsersToTask: (taskId: string, userIds: string[]) =>
     apiClient.post<Task>(API_ENDPOINTS.TASKS.ASSIGN_USERS(taskId), { userIds }),
 
@@ -42,28 +39,4 @@ export const taskApi = {
         note
       }
     ),
-
-  getPendingApprovals: () =>
-    apiClient.get<PendingApprovalsResponse>(API_ENDPOINTS.APROVALS.GET_PENDING_APPROVALS),
-
-  getApprovalsByUser: (userId: string) =>
-    apiClient.get<PendingApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
-
-  getApprovalCounts: (period: 'daily' | 'weekly' | 'monthly', userId: string) =>
-    apiClient.get<number>(API_ENDPOINTS.APROVALS.GET_APPROVAL_COUNTS(period, userId)),
-
-  approveTask: (approvalId: string, parentId: string, bonusPoints?: number, note?: string) =>
-    apiClient.patch<void>(API_ENDPOINTS.APROVALS.APPROVE(approvalId),
-      {
-        parentId,
-        bonusPoints,
-        note
-      }),
-
-  rejectTask: (approvalId: string, parentId: string, note?: string) =>
-    apiClient.patch<void>(API_ENDPOINTS.APROVALS.REJECT(approvalId),
-      {
-        parentId,
-        note
-      }),
 };

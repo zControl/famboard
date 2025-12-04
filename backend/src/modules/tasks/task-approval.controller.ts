@@ -17,6 +17,20 @@ import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 export class TaskApprovalController {
   constructor(private readonly taskApprovalService: TaskApprovalService) {}
 
+  @Get()
+  @ApiOperation({ summary: 'Get all approvals' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all approvals',
+  })
+  async getAllApprovals() {
+    const approvals = await this.taskApprovalService.getAllApprovals();
+    return {
+      count: approvals.length,
+      data: approvals,
+    };
+  }
+
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('pending')
   @ApiOperation({ summary: 'Get tasks that are pending approval' })

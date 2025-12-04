@@ -128,8 +128,12 @@ export class TaskApprovalService {
     return approvals.map((approval) => new PendingApprovalDto(approval));
   }
 
-  async getAllApprovals(): Promise<PendingApprovalDto[]> {
-    return this.getApprovals();
+  async getAllApprovals(): Promise<TaskApproval[]> {
+    const queryOptions = {
+      relations: ['task', 'user', 'approvedBy'],
+    };
+
+    return this.taskApprovalRepository.find(queryOptions);
   }
 
   async getPendingApprovals(): Promise<PendingApprovalDto[]> {

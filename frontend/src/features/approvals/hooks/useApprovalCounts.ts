@@ -1,4 +1,4 @@
-import { taskApi } from "@/features/tasks/api/taskApi";
+import { approvalsApi } from "@/features/approvals/api/approvalsApi";
 import { useQueries } from "@tanstack/react-query";
 
 export type ApprovalCountsResponse = {
@@ -14,17 +14,17 @@ export const useApprovalCounts = (userId: string): ApprovalCountsResponse => {
     queries: [
       {
         queryKey: ["approval-count", "daily", userId],
-        queryFn: () => taskApi.getApprovalCounts("daily", userId),
+        queryFn: () => approvalsApi.getApprovalCounts("daily", userId),
         enabled: !!userId,
       },
       {
         queryKey: ["approval-count", "weekly", userId],
-        queryFn: () => taskApi.getApprovalCounts("weekly", userId),
+        queryFn: () => approvalsApi.getApprovalCounts("weekly", userId),
         enabled: !!userId,
       },
       {
         queryKey: ["approval-count", "monthly", userId],
-        queryFn: () => taskApi.getApprovalCounts("monthly", userId),
+        queryFn: () => approvalsApi.getApprovalCounts("monthly", userId),
         enabled: !!userId,
       },
     ],

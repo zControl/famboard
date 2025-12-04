@@ -1,5 +1,5 @@
-import { taskApi } from "@/features/tasks/api/taskApi";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { approvalsApi } from "@/features/approvals/api/approvalsApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export interface TaskActionRequest {
   approvalId: string;
@@ -7,17 +7,8 @@ export interface TaskActionRequest {
   bonusPoints?: number;
   note?: string;
 }
-export const useApprovals = () => {
+export const useApprovalMutations = () => {
   const queryClient = useQueryClient();
-
-  const {
-    data: approvalsList,
-    isLoading: isLoadingApprovals,
-    error: approvalsError,
-  } = useQuery({
-    queryKey: ["approvals"],
-    queryFn: taskApi.getPendingApprovals,
-  });
 
   const { mutate: approveTaskMutation, isPending: isApproving } = useMutation({
     mutationFn: ({
@@ -26,7 +17,7 @@ export const useApprovals = () => {
       bonusPoints,
       note,
     }: TaskActionRequest) =>
-      taskApi.approveTask(approvalId, parentId, bonusPoints, note),
+      approvalsApi.approveTask(approvalId, parentId, bonusPoints, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
       queryClient.invalidateQueries({ queryKey: ["approvals-by-user"] });
@@ -36,7 +27,7 @@ export const useApprovals = () => {
 
   const { mutate: rejectTaskMutation, isPending: isRejecting } = useMutation({
     mutationFn: ({ approvalId, parentId, note }: TaskActionRequest) =>
-      taskApi.rejectTask(approvalId, parentId, note),
+      approvalsApi.rejectTask(approvalId, parentId, note),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["approvals"] });
       queryClient.invalidateQueries({ queryKey: ["approvals-by-user"] });
@@ -44,9 +35,6 @@ export const useApprovals = () => {
   });
 
   return {
-    approvalsList,
-    isLoadingApprovals,
-    approvalsError,
     approveTaskMutation,
     isApproving,
     rejectTaskMutation,

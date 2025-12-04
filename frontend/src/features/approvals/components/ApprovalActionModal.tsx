@@ -3,9 +3,9 @@ import { Coin } from "@/common/ui/display/coin";
 import { Input } from "@/common/ui/fields/input";
 import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { useApprovalMutations } from "@/features/approvals/hooks/useApprovalMutations";
+import { ApprovalResponse } from "@/features/approvals/types";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useApprovals } from "@/features/parents/hooks/useApprovals";
-import { ApprovalResponse } from "@/features/tasks/types";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -27,7 +27,7 @@ export const ApprovalActionModal = ({
   defaultNote = "",
 }: ApprovalActionModalProps) => {
   const { user } = useAuth();
-  const { approveTaskMutation, rejectTaskMutation } = useApprovals();
+  const { approveTaskMutation, rejectTaskMutation } = useApprovalMutations();
   const [note, setNote] = useState(defaultNote);
   const [bonusPoints, setBonusPoints] = useState<number | undefined>(undefined);
 
