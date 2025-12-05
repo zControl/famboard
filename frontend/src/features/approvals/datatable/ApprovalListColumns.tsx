@@ -1,7 +1,7 @@
-import { ApprovalResponse } from "@/features/approvals/types";
+import { BaseApprovalResponse } from "@/features/approvals/types";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const approvalListColumns: ColumnDef<ApprovalResponse>[] = [
+export const approvalListColumns: ColumnDef<BaseApprovalResponse>[] = [
   {
     accessorKey: "taskTitle",
     header: "Task",

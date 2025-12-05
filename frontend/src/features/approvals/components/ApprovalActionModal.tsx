@@ -4,7 +4,7 @@ import { Input } from "@/common/ui/fields/input";
 import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { useApprovalMutations } from "@/features/approvals/hooks/useApprovalMutations";
-import { ApprovalResponse } from "@/features/approvals/types";
+import { BaseApprovalResponse } from "@/features/approvals/types";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ interface ApprovalActionModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   actionType: "approve" | "reject";
-  approvals: ApprovalResponse | ApprovalResponse[];
+  approvals: BaseApprovalResponse | BaseApprovalResponse[];
   onComplete?: () => void;
   defaultNote?: string;
 }
@@ -82,7 +82,7 @@ export const ApprovalActionModal = ({
         // Single approval
         mutation(
           {
-            approvalId: (approvals as ApprovalResponse).approvalId,
+            approvalId: (approvals as BaseApprovalResponse).approvalId,
             parentId: user.id,
             bonusPoints,
             note,

@@ -1,43 +1,22 @@
 import { TaskCategory } from "@/features/tasks/types";
 
-export interface Approval {
-  id: string;
-  task: {
-    id: string;
-    title: string;
-    sequenceNumber: number;
-    description: string;
-    category: TaskCategory;
-  };
-  user: {
-    id: string;
-  };
-  completedAt: Date;
-  status: string;
-  note: string;
-  approvedBy: {
-    id: string;
-  };
-  approvedAt: Date;
-  bonusAwarded: boolean;
-  bonusValue: number;
-  pointsPossible: number;
-  pointsAwarded: number;
-}
-
-export interface ApprovalResponse {
+export interface BaseApprovalResponse {
   approvalId: string;
+  approvalStatus: string;
+  approvedById: string;
+  approvedAt: Date;
   completedAt: Date;
-  note: string;
+  userId: string;
   taskId: string;
   taskTitle: string;
   taskDescription: string;
   taskCategory: TaskCategory;
   pointsPossible: number;
-  userId: string;
+  pointsAwarded: number;
+  note: string;
 }
 
 export interface PendingApprovalsResponse {
   count: number;
-  data: ApprovalResponse[];
+  data: BaseApprovalResponse[];
 }
