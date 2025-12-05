@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
+import { ApprovalDto } from 'src/modules/tasks/dto/approval.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { EntityManager, MoreThanOrEqual, Repository } from 'typeorm';
@@ -97,25 +97,29 @@ export class TaskApprovalService {
 
   async getApprovals(
     filters?: Partial<TaskApproval>,
-  ): Promise<PendingApprovalDto[]> {
+  ): Promise<ApprovalDto[]> {
     const queryOptions = {
-      relations: ['task', 'user'],
+      relations: ['task', 'user', 'approvedBy'],
       select: {
         id: true,
-        completedAt: true,
-        note: true,
         status: true,
-        pointsPossible: true,
+        approvedBy: {
+          id: true,
+        },
+        approvedAt: true,
+        completedAt: true,
+        user: {
+          id: true,
+        },
         task: {
           id: true,
           title: true,
           description: true,
           category: true,
-          pointValue: true,
         },
-        user: {
-          id: true,
-        },
+        pointsPossible: true,
+        pointsAwarded: true,
+        note: true,
       },
     };
 
@@ -125,18 +129,14 @@ export class TaskApprovalService {
     }
 
     const approvals = await this.taskApprovalRepository.find(queryOptions);
-    return approvals.map((approval) => new PendingApprovalDto(approval));
+    return approvals.map((approval) => new ApprovalDto(approval));
   }
 
-  async getAllApprovals(): Promise<TaskApproval[]> {
-    const queryOptions = {
-      relations: ['task', 'user', 'approvedBy'],
-    };
-
-    return this.taskApprovalRepository.find(queryOptions);
+  async getAllApprovals(): Promise<ApprovalDto[]> {
+    return this.getApprovals();
   }
 
-  async getPendingApprovals(): Promise<PendingApprovalDto[]> {
+  async getPendingApprovals(): Promise<ApprovalDto[]> {
     return this.getApprovals({ status: 'PENDING_APPROVAL' });
   }
 
@@ -174,7 +174,7 @@ export class TaskApprovalService {
 
   async getPendingApprovalsByUser(
     userId: string,
-  ): Promise<PendingApprovalDto[]> {
+  ): Promise<ApprovalDto[]> {
     const approvals = this.taskApprovalRepository.find({
       where: {
         status: 'PENDING_APPROVAL',
@@ -200,7 +200,7 @@ export class TaskApprovalService {
       },
     });
     return (await approvals).map(
-      (approval) => new PendingApprovalDto(approval),
+      (approval) => new ApprovalDto(approval),
     );
   }
 

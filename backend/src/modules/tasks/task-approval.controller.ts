@@ -8,7 +8,7 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PendingApprovalDto } from 'src/modules/tasks/dto/pending-approval.dto';
+import { ApprovalDto } from 'src/modules/tasks/dto/approval.dto';
 import { TaskActionBodyDto } from 'src/modules/tasks/dto/task-action-body.dto';
 import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 
@@ -17,17 +17,20 @@ import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 export class TaskApprovalController {
   constructor(private readonly taskApprovalService: TaskApprovalService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   @ApiOperation({ summary: 'Get all approvals' })
   @ApiResponse({
     status: 200,
     description: 'Returns all approvals',
+    type: ApprovalDto,
+    isArray: true,
   })
   async getAllApprovals() {
     const approvals = await this.taskApprovalService.getAllApprovals();
     return {
       count: approvals.length,
-      data: approvals,
+      data: approvals.map((approval) => new ApprovalDto(approval)),
     };
   }
 
@@ -37,14 +40,14 @@ export class TaskApprovalController {
   @ApiResponse({
     status: 200,
     description: 'Returns all tasks that are pending approval',
-    type: PendingApprovalDto,
+    type: ApprovalDto,
     isArray: true,
   })
-  async getApprovals() {
+  async getPendingApprovals() {
     const approvals = await this.taskApprovalService.getPendingApprovals();
     return {
       count: approvals.length,
-      data: approvals.map((approval) => new PendingApprovalDto(approval)),
+      data: approvals.map((approval) => new ApprovalDto(approval)),
     };
   }
 
@@ -70,7 +73,7 @@ export class TaskApprovalController {
     status: 200,
     description:
       'Returns all pending task pending approvals for a specific user',
-    type: PendingApprovalDto,
+    type: ApprovalDto,
     isArray: true,
   })
   async getPendingCompletionsByUser(@Param('userId') userId: string) {
@@ -78,7 +81,7 @@ export class TaskApprovalController {
       await this.taskApprovalService.getPendingApprovalsByUser(userId);
     return {
       count: approvals.length,
-      data: approvals.map((approval) => new PendingApprovalDto(approval)),
+      data: approvals.map((approval) => new ApprovalDto(approval)),
     };
   }
 
