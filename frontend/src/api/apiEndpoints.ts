@@ -26,6 +26,7 @@ export const API_ENDPOINTS = {
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
   },
   APROVALS: {
+    GET_ALL: '/approvals',
     GET_PENDING_APPROVALS: `/approvals/pending`,
     GET_APPROVALS_BY_USER: (userId: string) => `/approvals/user/${userId}`,
     GET_APPROVAL_COUNTS: (period: string, userId: string) =>

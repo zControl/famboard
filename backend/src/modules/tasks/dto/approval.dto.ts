@@ -23,6 +23,10 @@ export class ApprovalDto {
   approvedById: string;
 
   @Expose()
+  @Transform(transformFromTaskApproval(approval => approval.approvedBy?.profile?.avatarUrl))
+  approvedByAvatarUrl: string;
+
+  @Expose()
   approvedAt: Date;
 
   @Expose()
@@ -31,6 +35,10 @@ export class ApprovalDto {
   @Expose()
   @Transform(transformFromTaskApproval(approval => approval.user.id))
   userId: string;
+
+  @Expose()
+  @Transform(transformFromTaskApproval(approval => approval.user.profile?.avatarUrl))
+  userAvatarUrl: string;
 
   @Expose()
   @Transform(transformFromTaskApproval(approval => approval.task.id))

@@ -99,17 +99,23 @@ export class TaskApprovalService {
     filters?: Partial<TaskApproval>,
   ): Promise<ApprovalDto[]> {
     const queryOptions = {
-      relations: ['task', 'user', 'approvedBy'],
+      relations: ['task', 'user', 'user.profile', 'approvedBy', 'approvedBy.profile'],
       select: {
         id: true,
         status: true,
         approvedBy: {
           id: true,
+          profile: {
+            avatarUrl: true
+          }
         },
         approvedAt: true,
         completedAt: true,
         user: {
           id: true,
+          profile: {
+            avatarUrl: true
+          }
         },
         task: {
           id: true,

@@ -1,13 +1,16 @@
 import { apiClient } from "@/api/apiClient";
 import { API_ENDPOINTS } from "@/api/apiEndpoints";
-import { PendingApprovalsResponse } from "@/features/approvals/types";
+import { ApprovalsResponse } from "@/features/approvals/types";
 
 export const approvalsApi = {
+  getAllApprovals: () =>
+    apiClient.get<ApprovalsResponse>(API_ENDPOINTS.APROVALS.GET_ALL),
+
   getPendingApprovals: () =>
-    apiClient.get<PendingApprovalsResponse>(API_ENDPOINTS.APROVALS.GET_PENDING_APPROVALS),
+    apiClient.get<ApprovalsResponse>(API_ENDPOINTS.APROVALS.GET_PENDING_APPROVALS),
 
   getApprovalsByUser: (userId: string) =>
-    apiClient.get<PendingApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
+    apiClient.get<ApprovalsResponse>(`${API_ENDPOINTS.APROVALS.GET_APPROVALS_BY_USER(userId)}`),
 
   getApprovalCounts: (period: 'daily' | 'weekly' | 'monthly', userId: string) =>
     apiClient.get<number>(API_ENDPOINTS.APROVALS.GET_APPROVAL_COUNTS(period, userId)),
