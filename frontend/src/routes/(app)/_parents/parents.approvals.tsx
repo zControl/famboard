@@ -1,4 +1,5 @@
 import { PageContainer } from "@/common/layout/PageContainer";
+import { ApprovalStatsTile } from "@/features/approvals/components/ApprovalStatstile";
 import { ApprovalListDatatable } from "@/features/approvals/datatable/ApprovalListDatatable";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -12,6 +13,7 @@ function ParentsApprovalsPage() {
       title="Parents | Approvals"
       description="Manage the overall task list and assginments."
     >
+      <ApprovalStatsTile />
       <ApprovalListDatatable />
     </PageContainer>
   );

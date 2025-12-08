@@ -1,5 +1,11 @@
 import { Column } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff } from "lucide-react";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronsUpDown,
+  EyeOff,
+  LucideIcon,
+} from "lucide-react";
 
 import { Button } from "@/common/ui/actions/button";
 import {
@@ -14,11 +20,19 @@ import { cn } from "@/common/utils/classNames";
 export interface AscDescSortHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
+  ascIcon?: LucideIcon;
+  ascText?: string;
+  descIcon?: LucideIcon;
+  descText?: string;
 }
 
 export const AscDescSortHeader = <TData, TValue>({
   column,
   className,
+  ascIcon: AscIcon = ArrowUpIcon,
+  ascText = "Asc",
+  descIcon: DescIcon = ArrowDownIcon,
+  descText = "Desc",
 }: AscDescSortHeaderProps<TData, TValue>) => {
   if (!column.getCanSort()) {
     return null;
@@ -30,9 +44,9 @@ export const AscDescSortHeader = <TData, TValue>({
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="tight">
             {column.getIsSorted() === "desc" ? (
-              <ArrowDown />
+              <DescIcon />
             ) : column.getIsSorted() === "asc" ? (
-              <ArrowUp />
+              <AscIcon />
             ) : (
               <ChevronsUpDown />
             )}
@@ -40,12 +54,12 @@ export const AscDescSortHeader = <TData, TValue>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <ArrowUp />
-            Asc
+            <AscIcon />
+            {ascText}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <ArrowDown />
-            Desc
+            <DescIcon />
+            {descText}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => column.toggleVisibility(false)}>
