@@ -1,11 +1,17 @@
 import { Button } from "@/common/ui/actions/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/common/ui/feedback/tooltip";
 import { Column } from "@tanstack/react-table";
 import {
-  CheckIcon,
+  CheckCircleIcon,
   ClockIcon,
-  ListXIcon,
+  FilterXIcon,
   LucideIcon,
-  XIcon,
+  XCircleIcon,
 } from "lucide-react";
 
 interface ApprovalStatusFilterButtonsProps<TData> {
@@ -35,12 +41,12 @@ export function ApprovalStatusFilterButtons<TData>({
   const filterButtons: FilterButtonConfig[] = [
     {
       status: "APPROVED",
-      icon: CheckIcon,
+      icon: CheckCircleIcon,
       className: "text-secondary",
     },
     {
       status: "REJECTED",
-      icon: XIcon,
+      icon: XCircleIcon,
       className: "text-destructive",
     },
     {
@@ -56,26 +62,39 @@ export function ApprovalStatusFilterButtons<TData>({
         const isActive = currentFilter === button.status;
 
         return (
-          <Button
-            key={button.status}
-            size="sm"
-            variant={"ghost"}
-            onClick={() => setFilter(button.status)}
-            className={`flex items-center p-1 ${isActive ? "border-b-2 border-primary" : ""}`}
-          >
-            <button.icon className={`h-4 w-4 ${button.className}`} />
-          </Button>
+          <TooltipProvider key={button.status}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="sm"
+                  variant={"ghost"}
+                  onClick={() => setFilter(button.status)}
+                  className={`flex items-center p-1 ${isActive ? "border-b-2 border-primary" : ""}`}
+                >
+                  <button.icon className={`h-4 w-4 ${button.className}`} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{button.status}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         );
       })}
       {hasActiveFilter && (
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={clearFilter}
-          className="flex items-center p-1"
-        >
-          <ListXIcon className="h-4 w-4" />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={clearFilter}
+                className="flex items-center p-1"
+              >
+                <FilterXIcon className="h-4 w-4 text-highlight" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>CLEAR</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       )}
     </div>
   );
