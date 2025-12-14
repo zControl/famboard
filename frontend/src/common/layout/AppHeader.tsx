@@ -1,60 +1,136 @@
 import { AppLogo } from "@/common/layout/AppLogo";
 import { HeaderContainer } from "@/common/layout/HeaderContainer";
-import { ButtonLink } from "@/common/ui/actions/ButtonLink";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,
 } from "@/common/ui/display/styled-icons";
+import { NavigationLink } from "@/common/ui/navigation/navigation-link";
 import { Header3 } from "@/common/ui/typography/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserGroup } from "@/features/user/types";
-import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
+import { useLocation } from "@tanstack/react-router";
+import {
+  BellIcon,
+  ChartLineIcon,
+  Gamepad2Icon,
+  HandCoinsIcon,
+  HomeIcon,
+  ListCheckIcon,
+  ListTodoIcon,
+  LucideIcon,
+  MailsIcon,
+  PersonStandingIcon,
+  PlusSquareIcon,
+  ShieldCheckIcon,
+  TrophyIcon,
+  Users2Icon,
+} from "lucide-react";
 
-const AdminNavigation = () => (
-  <div className="flex gap-1">
-    <ButtonLink href="/admin">Dashboard</ButtonLink>
-    <ButtonLink href="/admin/users">Users</ButtonLink>
-    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
-    <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
-  </div>
-);
+interface NavItem {
+  href: string;
+  label: string;
+  icon?: LucideIcon;
+}
 
-const ParentNavigation = () => (
-  <div className="flex gap-2 justify-center">
-    <ButtonLink href="/parents">Dashboard</ButtonLink>
-    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    <ButtonLink href="/parents/routines">Routines</ButtonLink>
-    <ButtonLink href="/parents/approvals">Approvals</ButtonLink>
-    <ButtonLink href="/parents/achievements">Achievements</ButtonLink>
-    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
-  </div>
-);
+function isActivePrefix(href: string, pathname: string) {
+  return pathname === href || pathname.startsWith(href + "/");
+}
 
-const KidNavigation = () => (
-  <div className="flex flex-col w-full">
-    <div className="flex items-center justify-center gap-6 h-24">
-      <ButtonLink href="/kids">My Dashboard</ButtonLink>
-      <ButtonLink href="/kids/play">Play Games</ButtonLink>
-      <ButtonLink href="/kids/help">Do Chores</ButtonLink>
-      <ButtonLink href="/kids/fitness">Fitness</ButtonLink>
-      <ButtonLink href="/kids/earn">Earn Rewards</ButtonLink>
+function getActiveHref(items: NavItem[], pathname: string) {
+  return (
+    items
+      .map((i) => i.href)
+      .filter((href) => isActivePrefix(href, pathname))
+      .sort((a, b) => b.length - a.length)[0] ?? null
+  );
+}
+
+const adminNavItems: NavItem[] = [
+  { href: "/admin", label: "Dashboard", icon: HomeIcon },
+  { href: "/admin/users", label: "Users", icon: Users2Icon },
+  { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
+  { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
+  { href: "/admin/analytics", label: "Analytics", icon: ChartLineIcon },
+];
+
+const parentNavItems: NavItem[] = [
+  { href: "/parents", label: "Dashboard", icon: HomeIcon },
+  { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
+  { href: "/parents/routines", label: "Routines", icon: ListCheckIcon },
+  { href: "/parents/approvals", label: "Approvals", icon: ShieldCheckIcon },
+  { href: "/parents/achievements", label: "Achievements", icon: TrophyIcon },
+  { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
+];
+
+const kidNavItems: NavItem[] = [
+  { href: "/kids", label: "My Dashboard", icon: HomeIcon },
+  { href: "/kids/play", label: "Play Games", icon: Gamepad2Icon },
+  { href: "/kids/help", label: "Do Chores", icon: ListTodoIcon },
+  { href: "/kids/fitness", label: "Fitness", icon: PersonStandingIcon },
+  { href: "/kids/earn", label: "Earn Rewards", icon: HandCoinsIcon },
+];
+
+const AdminNavigation = () => {
+  const { pathname } = useLocation();
+  const activeHref = getActiveHref(adminNavItems, pathname);
+
+  return (
+    <div className="flex gap-1">
+      {adminNavItems.map((item) => (
+        <NavigationLink
+          key={item.href}
+          href={item.href}
+          active={item.href === activeHref}
+          icon={item.icon}
+        >
+          {item.label}
+        </NavigationLink>
+      ))}
     </div>
-  </div>
-);
+  );
+};
 
-const GuestNavigation = () => (
-  <ul className="flex gap-1">
-    <li>
-      <ButtonLink href="/about">About</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/login">Login</ButtonLink>
-    </li>
-  </ul>
-);
+const ParentNavigation = () => {
+  const { pathname } = useLocation();
+  const activeHref = getActiveHref(parentNavItems, pathname);
+
+  return (
+    <div className="flex gap-2 justify-center">
+      {parentNavItems.map((item) => (
+        <NavigationLink
+          key={item.href}
+          href={item.href}
+          active={item.href === activeHref}
+          icon={item.icon}
+        >
+          {item.label}
+        </NavigationLink>
+      ))}
+    </div>
+  );
+};
+
+const KidNavigation = () => {
+  const { pathname } = useLocation();
+  const activeHref = getActiveHref(kidNavItems, pathname);
+
+  return (
+    <div className="flex justify-center gap-2">
+      {kidNavItems.map((item) => (
+        <NavigationLink
+          key={item.href}
+          href={item.href}
+          active={item.href === activeHref}
+          icon={item.icon}
+        >
+          {item.label}
+        </NavigationLink>
+      ))}
+    </div>
+  );
+};
 
 const AdminActions = () => <div>Admin Actions</div>;
 
@@ -103,7 +179,7 @@ export const AppHeader = () => {
       case UserGroup.KID:
         return <KidNavigation />;
       default:
-        return <GuestNavigation />;
+        return null;
     }
   };
 
