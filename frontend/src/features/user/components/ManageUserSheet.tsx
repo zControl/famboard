@@ -16,7 +16,7 @@ import { UserAvatar } from "@/features/user/components/UserAvatar";
 import { UserSheetStatus } from "@/features/user/components/UserSheetStatus";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { useNavigate } from "@tanstack/react-router";
-import { LayoutDashboardIcon, UserPenIcon } from "lucide-react";
+import { LayoutDashboardIcon, User2Icon, UserPenIcon } from "lucide-react";
 
 const navItems = [
   {
@@ -39,13 +39,17 @@ export const ManageUserSheet = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <UserAvatar />
+        {profile ? <UserAvatar url={profile?.avatarUrl} /> : <User2Icon />}
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>
             <div className="flex justify-start items-center mr-6 gap-2">
-              <UserAvatar />
+              {profile ? (
+                <UserAvatar url={profile?.avatarUrl} />
+              ) : (
+                <User2Icon />
+              )}
               <div className="flex flex-col w-full text-left border border-muted rounded-lg p-4">
                 <div className="text-md font-semibold">{profile?.username}</div>
                 <div className="text-sm font-normal">

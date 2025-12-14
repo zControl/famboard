@@ -1,16 +1,36 @@
 import { DataTableCore } from "@/common/datatable/DataTableCore";
 import { Card } from "@/common/ui/surfaces/card";
 import { approvalListColumns } from "@/features/approvals/datatable/ApprovalListColumns";
-import { useApprovals } from "@/features/parents/hooks/useApprovals";
+import { useApprovalsQuery } from "@/features/approvals/hooks/useApprovalsQuery";
 
 export const ApprovalListDatatable = () => {
-  const { approvalsList } = useApprovals();
+  const { approvals } = useApprovalsQuery();
+
+  const initialState = {
+    pagination: {
+      pageIndex: 0,
+      pageSize: 20,
+    },
+    sorting: [
+      {
+        id: "approvedAt",
+        desc: true,
+      },
+    ],
+    columnFilters: [
+      {
+        id: "approvalStatus",
+        value: "PENDING_APPROVAL",
+      },
+    ],
+  };
 
   return (
     <Card className="p-2">
       <DataTableCore
         columns={approvalListColumns}
-        data={approvalsList?.data || []}
+        data={approvals?.data || []}
+        initialState={initialState}
       />
     </Card>
   );

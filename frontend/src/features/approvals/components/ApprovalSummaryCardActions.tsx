@@ -1,13 +1,13 @@
 import { Button } from "@/common/ui/actions/button";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
-import { ApprovalResponse } from "@/features/tasks/types";
+import { BaseApprovalResponse } from "@/features/approvals/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 export const ApprovalSummaryCardActions = ({
   approval,
 }: {
-  approval: ApprovalResponse;
+  approval: BaseApprovalResponse;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [actionType, setActionType] = useState<"approve" | "reject">("approve");

@@ -62,34 +62,6 @@ export interface AssignedTask {
   note?: string;
 }
 
-export interface UserAssignedTaskResponse {
-  id: string;
-  sequenceNumber: number;
-  title: string;
-  description: string;
-  pointValue: number;
-  category: TaskCategory;
-  frequency: TaskFrequency;
-  note: string;
-}
-
-export interface ApprovalResponse {
-  approvalId: string;
-  completedAt: Date;
-  note: string;
-  taskId: string;
-  taskTitle: string;
-  taskDescription: string;
-  taskCategory: TaskCategory;
-  pointsPossible: number;
-  userId: string;
-}
-
-export interface PendingApprovalsResponse {
-  count: number;
-  data: ApprovalResponse[];
-}
-
 export interface TaskListResponse {
   count: number;
   data: Task[];

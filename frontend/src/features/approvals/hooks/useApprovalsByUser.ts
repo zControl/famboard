@@ -1,19 +1,19 @@
-import { taskApi } from "@/features/tasks/api/taskApi";
+import { approvalsApi } from "@/features/approvals/api/approvalsApi";
 import { useQuery } from "@tanstack/react-query";
 
 export const useApprovalsByUser = (userId: string) => {
   const {
-    data: approvalsList,
+    data: approvalsByUser,
     isLoading,
     error,
   } = useQuery({
     queryKey: ["approvals-by-user", userId],
-    queryFn: () => taskApi.getApprovalsByUser(userId),
+    queryFn: () => approvalsApi.getApprovalsByUser(userId),
     enabled: !!userId,
   });
 
   return {
-    approvalsList,
+    approvalsByUser,
     isLoading,
     error,
   };

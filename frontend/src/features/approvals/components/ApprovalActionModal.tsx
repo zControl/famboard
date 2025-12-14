@@ -3,9 +3,9 @@ import { Coin } from "@/common/ui/display/coin";
 import { Input } from "@/common/ui/fields/input";
 import { Textarea } from "@/common/ui/fields/textarea";
 import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { useApprovalMutations } from "@/features/approvals/hooks/useApprovalMutations";
+import { BaseApprovalResponse } from "@/features/approvals/types";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useApprovals } from "@/features/parents/hooks/useApprovals";
-import { ApprovalResponse } from "@/features/tasks/types";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -13,7 +13,7 @@ interface ApprovalActionModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   actionType: "approve" | "reject";
-  approvals: ApprovalResponse | ApprovalResponse[];
+  approvals: BaseApprovalResponse | BaseApprovalResponse[];
   onComplete?: () => void;
   defaultNote?: string;
 }
@@ -27,7 +27,7 @@ export const ApprovalActionModal = ({
   defaultNote = "",
 }: ApprovalActionModalProps) => {
   const { user } = useAuth();
-  const { approveTaskMutation, rejectTaskMutation } = useApprovals();
+  const { approveTaskMutation, rejectTaskMutation } = useApprovalMutations();
   const [note, setNote] = useState(defaultNote);
   const [bonusPoints, setBonusPoints] = useState<number | undefined>(undefined);
 
@@ -82,7 +82,7 @@ export const ApprovalActionModal = ({
         // Single approval
         mutation(
           {
-            approvalId: (approvals as ApprovalResponse).approvalId,
+            approvalId: (approvals as BaseApprovalResponse).approvalId,
             parentId: user.id,
             bonusPoints,
             note,

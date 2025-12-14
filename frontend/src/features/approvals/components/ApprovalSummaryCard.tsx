@@ -4,11 +4,12 @@ import {
   CardTitle,
 } from "@/common/ui/surfaces/card";
 import { ApprovalSummaryCardActions } from "@/features/approvals/components/ApprovalSummaryCardActions";
+import { BaseApprovalResponse } from "@/features/approvals/types";
 import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
-import { ApprovalResponse } from "@/features/tasks/types";
 
+//TODO: Instead of using BaseApprovalResponse, create a new type that only Picks the needed properties.
 export interface TaskApprovalCardProps {
-  approval: ApprovalResponse;
+  approval: BaseApprovalResponse;
 }
 
 export const ApprovalSummaryCard = ({ approval }: TaskApprovalCardProps) => {
