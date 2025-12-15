@@ -1,5 +1,12 @@
 import { AppLogo } from "@/common/layout/AppLogo";
 import { HeaderContainer } from "@/common/layout/HeaderContainer";
+import { MobileMenu } from "@/common/layout/MobileMenu";
+import {
+  type NavItem,
+  adminNavItems,
+  kidNavItems,
+  parentNavItems,
+} from "@/common/layout/headerNavigation";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,
@@ -11,28 +18,8 @@ import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserGroup } from "@/features/user/types";
 import { useLocation } from "@tanstack/react-router";
-import {
-  BellIcon,
-  ChartLineIcon,
-  Gamepad2Icon,
-  HandCoinsIcon,
-  HomeIcon,
-  ListCheckIcon,
-  ListTodoIcon,
-  LucideIcon,
-  MailsIcon,
-  PersonStandingIcon,
-  PlusSquareIcon,
-  ShieldCheckIcon,
-  TrophyIcon,
-  Users2Icon,
-} from "lucide-react";
-
-interface NavItem {
-  href: string;
-  label: string;
-  icon?: LucideIcon;
-}
+import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 function isActivePrefix(href: string, pathname: string) {
   return pathname === href || pathname.startsWith(href + "/");
@@ -47,93 +34,43 @@ function getActiveHref(items: NavItem[], pathname: string) {
   );
 }
 
-const adminNavItems: NavItem[] = [
-  { href: "/admin", label: "Dashboard", icon: HomeIcon },
-  { href: "/admin/users", label: "Users", icon: Users2Icon },
-  { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
-  { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
-  { href: "/admin/analytics", label: "Analytics", icon: ChartLineIcon },
-];
+const NavigationBar = ({
+  items,
+  className,
+}: {
+  items: NavItem[];
+  className?: string;
+}) => {
+  const { pathname } = useLocation();
+  const activeHref = getActiveHref(items, pathname);
 
-const parentNavItems: NavItem[] = [
-  { href: "/parents", label: "Dashboard", icon: HomeIcon },
-  { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
-  { href: "/parents/routines", label: "Routines", icon: ListCheckIcon },
-  { href: "/parents/approvals", label: "Approvals", icon: ShieldCheckIcon },
-  { href: "/parents/achievements", label: "Achievements", icon: TrophyIcon },
-  { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
-];
-
-const kidNavItems: NavItem[] = [
-  { href: "/kids", label: "My Dashboard", icon: HomeIcon },
-  { href: "/kids/play", label: "Play Games", icon: Gamepad2Icon },
-  { href: "/kids/help", label: "Do Chores", icon: ListTodoIcon },
-  { href: "/kids/fitness", label: "Fitness", icon: PersonStandingIcon },
-  { href: "/kids/earn", label: "Earn Rewards", icon: HandCoinsIcon },
-];
-
+  return (
+    <div className={className}>
+      {items.map((item) => (
+        <NavigationLink
+          key={item.href}
+          href={item.href}
+          active={item.href === activeHref}
+          icon={item.icon}
+        >
+          {item.label}
+        </NavigationLink>
+      ))}
+    </div>
+  );
+};
 const AdminNavigation = () => {
-  const { pathname } = useLocation();
-  const activeHref = getActiveHref(adminNavItems, pathname);
-
-  return (
-    <div className="flex gap-1">
-      {adminNavItems.map((item) => (
-        <NavigationLink
-          key={item.href}
-          href={item.href}
-          active={item.href === activeHref}
-          icon={item.icon}
-        >
-          {item.label}
-        </NavigationLink>
-      ))}
-    </div>
-  );
+  return <NavigationBar items={adminNavItems} className="flex gap-1" />;
 };
-
-const ParentNavigation = () => {
-  const { pathname } = useLocation();
-  const activeHref = getActiveHref(parentNavItems, pathname);
-
-  return (
-    <div className="flex gap-2 justify-center">
-      {parentNavItems.map((item) => (
-        <NavigationLink
-          key={item.href}
-          href={item.href}
-          active={item.href === activeHref}
-          icon={item.icon}
-        >
-          {item.label}
-        </NavigationLink>
-      ))}
-    </div>
-  );
-};
-
-const KidNavigation = () => {
-  const { pathname } = useLocation();
-  const activeHref = getActiveHref(kidNavItems, pathname);
-
-  return (
-    <div className="flex justify-center gap-2">
-      {kidNavItems.map((item) => (
-        <NavigationLink
-          key={item.href}
-          href={item.href}
-          active={item.href === activeHref}
-          icon={item.icon}
-        >
-          {item.label}
-        </NavigationLink>
-      ))}
-    </div>
-  );
-};
-
 const AdminActions = () => <div>Admin Actions</div>;
-
+const ParentNavigation = () => {
+  return (
+    <NavigationBar
+      items={parentNavItems}
+      className="flex gap-2 justify-center"
+    />
+  );
+};
 const ParentActions = () => (
   <div className="flex items-center gap-2">
     <MailsIcon />
@@ -141,6 +78,12 @@ const ParentActions = () => (
     <PlusSquareIcon />
   </div>
 );
+
+const KidNavigation = () => {
+  return (
+    <NavigationBar items={kidNavItems} className="flex justify-center gap-2" />
+  );
+};
 
 const KidActions = () => {
   const { profile } = useProfile();
@@ -158,52 +101,34 @@ const KidActions = () => {
   );
 };
 
-const MobileMenu = () => {
-  return (
-    <div className="flex gap-1 items-center">
-      <div>Mobile Menu</div>
-      <ManageUserSheet />
-    </div>
-  );
+const NAVIGATION_BY_GROUP: Record<UserGroup, ReactNode> = {
+  [UserGroup.ADMIN]: <AdminNavigation />,
+  [UserGroup.PARENT]: <ParentNavigation />,
+  [UserGroup.KID]: <KidNavigation />,
+  [UserGroup.GUEST]: null,
+};
+
+const ACTIONS_BY_GROUP: Record<UserGroup, ReactNode> = {
+  [UserGroup.ADMIN]: <AdminActions />,
+  [UserGroup.PARENT]: <ParentActions />,
+  [UserGroup.KID]: <KidActions />,
+  [UserGroup.GUEST]: null,
 };
 
 export const AppHeader = () => {
   const { user } = useAuth();
 
-  const renderNavigation = () => {
-    switch (user?.group) {
-      case UserGroup.ADMIN:
-        return <AdminNavigation />;
-      case UserGroup.PARENT:
-        return <ParentNavigation />;
-      case UserGroup.KID:
-        return <KidNavigation />;
-      default:
-        return null;
-    }
-  };
-
-  const renderActions = () => {
-    switch (user?.group) {
-      case UserGroup.ADMIN:
-        return <AdminActions />;
-      case UserGroup.PARENT:
-        return <ParentActions />;
-      case UserGroup.KID:
-        return <KidActions />;
-      default:
-        return null;
-    }
-  };
+  const navigation = user?.group ? NAVIGATION_BY_GROUP[user.group] : null;
+  const actions = user?.group ? ACTIONS_BY_GROUP[user.group] : null;
 
   return (
     <HeaderContainer
       logo={<AppLogo />}
       mobileMenu={<MobileMenu />}
-      navigation={renderNavigation()}
+      navigation={navigation}
       actions={
         <div className="flex items-center gap-4">
-          {renderActions()}
+          {actions}
           <ManageUserSheet />
         </div>
       }

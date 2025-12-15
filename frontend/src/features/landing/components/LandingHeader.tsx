@@ -7,9 +7,6 @@ const GuestNavigation = () => (
     <li>
       <ButtonLink href="/about">About</ButtonLink>
     </li>
-    <li>
-      <ButtonLink href="/login">Login</ButtonLink>
-    </li>
   </ul>
 );
 

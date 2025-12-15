@@ -20,7 +20,7 @@ export const NavigationLink = ({
       to={href}
       className={cn(
         "flex items-center mx-0 py-1 px-3 text-lg",
-        "text-foreground hover:text-foreground",
+        "text-foreground hover:text-highlight hover:bg-accent/50",
         active && "font-semibold border-b-3 border-highlight",
       )}
     >
