@@ -1,63 +1,76 @@
 import { AppLogo } from "@/common/layout/AppLogo";
 import { HeaderContainer } from "@/common/layout/HeaderContainer";
-import { ButtonLink } from "@/common/ui/actions/ButtonLink";
+import { MobileMenu } from "@/common/layout/MobileMenu";
+import {
+  type NavItem,
+  adminNavItems,
+  kidNavItems,
+  parentNavItems,
+} from "@/common/layout/headerNavigation";
 import {
   StyledGemIcon,
   StyledPiggyBankIcon,
 } from "@/common/ui/display/styled-icons";
+import { NavigationLink } from "@/common/ui/navigation/navigation-link";
 import { Header3 } from "@/common/ui/typography/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { UserGroup } from "@/features/user/types";
+import { useLocation } from "@tanstack/react-router";
 import { BellIcon, MailsIcon, PlusSquareIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
-const AdminNavigation = () => (
-  <div className="flex gap-1">
-    <ButtonLink href="/admin">Dashboard</ButtonLink>
-    <ButtonLink href="/admin/users">Users</ButtonLink>
-    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
-    <ButtonLink href="/admin/analytics">Analytics</ButtonLink>
-  </div>
-);
+function isActivePrefix(href: string, pathname: string) {
+  return pathname === href || pathname.startsWith(href + "/");
+}
 
-const ParentNavigation = () => (
-  <div className="flex gap-2 justify-center">
-    <ButtonLink href="/parents">Dashboard</ButtonLink>
-    <ButtonLink href="/parents/tasks">Tasks</ButtonLink>
-    <ButtonLink href="/parents/routines">Routines</ButtonLink>
-    <ButtonLink href="/parents/approvals">Approvals</ButtonLink>
-    <ButtonLink href="/parents/achievements">Achievements</ButtonLink>
-    <ButtonLink href="/parents/rewards">Rewards</ButtonLink>
-  </div>
-);
+function getActiveHref(items: NavItem[], pathname: string) {
+  return (
+    items
+      .map((i) => i.href)
+      .filter((href) => isActivePrefix(href, pathname))
+      .sort((a, b) => b.length - a.length)[0] ?? null
+  );
+}
 
-const KidNavigation = () => (
-  <div className="flex flex-col w-full">
-    <div className="flex items-center justify-center gap-6 h-24">
-      <ButtonLink href="/kids">My Dashboard</ButtonLink>
-      <ButtonLink href="/kids/play">Play Games</ButtonLink>
-      <ButtonLink href="/kids/help">Do Chores</ButtonLink>
-      <ButtonLink href="/kids/fitness">Fitness</ButtonLink>
-      <ButtonLink href="/kids/earn">Earn Rewards</ButtonLink>
+const NavigationBar = ({
+  items,
+  className,
+}: {
+  items: NavItem[];
+  className?: string;
+}) => {
+  const { pathname } = useLocation();
+  const activeHref = getActiveHref(items, pathname);
+
+  return (
+    <div className={className}>
+      {items.map((item) => (
+        <NavigationLink
+          key={item.href}
+          href={item.href}
+          active={item.href === activeHref}
+          icon={item.icon}
+        >
+          {item.label}
+        </NavigationLink>
+      ))}
     </div>
-  </div>
-);
-
-const GuestNavigation = () => (
-  <ul className="flex gap-1">
-    <li>
-      <ButtonLink href="/about">About</ButtonLink>
-    </li>
-    <li>
-      <ButtonLink href="/login">Login</ButtonLink>
-    </li>
-  </ul>
-);
-
+  );
+};
+const AdminNavigation = () => {
+  return <NavigationBar items={adminNavItems} className="flex gap-1" />;
+};
 const AdminActions = () => <div>Admin Actions</div>;
-
+const ParentNavigation = () => {
+  return (
+    <NavigationBar
+      items={parentNavItems}
+      className="flex gap-2 justify-center"
+    />
+  );
+};
 const ParentActions = () => (
   <div className="flex items-center gap-2">
     <MailsIcon />
@@ -65,6 +78,12 @@ const ParentActions = () => (
     <PlusSquareIcon />
   </div>
 );
+
+const KidNavigation = () => {
+  return (
+    <NavigationBar items={kidNavItems} className="flex justify-center gap-2" />
+  );
+};
 
 const KidActions = () => {
   const { profile } = useProfile();
@@ -82,52 +101,34 @@ const KidActions = () => {
   );
 };
 
-const MobileMenu = () => {
-  return (
-    <div className="flex gap-1 items-center">
-      <div>Mobile Menu</div>
-      <ManageUserSheet />
-    </div>
-  );
+const NAVIGATION_BY_GROUP: Record<UserGroup, ReactNode> = {
+  [UserGroup.ADMIN]: <AdminNavigation />,
+  [UserGroup.PARENT]: <ParentNavigation />,
+  [UserGroup.KID]: <KidNavigation />,
+  [UserGroup.GUEST]: null,
+};
+
+const ACTIONS_BY_GROUP: Record<UserGroup, ReactNode> = {
+  [UserGroup.ADMIN]: <AdminActions />,
+  [UserGroup.PARENT]: <ParentActions />,
+  [UserGroup.KID]: <KidActions />,
+  [UserGroup.GUEST]: null,
 };
 
 export const AppHeader = () => {
   const { user } = useAuth();
 
-  const renderNavigation = () => {
-    switch (user?.group) {
-      case UserGroup.ADMIN:
-        return <AdminNavigation />;
-      case UserGroup.PARENT:
-        return <ParentNavigation />;
-      case UserGroup.KID:
-        return <KidNavigation />;
-      default:
-        return <GuestNavigation />;
-    }
-  };
-
-  const renderActions = () => {
-    switch (user?.group) {
-      case UserGroup.ADMIN:
-        return <AdminActions />;
-      case UserGroup.PARENT:
-        return <ParentActions />;
-      case UserGroup.KID:
-        return <KidActions />;
-      default:
-        return null;
-    }
-  };
+  const navigation = user?.group ? NAVIGATION_BY_GROUP[user.group] : null;
+  const actions = user?.group ? ACTIONS_BY_GROUP[user.group] : null;
 
   return (
     <HeaderContainer
       logo={<AppLogo />}
       mobileMenu={<MobileMenu />}
-      navigation={renderNavigation()}
+      navigation={navigation}
       actions={
         <div className="flex items-center gap-4">
-          {renderActions()}
+          {actions}
           <ManageUserSheet />
         </div>
       }
