@@ -12,7 +12,7 @@ export const rewardsListColumns: ColumnDef<Reward>[] = [
   },
   {
     accessorKey: "rewardValue",
-    header: "Reward Value",
+    header: "Value",
   },
   {
     accessorKey: "note",
