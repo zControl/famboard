@@ -28,7 +28,6 @@ import { Route as appAdminAdminIndexRouteImport } from './routes/(app)/_admin/ad
 import { Route as testTestASomethingRouteImport } from './routes/(test)/test.a.something'
 import { Route as testTestABRouteImport } from './routes/(test)/test.a.b_'
 import { Route as appParentsParentsTasksRouteImport } from './routes/(app)/_parents/parents.tasks_'
-import { Route as appParentsParentsRoutinesRouteImport } from './routes/(app)/_parents/parents.routines'
 import { Route as appParentsParentsRewardsRouteImport } from './routes/(app)/_parents/parents.rewards_'
 import { Route as appParentsParentsApprovalsRouteImport } from './routes/(app)/_parents/parents.approvals'
 import { Route as appParentsParentsAchievementsRouteImport } from './routes/(app)/_parents/parents.achievements'
@@ -212,12 +211,6 @@ const appParentsParentsTasksRoute = appParentsParentsTasksRouteImport.update({
   path: '/parents/tasks',
   getParentRoute: () => appParentsRoute,
 } as any)
-const appParentsParentsRoutinesRoute =
-  appParentsParentsRoutinesRouteImport.update({
-    id: '/parents/routines',
-    path: '/parents/routines',
-    getParentRoute: () => appParentsRoute,
-  } as any)
 const appParentsParentsRewardsRoute =
   appParentsParentsRewardsRouteImport.update({
     id: '/parents/rewards_',
@@ -312,7 +305,6 @@ export interface FileRoutesByFullPath {
   '/parents/achievements': typeof appParentsParentsAchievementsRoute
   '/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
-  '/parents/routines': typeof appParentsParentsRoutinesRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
@@ -348,7 +340,6 @@ export interface FileRoutesByTo {
   '/parents/achievements': typeof appParentsParentsAchievementsRoute
   '/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/parents/rewards': typeof appParentsParentsRewardsRoute
-  '/parents/routines': typeof appParentsParentsRoutinesRoute
   '/parents/tasks': typeof appParentsParentsTasksRoute
   '/test/a/b': typeof testTestABRoute
   '/test/a/something': typeof testTestASomethingRoute
@@ -392,7 +383,6 @@ export interface FileRoutesById {
   '/(app)/_parents/parents/achievements': typeof appParentsParentsAchievementsRoute
   '/(app)/_parents/parents/approvals': typeof appParentsParentsApprovalsRoute
   '/(app)/_parents/parents/rewards_': typeof appParentsParentsRewardsRoute
-  '/(app)/_parents/parents/routines': typeof appParentsParentsRoutinesRoute
   '/(app)/_parents/parents/tasks_': typeof appParentsParentsTasksRoute
   '/(test)/test/a/b_': typeof testTestABRoute
   '/(test)/test/a/something': typeof testTestASomethingRoute
@@ -430,7 +420,6 @@ export interface FileRouteTypes {
     | '/parents/achievements'
     | '/parents/approvals'
     | '/parents/rewards'
-    | '/parents/routines'
     | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
@@ -466,7 +455,6 @@ export interface FileRouteTypes {
     | '/parents/achievements'
     | '/parents/approvals'
     | '/parents/rewards'
-    | '/parents/routines'
     | '/parents/tasks'
     | '/test/a/b'
     | '/test/a/something'
@@ -509,7 +497,6 @@ export interface FileRouteTypes {
     | '/(app)/_parents/parents/achievements'
     | '/(app)/_parents/parents/approvals'
     | '/(app)/_parents/parents/rewards_'
-    | '/(app)/_parents/parents/routines'
     | '/(app)/_parents/parents/tasks_'
     | '/(test)/test/a/b_'
     | '/(test)/test/a/something'
@@ -725,13 +712,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appParentsParentsTasksRouteImport
       parentRoute: typeof appParentsRoute
     }
-    '/(app)/_parents/parents/routines': {
-      id: '/(app)/_parents/parents/routines'
-      path: '/parents/routines'
-      fullPath: '/parents/routines'
-      preLoaderRoute: typeof appParentsParentsRoutinesRouteImport
-      parentRoute: typeof appParentsRoute
-    }
     '/(app)/_parents/parents/rewards_': {
       id: '/(app)/_parents/parents/rewards_'
       path: '/parents/rewards'
@@ -887,7 +867,6 @@ interface appParentsRouteChildren {
   appParentsParentsAchievementsRoute: typeof appParentsParentsAchievementsRoute
   appParentsParentsApprovalsRoute: typeof appParentsParentsApprovalsRoute
   appParentsParentsRewardsRoute: typeof appParentsParentsRewardsRoute
-  appParentsParentsRoutinesRoute: typeof appParentsParentsRoutinesRoute
   appParentsParentsTasksRoute: typeof appParentsParentsTasksRoute
   appParentsParentsIndexRoute: typeof appParentsParentsIndexRoute
   appParentsParentsTasksSequenceNumberRoute: typeof appParentsParentsTasksSequenceNumberRoute
@@ -898,7 +877,6 @@ const appParentsRouteChildren: appParentsRouteChildren = {
   appParentsParentsAchievementsRoute: appParentsParentsAchievementsRoute,
   appParentsParentsApprovalsRoute: appParentsParentsApprovalsRoute,
   appParentsParentsRewardsRoute: appParentsParentsRewardsRoute,
-  appParentsParentsRoutinesRoute: appParentsParentsRoutinesRoute,
   appParentsParentsTasksRoute: appParentsParentsTasksRoute,
   appParentsParentsIndexRoute: appParentsParentsIndexRoute,
   appParentsParentsTasksSequenceNumberRoute:

@@ -4,13 +4,12 @@ import {
   Gamepad2Icon,
   HandCoinsIcon,
   HomeIcon,
-  ListCheckIcon,
   ListTodoIcon,
   LucideIcon,
   PersonStandingIcon,
   ShieldCheckIcon,
   TrophyIcon,
-  Users2Icon,
+  Users2Icon
 } from "lucide-react";
 
 export interface NavItem {
@@ -22,15 +21,14 @@ export interface NavItem {
 export const adminNavItems: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: HomeIcon },
   { href: "/admin/users", label: "Users", icon: Users2Icon },
+  { href: "/admin/analytics", label: "Analytics", icon: ChartLineIcon },
   { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
   { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
-  { href: "/admin/analytics", label: "Analytics", icon: ChartLineIcon },
 ];
 
 export const parentNavItems: NavItem[] = [
   { href: "/parents", label: "Dashboard", icon: HomeIcon },
   { href: "/parents/tasks", label: "Tasks", icon: ListTodoIcon },
-  { href: "/parents/routines", label: "Routines", icon: ListCheckIcon },
   { href: "/parents/approvals", label: "Approvals", icon: ShieldCheckIcon },
   { href: "/parents/achievements", label: "Achievements", icon: TrophyIcon },
   { href: "/parents/rewards", label: "Rewards", icon: HandCoinsIcon },
