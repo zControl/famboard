@@ -24,6 +24,8 @@ export interface UserProfile {
   theme: string;
   avatarUrl: string;
   pointTotal: number;
+  piggyBankCents: number;
+  piggyBankDisplay: string;
 }
 
 export interface UsersByGroupResponse {

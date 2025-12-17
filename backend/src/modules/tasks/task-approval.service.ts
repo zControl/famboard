@@ -8,7 +8,7 @@ import { ApprovalDto } from 'src/modules/tasks/dto/approval.dto';
 import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
 import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { EntityManager, MoreThanOrEqual, Repository } from 'typeorm';
-import { User } from '../users/entities/user.entity';
+import { User, UserGroup } from '../users/entities/user.entity';
 import { TaskApproval } from './entities/task-approval.entity';
 import { Task } from './entities/task.entity';
 
@@ -337,6 +337,10 @@ export class TaskApprovalService {
     manager: EntityManager,
     approval: TaskApproval,
   ) {
+    if (approval.user.group !== UserGroup.KID) {
+      throw new BadRequestException('Only kid users can be awarded points.');
+    }
+
     // Find the user profile
     const userProfile = await manager.findOne(UserProfile, {
       where: { user: { id: approval.user.id } },
@@ -350,7 +354,7 @@ export class TaskApprovalService {
 
     // Update points
     if (approval.pointsAwarded) {
-      userProfile.pointTotal += approval.pointsAwarded;
+      userProfile.pointTotal = (userProfile.pointTotal ?? 0) + approval.pointsAwarded;
       await manager.save(userProfile);
     }
   }
