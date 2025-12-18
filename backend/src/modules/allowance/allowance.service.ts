@@ -29,7 +29,7 @@ export class AllowanceService {
     // TODO: Make this configurable in the UI. (store in db)
     const raw = process.env.ALLOWANCE_POINTS_PER_DOLLAR;
     const parsed = raw ? Number.parseInt(raw, 10) : NaN;
-    const rate = Number.isFinite(parsed) ? parsed : 10;
+    const rate = Number.isFinite(parsed) ? parsed : 100;
 
     if (!Number.isFinite(rate) || rate <= 0) {
       throw new BadRequestException('Invalid ALLOWANCE_POINTS_PER_DOLLAR');

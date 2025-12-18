@@ -1,5 +1,8 @@
 import { PageContainer } from "@/common/layout/PageContainer";
+import { StyledPiggyBankIcon } from "@/common/ui/display/styled-icons";
 import { Spinner } from "@/common/ui/feedback/spinner";
+import { DataCard } from "@/common/ui/surfaces/DataCard";
+import { InfoCard } from "@/common/ui/surfaces/InfoCard";
 import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
 import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
@@ -40,6 +43,17 @@ function KidsIndexPage() {
       title={profile.firstName || "Dashboard"}
       description="This is the dashboard for a kid user!"
     >
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <DataCard
+          label="Piggy Bank Balance"
+          data={profile?.piggyBankDisplay}
+          badge={<StyledPiggyBankIcon className="size-16" />}
+          message="earned something"
+        />
+        <InfoCard title="title" description="description">
+          Info Card
+        </InfoCard>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div id="left">
           <KidShowcaseCard profile={profile} loading={profileLoading} />

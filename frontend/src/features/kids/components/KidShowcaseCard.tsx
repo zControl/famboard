@@ -2,8 +2,6 @@ import {
   StyledCalendar1Icon,
   StyledCalendarCheckIcon,
   StyledFlameIcon,
-  StyledGemIcon,
-  StyledPiggyBankIcon,
   StyledTrophyIcon,
 } from "@/common/ui/display/styled-icons";
 import { Spinner } from "@/common/ui/feedback/spinner";
@@ -32,16 +30,6 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
           <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
             Welcome, {profile?.firstName}!
           </Header2>
-          <div className="flex flex-row items-center px-4">
-            <StyledPiggyBankIcon />
-            <StatLabel>Coins:</StatLabel>
-            <StatValue>{profile?.pointTotal}</StatValue>
-          </div>
-          <div className="flex flex-row items-center px-4">
-            <StyledGemIcon />
-            <StatLabel>Gems:</StatLabel>
-            <StatValue>100</StatValue>
-          </div>
           <div className="flex flex-row items-center px-4">
             <StyledCalendarCheckIcon />
             <StatLabel>Daily Completed:</StatLabel>
