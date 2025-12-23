@@ -1,3 +1,4 @@
+import { Skeleton } from "@/common/ui/feedback/skeleton";
 import {
   Card,
   CardAction,
@@ -6,29 +7,42 @@ import {
   CardHeader,
   CardTitle,
 } from "@/common/ui/surfaces/card";
+import { cn } from "@/common/utils/classNames";
 import React from "react";
 
 interface DataCardProps {
-  children?: React.ReactNode;
   label?: React.ReactNode;
   data?: React.ReactNode;
-  badge?: React.ReactElement;
+  badge?: React.ReactNode;
   message?: React.ReactNode;
+  loading?: boolean;
+  className?: string;
 }
 
-export const DataCard = ({ label, data, badge, message }: DataCardProps) => {
+export const DataCard = ({
+  label,
+  data,
+  badge,
+  message,
+  loading = false,
+  className,
+}: DataCardProps) => {
   return (
-    <Card>
+    <Card className={cn(className)}>
       <CardHeader>
-        <CardDescription>{label}</CardDescription>
+        <CardDescription>
+          {loading ? <Skeleton className="h-4 w-24" /> : label}
+        </CardDescription>
         <CardTitle className="text-3xl font-bold tabular-nums">
-          {data}
+          {loading ? <Skeleton className="h-9 w-16" /> : data}
         </CardTitle>
-        <CardAction>{badge}</CardAction>
+        <CardAction>
+          {loading ? <Skeleton className="size-16 rounded-full" /> : badge}
+        </CardAction>
       </CardHeader>
-      {message && (
+      {(message || loading) && (
         <CardContent className="text-sm text-muted-foreground">
-          {message}
+          {loading ? <Skeleton className="h-4 w-32" /> : message}
         </CardContent>
       )}
     </Card>

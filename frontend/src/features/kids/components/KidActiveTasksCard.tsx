@@ -1,5 +1,4 @@
 import { Spinner } from "@/common/ui/feedback/spinner";
-import { Card } from "@/common/ui/surfaces/card";
 import { StatLabel } from "@/common/ui/typography/typography";
 import { AssignedTaskItem } from "@/features/kids/components/AssignedTaskItem";
 import { AssignedTaskCardProps } from "@/features/kids/types";
@@ -9,7 +8,7 @@ export const KidActiveTasksCard = ({
   loading,
 }: AssignedTaskCardProps) => {
   return (
-    <Card className="p-0 gap-0">
+    <>
       {loading ? (
         <Spinner size="xl" />
       ) : (
@@ -22,6 +21,6 @@ export const KidActiveTasksCard = ({
           </div>
         </>
       )}
-    </Card>
+    </>
   );
 };

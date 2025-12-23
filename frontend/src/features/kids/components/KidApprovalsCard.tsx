@@ -1,5 +1,4 @@
 import { Spinner } from "@/common/ui/feedback/spinner";
-import { Card } from "@/common/ui/surfaces/card";
 import { StatLabel } from "@/common/ui/typography/typography";
 import { ApprovalTaskItem } from "@/features/kids/components/ApprovalTaskItem";
 import { AssignedTaskCardProps } from "@/features/kids/types";
@@ -13,11 +12,11 @@ export const KidApprovalsCard = ({
     0,
   );
   return (
-    <Card className="p-0 gap-0">
+    <>
       <div className="flex items-center justify-between">
         <StatLabel>
-          {assignedTasks.length} pending approvals for {totalPossibePoints}{" "}
-          points
+          You have {assignedTasks.length} pending approvals for{" "}
+          {totalPossibePoints} points
         </StatLabel>
       </div>
       {loading ? (
@@ -29,6 +28,6 @@ export const KidApprovalsCard = ({
           ))}
         </div>
       )}
-    </Card>
+    </>
   );
 };

@@ -28,7 +28,7 @@ export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
       ) : (
         <div className="flex flex-col justify-start gap-2">
           <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
-            Welcome, {profile?.firstName}!
+            Your Showcase
           </Header2>
           <div className="flex flex-row items-center px-4">
             <StyledCalendarCheckIcon />

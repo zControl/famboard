@@ -1,8 +1,10 @@
+import { ErrorCard } from "@/common/error/ErrorCard";
 import { PageContainer } from "@/common/layout/PageContainer";
+import { Separator } from "@/common/ui/display/separator";
 import { StyledPiggyBankIcon } from "@/common/ui/display/styled-icons";
-import { Spinner } from "@/common/ui/feedback/spinner";
+import { Skeleton } from "@/common/ui/feedback/skeleton";
 import { DataCard } from "@/common/ui/surfaces/DataCard";
-import { InfoCard } from "@/common/ui/surfaces/InfoCard";
+import { Header2 } from "@/common/ui/typography/typography";
 import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
 import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
@@ -21,44 +23,55 @@ function KidsIndexPage() {
     useAssignedTasksByUser(profile?.userId ? profile.userId : "");
 
   // Wait for profile to load before rendering content that depends on it
-  if (profileLoading) {
+  if (!profileLoading && !profile) {
     return (
-      <PageContainer title="Loading..." description="Loading your dashboard">
-        <Spinner size="xl" />
-      </PageContainer>
-    );
-  }
-
-  // Handle case where profile failed to load
-  if (!profile) {
-    return (
-      <PageContainer title="Dashboard" description="Unable to load profile">
-        <div>Unable to load your profile information.</div>
+      <PageContainer title="Dashboard" description="Profile error, try again">
+        <ErrorCard title="Unable to load profile" message="Please try again." />
       </PageContainer>
     );
   }
 
   return (
     <PageContainer
-      title={profile.firstName || "Dashboard"}
+      title={profile?.firstName || "Dashboard"}
       description="This is the dashboard for a kid user!"
     >
+      {profileLoading ? (
+        <Skeleton className="h-12 w-64 mb-4" />
+      ) : (
+        <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
+          Welcome, {profile?.firstName}!
+        </Header2>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <DataCard
+          label="Point Total"
+          data={profile?.pointTotal}
+          badge={"action"}
+          loading={profileLoading}
+        />
         <DataCard
           label="Piggy Bank Balance"
           data={profile?.piggyBankDisplay}
           badge={<StyledPiggyBankIcon className="size-16" />}
-          message="earned something"
+          loading={profileLoading}
         />
-        <InfoCard title="title" description="description">
-          Info Card
-        </InfoCard>
+        <DataCard
+          label="Goal Progress"
+          data={profile?.piggyBankDisplay}
+          badge={<StyledPiggyBankIcon className="size-16" />}
+          loading={profileLoading}
+        />
+        <DataCard
+          label="Fitness Challenges"
+          data={profile?.piggyBankDisplay}
+          badge={<StyledPiggyBankIcon className="size-16" />}
+          loading={profileLoading}
+        />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div id="left">
-          <KidShowcaseCard profile={profile} loading={profileLoading} />
-        </div>
-        <div id="right" className="flex flex-col gap-6">
+      <Separator className="my-4" />
+      <div className="flex flex-row">
+        <div className="w-2/3">
           <KidActiveTasksCard
             assignedTasks={assignedTasks}
             loading={isLoading}
@@ -67,6 +80,9 @@ function KidsIndexPage() {
             assignedTasks={pendingApprovalTasks}
             loading={isLoading}
           />
+        </div>
+        <div className="w-1/3">
+          <KidShowcaseCard profile={profile} loading={profileLoading} />
         </div>
       </div>
     </PageContainer>
