@@ -4,9 +4,8 @@ import { ApprovalTaskItem } from "@/features/kids/components/ApprovalTaskItem";
 import { useAssignedTasksByUser } from "@/features/tasks/hooks/useAssignedTasksByUser";
 
 export const KidApprovalsCard = ({ userId }: { userId: string }) => {
-  const { assignedTasks, isLoading, pendingApprovalTasks } =
-    useAssignedTasksByUser(userId);
-  const totalPossiblePoints = assignedTasks.reduce(
+  const { isLoading, pendingApprovalTasks } = useAssignedTasksByUser(userId);
+  const totalPossiblePoints = pendingApprovalTasks.reduce(
     (total, task) => total + task.pointValue,
     0,
   );
