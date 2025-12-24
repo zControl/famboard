@@ -1,20 +1,18 @@
 import { Spinner } from "@/common/ui/feedback/spinner";
 import { StatLabel } from "@/common/ui/typography/typography";
 import { AssignedTaskItem } from "@/features/kids/components/AssignedTaskItem";
-import { AssignedTaskCardProps } from "@/features/kids/types";
+import { useAssignedTasksByUser } from "@/features/tasks/hooks/useAssignedTasksByUser";
 
-export const KidActiveTasksCard = ({
-  assignedTasks,
-  loading,
-}: AssignedTaskCardProps) => {
+export const KidActiveTasksCard = ({ userId }: { userId: string }) => {
+  const { assignedTasks, isLoading } = useAssignedTasksByUser(userId);
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Spinner size="xl" />
       ) : (
         <>
           <StatLabel>You have {assignedTasks.length} active tasks</StatLabel>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-2">
+          <div className="flex flex-col gap-4 p-2">
             {assignedTasks.map((task) => (
               <AssignedTaskItem key={task.id} task={task} />
             ))}

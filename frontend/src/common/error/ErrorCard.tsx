@@ -6,7 +6,7 @@ import {
 } from "@/common/ui/surfaces/card";
 import { BanIcon } from "lucide-react";
 
-interface ErrorCardProps {
+export interface ErrorCardProps {
   title?: string;
   message?: string;
   error?: Error;

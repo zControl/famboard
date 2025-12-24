@@ -1,9 +1,10 @@
 import { PageContainer } from "@/common/layout/PageContainer";
+import { ReactNode } from "react";
 
-export const ErrorPage = () => {
+export const ErrorPage = ({ children }: { children: ReactNode }) => {
   return (
-    <PageContainer title="Error Page" description="Error Page">
-      <div>Manure Occurs...There was an error</div>
+    <PageContainer title="Oops!" description="Something went wrong, try again">
+      {children}
     </PageContainer>
   );
 };
