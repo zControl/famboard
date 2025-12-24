@@ -1,12 +1,10 @@
+import { Button } from "@/common/ui/actions/button";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/common/ui/display/avatar";
-import {
-  StyledGemIcon,
-  StyledPiggyBankIcon,
-} from "@/common/ui/display/styled-icons";
+import { Coin } from "@/common/ui/display/coin";
 import { StatValue } from "@/common/ui/typography/typography";
 import { firstInitial } from "@/common/utils/firstInitial";
 import { useApprovalCounts } from "@/features/approvals/hooks/useApprovalCounts";
@@ -37,13 +35,12 @@ export const KidProfileCard = ({
       </div>
       <div className="flex flex-row justify-around">
         <div className="flex flex-col items-center">
-          <StyledPiggyBankIcon />
-          <StatValue>{userProfile.pointTotal}</StatValue>
+          <Coin value={userProfile.pointTotal} />
+          <Button>Convert</Button>
         </div>
-
         <div className="flex flex-col items-center">
-          <StyledGemIcon />
-          <StatValue>{userProfile.pointTotal}</StatValue>
+          <StatValue>{userProfile.piggyBankDisplay}</StatValue>
+          <Button>Withdraw</Button>
         </div>
       </div>
       <div>

@@ -20,23 +20,23 @@ export const KidShowcaseCard = ({ userId }: { userId: string }) => {
       {isLoading ? (
         <Spinner size="xl" />
       ) : (
-        <div className="flex flex-col justify-start gap-2">
+        <div className="flex flex-col justify-start gap-4">
           <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
             Showcase
           </Header2>
           <div className="flex flex-row items-center px-4">
             <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Daily} />
-            <StatLabel>Daily:</StatLabel>
+            <StatLabel>Today:</StatLabel>
             <StatValue>{daily}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
             <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Weekly} />
-            <StatLabel>Weekly:</StatLabel>
+            <StatLabel>This Week:</StatLabel>
             <StatValue>{weekly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
             <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Monthly} />
-            <StatLabel>Monthly:</StatLabel>
+            <StatLabel>This Month:</StatLabel>
             <StatValue>{monthly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
