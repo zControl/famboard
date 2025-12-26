@@ -46,38 +46,36 @@ export const AssignedTaskItem = ({ task }: AssignedTaskItemProps) => {
   };
 
   return (
-    <div className="flex w-full max-w-lg flex-col gap-6">
-      <Item variant="outline">
-        <ItemMedia variant="icon">
-          <Coin className="size-12" value={task.pointValue} />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>{task.title}</ItemTitle>
-          <ItemDescription>{task.description}</ItemDescription>
-        </ItemContent>
-        <ItemActions>
-          <ActionModal
-            trigger={
-              <Button variant="primary">
-                {isCompleting ? <Spinner size="sm" /> : <SquareCheckBigIcon />}
-              </Button>
-            }
-            title={`Did you complete "${task.title}"?`}
-            description={`This will earn you ${task.pointValue} points!`}
-            onConfirm={() => handleTaskCompletion()}
-            onCancel={() => console.log("Cancel")}
-          >
-            <Textarea
-              autoFocus
-              placeholder="Leave a note if you want...."
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="w-full min-h-20 mt-4"
-              maxLength={300}
-            />
-          </ActionModal>
-        </ItemActions>
-      </Item>
-    </div>
+    <Item variant="outline">
+      <ItemMedia>
+        <Coin className="size-12" value={task.pointValue} />
+      </ItemMedia>
+      <ItemContent>
+        <ItemTitle>{task.title}</ItemTitle>
+        <ItemDescription>{task.description}</ItemDescription>
+      </ItemContent>
+      <ItemActions>
+        <ActionModal
+          trigger={
+            <Button variant="primary">
+              {isCompleting ? <Spinner size="sm" /> : <SquareCheckBigIcon />}
+            </Button>
+          }
+          title={`Did you complete "${task.title}"?`}
+          description={`This will earn you ${task.pointValue} points!`}
+          onConfirm={() => handleTaskCompletion()}
+          onCancel={() => console.log("Cancel")}
+        >
+          <Textarea
+            autoFocus
+            placeholder="Leave a note if you want...."
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="w-full min-h-20 mt-4"
+            maxLength={300}
+          />
+        </ActionModal>
+      </ItemActions>
+    </Item>
   );
 };

@@ -7,12 +7,8 @@ import {
   kidNavItems,
   parentNavItems,
 } from "@/common/layout/headerNavigation";
-import {
-  StyledGemIcon,
-  StyledPiggyBankIcon,
-} from "@/common/ui/display/styled-icons";
+import { Coin } from "@/common/ui/display/coin";
 import { NavigationLink } from "@/common/ui/navigation/navigation-link";
-import { Header3 } from "@/common/ui/typography/typography";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { ManageUserSheet } from "@/features/user/components/ManageUserSheet";
 import { useProfile } from "@/features/user/hooks/useProfile";
@@ -90,12 +86,7 @@ const KidActions = () => {
   return (
     <div className="flex items-center gap-2">
       <div className="flex items-center">
-        <StyledPiggyBankIcon />
-        <Header3>{profile?.pointTotal || 0}</Header3>
-      </div>
-      <div className="flex items-center">
-        <StyledGemIcon />
-        <Header3>{profile?.pointTotal || 0}</Header3>
+        <Coin value={profile?.pointTotal || 0} />
       </div>
     </div>
   );

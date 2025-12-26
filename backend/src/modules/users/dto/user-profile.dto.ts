@@ -53,6 +53,14 @@ export class UserProfileDto {
   @IsNumber()
   @ApiProperty()
   pointTotal: number;
+
+  @IsNumber()
+  @ApiProperty()
+  piggyBankCents: number;
+
+  @IsString()
+  @ApiProperty()
+  piggyBankDisplay: string;
 }
 
 export class PartialUserProfileDto extends PartialType(UserProfileDto) {}

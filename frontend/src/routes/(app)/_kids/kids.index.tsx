@@ -1,9 +1,12 @@
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { ErrorPage } from "@/common/error/ErrorPage";
 import { PageContainer } from "@/common/layout/PageContainer";
+import { Separator } from "@/common/ui/display/separator";
 import { Spinner } from "@/common/ui/feedback/spinner";
+import { DashboardDataCards } from "@/features/kids/components/DashboardDataCards";
 import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
 import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
 import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
-import { useAssignedTasksByUser } from "@/features/tasks/hooks/useAssignedTasksByUser";
 import { useProfile } from "@/features/user/hooks/useProfile";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -12,47 +15,36 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 });
 
 function KidsIndexPage() {
-  const { profile, isLoading: profileLoading } = useProfile();
+  const { profile, isLoading: profileLoading, error } = useProfile();
+  const userId = profile?.userId;
 
-  const { assignedTasks, isLoading, pendingApprovalTasks } =
-    useAssignedTasksByUser(profile?.userId ? profile.userId : "");
-
-  // Wait for profile to load before rendering content that depends on it
-  if (profileLoading) {
+  // make sure profile is loaded
+  if (error) {
     return (
-      <PageContainer title="Loading..." description="Loading your dashboard">
-        <Spinner size="xl" />
-      </PageContainer>
-    );
-  }
-
-  // Handle case where profile failed to load
-  if (!profile) {
-    return (
-      <PageContainer title="Dashboard" description="Unable to load profile">
-        <div>Unable to load your profile information.</div>
-      </PageContainer>
+      <ErrorPage>
+        <ErrorCard
+          title="Error loading profile"
+          message="There was an error from the server when trying to load the user profile."
+          error={error}
+        />
+      </ErrorPage>
     );
   }
 
   return (
     <PageContainer
-      title={profile.firstName || "Dashboard"}
+      title={profile?.firstName || "Dashboard"}
       description="This is the dashboard for a kid user!"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div id="left">
-          <KidShowcaseCard profile={profile} loading={profileLoading} />
+      {profileLoading ? <Spinner size="lg" /> : <DashboardDataCards />}
+      <Separator className="my-4" />
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="shrink-0">
+          {userId && <KidShowcaseCard userId={userId} />}
         </div>
-        <div id="right" className="flex flex-col gap-6">
-          <KidActiveTasksCard
-            assignedTasks={assignedTasks}
-            loading={isLoading}
-          />
-          <KidApprovalsCard
-            assignedTasks={pendingApprovalTasks}
-            loading={isLoading}
-          />
+        <div className="flex-1 min-w-0">
+          {userId && <KidActiveTasksCard userId={userId} />}
+          {userId && <KidApprovalsCard userId={userId} />}
         </div>
       </div>
     </PageContainer>

@@ -2,8 +2,8 @@ import { cn } from "@/common/utils/classNames";
 import React from "react";
 
 interface CardSectionProps {
-  label: string;
   children: React.ReactNode;
+  label?: string;
   icon?: React.ReactNode;
   className?: string;
 }

@@ -1,9 +1,5 @@
 import {
-  StyledCalendar1Icon,
-  StyledCalendarCheckIcon,
   StyledFlameIcon,
-  StyledGemIcon,
-  StyledPiggyBankIcon,
   StyledTrophyIcon,
 } from "@/common/ui/display/styled-icons";
 import { Spinner } from "@/common/ui/feedback/spinner";
@@ -14,47 +10,33 @@ import {
   StatValue,
 } from "@/common/ui/typography/typography";
 import { useApprovalCounts } from "@/features/approvals/hooks/useApprovalCounts";
-import { UserProfile } from "@/features/user/types";
+import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
+import { TaskFrequency } from "@/features/tasks/types";
 
-interface KidShowcaseCardProps {
-  profile: UserProfile | null | undefined;
-  loading?: boolean;
-}
-
-export const KidShowcaseCard = ({ profile, loading }: KidShowcaseCardProps) => {
-  const { daily, weekly, monthly } = useApprovalCounts(profile?.userId || "");
+export const KidShowcaseCard = ({ userId }: { userId: string }) => {
+  const { daily, weekly, monthly, isLoading } = useApprovalCounts(userId);
   return (
     <Card className="p-0">
-      {loading ? (
+      {isLoading ? (
         <Spinner size="xl" />
       ) : (
-        <div className="flex flex-col justify-start gap-2">
+        <div className="flex flex-col justify-start gap-4">
           <Header2 className="bg-linear-to-r from-primary to-chart-2 text-transparent bg-clip-text">
-            Welcome, {profile?.firstName}!
+            Showcase
           </Header2>
           <div className="flex flex-row items-center px-4">
-            <StyledPiggyBankIcon />
-            <StatLabel>Coins:</StatLabel>
-            <StatValue>{profile?.pointTotal}</StatValue>
-          </div>
-          <div className="flex flex-row items-center px-4">
-            <StyledGemIcon />
-            <StatLabel>Gems:</StatLabel>
-            <StatValue>100</StatValue>
-          </div>
-          <div className="flex flex-row items-center px-4">
-            <StyledCalendarCheckIcon />
-            <StatLabel>Daily Completed:</StatLabel>
+            <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Daily} />
+            <StatLabel>Today:</StatLabel>
             <StatValue>{daily}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
-            <StyledCalendar1Icon />
-            <StatLabel>Weekly Completed:</StatLabel>
+            <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Weekly} />
+            <StatLabel>This Week:</StatLabel>
             <StatValue>{weekly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">
-            <StyledCalendarCheckIcon />
-            <StatLabel>Monthly Completed:</StatLabel>
+            <TaskFrequencyBadge size="sm" frequency={TaskFrequency.Monthly} />
+            <StatLabel>This Month:</StatLabel>
             <StatValue>{monthly}</StatValue>
           </div>
           <div className="flex flex-row items-center px-4">

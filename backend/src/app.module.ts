@@ -4,6 +4,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { HealthModule } from 'src/modules/health/health.module';
 import { TasksModule } from 'src/modules/tasks/tasks.module';
 import { AppController } from './app.controller';
+import { AllowanceModule } from './modules/allowance/allowance.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RewardsModule } from './modules/rewards/rewards.module';
 import { UsersModule } from './modules/users/users.module';
@@ -17,6 +18,7 @@ import { UsersModule } from './modules/users/users.module';
     UsersModule,
     AuthModule,
     RewardsModule,
+    AllowanceModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -5,6 +5,7 @@ export const badgeShellVariants = cva(
   {
     variants: {
       size: {
+        xs: "size-8",
         sm: "size-11",
         md: "size-14",
         lg: "size-20",
@@ -19,6 +20,7 @@ export const badgeShellVariants = cva(
 export const badgeIconVariants = cva("text-highlight-foreground", {
   variants: {
     size: {
+      xs: "size-5",
       sm: "size-7",
       md: "size-9",
       lg: "size-14",

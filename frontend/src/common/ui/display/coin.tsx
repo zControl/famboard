@@ -13,7 +13,7 @@ function Coin({
 }: React.ComponentProps<"div"> & { value: number }) {
   return (
     <Tooltip>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <div
           className={cn(
             "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
