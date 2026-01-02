@@ -227,4 +227,30 @@ export class TasksService {
 
     return assignments.map((assignment) => assignment.task);
   }
+
+  async assignTasksToUser(userId: string, taskIds: string[]): Promise<User> {
+    const user = await this.findUserById(userId);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Create assignments for all requested tasks
+    const newAssignments = await Promise.all(
+      taskIds.map(async (taskId) => {
+        const task = await this.findTaskById(taskId);
+        const assignment = new TaskAssignment();
+        assignment.task = task;
+        assignment.user = user;
+        assignment.assignedAt = new Date();
+        return assignment;
+      }),
+    );
+
+    // Save all assignments (database will handle duplicates gracefully)
+    await this.taskAssignmentRepository.save(newAssignments);
+
+    // Return the updated user
+    return this.findUserById(userId);
+  }
 }

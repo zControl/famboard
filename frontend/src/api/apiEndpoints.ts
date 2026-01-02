@@ -23,6 +23,7 @@ export const API_ENDPOINTS = {
     GET_ASSIGNED_USERS: (taskId: string) => `/tasks/assigned-users/${taskId}`,
     GET_ASSIGNED_TASKS: (userId: string) => `/tasks/assigned-tasks/${userId}`,
     ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
+    ASSIGN_TASKS_TO_USER: (userId: string) => `/tasks/users/${userId}/assign-tasks`,
     COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
   },
   APROVALS: {

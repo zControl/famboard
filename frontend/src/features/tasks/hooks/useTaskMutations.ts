@@ -38,11 +38,23 @@ export const useTaskMutations = () => {
     onSuccess: refreshTasks,
   });
 
+  const assignTasksToUserMutation = useMutation({
+    mutationFn: ({ userId, taskIds }: { userId: string; taskIds: string[] }) =>
+      taskApi.assignTasksToUser(userId, taskIds),
+    onSuccess: () => {
+      refreshTasks();
+      queryClient.invalidateQueries({ queryKey: ["assignedTasks"] });
+      queryClient.invalidateQueries({ queryKey: ["approvalsByUser"] });
+      queryClient.invalidateQueries({ queryKey: ["assignedTasksByUser"] });
+    },
+  });
+
   return {
     addTaskMutation,
     updateTaskMutation,
     deleteTaskMutation,
     duplicateTaskMutation,
     assignTaskMutation,
+    assignTasksToUserMutation,
   };
 };

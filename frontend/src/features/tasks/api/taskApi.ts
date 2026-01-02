@@ -39,4 +39,7 @@ export const taskApi = {
         note
       }
     ),
+
+  assignTasksToUser: (userId: string, taskIds: string[]) =>
+    apiClient.post(API_ENDPOINTS.TASKS.ASSIGN_TASKS_TO_USER(userId), { taskIds }),
 };

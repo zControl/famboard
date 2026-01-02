@@ -36,7 +36,7 @@ export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
           <KidProfileCard userProfile={userProfile} />
         </div>
         <div className="min-w-3/4 flex flex-col gap-2">
-          <KidApprovalsCard userId={userProfile.userId} />
+          <KidApprovalsCard userProfile={userProfile} />
           <AssignedTasksDatatable userId={userProfile.userId} />
         </div>
       </div>
