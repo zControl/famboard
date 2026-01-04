@@ -1,5 +1,5 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
+import { TaskApproval } from 'src/modules/task-approvals/entities/task-approval.entity';
 
 
 function transformFromTaskApproval<T>(

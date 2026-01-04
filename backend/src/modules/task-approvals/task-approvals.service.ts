@@ -4,16 +4,16 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { ApprovalDto } from 'src/modules/tasks/dto/approval.dto';
-import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { UserProfile } from 'src/modules/users/entities/user-profile.entity';
 import { EntityManager, MoreThanOrEqual, Repository } from 'typeorm';
-import { User, UserGroup } from '../users/entities/user.entity';
+import { PointsService } from '../rewards/points.service';
+import { TaskAssignment } from '../task-assignments/entities/task-assignment.entity';
+import { Task } from '../tasks/entities/task.entity';
+import { User } from '../users/entities/user.entity';
+import { ApprovalDto } from './dto/approval.dto';
 import { TaskApproval } from './entities/task-approval.entity';
-import { Task } from './entities/task.entity';
 
 @Injectable()
-export class TaskApprovalService {
+export class TaskApprovalsService {
   constructor(
     @InjectRepository(TaskAssignment)
     private taskAssignmentRepository: Repository<TaskAssignment>,
@@ -25,75 +25,8 @@ export class TaskApprovalService {
     private usersRepository: Repository<User>,
     @InjectEntityManager()
     private entityManager: EntityManager,
+    private pointsService: PointsService,
   ) {}
-
-  async completeTask(
-    taskId: string,
-    userId: string,
-    pointsPossible?: number,
-    note?: string,
-  ): Promise<TaskApproval> {
-    // Find the task
-    const task = await this.tasksRepository.findOne({ where: { id: taskId } });
-    if (!task) {
-      throw new NotFoundException(`Task with ID "${taskId}" not found`);
-    }
-
-    // Find the user
-    const user = await this.usersRepository.findOne({ where: { id: userId } });
-    if (!user) {
-      throw new NotFoundException(`User with ID "${userId}" not found`);
-    }
-
-    // Find the assignment
-    const assignment = await this.taskAssignmentRepository.findOne({
-      where: { task: { id: taskId }, user: { id: userId } },
-    });
-
-    if (!assignment) {
-      throw new NotFoundException(
-        `Task assignment with ID "${taskId}" not found`,
-      );
-    }
-
-    // Make sure there is no existing pending approval
-    const existingApproval = await this.taskApprovalRepository.findOne({
-      where: {
-        task: { id: taskId },
-        user: { id: userId },
-        status: 'PENDING_APPROVAL',
-      },
-    });
-
-    const existingAssignment = await this.taskAssignmentRepository.findOne({
-      where: {
-        task: { id: taskId },
-        user: { id: userId },
-        status: 'PENDING_APPROVAL',
-      },
-    });
-
-    if (existingAssignment || existingApproval) {
-      throw new BadRequestException(
-        'This task is already pending approval.',
-      );
-    }
-
-    // Update assignment status
-    assignment.status = 'PENDING_APPROVAL';
-    await this.taskAssignmentRepository.save(assignment);
-
-    // Create a new approval record
-    const taskApproval = new TaskApproval();
-    taskApproval.task = task;
-    taskApproval.user = user;
-    taskApproval.completedAt = new Date();
-    taskApproval.pointsPossible = pointsPossible;
-    taskApproval.note = note || '';
-
-    // Save the new record in the approvals table
-    return this.taskApprovalRepository.save(taskApproval);
-  }
 
   async getApprovals(
     filters?: Partial<TaskApproval>,
@@ -308,8 +241,12 @@ export class TaskApprovalService {
           );
         }
 
-        // Update user profile with awarded points
-        await this.updateUserPoints(transactionalEntityManager, approval);
+        // Update user profile with awarded points using PointsService
+        await this.pointsService.awardPoints(
+          transactionalEntityManager,
+          approval.user,
+          approval.pointsAwarded,
+        );
 
         // Handle the assignment based on task frequency
         if (approval.task.frequency === 'ONCE') {
@@ -331,32 +268,6 @@ export class TaskApprovalService {
         }
       },
     );
-  }
-
-  private async updateUserPoints(
-    manager: EntityManager,
-    approval: TaskApproval,
-  ) {
-    if (approval.user.group !== UserGroup.KID) {
-      throw new BadRequestException('Only kid users can be awarded points.');
-    }
-
-    // Find the user profile
-    const userProfile = await manager.findOne(UserProfile, {
-      where: { user: { id: approval.user.id } },
-    });
-
-    if (!userProfile) {
-      throw new NotFoundException(
-        `User profile for user ${approval.user.id} not found`,
-      );
-    }
-
-    // Update points
-    if (approval.pointsAwarded) {
-      userProfile.pointTotal = (userProfile.pointTotal ?? 0) + approval.pointsAwarded;
-      await manager.save(userProfile);
-    }
   }
 
   private async handleOneTimeTask(
@@ -453,5 +364,9 @@ export class TaskApprovalService {
 
     // Save the approval record
     return this.taskApprovalRepository.save(approval);
+  }
+
+  async deleteApprovalsByTask(taskId: string): Promise<void> {
+    await this.taskApprovalRepository.delete({ task: { id: taskId } });
   }
 }

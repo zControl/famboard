@@ -1,53 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-
-export enum TaskCategory {
-  Personal = 'PERSONAL',
-  Academic = 'ACADEMIC',
-  Household = 'HOUSEHOLD',
-  Friendly = 'FRIENDLY',
-  Helpful = 'HELPFUL',
-  Improvement = 'IMPROVEMENT',
-  Fitness = 'FITNESS',
-  Other = 'OTHER',
-}
-
-export enum TaskFrequency {
-  Once = 'ONCE',
-  Daily = 'DAILY',
-  Weekly = 'WEEKLY',
-  Monthly = 'MONTHLY',
-  Repeat = 'REPEAT',
-}
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateTaskDto {
-  @ApiProperty({ description: 'The title of the task' })
+  @ApiProperty({ description: 'Title of the task' })
   @IsString()
-  @IsOptional()
-  title?: string;
+  title: string;
 
-  @ApiProperty({ description: 'The description of the task' })
+  @ApiProperty({ description: 'Description of the task' })
   @IsString()
   @IsOptional()
   description?: string;
 
-  @ApiProperty({ description: 'The description of the task' })
+  @ApiProperty({ description: 'Point value for completing the task' })
   @IsNumber()
   @IsOptional()
   pointValue?: number;
 
-  @ApiProperty({ enum: TaskCategory, description: 'The category of the task' })
-  @IsEnum(TaskCategory)
+  @ApiProperty({ description: 'Category of the task' })
+  @IsString()
   @IsOptional()
-  category?: TaskCategory;
+  category?: string;
 
   @ApiProperty({
-    enum: TaskFrequency,
-    description: 'The frequency of the task',
+    description: 'Frequency of the task (ONCE, DAILY, WEEKLY, MONTHLY, REPEAT)',
   })
-  @IsEnum(TaskFrequency)
+  @IsString()
   @IsOptional()
-  frequency?: TaskFrequency;
+  frequency?: string;
 
   @ApiProperty({ description: 'Additional notes for the task' })
   @IsString()

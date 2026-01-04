@@ -8,14 +8,14 @@ import {
   UseInterceptors
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ApprovalDto } from 'src/modules/tasks/dto/approval.dto';
-import { TaskActionBodyDto } from 'src/modules/tasks/dto/task-action-body.dto';
-import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
+import { ApprovalDto } from './dto/approval.dto';
+import { TaskActionBodyDto } from './dto/task-action-body.dto';
+import { TaskApprovalsService } from './task-approvals.service';
 
-@ApiTags('Task Approval')
-@Controller('approvals')
-export class TaskApprovalController {
-  constructor(private readonly taskApprovalService: TaskApprovalService) {}
+@ApiTags('Task Approvals')
+@Controller('task-approvals')
+export class TaskApprovalsController {
+  constructor(private readonly taskApprovalsService: TaskApprovalsService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
@@ -27,7 +27,7 @@ export class TaskApprovalController {
     isArray: true,
   })
   async getAllApprovals() {
-    const approvals = await this.taskApprovalService.getAllApprovals();
+    const approvals = await this.taskApprovalsService.getAllApprovals();
     return {
       count: approvals.length,
       data: approvals.map((approval) => new ApprovalDto(approval)),
@@ -44,7 +44,7 @@ export class TaskApprovalController {
     isArray: true,
   })
   async getPendingApprovals() {
-    const approvals = await this.taskApprovalService.getPendingApprovals();
+    const approvals = await this.taskApprovalsService.getPendingApprovals();
     return {
       count: approvals.length,
       data: approvals.map((approval) => new ApprovalDto(approval)),
@@ -61,7 +61,7 @@ export class TaskApprovalController {
     @Param('period') period: 'daily' | 'weekly' | 'monthly',
     @Param('userId') userId: string
   ) {
-    return this.taskApprovalService.getApprovalCountsByPeriod(period, userId);
+    return this.taskApprovalsService.getApprovalCountsByPeriod(period, userId);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -78,7 +78,7 @@ export class TaskApprovalController {
   })
   async getPendingCompletionsByUser(@Param('userId') userId: string) {
     const approvals =
-      await this.taskApprovalService.getPendingApprovalsByUser(userId);
+      await this.taskApprovalsService.getPendingApprovalsByUser(userId);
     return {
       count: approvals.length,
       data: approvals.map((approval) => new ApprovalDto(approval)),
@@ -96,7 +96,7 @@ export class TaskApprovalController {
     @Param('approvalId') approvalId: string,
     @Body() approveDto: TaskActionBodyDto,
   ) {
-    await this.taskApprovalService.approveTask(
+    await this.taskApprovalsService.approveTask(
       approvalId,
       approveDto.parentId,
       approveDto.bonusPoints,
@@ -119,7 +119,7 @@ export class TaskApprovalController {
     @Param('approvalId') approvalId: string,
     @Body() rejectDto: TaskActionBodyDto,
   ) {
-    await this.taskApprovalService.rejectTask(approvalId, rejectDto.note);
+    await this.taskApprovalsService.rejectTask(approvalId, rejectDto.note);
 
     return {
       message: 'Task rejected',

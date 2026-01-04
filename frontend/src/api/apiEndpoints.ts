@@ -20,20 +20,25 @@ export const API_ENDPOINTS = {
     GET_ONE: (id: string) => `/tasks/${id}`,
     UPDATE: (id: string) => `/tasks/${id}`,
     DELETE: (id: string) => `/tasks/${id}`,
-    GET_ASSIGNED_USERS: (taskId: string) => `/tasks/assigned-users/${taskId}`,
-    GET_ASSIGNED_TASKS: (userId: string) => `/tasks/assigned-tasks/${userId}`,
-    ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
-    ASSIGN_TASKS_TO_USER: (userId: string) => `/tasks/users/${userId}/assign-tasks`,
-    COMPLETE_TASK: (id: string) => `/tasks/${id}/complete`,
   },
-  APROVALS: {
-    GET_ALL: '/approvals',
-    GET_PENDING_APPROVALS: `/approvals/pending`,
-    GET_APPROVALS_BY_USER: (userId: string) => `/approvals/user/${userId}`,
+  TASK_ASSIGNMENTS: {
+    GET_ASSIGNED_USERS: (taskId: string) => `/task-assignments/assigned-users/${taskId}`,
+    GET_ASSIGNED_TASKS: (userId: string) => `/task-assignments/assigned-tasks/${userId}`,
+    GET_TASKS_BY_USER: (userId: string) => `/task-assignments/user/${userId}/tasks`,
+    ASSIGN_USERS: (taskId: string) => `/task-assignments/tasks/${taskId}/assign`,
+    ASSIGN_TASKS_TO_USER: (userId: string) => `/task-assignments/users/${userId}/assign-tasks`,
+  },
+  TASK_COMPLETIONS: {
+    COMPLETE_TASK: (taskId: string) => `/task-completions/${taskId}/complete`,
+  },
+  TASK_APPROVALS: {
+    GET_ALL: '/task-approvals',
+    GET_PENDING_APPROVALS: `/task-approvals/pending`,
+    GET_APPROVALS_BY_USER: (userId: string) => `/task-approvals/user/${userId}`,
     GET_APPROVAL_COUNTS: (period: string, userId: string) =>
-      `/approvals/counts/${period}/${userId}`,
-    APPROVE: (approvalId: string) => `/approvals/${approvalId}/approve`,
-    REJECT: (approvalId: string) => `/approvals/${approvalId}/reject`,
+      `/task-approvals/counts/${period}/${userId}`,
+    APPROVE: (approvalId: string) => `/task-approvals/${approvalId}/approve`,
+    REJECT: (approvalId: string) => `/task-approvals/${approvalId}/reject`,
   },
   REWARDS: {
     GET_ALL: '/rewards',

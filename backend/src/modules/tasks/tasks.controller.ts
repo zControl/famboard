@@ -1,30 +1,21 @@
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
   Param,
   Patch,
   Post,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
-import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
-import { TasksToUserDto } from 'src/modules/tasks/dto/tasks-to-user.dto';
-import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
+import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
 import { TasksService } from './tasks.service';
 
 @ApiTags('Tasks')
 @Controller('tasks')
 export class TasksController {
-  constructor(
-    private readonly tasksService: TasksService,
-    private readonly taskApprovalService: TaskApprovalService,
-  ) {}
+  constructor(private readonly tasksService: TasksService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new task' })
@@ -72,41 +63,6 @@ export class TasksController {
     return this.tasksService.update(id, updateTaskDto);
   }
 
-  @Get('assigned-users/:taskId')
-  @ApiOperation({ summary: 'Get all users that are assigned to a task' })
-  @ApiResponse({
-    status: 200,
-    description: 'Assigned tasks retrieved successfully',
-  })
-  @ApiResponse({ status: 404, description: 'Task not found' })
-  getAssignedUsers(@Param('taskId') taskId: string) {
-    return this.tasksService.findAssignedUsersByTask(taskId);
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get('assigned-tasks/:userId')
-  @ApiOperation({ summary: 'Get task assignment details for a specific user' })
-  @ApiResponse({
-    status: 200,
-    description: 'Task assignments retrieved successfully',
-  })
-  @ApiResponse({ status: 404, description: 'User not found' })
-  async getAssignedTasks(@Param('userId') userId: string) {
-    const tasks = await this.tasksService.findAssignedTasksByUser(userId);
-    return {
-      count: tasks.length,
-      data: tasks,
-    };
-  }
-
-  @Get('user/:userId')
-  @ApiOperation({ summary: 'Get an array of task objects for a specific user' })
-  @ApiResponse({ status: 200, description: 'Tasks retrieved successfully' })
-  @ApiResponse({ status: 404, description: 'User not found' })
-  getTasksByUser(@Param('userId') userId: string) {
-    return this.tasksService.findTasksByUser(userId);
-  }
-
   @Delete(':taskId')
   @ApiOperation({ summary: 'Delete a task' })
   @ApiResponse({ status: 200, description: 'Task deleted successfully' })
@@ -114,50 +70,4 @@ export class TasksController {
     return this.tasksService.remove(id);
   }
 
-  @Post(':taskId/assign')
-  @ApiOperation({ summary: 'Assign multiple users to a task' })
-  @ApiBody({ type: TaskToMultipleUsersDto })
-  async assignUsersToTask(
-    @Param('taskId') taskId: string,
-    @Body() body: { userIds: string[] },
-  ) {
-    return this.tasksService.assignUsersToTask(taskId, body.userIds);
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Post(':taskId/complete')
-  @ApiOperation({ summary: 'Mark a task as complete (by kid)' })
-  @ApiResponse({
-    status: 201,
-    description: 'Task marked as complete!',
-  })
-  @ApiResponse({ status: 404, description: 'Task not found' })
-  @ApiBody({ type: CompleteTaskDto })
-  async completeTask(
-    @Param('taskId') taskId: string,
-    @Body() completeTaskDto: CompleteTaskDto,
-  ) {
-    console.log('Received DTO:', completeTaskDto);
-    await this.taskApprovalService.completeTask(
-      taskId,
-      completeTaskDto.userId,
-      completeTaskDto.pointsPossible,
-      completeTaskDto.note,
-    );
-    return {
-      message: 'Task marked as complete!',
-    };
-  }
-
-  @Post('users/:userId/assign-tasks')
-  @ApiOperation({ summary: 'Assign multiple tasks to a user' })
-  @ApiBody({ type: TasksToUserDto })
-  @ApiResponse({ status: 200, description: 'Tasks assigned successfully' })
-  @ApiResponse({ status: 404, description: 'User not found' })
-  async assignTasksToUser(
-    @Param('userId') userId: string,
-    @Body() body: TasksToUserDto,
-  ) {
-    return this.tasksService.assignTasksToUser(userId, body.taskIds);
-  }
 }

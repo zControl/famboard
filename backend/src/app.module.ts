@@ -6,17 +6,25 @@ import { TasksModule } from 'src/modules/tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AllowanceModule } from './modules/allowance/allowance.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { CommentsModule } from './modules/comments/comments.module';
 import { RewardsModule } from './modules/rewards/rewards.module';
+import { TaskApprovalsModule } from './modules/task-approvals/task-approvals.module';
+import { TaskAssignmentsModule } from './modules/task-assignments/task-assignments.module';
+import { TaskCompletionsModule } from './modules/task-completions/task-completions.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TasksModule,
-    DatabaseModule,
     HealthModule,
-    UsersModule,
+    DatabaseModule,
     AuthModule,
+    UsersModule,
+    TasksModule,
+    TaskAssignmentsModule,
+    TaskApprovalsModule,
+    TaskCompletionsModule,
+    CommentsModule,
     RewardsModule,
     AllowanceModule,
   ],

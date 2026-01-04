@@ -1,4 +1,3 @@
-import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
 import {
   Column,
   Entity,
@@ -6,8 +5,9 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { TaskApproval } from '../../task-approvals/entities/task-approval.entity';
+import { Task } from '../../tasks/entities/task.entity';
 import { User } from '../../users/entities/user.entity';
-import { Task } from './task.entity';
 
 @Entity()
 export class TaskAssignment {

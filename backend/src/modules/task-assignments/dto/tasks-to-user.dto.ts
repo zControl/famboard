@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsArray, IsString } from 'class-validator';
 
-export class TaskToMultipleUsersDto {
-  @ApiProperty({ type: 'array', items: { type: 'string', format: 'uuid' } })
+export class TasksToUserDto {
+  @ApiProperty({ description: 'Array of task IDs to assign to the user' })
   @IsArray()
   @IsString({ each: true })
-  userIds: string[];
+  taskIds: string[];
 }
