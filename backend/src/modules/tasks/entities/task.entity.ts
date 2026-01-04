@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   Generated,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { TaskAssignment } from '../../tasks/entities/task-assignment.entity';
-import { User } from '../../users/entities/user.entity';
+import { Comment } from '../../comments/entities/comment.entity';
+import { TaskAssignment } from '../../task-assignments/entities/task-assignment.entity';
+
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn('uuid')
@@ -48,22 +48,4 @@ export class Task {
 
   @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
   assignments: TaskAssignment[];
-}
-
-@Entity()
-export class Comment {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  content: string;
-
-  @ManyToOne(() => User)
-  author: User;
-
-  @ManyToOne(() => Task, (task) => task.comments)
-  task: Task;
-
-  @CreateDateColumn()
-  createdAt: Date;
 }

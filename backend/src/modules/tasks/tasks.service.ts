@@ -1,13 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AssignedUserDto } from 'src/modules/tasks/dto/assigned-user.dto';
-import { TaskAssignmentDetailDto } from 'src/modules/tasks/dto/task-assignment-detail.dto';
-import { UpdateTaskDto } from 'src/modules/tasks/dto/update-task.dto';
-import { TaskApproval } from 'src/modules/tasks/entities/task-approval.entity';
-import { TaskAssignment } from 'src/modules/tasks/entities/task-assignment.entity';
-import { User } from 'src/modules/users/entities/user.entity';
 import { Repository } from 'typeorm';
+import { TaskApprovalsService } from '../task-approvals/task-approvals.service';
+import { TaskAssignmentsService } from '../task-assignments/task-assignments.service';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from './entities/task.entity';
 
 @Injectable()
@@ -15,12 +12,8 @@ export class TasksService {
   constructor(
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
-    @InjectRepository(TaskAssignment)
-    private taskAssignmentRepository: Repository<TaskAssignment>,
-    @InjectRepository(TaskApproval)
-    private taskApprovalRepository: Repository<TaskApproval>,
+    private taskAssignmentsService: TaskAssignmentsService,
+    private taskApprovalsService: TaskApprovalsService,
   ) {}
   async create(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = this.tasksRepository.create(createTaskDto);
@@ -71,13 +64,6 @@ export class TasksService {
     return task;
   }
 
-  async findUserById(userId: string): Promise<User> {
-    const user = await this.usersRepository.findOne({ where: { id: userId } });
-    if (!user)
-      throw new NotFoundException(`User with ID "${userId}" not found`);
-    return user;
-  }
-
   async update(id: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
     const task = await this.findTaskById(id);
 
@@ -94,8 +80,8 @@ export class TasksService {
 
   async remove(taskId: string): Promise<{ message: string }> {
     // First, delete all task assignments and approvals related to this task
-    await this.taskAssignmentRepository.delete({ task: { id: taskId } });
-    await this.taskApprovalRepository.delete({ task: { id: taskId } });
+    await this.taskAssignmentsService.deleteAssignmentsByTask(taskId);
+    await this.taskApprovalsService.deleteApprovalsByTask(taskId);
 
     // Then delete the task and return appropriate message
     const result = await this.tasksRepository.delete(taskId);
@@ -105,152 +91,5 @@ export class TasksService {
     }
 
     return { message: `Task with ID ${taskId} successfully deleted` };
-  }
-
-  async assignUsersToTask(taskId: string, userIds: string[]): Promise<Task> {
-    const task = await this.findTaskById(taskId);
-
-    if (!task) {
-      throw new NotFoundException('Task not found');
-    }
-
-    // Get existing assignments
-    const existingAssignments = await this.taskAssignmentRepository.find({
-      where: { task: { id: taskId } },
-      relations: ['user'],
-    });
-
-    // Determine users to add and remove
-    const existingUserIds = existingAssignments.map(
-      (assignment) => assignment.user.id,
-    );
-    const usersToAdd = userIds.filter((id) => !existingUserIds.includes(id));
-    const usersToRemove = existingUserIds.filter((id) => !userIds.includes(id));
-
-    for (const userId of usersToRemove) {
-      // Delete the assignment
-      await this.taskAssignmentRepository.delete({
-        task: { id: taskId },
-        user: { id: userId },
-      });
-
-      // Also update any approvals related to this assignment.
-      await this.taskApprovalRepository.update(
-        {
-          task: { id: taskId },
-          user: { id: userId },
-          status: 'PENDING_APPROVAL'
-        },
-        { status: 'REJECTED', note: 'User unassigned from task' }
-      );
-    }
-
-    // Add new assignments
-    if (usersToAdd.length > 0) {
-      const newAssignments = await Promise.all(
-        usersToAdd.map(async (userId) => {
-          const user = await this.findUserById(userId);
-          const assignment = new TaskAssignment();
-          assignment.task = task;
-          assignment.user = user;
-          assignment.assignedAt = new Date();
-          return assignment;
-        }),
-      );
-
-      await this.taskAssignmentRepository.save(newAssignments);
-    }
-
-    // Fetch and return the updated task
-    return this.findTaskById(taskId);
-  }
-
-  async findAssignedUsersByTask(taskId: string): Promise<AssignedUserDto[]> {
-    const task = await this.findTaskById(taskId);
-    if (!task) {
-      throw new NotFoundException('Task not found');
-    }
-
-    const assignments = await this.taskAssignmentRepository.find({
-      where: { task: { id: taskId } },
-      relations: ['user'],
-    });
-
-    return assignments.map((assignment) => ({
-      id: assignment.user.id,
-      username: assignment.user.username,
-    }));
-  }
-
-  async findAssignedTasksByUser(
-    userId: string,
-  ): Promise<TaskAssignmentDetailDto[]> {
-    // First check if the user exists
-    // If user doesn't exist, findUserById will throw a NotFoundException
-    // Otherwise, continue with finding tasks
-    await this.findUserById(userId);
-
-    const assignments = await this.taskAssignmentRepository.find({
-      where: { user: { id: userId } },
-      relations: ['task'],
-    });
-
-    return assignments.map(
-      (assignment) => new TaskAssignmentDetailDto(assignment),
-    );
-  }
-
-  async findUsersByTask(taskId: string): Promise<User[]> {
-    const task = await this.findTaskById(taskId);
-    if (!task) {
-      throw new NotFoundException('Task not found');
-    }
-
-    const assignments = await this.taskAssignmentRepository.find({
-      where: { task: { id: taskId } },
-      relations: ['user'],
-    });
-
-    return assignments.map((assignment) => assignment.user);
-  }
-
-  async findTasksByUser(userId: string): Promise<Task[]> {
-    // First check if the user exists
-    // If user doesn't exist, findUserById will throw a NotFoundException
-    // Otherwise, continue with finding tasks
-    await this.findUserById(userId);
-
-    const assignments = await this.taskAssignmentRepository.find({
-      where: { user: { id: userId } },
-      relations: ['task'],
-    });
-
-    return assignments.map((assignment) => assignment.task);
-  }
-
-  async assignTasksToUser(userId: string, taskIds: string[]): Promise<User> {
-    const user = await this.findUserById(userId);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    // Create assignments for all requested tasks
-    const newAssignments = await Promise.all(
-      taskIds.map(async (taskId) => {
-        const task = await this.findTaskById(taskId);
-        const assignment = new TaskAssignment();
-        assignment.task = task;
-        assignment.user = user;
-        assignment.assignedAt = new Date();
-        return assignment;
-      }),
-    );
-
-    // Save all assignments (database will handle duplicates gracefully)
-    await this.taskAssignmentRepository.save(newAssignments);
-
-    // Return the updated user
-    return this.findUserById(userId);
   }
 }

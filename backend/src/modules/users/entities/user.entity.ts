@@ -8,7 +8,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TaskAssignment } from '../../tasks/entities/task-assignment.entity';
+import { TaskAssignment } from '../../task-assignments/entities/task-assignment.entity';
 import { UserProfile } from '../../users/entities/user-profile.entity';
 
 export enum UserGroup {
