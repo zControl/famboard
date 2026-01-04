@@ -12,6 +12,7 @@ import {
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CompleteTaskDto } from 'src/modules/tasks/dto/complete-task.dto';
 import { TaskToMultipleUsersDto } from 'src/modules/tasks/dto/task-to-multiple-users.dto';
+import { TasksToUserDto } from 'src/modules/tasks/dto/tasks-to-user.dto';
 import { TaskApprovalService } from 'src/modules/tasks/task-approval.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -146,5 +147,17 @@ export class TasksController {
     return {
       message: 'Task marked as complete!',
     };
+  }
+
+  @Post('users/:userId/assign-tasks')
+  @ApiOperation({ summary: 'Assign multiple tasks to a user' })
+  @ApiBody({ type: TasksToUserDto })
+  @ApiResponse({ status: 200, description: 'Tasks assigned successfully' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  async assignTasksToUser(
+    @Param('userId') userId: string,
+    @Body() body: TasksToUserDto,
+  ) {
+    return this.tasksService.assignTasksToUser(userId, body.taskIds);
   }
 }

@@ -13,17 +13,30 @@ import { Card, CardContent } from "@/common/ui/surfaces/card";
 import { ApprovalActionModal } from "@/features/approvals/components/ApprovalActionModal";
 import { ApprovalSummaryCard } from "@/features/approvals/components/ApprovalSummaryCard";
 import { useApprovalsByUser } from "@/features/approvals/hooks/useApprovalsByUser";
+import { TaskAssignmentModal } from "@/features/tasks/components/TaskAssignmentModal";
+import { UserProfile } from "@/features/user/types";
 import { PartyPopperIcon } from "lucide-react";
 import { useState } from "react";
 
-export const KidApprovalsCard = ({ userId }: { userId: string }) => {
-  const { approvalsByUser, isLoading, error } = useApprovalsByUser(userId);
+export const KidApprovalsCard = ({
+  userProfile,
+}: {
+  userProfile: UserProfile;
+}) => {
+  const { approvalsByUser, isLoading, error } = useApprovalsByUser(
+    userProfile.userId,
+  );
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isAssignmentModalOpen, setAssignmentModalOpen] = useState(false);
 
   if (error) return <ErrorCard message="Error getting user approval list." />;
 
   const handleApprovalAll = () => {
     setConfirmModalOpen(true);
+  };
+
+  const handleAssignTask = () => {
+    setAssignmentModalOpen(true);
   };
 
   return (
@@ -39,11 +52,11 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
               </EmptyMedia>
               <EmptyTitle>Done!</EmptyTitle>
               <EmptyDescription>
-                USERNAME has no tasks that are awaiting approval!
+                {userProfile.firstName} has no tasks that are awaiting approval!
               </EmptyDescription>
             </EmptyHeader>
             <EmptyContent>
-              <Button size="lg" variant="secondary">
+              <Button size="lg" variant="secondary" onClick={handleAssignTask}>
                 Assign a task
               </Button>
             </EmptyContent>
@@ -80,6 +93,15 @@ export const KidApprovalsCard = ({ userId }: { userId: string }) => {
           approvals={approvalsByUser.data}
         />
       )}
+      <TaskAssignmentModal
+        isOpen={isAssignmentModalOpen}
+        onOpenChange={setAssignmentModalOpen}
+        userId={userProfile.userId}
+        username={userProfile.username}
+        onComplete={() => {
+          // Refresh approvals data after task assignment
+        }}
+      />
     </Card>
   );
 };
