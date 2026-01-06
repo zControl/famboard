@@ -1,13 +1,14 @@
-import { EmojiSelector } from "@/components/common/EmojiSelector";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
+import { EmojiSelector } from "@/common/ui/overlay/EmojiSelector";
+import { Paragraph } from "@/common/ui/typography/typography";
 import { useProfile } from "@/features/user/hooks/useProfile";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 import { CheckIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export const UserSheetStatus = () => {
-  const { profile, updateProfile } = useProfile();
+  const { profile, updateProfileMutation } = useProfile();
   const [status, setStatus] = useState(profile?.status ?? "");
   const [changed, setChanged] = useState(false);
 
@@ -23,7 +24,7 @@ export const UserSheetStatus = () => {
 
   const handleStatusSave = (updatedData: Partial<UserProfile>) => {
     if (profile?.userId) {
-      updateProfile.mutate(updatedData);
+      updateProfileMutation.mutate(updatedData);
       setChanged(false);
     } else {
       console.error("User ID is missing");
@@ -61,10 +62,11 @@ export const UserSheetStatus = () => {
         </div>
       ) : (
         <>
-          <div className="flex items-center my-2 cursor-pointer">
+          <Paragraph className="text-center underline">Status</Paragraph>
+          <div className="flex items-center cursor-pointer px-2 py-4 hover:bg-accent">
             <EmojiSelector />
             <div className="ml-4" onClick={() => setChanged(!changed)}>
-              <div>{profile?.status}</div>
+              <div className="text-lg">{profile?.status}</div>
             </div>
           </div>
         </>

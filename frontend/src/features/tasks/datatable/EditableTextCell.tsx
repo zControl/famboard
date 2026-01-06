@@ -1,7 +1,7 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { Textarea } from "@/components/ui/textarea";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { Task } from "@/types/task";
+import { Textarea } from "@/common/ui/fields/textarea";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 
@@ -10,13 +10,11 @@ interface EditableTextCellProps {
   accessor: keyof Task;
 }
 
-//TODO: Currently, this only works for <Task>, but it would be good to make it accept generic type.
-//? This means the mutation would need to be handled by the parent component and column definition would need to be updated.
 export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [value, setValue] = useState(row.original[accessor] as string);
-  const { updateTaskMutation } = useTasks();
+  const { updateTaskMutation } = useTaskMutations();
 
   useEffect(() => {
     setValue(row.original[accessor] as string);
@@ -73,7 +71,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
         <div className="flex items-center gap-1">
           <div className="flex flex-1">
             <Textarea
-              className="max-h-24 overflow-y-auto"
+              className="max-h-24 w-[300px] resize-none overflow-y-auto"
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onBlur={handleBlur}
@@ -84,7 +82,7 @@ export const EditableTextCell = ({ row, accessor }: EditableTextCellProps) => {
         </div>
       ) : (
         <div
-          className="cursor-pointer"
+          className="max-w-[250px] truncate cursor-pointer"
           onClick={() => {
             setIsEditing(true);
           }}

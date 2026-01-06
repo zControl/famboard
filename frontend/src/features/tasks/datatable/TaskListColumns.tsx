@@ -1,23 +1,16 @@
-import { SelectOptionCell } from "@/components/datatable/cells/SelectOptionCell";
-import { AscDescSortHeader } from "@/components/datatable/headers/AscDescSortHeader";
-import { SearchInputHeader } from "@/components/datatable/headers/SearchInputHeader";
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
-import { Coin } from "@/components/ui/coin";
-import { CustomLink } from "@/components/ui/custom-link";
+import { SearchInputHeader } from "@/common/datatable/headers/SearchInputHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
+import { Coin } from "@/common/ui/display/coin";
+import { CustomLink } from "@/common/ui/navigation/custom-link";
 import { EditableTextCell } from "@/features/tasks/datatable/EditableTextCell";
 import { TaskAssignmentsCell } from "@/features/tasks/datatable/TaskAssignmentsCell";
 import { TaskAssignmentsHeader } from "@/features/tasks/datatable/TaskAssignmentsHeader";
+import { TaskCategoryCell } from "@/features/tasks/datatable/TaskCategoryCell";
+import { TaskFrequencyCell } from "@/features/tasks/datatable/TaskFrequencyCell";
 import { TaskRowActions } from "@/features/tasks/datatable/TaskRowActions";
 
-import {
-  Task,
-  TaskCategory,
-  TaskDifficulty,
-  TaskFrequency,
-  TaskPriority,
-  TaskStatus,
-} from "@/types/task";
-import { enumToArray } from "@/utils/enumToArray";
+import { enumToArray } from "@/common/utils/enumToArray";
+import { Task, TaskCategory, TaskFrequency } from "@/features/tasks/types";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const taskListColumns: ColumnDef<Task>[] = [
@@ -25,24 +18,62 @@ export const taskListColumns: ColumnDef<Task>[] = [
     id: "actions",
     cell: ({ row }) => <TaskRowActions row={row} />,
   },
+
   {
-    accessorKey: "sequenceNumber",
-    enableSorting: true,
-    enableHiding: false,
-    header: ({ column }) => <AscDescSortHeader column={column} />,
+    accessorKey: "frequency",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Repeat"
+        options={enumToArray(TaskFrequency)}
+      />
+    ),
+    cell: ({ row }) => <TaskFrequencyCell row={row} />,
+  },
+  {
+    accessorKey: "category",
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <SupremeColumnHeader
+        column={column}
+        title="Type"
+        options={enumToArray(TaskCategory)}
+      />
+    ),
+    cell: ({ row }) => <TaskCategoryCell row={row} />,
+  },
+  {
+    accessorKey: "pointValue",
+    header: ({ column }) => (
+      <SupremeColumnHeader column={column} title="Coins" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex justify-center items-center text-center">
+        <Coin value={row.original.pointValue} />
+      </div>
+    ),
+  },
+  {
+    id: "assigned",
+    accessorFn: (row) => row.assignments.map((a) => a.user.id),
+    filterFn: "arrIncludesSome",
+    header: ({ column }) => (
+      <TaskAssignmentsHeader column={column} title="Assigned" />
+    ),
+    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
+  },
+  {
+    accessorKey: "title",
+    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
     cell: ({ row }) => (
       <CustomLink
         to={`/parents/tasks/${row.original.sequenceNumber}`}
         size="lg"
       >
-        {row.original.sequenceNumber}
+        {row.original.title}
       </CustomLink>
     ),
-  },
-  {
-    accessorKey: "title",
-    header: ({ column }) => <SearchInputHeader column={column} title="Title" />,
-    cell: ({ row }) => <EditableTextCell row={row} accessor="title" />,
   },
   {
     accessorKey: "description",
@@ -52,113 +83,8 @@ export const taskListColumns: ColumnDef<Task>[] = [
     cell: ({ row }) => <EditableTextCell row={row} accessor="description" />,
   },
   {
-    accessorKey: "assignedUserIds",
-    filterFn: "arrIncludesSome",
-    enableSorting: false,
-    header: ({ column }) => (
-      <TaskAssignmentsHeader column={column} title="Assigned" />
-    ),
-    cell: ({ row }) => <TaskAssignmentsCell row={row} />,
-  },
-  {
-    accessorKey: "pointValue",
-    header: ({ column }) => (
-      <SupremeColumnHeader column={column} title="Points" />
-    ),
-    cell: ({ row }) => (
-      <div className="text-center">
-        <Coin value={row.original.pointValue} />
-      </div>
-    ),
-  },
-  {
     accessorKey: "note",
     header: ({ column }) => <SearchInputHeader column={column} title="Notes" />,
-  },
-  {
-    accessorKey: "category",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Category"
-        options={enumToArray(TaskCategory)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.category}
-        options={enumToArray(TaskCategory)}
-      />
-    ),
-  },
-  {
-    accessorKey: "status",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Status"
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.status}
-        options={enumToArray(TaskStatus)}
-      />
-    ),
-  },
-  {
-    accessorKey: "frequency",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Frequency"
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.frequency}
-        options={enumToArray(TaskFrequency)}
-      />
-    ),
-  },
-  {
-    accessorKey: "difficulty",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Difficulty"
-        options={enumToArray(TaskDifficulty)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.difficulty}
-        options={enumToArray(TaskDifficulty)}
-      />
-    ),
-  },
-
-  {
-    accessorKey: "priority",
-    filterFn: "arrIncludesSome",
-    header: ({ column }) => (
-      <SupremeColumnHeader
-        column={column}
-        title="Priority"
-        options={enumToArray(TaskPriority)}
-      />
-    ),
-    cell: ({ row }) => (
-      <SelectOptionCell
-        initialValue={row.original.priority}
-        options={enumToArray(TaskPriority)}
-      />
-    ),
+    cell: ({ row }) => <EditableTextCell row={row} accessor="note" />,
   },
 ];

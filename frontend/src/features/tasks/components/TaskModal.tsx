@@ -1,6 +1,8 @@
-import { ActionModal } from "@/components/composites/ActionModal";
-import { EnhancedSelector } from "@/components/composites/EnhancedSelector";
-import { ValueSlider } from "@/components/composites/ValueSlider";
+import { ValueSlider } from "@/common/ui/fields/ValueSlider";
+import { Input } from "@/common/ui/fields/input";
+import { Textarea } from "@/common/ui/fields/textarea";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
+import { EnhancedSelector } from "@/common/ui/overlay/EnhancedSelector";
 import {
   Form,
   FormControl,
@@ -8,19 +10,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@/common/ui/surfaces/form";
 import { taskListSchema } from "@/features/tasks/datatable/TaskListSchema";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import {
-  Task,
-  TaskCategory,
-  TaskDifficulty,
-  TaskFrequency,
-  TaskPriority,
-  TaskStatus,
-} from "@/types/task";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
+import { Task, TaskCategory, TaskFrequency } from "@/features/tasks/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -38,7 +31,7 @@ export const TaskModal = ({
   existingTask,
   onTaskUpdated,
 }: TaskModalProps) => {
-  const { addTaskMutation, updateTaskMutation } = useTasks();
+  const { addTaskMutation, updateTaskMutation } = useTaskMutations();
 
   const isEditing = !!existingTask;
 
@@ -46,12 +39,9 @@ export const TaskModal = ({
     () => ({
       title: existingTask?.title || "",
       description: existingTask?.description || "",
-      pointValue: existingTask?.pointValue || 0,
+      pointValue: existingTask?.pointValue || 50,
       category: existingTask?.category || TaskCategory.Household,
       frequency: existingTask?.frequency || TaskFrequency.Daily,
-      difficulty: existingTask?.difficulty || TaskDifficulty.Easy,
-      status: existingTask?.status || TaskStatus.Active,
-      priority: existingTask?.priority || TaskPriority.Low,
       note: existingTask?.note || "",
     }),
     [existingTask],
@@ -94,6 +84,7 @@ export const TaskModal = ({
   useEffect(() => {
     if (modalOpen) {
       form.reset(defaultValues);
+      form.setValue("pointValue", defaultValues.pointValue);
     }
   }, [modalOpen, form, defaultValues]);
 
@@ -113,7 +104,12 @@ export const TaskModal = ({
         description={modalDescription}
       >
         <Form {...form}>
-          <form className="space-y-8">
+          <form
+            className="space-y-8"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
             <FormField
               control={form.control}
               name="title"
@@ -149,7 +145,7 @@ export const TaskModal = ({
                   <FormControl>
                     <div className="flex flex-col pt-4">
                       <ValueSlider
-                        defaultValue={[field.value]}
+                        defaultValue={[field.value || 50]}
                         onValueChange={(value) => field.onChange(value[0])}
                       />
                     </div>
@@ -179,24 +175,6 @@ export const TaskModal = ({
               />
               <FormField
                 control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskStatus}
-                        triggerText="Status"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="frequency"
                 render={({ field }) => (
                   <FormItem>
@@ -207,43 +185,6 @@ export const TaskModal = ({
                         onChange={field.onChange}
                         enumType={TaskFrequency}
                         triggerText="Frequency"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="difficulty"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Difficulty</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskDifficulty}
-                        triggerText="Difficulty"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Priority</FormLabel>
-                    <FormControl>
-                      <EnhancedSelector
-                        value={field.value}
-                        onChange={field.onChange}
-                        enumType={TaskPriority}
-                        triggerText="Priority"
                       />
                     </FormControl>
                     <FormMessage />

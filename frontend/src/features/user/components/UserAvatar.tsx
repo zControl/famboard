@@ -1,23 +1,15 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useProfile } from "@/features/user/hooks/useProfile";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/common/ui/display/avatar";
 
-export const UserAvatar = () => {
-  const { user } = useAuth();
-  const { profile } = useProfile();
-
-  if (!user) {
-    return null;
-  }
-  const initials = user.username
-    .split(" ")
-    .map((name) => name[0])
-    .join("")
-    .toUpperCase();
+export const UserAvatar = ({ url }: { url: string }) => {
+  const initials = "?";
 
   return (
     <Avatar>
-      <AvatarImage src={profile?.avatarUrl} alt="Avatar" />
+      <AvatarImage src={url} alt="Avatar" />
       <AvatarFallback>{initials}</AvatarFallback>
     </Avatar>
   );

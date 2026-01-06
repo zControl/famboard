@@ -1,7 +1,7 @@
 import { apiClient } from "@/api/apiClient";
+import { sleep } from "@/common/utils/sleep";
 import { AuthContext } from "@/features/auth/AuthContext";
-import { User } from "@/types/user";
-import { sleep } from "@/utils/sleep";
+import { User } from "@/features/user/types";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 
@@ -16,16 +16,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       apiClient.post<{ accessToken: string; user: User }>(
         "/auth/login",
         credentials,
+        undefined, // config
+        {
+          errorContext: "Authentication mutation function",
+          showErrorToast: true,
+        },
       ),
     onSuccess: (data) => {
       const { accessToken, user } = data;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
-    },
-    onError: (error) => {
-      //TODO: Handle login error better instead of console.log
-      console.error("Login error:", error);
     },
   });
 

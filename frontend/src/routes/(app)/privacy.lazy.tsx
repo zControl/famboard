@@ -1,10 +1,10 @@
-import { HeaderContainer } from '@/components/common/HeaderContainer'
-import { PageContainer } from '@/components/common/PageContainer'
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { HeaderContainer } from "@/common/layout/HeaderContainer";
+import { PageContainer } from "@/common/layout/PageContainer";
+import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute('/(app)/privacy')({
+export const Route = createLazyFileRoute("/(app)/privacy")({
   component: PrivacyPage,
-})
+});
 
 function PrivacyPage() {
   return (
@@ -142,7 +142,7 @@ function PrivacyPage() {
         </section>
       </PageContainer>
     </>
-  )
+  );
 }
 
-export default PrivacyPage
+export default PrivacyPage;

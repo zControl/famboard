@@ -1,9 +1,13 @@
-import { PageContainer } from "@/components/common/PageContainer";
-import { ProgressStep } from "@/components/ui/progress-step";
-import { Header2 } from "@/components/ui/typography";
-import { useUserAssignedTasks } from "@/features/tasks/hooks/useUserAssignedTasks";
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { ErrorPage } from "@/common/error/ErrorPage";
+import { PageContainer } from "@/common/layout/PageContainer";
+import { Separator } from "@/common/ui/display/separator";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { DashboardDataCards } from "@/features/kids/components/DashboardDataCards";
+import { KidActiveTasksCard } from "@/features/kids/components/KidActiveTasksCard";
+import { KidApprovalsCard } from "@/features/kids/components/KidApprovalsCard";
+import { KidShowcaseCard } from "@/features/kids/components/KidShowcaseCard";
 import { useProfile } from "@/features/user/hooks/useProfile";
-import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/_kids/kids/")({
@@ -11,42 +15,38 @@ export const Route = createFileRoute("/(app)/_kids/kids/")({
 });
 
 function KidsIndexPage() {
-  const { profile } = useProfile();
-  const userProfile = useUserProfile(profile?.userId || "");
-  const { assignedTasks } = useUserAssignedTasks(profile?.userId || "");
+  const { profile, isLoading: profileLoading, error } = useProfile();
+  const userId = profile?.userId;
+
+  // make sure profile is loaded
+  if (error) {
+    return (
+      <ErrorPage>
+        <ErrorCard
+          title="Error loading profile"
+          message="There was an error from the server when trying to load the user profile."
+          error={error}
+        />
+      </ErrorPage>
+    );
+  }
 
   return (
     <PageContainer
-      title="USER Dashboard"
-      description="This is the dashbaord for a kid user!"
+      title={profile?.firstName || "Dashboard"}
+      description="This is the dashboard for a kid user!"
     >
-      <section>
-        <article className="flex flex-row items-center gap-4">
-          <ProgressStep value={50} />
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Todays Tasks</Header2>
-          <p>Status: {userProfile.data?.status}</p>
-
-          {assignedTasks?.map((task) => (
-            <p key={task.sequenceNumber}>
-              {task.sequenceNumber} - {task.title}
-            </p>
-          ))}
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Weekly Tasks</Header2>
-        </article>
-      </section>
-      <section>
-        <article>
-          <Header2>Completed Tasks</Header2>
-        </article>
-      </section>
+      {profileLoading ? <Spinner size="lg" /> : <DashboardDataCards />}
+      <Separator className="my-4" />
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="shrink-0">
+          {userId && <KidShowcaseCard userId={userId} />}
+        </div>
+        <div className="flex-1 min-w-0">
+          {userId && <KidActiveTasksCard userId={userId} />}
+          {userId && <KidApprovalsCard userId={userId} />}
+        </div>
+      </div>
     </PageContainer>
   );
 }

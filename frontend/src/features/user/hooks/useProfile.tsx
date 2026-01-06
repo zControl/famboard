@@ -1,21 +1,16 @@
-import { apiClient } from "@/api/apiClient";
+import { usersApi } from "@/features/admin/api/usersApi";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { UserProfile } from "@/types/user";
+import { UserProfile } from "@/features/user/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useProfile = () => {
   const queryClient = useQueryClient();
-
   const { user } = useAuth();
 
-  const updateProfile = useMutation({
+  const updateProfileMutation = useMutation({
     mutationFn: async (updatedProfile: Partial<UserProfile>) => {
       if (!user) throw new Error("User not found");
-      const res = await apiClient.patch<UserProfile>(
-        `/users/${user.id}/profile`,
-        updatedProfile,
-      );
-      return res;
+      return usersApi.updateProfile(user.id, updatedProfile);
     },
     onSuccess: () => {
       // Invalidate and refetch the profile query
@@ -29,18 +24,16 @@ export const useProfile = () => {
     error,
   } = useQuery({
     queryKey: ["profile"],
-    queryFn: async (): Promise<UserProfile> => {
+    queryFn: async () => {
       if (!user) throw new Error("User not found");
-      const res = await apiClient.get<UserProfile>(`/users/${user.id}/profile`);
-      return res;
+      return usersApi.getProfile(user.id)();
     },
   });
 
-  /*   console.log("useProfile hook generated:");
-  console.log("user", user);
-  console.log("profile", profile);
-  console.log("isLoading", isLoading);
-  console.log("error", error); */
-
-  return { updateProfile, profile, isLoading, error };
+  return {
+    updateProfileMutation,
+    profile,
+    isLoading,
+    error,
+  };
 };

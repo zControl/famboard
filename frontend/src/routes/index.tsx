@@ -1,5 +1,5 @@
-import { AppHeader } from "@/components/common/AppHeader";
-import { PageContainer } from "@/components/common/PageContainer";
+import { AppHeader } from "@/common/layout/AppHeader";
+import { PageContainer } from "@/common/layout/PageContainer";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { LandingHeader } from "@/features/landing/components/LandingHeader";
 import { LandingHero } from "@/features/landing/components/LandingHero";
@@ -24,5 +24,3 @@ function App() {
     </>
   );
 }
-
-export default App;

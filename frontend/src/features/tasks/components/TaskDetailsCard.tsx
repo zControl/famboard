@@ -1,131 +1,74 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/common/ui/actions/button";
+import { Coin } from "@/common/ui/display/coin";
+import { CardSection } from "@/common/ui/surfaces/CardSection";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { DetailListItem } from "@/components/ui/list-item";
-import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
+} from "@/common/ui/surfaces/card";
+import { AssignedAvatarGroup } from "@/features/tasks/components/AssignedAvatarGroup";
+import TaskCategoryBadge from "@/features/tasks/components/TaskCategoryBadge";
+import TaskFrequencyBadge from "@/features/tasks/components/TaskFrequencyBadge";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
-import { useTaskBySequenceNumber } from "@/features/tasks/hooks/useTasks";
-import { Task } from "@/types/task";
+import { useTaskQuery } from "@/features/tasks/hooks/useTaskQuery";
+import { Task } from "@/features/tasks/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 import {
   BookOpenTextIcon,
-  CalendarCheckIcon,
   ClipboardListIcon,
-  ContainerIcon,
   EditIcon,
-  ListTodoIcon,
-  PickaxeIcon,
-  ReceiptTextIcon,
   UsersIcon,
 } from "lucide-react";
 import { useState } from "react";
 
 export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
-  const { sequenceNumber } = initialTask;
-  const { data: task, refetch } = useTaskBySequenceNumber(
-    sequenceNumber.toString(),
-  );
-  const { taskAssignments } = useAssignments(task?.id || "");
+  const { id } = initialTask;
+  const { data: task } = useTaskQuery(id);
   const [editOpen, setEditOpen] = useState(false);
+  const queryClient = useQueryClient();
 
   const handleEdit = () => {
     setEditOpen(true);
-    console.log("Edit button clicked");
+  };
+
+  const handleUpdateTask = () => {
+    queryClient.invalidateQueries({ queryKey: ["taskBySequenceNumber"] });
   };
   return (
     <>
-      <Card className="max-w-4xl mx-auto overflow-hidden">
+      <Card className="mx-auto overflow-hidden">
         <CardHeader>
           <CardTitle className="flex justify-between">
-            <p className="text-2xl font-semibold text-accent-foreground">
+            {task && (
+              <div className="flex gap-2">
+                <Coin value={task?.pointValue || 0} />
+                <TaskFrequencyBadge frequency={task?.frequency} size={"sm"} />
+                <TaskCategoryBadge category={task?.category} size={"sm"} />
+              </div>
+            )}
+            <span className="text-2xl font-semibold text-accent-foreground">
               {task?.title}
-            </p>
+            </span>
             <Button variant="ghost" size="icon" onClick={handleEdit}>
               <EditIcon />
             </Button>
           </CardTitle>
         </CardHeader>
         <CardContent className="text-xl space-y-6">
-          <section className="space-y-2">
-            <label>
-              <ClipboardListIcon className="inline mr-2" />
-              Description
-            </label>
-            <article className="text-base border border-accent p-4">
-              {task?.description}
-            </article>
-          </section>
-          <section className="space-y-2">
-            <label>
-              <UsersIcon className="inline mr-2" />
-              Assignments
-            </label>
-            <article className="border border-accent p-4">
-              <div className="flex py-2 space-x-2 justify-around">
-                {taskAssignments?.map((assignment) => (
-                  <div
-                    key={assignment.id}
-                    className="flex flex-col gap-4 place-items-center"
-                  >
-                    <AssignedUserAvatar
-                      key={assignment.id}
-                      userId={assignment.id}
-                    />
-                    <p className="text-center">{assignment.username}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </section>
-          <section className="space-y-2">
-            <label>
-              <ReceiptTextIcon className="inline mr-2" />
-              Details
-            </label>
-            <article className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12 px-2 md:px-4 py-4 border border-border gap-2">
-              <DetailListItem
-                icon={<ContainerIcon />}
-                label="Category"
-                value={task?.category}
-              />
-              <DetailListItem
-                icon={<ListTodoIcon />}
-                label="Priority"
-                value={task?.priority}
-              />
-              <DetailListItem
-                icon={<CalendarCheckIcon />}
-                label="Frequency"
-                value={task?.frequency}
-              />
-              <DetailListItem
-                icon={<PickaxeIcon />}
-                label="Difficulty"
-                value={task?.difficulty}
-              />
-            </article>
-          </section>
-          <section className="space-y-2">
-            <label>
-              <BookOpenTextIcon className="inline mr-2" />
-              Notes
-            </label>
-            {task?.note ? (
-              <article className="border border-accent p-4">
-                {task?.note}
-              </article>
-            ) : (
-              <article className="border border-accent p-4">
-                <Button variant="link">Add notes</Button>
-              </article>
-            )}
-          </section>
+          <CardSection icon={<ClipboardListIcon />} label="Description">
+            {task?.description}
+          </CardSection>
+
+          <CardSection icon={<UsersIcon />} label="Assignments">
+            <AssignedAvatarGroup taskId={id} />
+          </CardSection>
+
+          <CardSection icon={<BookOpenTextIcon />} label="Notes">
+            {task?.note || <Button variant="link">Add notes</Button>}
+          </CardSection>
         </CardContent>
         <CardFooter className="font-mono text-center">
           <p className="text-center">{task?.id}</p>
@@ -135,7 +78,7 @@ export const TaskDetailsCard = ({ task: initialTask }: { task: Task }) => {
         modalOpen={editOpen}
         onModalOpenChange={setEditOpen}
         existingTask={task}
-        onTaskUpdated={() => refetch()}
+        onTaskUpdated={handleUpdateTask}
       />
     </>
   );

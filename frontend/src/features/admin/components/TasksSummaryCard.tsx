@@ -1,17 +1,14 @@
-import { ErrorCard } from "@/components/common/ErrorCard";
-import { ButtonLink } from "@/components/composites/ButtonLink";
-import { InfoCard } from "@/components/composites/InfoCard";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { LogsIcon, PlusSquareIcon, SquareLibraryIcon } from "lucide-react";
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { InfoCard } from "@/common/ui/surfaces/InfoCard";
+import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";
+import { LogsIcon } from "lucide-react";
 
 export const TasksSummaryCard = () => {
-  const { tasks, isLoading, error } = useTasks();
+  const { tasks, isLoading, error } = useTasksQuery();
   if (error)
     return (
       <ErrorCard message="Getting tasks summary has failed." error={error} />
     );
-
-  const totalTasks = tasks?.length || 0;
 
   return (
     <InfoCard
@@ -22,15 +19,7 @@ export const TasksSummaryCard = () => {
     >
       <div className="flex flex-col space-y-2">
         <div className="text-sm">
-          <p>Total Tasks: {totalTasks}</p>
-        </div>
-        <div className="flex flex-row space-x-2">
-          <ButtonLink href="/tasks" icon={<SquareLibraryIcon />}>
-            View All Tasks
-          </ButtonLink>
-          <ButtonLink href="/tasks/create" icon={<PlusSquareIcon />}>
-            Create Task
-          </ButtonLink>
+          <p>Total Tasks: {tasks?.count}</p>
         </div>
       </div>
     </InfoCard>

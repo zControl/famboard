@@ -43,4 +43,10 @@ export class UserProfile {
 
   @Column()
   avatarUrl: string;
+
+  @Column({ type: 'integer', default: 0 })
+  pointTotal: number;
+
+  @Column({ type: 'integer', default: 0 })
+  piggyBankCents: number;
 }

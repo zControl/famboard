@@ -1,7 +1,8 @@
-import { SupremeColumnHeader } from "@/components/datatable/headers/SupremeColumnHeader";
+import { SupremeColumnHeader } from "@/common/datatable/headers/SupremeColumnHeader";
+import { cn } from "@/common/utils/classNames";
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
-import { cn } from "@/utils/classNames";
+import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
 import { Column } from "@tanstack/react-table";
 
 interface TaskAssignmentsHeaderProps<TData, TValue>
@@ -14,7 +15,7 @@ export const TaskAssignmentsHeader = <TData, TValue>({
   title,
   className,
 }: TaskAssignmentsHeaderProps<TData, TValue>) => {
-  const { kidIds, getKidProfile } = useKidManager();
+  const { kidIds } = useKidManager();
 
   if (!column.getCanFilter()) {
     return <div className={cn(className)}>{title}</div>;
@@ -26,12 +27,11 @@ export const TaskAssignmentsHeader = <TData, TValue>({
         column={column}
         title="Assigned"
         options={kidIds.map((kidId) => {
-          const { data: kidProfile } = getKidProfile(kidId);
           return {
             label: (
               <div className="flex items-center space-x-2">
                 <AssignedUserAvatar userId={kidId} />
-                <span>{kidProfile?.username}</span>
+                <AssignedUserName userId={kidId} />
               </div>
             ),
             value: kidId,

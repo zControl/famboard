@@ -1,7 +1,7 @@
+import App from "@/app";
+import { Spinner } from "@/common/ui/feedback/spinner";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Spinner } from "./components/ui/spinner";
-import App from "./app";
 
 // Render the app to the root element
 const rootElement = document.getElementById("root")!;

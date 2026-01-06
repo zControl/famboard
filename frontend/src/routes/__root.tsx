@@ -1,10 +1,14 @@
-import { ErrorPage } from "@/components/common/ErrorPage";
-import { NotFound } from "@/components/common/NotFound";
-import { Toaster } from "@/components/ui/toaster";
+import { NotFoundPage } from "@/common/error/NotFoundPage";
+import { useTheme } from "@/common/theme/useTheme";
+import { Toaster } from "@/common/ui/feedback/sonner";
 import { AuthContext } from "@/features/auth/AuthContext";
 import { QueryClient } from "@tanstack/react-query";
-import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import {
+  createRootRouteWithContext,
+  ErrorComponent,
+  Outlet,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import "../globals.css";
 
 interface AppRouterContext {
@@ -14,16 +18,23 @@ interface AppRouterContext {
 
 export const Route = createRootRouteWithContext<AppRouterContext>()({
   component: RootLayout,
-  notFoundComponent: NotFound,
-  errorComponent: ErrorPage,
+  notFoundComponent: NotFoundPage,
+  errorComponent: ErrorComponent,
 });
 
 function RootLayout() {
+  const { theme } = useTheme();
   return (
     <>
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-      <Toaster />
+      <Toaster
+        closeButton
+        position="top-center"
+        richColors
+        theme={theme}
+        toastOptions={{}}
+      />
     </>
   );
 }

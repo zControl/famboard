@@ -1,5 +1,5 @@
 import { usersApi } from "@/features/admin/api/usersApi";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const useKidManager = () => {
   const {
@@ -11,32 +11,18 @@ export const useKidManager = () => {
     queryFn: usersApi.getUserByGroup("kid"),
   });
 
+  // Sort the response by firstName
+  const sortedKidProfiles = [...(kidIdsResponse || [])].sort((a, b) =>
+    (a.profile.firstName || "").localeCompare(b.profile.firstName || ""),
+  );
+
   const kidIds =
-    kidIdsResponse?.map((userByGroup) => userByGroup.profile.userId) || [];
-
-  const kidProfileQueries = useQueries({
-    queries: kidIds.map((kidData) => ({
-      queryKey: ["kid-profile", kidData],
-      queryFn: usersApi.getUserProfile(kidData),
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    })),
-  });
-
-  const getKidProfile = (id: string) => {
-    const profileQuery = kidProfileQueries.find(
-      (query) => query.data?.userId === id,
-    );
-    return {
-      data: profileQuery?.data,
-      isLoading: profileQuery?.isLoading,
-      error: profileQuery?.error,
-    };
-  };
+    sortedKidProfiles?.map((userByGroup) => userByGroup.profile.userId) || [];
 
   return {
+    kidProfiles: sortedKidProfiles,
     kidIds,
     isLoadingIds,
     idsError,
-    getKidProfile,
   };
 };

@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   Generated,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { TaskAssignment } from '../../tasks/entities/task-assignment.entity';
-import { User } from '../../users/entities/user.entity';
+import { Comment } from '../../comments/entities/comment.entity';
+import { TaskAssignment } from '../../task-assignments/entities/task-assignment.entity';
+
 @Entity()
 export class Task {
   @PrimaryGeneratedColumn('uuid')
@@ -35,15 +35,6 @@ export class Task {
   frequency: string;
 
   @Column({ nullable: true })
-  difficulty: string;
-
-  @Column({ nullable: true })
-  status: string;
-
-  @Column({ nullable: true })
-  priority: string;
-
-  @Column({ nullable: true })
   note: string;
 
   @CreateDateColumn()
@@ -55,37 +46,6 @@ export class Task {
   @OneToMany(() => Comment, (comment) => comment.task)
   comments: Comment[];
 
-  @Column('text', { array: true, default: '{}', nullable: true })
-  assignedUserIds: string[];
-
   @OneToMany(() => TaskAssignment, (assignment) => assignment.task)
   assignments: TaskAssignment[];
-
-  get taskCode(): string {
-    return this.formatTaskCode(this.sequenceNumber);
-  }
-
-  private formatTaskCode(num: number): string {
-    const prefix = 'TASK';
-    const paddedNum = num.toString().padStart(3, '0');
-    return `${prefix}-${paddedNum}`;
-  }
-}
-
-@Entity()
-export class Comment {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  content: string;
-
-  @ManyToOne(() => User)
-  author: User;
-
-  @ManyToOne(() => Task, (task) => task.comments)
-  task: Task;
-
-  @CreateDateColumn()
-  createdAt: Date;
 }

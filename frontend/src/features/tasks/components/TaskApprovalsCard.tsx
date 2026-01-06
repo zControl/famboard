@@ -1,16 +1,18 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/common/ui/surfaces/card";
+import { Task } from "@/features/tasks/types";
 
-export const TaskApprovalsCard = ({
-  sequenceNumber,
-}: {
-  sequenceNumber: string;
-}) => {
+export const TaskApprovalsCard = ({ task }: { task: Task }) => {
   return (
     <Card className="max-w-4xl mx-auto overflow-hidden">
       <CardHeader>
         <CardTitle>Approvals</CardTitle>
       </CardHeader>
-      <CardContent>Approvals for {sequenceNumber}</CardContent>
+      <CardContent>Approvals for {task.title}</CardContent>
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-import { InfoCard } from "@/components/composites/InfoCard";
+import { InfoCard } from "@/common/ui/surfaces/InfoCard";
 import { ActivityIcon } from "lucide-react";
 
 export const ActivityLogSummaryCard = () => {

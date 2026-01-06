@@ -1,60 +1,45 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
-import { KidActiveTasksCard } from "@/features/parents/components/KidActiveTasksCard";
-import { KidProfileSummaryCard } from "@/features/parents/components/KidProfileSummaryCard";
-import { useKidManager } from "@/features/parents/hooks/useKidManager";
+import { ErrorCard } from "@/common/error/ErrorCard";
+import { Spinner } from "@/common/ui/feedback/spinner";
+import { Tile } from "@/common/ui/surfaces/Tile";
+import { KidApprovalsCard } from "@/features/parents/components/KidApprovalsCard";
+import { AssignedTasksDatatable } from "@/features/parents/components/KidAssignedTasksCard";
+import { KidProfileCard } from "@/features/parents/components/KidProfileCard";
+import { useUserProfile } from "@/features/user/hooks/useUserProfile";
 
 interface KidSummaryTileProps {
   id: string;
 }
 
 export const KidSummaryTile = ({ id }: KidSummaryTileProps) => {
-  const { getKidProfile } = useKidManager();
-  const {
-    data: kid,
-    isLoading: isLoadingProfile,
-    error: isErrorProfile,
-  } = getKidProfile(id);
+  const { data: userProfile, isLoading, error } = useUserProfile(id);
 
-  if (isLoadingProfile) return <Spinner />;
-  if (isErrorProfile) return <div>Error fetching kid profile</div>;
-
-  const NeedsApprovalCard = () => {
-    return <Card className="rounded-none w-full">approvals</Card>;
-  };
+  if (isLoading) return <Spinner size="xl" />;
+  if (error) {
+    return (
+      <ErrorCard
+        error={error.message ? error : new Error("Error fetching user profile")}
+      />
+    );
+  }
+  if (!userProfile) {
+    return <ErrorCard error={new Error("User not found")} />;
+  }
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex flex-row justify-between items-center">
-          <div>
-            <CardTitle className="text-xl">
-              {kid?.firstName || "No Name!"}
-            </CardTitle>
-          </div>
-          <div>actions</div>
+    <Tile
+      title={userProfile.firstName}
+      menu="actions can go here"
+      footer={userProfile.userId}
+    >
+      <div className="grid grid-cols-1 md:flex md:flex-row justify-center gap-2">
+        <div className="min-w-1/4">
+          <KidProfileCard userProfile={userProfile} />
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:flex md:flex-row justify-center">
-          <div className="w-1/4 mx-auto p-4">
-            {kid && <KidProfileSummaryCard kid={kid} />}
-          </div>
-          <div className="flex flex-row justify-around w-full gap-x-4">
-            <KidActiveTasksCard userId={kid?.userId ?? ""} />
-            <NeedsApprovalCard />
-          </div>
+        <div className="min-w-3/4 flex flex-col gap-2">
+          <KidApprovalsCard userProfile={userProfile} />
+          <AssignedTasksDatatable userId={userProfile.userId} />
         </div>
-      </CardContent>
-      <CardFooter>
-        <div className="w-full mx-auto text-center">{kid?.userId}</div>
-      </CardFooter>
-    </Card>
+      </div>
+    </Tile>
   );
 };

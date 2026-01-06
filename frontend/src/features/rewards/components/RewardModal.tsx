@@ -1,19 +1,20 @@
-import { ActionModal } from "@/components/composites/ActionModal";
+import { Coin } from "@/common/ui/display/coin";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/common/ui/fields/field";
+import { Input } from "@/common/ui/fields/input";
+import { Slider } from "@/common/ui/fields/slider";
+import { Textarea } from "@/common/ui/fields/textarea";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { rewardsListSchema } from "@/features/rewards/datatable/RewardsListSchema";
 import { useRewards } from "@/features/rewards/hooks/useRewards";
-import { Reward } from "@/types/reward";
+import { Reward } from "@/features/rewards/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 interface RewardModalProps {
@@ -35,12 +36,13 @@ export const RewardModal = ({
     () => ({
       title: existingReward?.title || "",
       description: existingReward?.description || "",
-      pointValue: existingReward?.rewardValue || 0,
+      rewardValue: existingReward?.rewardValue ?? 0,
+      note: existingReward?.note ?? "",
     }),
     [existingReward],
   );
 
-  const handleSubmit = (data: z.infer<typeof rewardsListSchema>) => {
+  const onSubmit = (data: z.infer<typeof rewardsListSchema>) => {
     if (isEditing) {
       updateRewardMutation.mutate(
         { rewardId: existingReward.id, reward: data },
@@ -56,7 +58,6 @@ export const RewardModal = ({
     } else {
       addRewardMutation.mutate(data, {
         onSuccess: () => {
-          console.log("Reward added", { data });
           onModalOpenChange(false);
         },
         onError: (error) => {
@@ -73,6 +74,7 @@ export const RewardModal = ({
   const form = useForm<z.infer<typeof rewardsListSchema>>({
     resolver: zodResolver(rewardsListSchema),
     defaultValues,
+    mode: "onSubmit",
   });
 
   useEffect(() => {
@@ -81,37 +83,98 @@ export const RewardModal = ({
     }
   }, [modalOpen, form, defaultValues]);
 
-  const modalTitle = isEditing ? "Edit task" : "Add task";
+  const modalTitle = isEditing ? "Edit reward" : "Add reward";
   const modalDescription = isEditing
-    ? `Edit task "${existingReward?.title}"`
-    : "Add a new task and set initial values";
+    ? `Edit reward "${existingReward?.title}"`
+    : "Add a new reward and set initial values";
 
   return (
     <ActionModal
       open={modalOpen}
       onOpenChange={onModalOpenChange}
       onCancel={handleCancel}
-      onConfirm={form.handleSubmit(handleSubmit)}
+      onConfirm={form.handleSubmit(onSubmit)}
       title={modalTitle}
       description={modalDescription}
     >
-      <Form {...form}>
-        <form className="space-y-4">
-          <FormField
-            control={form.control}
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FieldGroup>
+          <Controller
             name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Reward Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter reward title" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Title</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter reward title"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
             )}
           />
-        </form>
-      </Form>
+          <Controller
+            name="description"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Description</FieldLabel>
+                <Input
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter reward description"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="rewardValue"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Value</FieldLabel>
+                <Slider
+                  defaultValue={[field.value]}
+                  max={500}
+                  min={0}
+                  step={1}
+                  onValueChange={field.onChange}
+                  indicator={(value) => <Coin value={value} />}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name="note"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Note</FieldLabel>
+                <Textarea
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter reward note"
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        </FieldGroup>
+      </form>
     </ActionModal>
   );
 };

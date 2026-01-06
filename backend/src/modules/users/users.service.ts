@@ -123,6 +123,10 @@ export class UsersService {
     if (!profile) {
       throw new NotFoundException('Profile not found');
     }
+
+    const piggyBankCents = profile.piggyBankCents ?? 0;
+    const piggyBankDisplay = `$${(piggyBankCents / 100).toFixed(2)}`;
+
     return {
       userId: profile.user.id,
       username: profile.user.username,
@@ -134,6 +138,9 @@ export class UsersService {
       status: profile.status,
       theme: profile.theme,
       avatarUrl: profile.avatarUrl,
+      pointTotal: profile.pointTotal,
+      piggyBankCents,
+      piggyBankDisplay,
     };
   }
 

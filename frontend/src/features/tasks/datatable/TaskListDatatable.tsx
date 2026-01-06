@@ -1,42 +1,33 @@
-import { DataTableCore } from "@/components/datatable/DataTableCore";
-import { TableOptions } from "@/components/datatable/TableOptions";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { DataTableCore } from "@/common/datatable/DataTableCore";
+import { TableOptions } from "@/common/datatable/TableOptions";
+import { Button } from "@/common/ui/actions/button";
+import { Card } from "@/common/ui/surfaces/card";
 import { TaskModal } from "@/features/tasks/components/TaskModal";
 import { taskListColumns } from "@/features/tasks/datatable/TaskListColumns";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
+import { useTasksQuery } from "@/features/tasks/hooks/useTasksQuery";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export const TaskListDatatable = () => {
   const [open, setOpen] = useState(false);
-  const { tasks, refreshTasks } = useTasks();
+  const { tasks, refreshTasks } = useTasksQuery();
 
   const initialState = {
     columnVisibility: {
       id: false,
-      sequenceNumber: true,
       title: true,
       description: true,
       assigned: true,
       pointValue: true,
-      note: false,
-      frequency: false,
-      category: false,
-      status: false,
-      difficulty: false,
-      priority: false,
+      frequency: true,
+      category: true,
+      status: true,
+      note: true,
     },
     pagination: {
       pageIndex: 0,
       pageSize: 20,
     },
-    sorting: [
-      {
-        id: "sequenceNumber",
-        desc: false,
-      },
-    ],
     filters: [],
   };
 
@@ -44,7 +35,7 @@ export const TaskListDatatable = () => {
     <Card className="p-2">
       <DataTableCore
         columns={taskListColumns}
-        data={tasks || []}
+        data={tasks?.data || []}
         options={<TableOptions onRefresh={refreshTasks} />}
         actions={
           <Button variant={"primary"} onClick={() => setOpen(true)}>

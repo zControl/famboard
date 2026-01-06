@@ -1,33 +1,39 @@
 import { useKidManager } from "@/features/parents/hooks/useKidManager";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
-import { Task } from "@/types/task";
+import { AssignedUserName } from "@/features/tasks/components/AssignedUserName";
+import { useTaskAssignments } from "@/features/tasks/hooks/useTaskAssignments";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
 
 interface AssignedUserSelectionProps {
   row: Row<Task>;
+  assignments: { id: string; user: { id: string } }[];
   onSelectedKidsChange: (selectedKids: string[]) => void;
 }
 
 export const AssignedUserSelection = ({
   row,
+  assignments,
   onSelectedKidsChange,
 }: AssignedUserSelectionProps) => {
   const taskId = row.original.id;
-  const { taskAssignments } = useAssignments(taskId);
-  const { kidIds, getKidProfile } = useKidManager();
-  const [selectedKids, setSelectedKids] = useState<string[]>([]);
+  const initialSelectedKids = assignments
+    ? assignments.map((assignment) => assignment.user.id).filter(Boolean)
+    : [];
+  const { taskAssignments } = useTaskAssignments(taskId);
+  const { kidIds } = useKidManager();
+  const [selectedKids, setSelectedKids] =
+    useState<string[]>(initialSelectedKids);
 
   useEffect(() => {
-    if (taskAssignments) {
-      const initialSelectedKids = taskAssignments
+    if (!assignments && taskAssignments) {
+      const newSelectedKids = taskAssignments
         .map((assignment) => assignment.id)
-        .filter(Boolean); // Filter out any undefined IDs
-      setSelectedKids(initialSelectedKids);
-      onSelectedKidsChange(initialSelectedKids);
+        .filter(Boolean);
+      setSelectedKids(newSelectedKids);
     }
-  }, [taskAssignments, onSelectedKidsChange]);
+  }, [taskAssignments, assignments]);
 
   const handleKidSelection = (kidId: string, isSelected: boolean) => {
     const newSelectedKids = isSelected
@@ -45,7 +51,6 @@ export const AssignedUserSelection = ({
           console.warn("Encountered undefined kidId");
           return null;
         }
-        const { data: kidProfile } = getKidProfile(kidId);
         const isSelected = selectedKids.includes(kidId);
         return (
           <div
@@ -56,7 +61,7 @@ export const AssignedUserSelection = ({
             onClick={() => handleKidSelection(kidId, !isSelected)}
           >
             <AssignedUserAvatar userId={kidId} />
-            <span>{kidProfile?.username || "Unknown User"}</span>
+            <AssignedUserName userId={kidId} />
           </div>
         );
       })}

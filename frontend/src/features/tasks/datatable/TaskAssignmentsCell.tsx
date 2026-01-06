@@ -1,9 +1,8 @@
-import { ActionModal } from "@/components/composites/ActionModal";
+import { ActionModal } from "@/common/ui/overlay/ActionModal";
 import { AssignedUserAvatar } from "@/features/tasks/components/AssignedUserAvatar";
 import { AssignedUserSelection } from "@/features/tasks/components/AssignedUserSelection";
-import { useAssignments } from "@/features/tasks/hooks/useAssignments";
-import { useTasks } from "@/features/tasks/hooks/useTasks";
-import { Task } from "@/types/task";
+import { useTaskMutations } from "@/features/tasks/hooks/useTaskMutations";
+import { Task } from "@/features/tasks/types";
 import { Row } from "@tanstack/react-table";
 import { Edit2Icon, PlusIcon } from "lucide-react";
 import { useState } from "react";
@@ -13,14 +12,13 @@ interface TaskAssignmentsCellProps {
 }
 
 export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
-  const taskId = row.original.id;
-  const { taskAssignments, refetch } = useAssignments(taskId);
-  const { assignTaskMutation, queryClient } = useTasks();
+  const assignments = row.original.assignments;
+  const { assignTaskMutation } = useTaskMutations();
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedKids, setSelectedKids] = useState<string[]>([]);
 
-  const hasAssignments = taskAssignments && taskAssignments.length > 0;
+  const hasAssignments = assignments && assignments.length > 0;
 
   const handleRowClick = () => {
     setIsModalOpen(true);
@@ -36,8 +34,6 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
         onSuccess: () => {
           setIsModalOpen(false);
           setSelectedKids([]);
-          queryClient.invalidateQueries({ queryKey: ["tasks", taskId] });
-          refetch();
         },
       },
     );
@@ -47,25 +43,40 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
     setIsModalOpen(false);
   };
 
+  const handleSelectedKidsChange = (newSelectedKids: string[]) => {
+    // Only update if the selection actually changed
+    if (JSON.stringify(newSelectedKids) !== JSON.stringify(selectedKids)) {
+      setSelectedKids(newSelectedKids);
+    }
+  };
+
   return (
     <>
       <div
-        className="rounded-md relative w-full h-full"
+        className="rounded-md relative w-full h-full cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex -space-x-2 overflow-hidden p-2">
+        <div>
           {hasAssignments ? (
             <div className="flex -space-x-2 overflow-hidden p-2">
-              {taskAssignments.map((assignment) => (
-                <AssignedUserAvatar
-                  key={assignment.id}
-                  userId={assignment.id}
-                />
-              ))}
+              {assignments
+                .filter(
+                  (assignment, index, self) =>
+                    index ===
+                    self.findIndex((a) => a.user.id === assignment.user.id),
+                )
+                .map((assignment) => {
+                  return (
+                    <AssignedUserAvatar
+                      key={assignment.id}
+                      userId={assignment.user.id}
+                    />
+                  );
+                })}
             </div>
           ) : (
-            <div className="text-card-foreground p-2">No assignments</div>
+            <div className="text-card-foreground p-2">None</div>
           )}
         </div>
         {isHovered && (
@@ -94,7 +105,8 @@ export const TaskAssignmentsCell = ({ row }: TaskAssignmentsCellProps) => {
       >
         <AssignedUserSelection
           row={row}
-          onSelectedKidsChange={setSelectedKids}
+          assignments={assignments}
+          onSelectedKidsChange={handleSelectedKidsChange}
         />
       </ActionModal>
     </>

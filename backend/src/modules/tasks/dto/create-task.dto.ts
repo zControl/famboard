@@ -1,90 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-
-export enum TaskCategory {
-  Personal = 'PERSONAL',
-  Academic = 'ACADEMIC',
-  Household = 'HOUSEHOLD',
-  Friendly = 'FRIENDLY',
-  Helpful = 'HELPFUL',
-  Improvement = 'IMPROVEMENT',
-  Other = 'OTHER',
-}
-
-export enum TaskFrequency {
-  Always = 'ALWAYS',
-  Daily = 'DAILY',
-  Weekly = 'WEEKLY',
-  Monthly = 'MONTHLY',
-  Special = 'SPECIAL',
-}
-
-export enum TaskDifficulty {
-  Easy = 'EASY',
-  Medium = 'MEDIUM',
-  Tricky = 'TRICKY',
-  Hard = 'HARD',
-}
-
-export enum TaskStatus {
-  Pending = 'PENDING',
-  Active = 'ACTIVE',
-  Inactive = 'INACTIVE',
-  Removed = 'REMOVED',
-}
-
-export enum TaskPriority {
-  Low = 'LOW',
-  Medium = 'MEDIUM',
-  High = 'HIGH',
-}
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateTaskDto {
-  @ApiProperty({ description: 'The title of the task' })
+  @ApiProperty({ description: 'Title of the task' })
   @IsString()
-  @IsOptional()
-  title?: string;
+  title: string;
 
-  @ApiProperty({ description: 'The description of the task' })
+  @ApiProperty({ description: 'Description of the task' })
   @IsString()
   @IsOptional()
   description?: string;
 
-  @ApiProperty({ description: 'The description of the task' })
+  @ApiProperty({ description: 'Point value for completing the task' })
   @IsNumber()
   @IsOptional()
   pointValue?: number;
 
-  @ApiProperty({ enum: TaskCategory, description: 'The category of the task' })
-  @IsEnum(TaskCategory)
+  @ApiProperty({ description: 'Category of the task' })
+  @IsString()
   @IsOptional()
-  category?: TaskCategory;
+  category?: string;
 
   @ApiProperty({
-    enum: TaskFrequency,
-    description: 'The frequency of the task',
+    description: 'Frequency of the task (ONCE, DAILY, WEEKLY, MONTHLY, REPEAT)',
   })
-  @IsEnum(TaskFrequency)
+  @IsString()
   @IsOptional()
-  frequency?: TaskFrequency;
-
-  @ApiProperty({
-    enum: TaskDifficulty,
-    description: 'The difficulty of the task',
-  })
-  @IsEnum(TaskDifficulty)
-  @IsOptional()
-  difficulty?: TaskDifficulty;
-
-  @ApiProperty({ enum: TaskStatus, description: 'The status of the task' })
-  @IsEnum(TaskStatus)
-  @IsOptional()
-  status?: TaskStatus;
-
-  @ApiProperty({ enum: TaskPriority, description: 'The priority of the task' })
-  @IsEnum(TaskPriority)
-  @IsOptional()
-  priority?: TaskPriority;
+  frequency?: string;
 
   @ApiProperty({ description: 'Additional notes for the task' })
   @IsString()

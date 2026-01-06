@@ -26,8 +26,8 @@ async function bootstrap() {
 
   // Set config for swagger
   const config = new DocumentBuilder()
-    .setTitle('NestJS API Sandbox')
-    .setDescription('This is a sandbox to play with API endpoints')
+    .setTitle('Famboard API')
+    .setDescription('This is the backend API for famboard app.')
     .setVersion('1.0')
     .build();
 

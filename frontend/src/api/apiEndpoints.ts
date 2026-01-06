@@ -14,14 +14,31 @@ export const API_ENDPOINTS = {
     GET_PROFILE: (id: string) => `/users/${id}/profile`,
   },
   TASKS: {
-    GET_ALL: '/tasks',
-    GET_ONE: (id: string) => `/tasks/${id}`,
     CREATE: '/tasks',
+    GET_ALL: '/tasks',
+    GET_ONE_BY_SEQUENCE: (sequenceNumber: string) => `/tasks/by-sequence/${sequenceNumber}`,
+    GET_ONE: (id: string) => `/tasks/${id}`,
     UPDATE: (id: string) => `/tasks/${id}`,
     DELETE: (id: string) => `/tasks/${id}`,
-    ASSIGN_USERS: (id: string) => `/tasks/${id}/assign`,
-    GET_ASSIGNED_USERS: (id: string) => `/tasks/${id}/assigned-users`,
-    GET_USER_ASSIGNED: (userId: string) => `/tasks/user/${userId}`,
+  },
+  TASK_ASSIGNMENTS: {
+    GET_ASSIGNED_USERS: (taskId: string) => `/task-assignments/assigned-users/${taskId}`,
+    GET_ASSIGNED_TASKS: (userId: string) => `/task-assignments/assigned-tasks/${userId}`,
+    GET_TASKS_BY_USER: (userId: string) => `/task-assignments/user/${userId}/tasks`,
+    ASSIGN_USERS: (taskId: string) => `/task-assignments/tasks/${taskId}/assign`,
+    ASSIGN_TASKS_TO_USER: (userId: string) => `/task-assignments/users/${userId}/assign-tasks`,
+  },
+  TASK_COMPLETIONS: {
+    COMPLETE_TASK: (taskId: string) => `/task-completions/${taskId}/complete`,
+  },
+  TASK_APPROVALS: {
+    GET_ALL: '/task-approvals',
+    GET_PENDING_APPROVALS: `/task-approvals/pending`,
+    GET_APPROVALS_BY_USER: (userId: string) => `/task-approvals/user/${userId}`,
+    GET_APPROVAL_COUNTS: (period: string, userId: string) =>
+      `/task-approvals/counts/${period}/${userId}`,
+    APPROVE: (approvalId: string) => `/task-approvals/${approvalId}/approve`,
+    REJECT: (approvalId: string) => `/task-approvals/${approvalId}/reject`,
   },
   REWARDS: {
     GET_ALL: '/rewards',

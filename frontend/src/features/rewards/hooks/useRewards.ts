@@ -1,5 +1,5 @@
 import { rewardsApi } from "@/features/rewards/api/rewardsApi";
-import { Reward } from "@/types/reward";
+import { Reward, RewardListResponse } from "@/features/rewards/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useRewards = () => {
@@ -9,7 +9,7 @@ export const useRewards = () => {
     queryClient.invalidateQueries({ queryKey: ["rewards"] });
   }
 
-  const {data: rewards, isLoading, error} = useQuery<Reward[]>({
+  const { data: rewards, isLoading, error } = useQuery<RewardListResponse>({
     queryKey: ["rewards"],
     queryFn: rewardsApi.getRewards,
   });
@@ -21,7 +21,7 @@ export const useRewards = () => {
 
   const updateRewardMutation = useMutation({
     mutationFn: ({ rewardId, reward }: { rewardId: string, reward: Partial<Reward> }) => rewardsApi.updateReward(rewardId, reward),
-    onSuccess: refreshRewards, 
+    onSuccess: refreshRewards,
   })
 
   const deleteRewardMutation = useMutation({

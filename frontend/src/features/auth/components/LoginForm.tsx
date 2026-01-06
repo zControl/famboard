@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { ApiError } from "@/api/apiClient";
+import { Button } from "@/common/ui/actions/button";
+import { Input } from "@/common/ui/fields/input";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/common/ui/surfaces/card";
 import {
   Form,
   FormControl,
@@ -13,12 +15,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/common/ui/surfaces/form";
+import { sleep } from "@/common/utils/sleep";
 import { useAuth } from "@/features/auth/hooks/useAuth";
+import { User } from "@/features/user/types";
 import { Route } from "@/routes/(auth)/login";
-import { User } from "@/types/user";
-import { sleep } from "@/utils/sleep";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
@@ -35,6 +36,7 @@ export const LoginForm = () => {
   const router = useRouter();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [wrongPassword, setWrongPassword] = useState(false);
   const search = Route.useSearch();
 
   // Create the form
@@ -47,8 +49,6 @@ export const LoginForm = () => {
   });
 
   async function redirectToDashboard(user: User) {
-    await sleep(250);
-
     // Determine the redirect based on the user's group
     let redirectPath = "/";
     if (user) {
@@ -76,21 +76,19 @@ export const LoginForm = () => {
     navigate({ to: finalRedirectPath });
   }
 
-  // Handle form submission
   async function onSubmit(data: z.infer<typeof LoginFormSchema>) {
     setIsLoading(true);
     try {
       const user = await auth.login(data.username, data.password);
       await router.invalidate();
       await sleep(250);
-      if (user) {
-        await redirectToDashboard(user);
-      } else {
-        console.error("Login failed: No user returned");
-      }
+      await redirectToDashboard(user);
     } catch (error) {
-      //TODO: Handle login error better instead of console.log
-      console.error("Login failed:", error);
+      if (error instanceof ApiError) {
+        if (error.status === 401) {
+          setWrongPassword(true);
+        }
+      }
     } finally {
       setIsLoading(false);
     }
@@ -100,9 +98,7 @@ export const LoginForm = () => {
     <Card>
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Enter your username and password to login
-        </CardDescription>
+        <CardDescription>Enter your username and password</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -146,6 +142,11 @@ export const LoginForm = () => {
             </Button>
           </form>
         </Form>
+        {wrongPassword && (
+          <p className="mt-4 text-sm text-red-600">
+            Invalid username or password. Please try again.
+          </p>
+        )}
       </CardContent>
     </Card>
   );

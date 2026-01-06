@@ -1,39 +1,23 @@
-import { Tile } from "@/components/composites/Tile";
-import { Badge } from "@/components/ui/badge";
-
-import { Coin } from "@/components/ui/coin";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Header3 } from "@/components/ui/typography";
+import { useIsMobile } from "@/common/hooks/useIsMobile";
+import { Tile } from "@/common/ui/surfaces/Tile";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/common/ui/surfaces/tabs";
 import { TaskAnalyticsCard } from "@/features/tasks/components/TaskAnalyticsCard";
 import { TaskApprovalsCard } from "@/features/tasks/components/TaskApprovalsCard";
 import { TaskCommentsCard } from "@/features/tasks/components/TaskCommentsCard";
 import { TaskDetailsCard } from "@/features/tasks/components/TaskDetailsCard";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { Task } from "@/types/task";
+import { Task } from "@/features/tasks/types";
 import { EllipsisIcon, Share2Icon, UserPlus2Icon } from "lucide-react";
 
-export const TaskTile = ({
-  task,
-  sequenceNumber,
-}: {
-  task: Task;
-  sequenceNumber: string;
-}) => {
+export const TaskTile = ({ task }: { task: Task }) => {
   const isMobile = useIsMobile();
   return (
     <Tile
-      title={
-        <div className="flex flex-col md:flex-row space-x-2">
-          <Header3>{`# ${task.sequenceNumber} `}</Header3>
-          <Header3>{task.title}</Header3>
-        </div>
-      }
-      description={
-        <div className="flex flex-row space-x-4 justify-start">
-          <Badge variant="primary">{task.status}</Badge>
-          <Coin value={task.pointValue} />
-        </div>
-      }
+      title={task.title}
       menu={
         isMobile ? (
           <EllipsisIcon />
@@ -65,13 +49,13 @@ export const TaskTile = ({
           <TaskDetailsCard task={task} />
         </TabsContent>
         <TabsContent value="approvals">
-          <TaskApprovalsCard sequenceNumber={sequenceNumber} />
+          <TaskApprovalsCard task={task} />
         </TabsContent>
         <TabsContent value="analytics">
-          <TaskAnalyticsCard sequenceNumber={sequenceNumber} />
+          <TaskAnalyticsCard task={task} />
         </TabsContent>
         <TabsContent value="comments">
-          <TaskCommentsCard sequenceNumber={sequenceNumber} />
+          <TaskCommentsCard task={task} />
         </TabsContent>
       </Tabs>
     </Tile>

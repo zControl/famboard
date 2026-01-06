@@ -13,8 +13,8 @@ export class AppController {
   getHello() {
     return {
       timestamp: new Date().toISOString(),
-      greeting: 'Welcome to the API Sanbox.',
-      message: 'This sandbox API is created with NestJS.',
+      greeting: 'Welcome to the famboard API!',
+      message: 'This is the backend API for famboard app.',
       environment: process.env.NODE_ENV || 'development',
       docsURL: 'v1/swagger',
       endpoints: {
@@ -28,7 +28,7 @@ export class AppController {
   @ApiOperation({ summary: 'Get API version information' })
   getStatus() {
     return {
-      version: '1.0.0',
+      version: '0.1.1',
     };
   }
 }
