@@ -19,7 +19,7 @@ export const getTypeOrmConfig = (
     logging: !isProduction,
     entities: [paths.entities],
     migrations: [paths.migrations],
-    synchronize: !isProduction,
+    synchronize: false,
     migrationsRun: isProduction,
     autoLoadEntities: true,
   };

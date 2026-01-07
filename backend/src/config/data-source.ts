@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { join } from 'path';
 import { DataSource } from 'typeorm';
 import { getTypeOrmPaths } from './paths.config';
@@ -14,6 +15,6 @@ export default new DataSource({
   logging: process.env.DB_LOGGING === 'true',
   entities: [paths.entities],
   migrations: [paths.migrations],
-  synchronize: process.env.NODE_ENV !== 'production',
+  synchronize: false,
   migrationsRun: process.env.NODE_ENV === 'production',
 });
