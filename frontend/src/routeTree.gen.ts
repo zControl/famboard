@@ -42,8 +42,6 @@ import { Route as testTestABCRouteImport } from './routes/(test)/test.a.b.c'
 import { Route as appParentsParentsTasksNewRouteImport } from './routes/(app)/_parents/parents.tasks.new'
 import { Route as appParentsParentsTasksSequenceNumberRouteImport } from './routes/(app)/_parents/parents.tasks.$sequenceNumber'
 
-const authRouteImport = createFileRoute('/(auth)')()
-const appRouteImport = createFileRoute('/(app)')()
 const appUnauthorizedLazyRouteImport = createFileRoute('/(app)/unauthorized')()
 const appTermsLazyRouteImport = createFileRoute('/(app)/terms')()
 const appStatusLazyRouteImport = createFileRoute('/(app)/status')()
@@ -61,14 +59,6 @@ const appExamplesDemoDatabaseLazyRouteImport = createFileRoute(
   '/(app)/_examples/demo/database',
 )()
 
-const authRoute = authRouteImport.update({
-  id: '/(auth)',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const appRoute = appRouteImport.update({
-  id: '/(app)',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -76,30 +66,30 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const appUnauthorizedLazyRoute = appUnauthorizedLazyRouteImport
   .update({
-    id: '/unauthorized',
+    id: '/(app)/unauthorized',
     path: '/unauthorized',
-    getParentRoute: () => appRoute,
+    getParentRoute: () => rootRouteImport,
   } as any)
   .lazy(() => import('./routes/(app)/unauthorized.lazy').then((d) => d.Route))
 const appTermsLazyRoute = appTermsLazyRouteImport
   .update({
-    id: '/terms',
+    id: '/(app)/terms',
     path: '/terms',
-    getParentRoute: () => appRoute,
+    getParentRoute: () => rootRouteImport,
   } as any)
   .lazy(() => import('./routes/(app)/terms.lazy').then((d) => d.Route))
 const appStatusLazyRoute = appStatusLazyRouteImport
   .update({
-    id: '/status',
+    id: '/(app)/status',
     path: '/status',
-    getParentRoute: () => appRoute,
+    getParentRoute: () => rootRouteImport,
   } as any)
   .lazy(() => import('./routes/(app)/status.lazy').then((d) => d.Route))
 const appPrivacyLazyRoute = appPrivacyLazyRouteImport
   .update({
-    id: '/privacy',
+    id: '/(app)/privacy',
     path: '/privacy',
-    getParentRoute: () => appRoute,
+    getParentRoute: () => rootRouteImport,
   } as any)
   .lazy(() => import('./routes/(app)/privacy.lazy').then((d) => d.Route))
 const testTestRoute = testTestRouteImport.update({
@@ -108,29 +98,29 @@ const testTestRoute = testTestRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const authLoginRoute = authLoginRouteImport.update({
-  id: '/login',
+  id: '/(auth)/login',
   path: '/login',
-  getParentRoute: () => authRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 const authAuthRoute = authAuthRouteImport.update({
-  id: '/_auth',
-  getParentRoute: () => authRoute,
+  id: '/(auth)/_auth',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appParentsRoute = appParentsRouteImport.update({
-  id: '/_parents',
-  getParentRoute: () => appRoute,
+  id: '/(app)/_parents',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appKidsRoute = appKidsRouteImport.update({
-  id: '/_kids',
-  getParentRoute: () => appRoute,
+  id: '/(app)/_kids',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appExamplesRoute = appExamplesRouteImport.update({
-  id: '/_examples',
-  getParentRoute: () => appRoute,
+  id: '/(app)/_examples',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appAdminRoute = appAdminRouteImport.update({
-  id: '/_admin',
-  getParentRoute: () => appRoute,
+  id: '/(app)/_admin',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const appExamplesQueryLazyRoute = appExamplesQueryLazyRouteImport
   .update({
@@ -283,7 +273,7 @@ const appParentsParentsTasksSequenceNumberRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof authAuthRouteWithChildren
+  '/': typeof IndexRoute
   '/login': typeof authLoginRoute
   '/test': typeof testTestRoute
   '/privacy': typeof appPrivacyLazyRoute
@@ -310,15 +300,15 @@ export interface FileRoutesByFullPath {
   '/test/a/something': typeof testTestASomethingRoute
   '/demo/database': typeof appExamplesDemoDatabaseLazyRoute
   '/demo/tables': typeof appExamplesDemoTablesLazyRoute
-  '/admin': typeof appAdminAdminIndexRoute
-  '/kids': typeof appKidsKidsIndexRoute
-  '/parents': typeof appParentsParentsIndexRoute
+  '/admin/': typeof appAdminAdminIndexRoute
+  '/kids/': typeof appKidsKidsIndexRoute
+  '/parents/': typeof appParentsParentsIndexRoute
   '/parents/tasks/$sequenceNumber': typeof appParentsParentsTasksSequenceNumberRoute
   '/parents/tasks/new': typeof appParentsParentsTasksNewRoute
   '/test/a/b/c': typeof testTestABCRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof authAuthRouteWithChildren
+  '/': typeof IndexRoute
   '/login': typeof authLoginRoute
   '/test': typeof testTestRoute
   '/privacy': typeof appPrivacyLazyRoute
@@ -355,12 +345,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(app)': typeof appRouteWithChildren
   '/(app)/_admin': typeof appAdminRouteWithChildren
   '/(app)/_examples': typeof appExamplesRouteWithChildren
   '/(app)/_kids': typeof appKidsRouteWithChildren
   '/(app)/_parents': typeof appParentsRouteWithChildren
-  '/(auth)': typeof authRouteWithChildren
   '/(auth)/_auth': typeof authAuthRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/(test)/test_': typeof testTestRoute
@@ -425,9 +413,9 @@ export interface FileRouteTypes {
     | '/test/a/something'
     | '/demo/database'
     | '/demo/tables'
-    | '/admin'
-    | '/kids'
-    | '/parents'
+    | '/admin/'
+    | '/kids/'
+    | '/parents/'
     | '/parents/tasks/$sequenceNumber'
     | '/parents/tasks/new'
     | '/test/a/b/c'
@@ -469,12 +457,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/(app)'
     | '/(app)/_admin'
     | '/(app)/_examples'
     | '/(app)/_kids'
     | '/(app)/_parents'
-    | '/(auth)'
     | '/(auth)/_auth'
     | '/(auth)/login'
     | '/(test)/test_'
@@ -512,9 +498,17 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  appRoute: typeof appRouteWithChildren
-  authRoute: typeof authRouteWithChildren
+  appAdminRoute: typeof appAdminRouteWithChildren
+  appExamplesRoute: typeof appExamplesRouteWithChildren
+  appKidsRoute: typeof appKidsRouteWithChildren
+  appParentsRoute: typeof appParentsRouteWithChildren
+  authAuthRoute: typeof authAuthRouteWithChildren
+  authLoginRoute: typeof authLoginRoute
   testTestRoute: typeof testTestRoute
+  appPrivacyLazyRoute: typeof appPrivacyLazyRoute
+  appStatusLazyRoute: typeof appStatusLazyRoute
+  appTermsLazyRoute: typeof appTermsLazyRoute
+  appUnauthorizedLazyRoute: typeof appUnauthorizedLazyRoute
   testTestARoute: typeof testTestARoute
   testTestABRoute: typeof testTestABRoute
   testTestASomethingRoute: typeof testTestASomethingRoute
@@ -523,20 +517,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(auth)': {
-      id: '/(auth)'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof authRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(app)': {
-      id: '/(app)'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof appRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -549,28 +529,28 @@ declare module '@tanstack/react-router' {
       path: '/unauthorized'
       fullPath: '/unauthorized'
       preLoaderRoute: typeof appUnauthorizedLazyRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/terms': {
       id: '/(app)/terms'
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof appTermsLazyRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/status': {
       id: '/(app)/status'
       path: '/status'
       fullPath: '/status'
       preLoaderRoute: typeof appStatusLazyRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/privacy': {
       id: '/(app)/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof appPrivacyLazyRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(test)/test_': {
       id: '/(test)/test_'
@@ -584,42 +564,42 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof authLoginRouteImport
-      parentRoute: typeof authRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(auth)/_auth': {
       id: '/(auth)/_auth'
-      path: '/'
-      fullPath: '/'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof authAuthRouteImport
-      parentRoute: typeof authRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/_parents': {
       id: '/(app)/_parents'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof appParentsRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/_kids': {
       id: '/(app)/_kids'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof appKidsRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/_examples': {
       id: '/(app)/_examples'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof appExamplesRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/_admin': {
       id: '/(app)/_admin'
-      path: '/'
-      fullPath: '/'
+      path: ''
+      fullPath: ''
       preLoaderRoute: typeof appAdminRouteImport
-      parentRoute: typeof appRoute
+      parentRoute: typeof rootRouteImport
     }
     '/(app)/_examples/query': {
       id: '/(app)/_examples/query'
@@ -659,21 +639,21 @@ declare module '@tanstack/react-router' {
     '/(app)/_parents/parents/': {
       id: '/(app)/_parents/parents/'
       path: '/parents'
-      fullPath: '/parents'
+      fullPath: '/parents/'
       preLoaderRoute: typeof appParentsParentsIndexRouteImport
       parentRoute: typeof appParentsRoute
     }
     '/(app)/_kids/kids/': {
       id: '/(app)/_kids/kids/'
       path: '/kids'
-      fullPath: '/kids'
+      fullPath: '/kids/'
       preLoaderRoute: typeof appKidsKidsIndexRouteImport
       parentRoute: typeof appKidsRoute
     }
     '/(app)/_admin/admin/': {
       id: '/(app)/_admin/admin/'
       path: '/admin'
-      fullPath: '/admin'
+      fullPath: '/admin/'
       preLoaderRoute: typeof appAdminAdminIndexRouteImport
       parentRoute: typeof appAdminRoute
     }
@@ -888,30 +868,6 @@ const appParentsRouteWithChildren = appParentsRoute._addFileChildren(
   appParentsRouteChildren,
 )
 
-interface appRouteChildren {
-  appAdminRoute: typeof appAdminRouteWithChildren
-  appExamplesRoute: typeof appExamplesRouteWithChildren
-  appKidsRoute: typeof appKidsRouteWithChildren
-  appParentsRoute: typeof appParentsRouteWithChildren
-  appPrivacyLazyRoute: typeof appPrivacyLazyRoute
-  appStatusLazyRoute: typeof appStatusLazyRoute
-  appTermsLazyRoute: typeof appTermsLazyRoute
-  appUnauthorizedLazyRoute: typeof appUnauthorizedLazyRoute
-}
-
-const appRouteChildren: appRouteChildren = {
-  appAdminRoute: appAdminRouteWithChildren,
-  appExamplesRoute: appExamplesRouteWithChildren,
-  appKidsRoute: appKidsRouteWithChildren,
-  appParentsRoute: appParentsRouteWithChildren,
-  appPrivacyLazyRoute: appPrivacyLazyRoute,
-  appStatusLazyRoute: appStatusLazyRoute,
-  appTermsLazyRoute: appTermsLazyRoute,
-  appUnauthorizedLazyRoute: appUnauthorizedLazyRoute,
-}
-
-const appRouteWithChildren = appRoute._addFileChildren(appRouteChildren)
-
 interface authAuthRouteChildren {
   authAuthProfileRoute: typeof authAuthProfileRoute
 }
@@ -924,23 +880,19 @@ const authAuthRouteWithChildren = authAuthRoute._addFileChildren(
   authAuthRouteChildren,
 )
 
-interface authRouteChildren {
-  authAuthRoute: typeof authAuthRouteWithChildren
-  authLoginRoute: typeof authLoginRoute
-}
-
-const authRouteChildren: authRouteChildren = {
-  authAuthRoute: authAuthRouteWithChildren,
-  authLoginRoute: authLoginRoute,
-}
-
-const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  appRoute: appRouteWithChildren,
-  authRoute: authRouteWithChildren,
+  appAdminRoute: appAdminRouteWithChildren,
+  appExamplesRoute: appExamplesRouteWithChildren,
+  appKidsRoute: appKidsRouteWithChildren,
+  appParentsRoute: appParentsRouteWithChildren,
+  authAuthRoute: authAuthRouteWithChildren,
+  authLoginRoute: authLoginRoute,
   testTestRoute: testTestRoute,
+  appPrivacyLazyRoute: appPrivacyLazyRoute,
+  appStatusLazyRoute: appStatusLazyRoute,
+  appTermsLazyRoute: appTermsLazyRoute,
+  appUnauthorizedLazyRoute: appUnauthorizedLazyRoute,
   testTestARoute: testTestARoute,
   testTestABRoute: testTestABRoute,
   testTestASomethingRoute: testTestASomethingRoute,
