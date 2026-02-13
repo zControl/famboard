@@ -1,4 +1,5 @@
-# FamBoard
+# FamBoard - MOVED TO SEPARATE REPO
+This repo is abandoned, and has moved to its own github account: github.com/fambord
 
 FamBoard is a comprehensive family management app that helps parents and children track and manage household responsibilities, rewards, and achievements.
 
